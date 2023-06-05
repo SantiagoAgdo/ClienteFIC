@@ -14,6 +14,7 @@ import com.mibanco.clientefic.es.gen.type.OfertaType;
 import com.mibanco.clientefic.es.gen.type.PQRType;
 import com.mibanco.clientefic.es.gen.type.PasivoType;
 import com.mibanco.clientefic.es.gen.type.TipoDocumentoEnum;
+import java.util.Date;
 import jakarta.validation.constraints.*;
 import jakarta.validation.Valid;
 
@@ -26,7 +27,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("ClienteFICType")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-06-05T11:23:37.436663-05:00[America/Bogota]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-06-05T13:54:01.725107-05:00[America/Bogota]")
 public class ClienteFICType   {
   private @Valid AlertaType alerta;
   private @Valid ClienteBaseType clienteBase;
@@ -38,22 +39,22 @@ public class ClienteFICType   {
   private @Valid DomicilioType domicilio;
   private @Valid DomicilioEmpresaType domicilioEmpresa;
   private @Valid EstadoCivilEnum estadoCivil;
-  private @Valid String funcionarioUltimaActualizacion = null;
+  private @Valid String funcionarioUltimaActualizacion;
   private @Valid NegocioType negocio;
-  private @Valid String numeroDocumentoRepresentanteLegal = null;
+  private @Valid String numeroDocumentoRepresentanteLegal;
   private @Valid OfertaType oferta;
   private @Valid PasivoType pasivo;
   private @Valid PQRType PQR;
-  private @Valid String prestamo = null;
-  private @Valid String primerApellidoRepresentanteLegal = null;
-  private @Valid String primerNombreRepresentanteLegal = null;
-  private @Valid String razonSocial = null;
-  private @Valid String segundoApellidoRepresentanteLegal = null;
-  private @Valid String segundoNombreRepresentanteLegal = null;
+  private @Valid String prestamo;
+  private @Valid String primerApellidoRepresentanteLegal;
+  private @Valid String primerNombreRepresentanteLegal;
+  private @Valid String razonSocial;
+  private @Valid String segundoApellidoRepresentanteLegal;
+  private @Valid String segundoNombreRepresentanteLegal;
   private @Valid Boolean seRequiereActualizacion;
   private @Valid TipoDocumentoEnum tipoDocumentoRepresentanteLegal;
   private @Valid Float totalActivos;
-  private @Valid String ultimaFechaActualizacion = null;
+  private @Valid Date ultimaFechaActualizacion;
 
   /**
    **/
@@ -507,19 +508,19 @@ public class ClienteFICType   {
 
   /**
    **/
-  public ClienteFICType ultimaFechaActualizacion(String ultimaFechaActualizacion) {
+  public ClienteFICType ultimaFechaActualizacion(Date ultimaFechaActualizacion) {
     this.ultimaFechaActualizacion = ultimaFechaActualizacion;
     return this;
   }
 
   
   @JsonProperty("ultimaFechaActualizacion")
-  public String getUltimaFechaActualizacion() {
+  public Date getUltimaFechaActualizacion() {
     return ultimaFechaActualizacion;
   }
 
   @JsonProperty("ultimaFechaActualizacion")
-  public void setUltimaFechaActualizacion(String ultimaFechaActualizacion) {
+  public void setUltimaFechaActualizacion(Date ultimaFechaActualizacion) {
     this.ultimaFechaActualizacion = ultimaFechaActualizacion;
   }
 

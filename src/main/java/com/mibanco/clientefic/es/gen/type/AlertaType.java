@@ -1,6 +1,7 @@
 package com.mibanco.clientefic.es.gen.type;
 
 import com.mibanco.clientefic.es.gen.type.TipoDocumentoEnum;
+import java.util.Date;
 import jakarta.validation.constraints.*;
 import jakarta.validation.Valid;
 
@@ -13,14 +14,14 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("AlertaType")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-06-05T11:23:37.436663-05:00[America/Bogota]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-06-05T13:54:01.725107-05:00[America/Bogota]")
 public class AlertaType   {
-  private @Valid String tipoAlerta = null;
-  private @Valid String banco = null;
-  private @Valid String fecha = null;
+  private @Valid String tipoAlerta;
+  private @Valid String banco;
+  private @Valid Date fecha;
   private @Valid TipoDocumentoEnum tipoDocumento;
-  private @Valid String numeroDocumento = null;
-  private @Valid String digitoVerificacion = null;
+  private @Valid String numeroDocumento;
+  private @Valid String digitoVerificacion;
 
   /**
    **/
@@ -60,19 +61,19 @@ public class AlertaType   {
 
   /**
    **/
-  public AlertaType fecha(String fecha) {
+  public AlertaType fecha(Date fecha) {
     this.fecha = fecha;
     return this;
   }
 
   
   @JsonProperty("fecha")
-  public String getFecha() {
+  public Date getFecha() {
     return fecha;
   }
 
   @JsonProperty("fecha")
-  public void setFecha(String fecha) {
+  public void setFecha(Date fecha) {
     this.fecha = fecha;
   }
 

@@ -3,6 +3,7 @@ package com.mibanco.clientefic.es.gen.type;
 import com.mibanco.clientefic.es.gen.type.TipoDocumentoEnum;
 import com.mibanco.clientefic.es.gen.type.TipoRelacionEnum;
 import com.mibanco.clientefic.es.gen.type.TipoReporteXmlEnum;
+import java.util.Date;
 import jakarta.validation.constraints.*;
 import jakarta.validation.Valid;
 
@@ -15,24 +16,24 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("CentralRiesgoType")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-06-05T11:23:37.436663-05:00[America/Bogota]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-06-05T13:54:01.725107-05:00[America/Bogota]")
 public class CentralRiesgoType   {
-  private @Valid String antiguedadUbicacion = null;
-  private @Valid String consultaDetallada = null;
-  private @Valid String estadoDocumento = null;
-  private @Valid String fechaConsultaMasReciente = null;
-  private @Valid String fechaExpedicion = null;
-  private @Valid String genero = null;
-  private @Valid String lugarExpedicion = null;
-  private @Valid String numeroDocumento = null;
-  private @Valid String rangoEdad = null;
-  private @Valid String resultadoConsultaMasReciente = null;
+  private @Valid String antiguedadUbicacion;
+  private @Valid String consultaDetallada;
+  private @Valid String estadoDocumento;
+  private @Valid Date fechaConsultaMasReciente;
+  private @Valid Date fechaExpedicion;
+  private @Valid String genero;
+  private @Valid String lugarExpedicion;
+  private @Valid String numeroDocumento;
+  private @Valid String rangoEdad;
+  private @Valid String resultadoConsultaMasReciente;
   private @Valid Boolean tieneRUT;
   private @Valid TipoDocumentoEnum tipoDocumento;
   private @Valid TipoRelacionEnum tipoRelacion;
-  private @Valid TipoReporteXmlEnum tipoReporte = null;
+  private @Valid TipoReporteXmlEnum tipoReporte;
   private @Valid Boolean vbVigenteParaSerConsultado;
-  private @Valid String digitoVerificacion = null;
+  private @Valid String digitoVerificacion;
 
   /**
    **/
@@ -90,37 +91,37 @@ public class CentralRiesgoType   {
 
   /**
    **/
-  public CentralRiesgoType fechaConsultaMasReciente(String fechaConsultaMasReciente) {
+  public CentralRiesgoType fechaConsultaMasReciente(Date fechaConsultaMasReciente) {
     this.fechaConsultaMasReciente = fechaConsultaMasReciente;
     return this;
   }
 
   
   @JsonProperty("fechaConsultaMasReciente")
-  public String getFechaConsultaMasReciente() {
+  public Date getFechaConsultaMasReciente() {
     return fechaConsultaMasReciente;
   }
 
   @JsonProperty("fechaConsultaMasReciente")
-  public void setFechaConsultaMasReciente(String fechaConsultaMasReciente) {
+  public void setFechaConsultaMasReciente(Date fechaConsultaMasReciente) {
     this.fechaConsultaMasReciente = fechaConsultaMasReciente;
   }
 
   /**
    **/
-  public CentralRiesgoType fechaExpedicion(String fechaExpedicion) {
+  public CentralRiesgoType fechaExpedicion(Date fechaExpedicion) {
     this.fechaExpedicion = fechaExpedicion;
     return this;
   }
 
   
   @JsonProperty("fechaExpedicion")
-  public String getFechaExpedicion() {
+  public Date getFechaExpedicion() {
     return fechaExpedicion;
   }
 
   @JsonProperty("fechaExpedicion")
-  public void setFechaExpedicion(String fechaExpedicion) {
+  public void setFechaExpedicion(Date fechaExpedicion) {
     this.fechaExpedicion = fechaExpedicion;
   }
 

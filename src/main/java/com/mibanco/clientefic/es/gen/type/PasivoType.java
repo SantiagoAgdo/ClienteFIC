@@ -1,6 +1,7 @@
 package com.mibanco.clientefic.es.gen.type;
 
 import com.mibanco.clientefic.es.gen.type.SubProductoEnum;
+import java.util.Date;
 import jakarta.validation.constraints.*;
 import jakarta.validation.Valid;
 
@@ -13,13 +14,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("PasivoType")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-06-05T11:23:37.436663-05:00[America/Bogota]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-06-05T13:54:01.725107-05:00[America/Bogota]")
 public class PasivoType   {
-  private @Valid String numeroProducto = null;
+  private @Valid String numeroProducto;
   private @Valid SubProductoEnum subProducto;
-  private @Valid String estadoPasivo = null;
-  private @Valid String fechaApertura = null;
-  private @Valid String fechaCierre = null;
+  private @Valid String estadoPasivo;
+  private @Valid Date fechaApertura;
+  private @Valid Date fechaCierre;
   private @Valid Float capital;
   private @Valid Float intereses;
   private @Valid Float otros;
@@ -82,37 +83,37 @@ public class PasivoType   {
 
   /**
    **/
-  public PasivoType fechaApertura(String fechaApertura) {
+  public PasivoType fechaApertura(Date fechaApertura) {
     this.fechaApertura = fechaApertura;
     return this;
   }
 
   
   @JsonProperty("fechaApertura")
-  public String getFechaApertura() {
+  public Date getFechaApertura() {
     return fechaApertura;
   }
 
   @JsonProperty("fechaApertura")
-  public void setFechaApertura(String fechaApertura) {
+  public void setFechaApertura(Date fechaApertura) {
     this.fechaApertura = fechaApertura;
   }
 
   /**
    **/
-  public PasivoType fechaCierre(String fechaCierre) {
+  public PasivoType fechaCierre(Date fechaCierre) {
     this.fechaCierre = fechaCierre;
     return this;
   }
 
   
   @JsonProperty("fechaCierre")
-  public String getFechaCierre() {
+  public Date getFechaCierre() {
     return fechaCierre;
   }
 
   @JsonProperty("fechaCierre")
-  public void setFechaCierre(String fechaCierre) {
+  public void setFechaCierre(Date fechaCierre) {
     this.fechaCierre = fechaCierre;
   }
 

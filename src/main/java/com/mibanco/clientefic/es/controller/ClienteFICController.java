@@ -3,16 +3,21 @@ package com.mibanco.clientefic.es.controller;
 import com.mibanco.clientefic.es.constans.ErrorCts;
 import com.mibanco.clientefic.es.dao.entity.ClienteFICEntity;
 import com.mibanco.clientefic.es.gen.contract.V1ClienteFIC;
+import com.mibanco.clientefic.es.gen.type.AlertaType;
 import com.mibanco.clientefic.es.gen.type.ClienteFICType;
 import com.mibanco.clientefic.es.services.impl.ClienteFICServiceImpl;
 import com.mibanco.clientefic.es.utils.Exceptions.ClienteFICException;
 import com.mibanco.clientefic.es.utils.mapper.ClienteFICMapper;
+import com.mibanco.clientefic.es.utils.validators.ClienteFICValidator;
 import jakarta.inject.Inject;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validator;
 import jakarta.ws.rs.core.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.Set;
 
 public class ClienteFICController implements V1ClienteFIC {
 
@@ -24,12 +29,18 @@ public class ClienteFICController implements V1ClienteFIC {
     @Inject
     ClienteFICMapper clienteFICMapper;
 
+    @Inject
+    ClienteFICValidator clienteFICValidator;
+
     @Override
     public Response crearClienteFICType(ClienteFICType clienteFICType) {
 
         logger.info("Inicia crearClienteFIC en ClienteFICController");
 
         try{
+
+            clienteFICValidator.verificarClienteFIC(clienteFICType);
+
             ClienteFICEntity clienteFIC = clienteFICMapper.clienteFICToEntity(clienteFICType);
             clienteFICType = clienteFICServiceImpl.crearClienteFICType(clienteFIC);
 
@@ -38,7 +49,7 @@ public class ClienteFICController implements V1ClienteFIC {
 
         }catch (ClienteFICException e){
             logger.info("Finaliza crearClienteFIC en ClienteFICController");
-            throw new ClienteFICException(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), ErrorCts.SERVICIO + " - " + e.getMessage());
+            throw new ClienteFICException(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), e.getMessage());
         }
     }
 

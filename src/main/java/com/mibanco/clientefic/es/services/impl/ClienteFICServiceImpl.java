@@ -38,11 +38,10 @@ public class ClienteFICServiceImpl implements ClienteFICService {
 
         try{
             ClienteFICType clienteFICMapp = clienteFICMapper.clienteFICToType(clienteFIC);
-            clienteFICValidator.verificarClienteFIC(clienteFICMapp);
 
             clienteFICDAO.crearClienteFIC(clienteFIC);
 
-            logger.info("Temrina creacion de cliente FIC en ClienteFICServiceImpl");
+            logger.info("Termina creacion de cliente FIC en ClienteFICServiceImpl");
 
             return clienteFICMapp;
 

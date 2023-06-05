@@ -170,11 +170,11 @@ components:
         estadoCivil:
           $ref: "#/components/schemas/EstadoCivilEnum"
         funcionarioUltimaActualizacion:
-          type: String
+          type: string
         negocio:
           $ref: "#/components/schemas/NegocioType"
         numeroDocumentoRepresentanteLegal:
-          type: String
+          type: string
         oferta:
           $ref: "#/components/schemas/OfertaType"
         pasivo:
@@ -182,17 +182,17 @@ components:
         PQR:
           $ref: "#/components/schemas/PQRType"
         prestamo:
-          type: String
+          type: string
         primerApellidoRepresentanteLegal:
-          type: String
+          type: string
         primerNombreRepresentanteLegal:
-          type: String
+          type: string
         razonSocial:
-          type: String
+          type: string
         segundoApellidoRepresentanteLegal:
-          type: String
+          type: string
         segundoNombreRepresentanteLegal:
-          type: String
+          type: string
         seRequiereActualizacion:
           type: boolean
         tipoDocumentoRepresentanteLegal:
@@ -201,7 +201,7 @@ components:
           type: number
           format: float
         ultimaFechaActualizacion:
-          type: String
+          type: string
           format: date-time
     ClienteBaseType:
       type: object
@@ -236,45 +236,45 @@ components:
       type: object
       properties:
         tipoAlerta:
-          type: String
+          type: string
         banco:
-          type: String
+          type: string
         fecha:
-          type: String
+          type: string
           format: date-time
         tipoDocumento:
           $ref: "#/components/schemas/TipoDocumentoEnum"
         numeroDocumento:
-          type: String
+          type: string
         digitoVerificacion:
-          type: String
+          type: string
     CentralRiesgoType:
       type: object
       properties:
         antiguedadUbicacion:
-          type: String
+          type: string
         consultaDetallada:
-          type: String
+          type: string
         estadoDocumento:
-          type: String
+          type: string
         fechaConsultaMasReciente:
-          type: String
+          type: string
           format: date-time
         fechaExpedicion:
-          type: String
+          type: string
           format: date-time
         genero:
-          type: String
+          type: string
         historicoEndeudamiento:
-          type String
+          type string
         lugarExpedicion:
-          type: String
+          type: string
         numeroDocumento:
-          type: String
+          type: string
         rangoEdad:
-          type: String
+          type: string
         resultadoConsultaMasReciente:
-          type: String
+          type: string
         tieneRUT:
           type: boolean
         tipoDocumento:
@@ -286,17 +286,17 @@ components:
         vbVigenteParaSerConsultado:
           type: boolean
         digitoVerificacion:
-          type: String
+          type: string
     ContactoType:
       type: object
       properties:
         fecha:
-          type: String
+          type: string
           format: date-time
         tipoContacto:
-          type: String
+          type: string
         resultadoComentarios:
-          type: String
+          type: string
         numeroCliente:
           type: integer
     ConyugeType:
@@ -305,24 +305,24 @@ components:
         tipoDocumento:
           $ref: "#/components/schemas/TipoDocumentoEnum"
         numeroDocumento:
-          type: String
+          type: string
         primerNombre:
-          type: String
+          type: string
         segundoNombre:
-          type: String
+          type: string
         primerApellido:
-          type: String
+          type: string
         segundoApellido:
-          type: String
+          type: string
         numeroCliente:
           type: integer
     CupoRotativoType:
       type: object
       properties:
         estado:
-          type: String
+          type: string
         fechaDeVencimiento:
-          type: String
+          type: string
           format: date-time
         montoCupoCredito:
           type: number
@@ -333,7 +333,7 @@ components:
         numeroCliente:
           type: integer
         numeroCupo:
-          type: String
+          type: string
         saldoDisponible:
           type: number
           format: float
@@ -358,7 +358,7 @@ components:
       type: object
       properties:
         direccion:
-          type: String
+          type: string
         telefono:
           type: integer
         tipoActividadCIIU:
@@ -371,9 +371,9 @@ components:
         numeroOferta:
           type: integer
         tipoLead:
-          type: String
+          type: string
         tipoOferta:
-          type: String
+          type: string
         monto:
           type: number
           format: float
@@ -382,25 +382,25 @@ components:
         numeroCliente:
           type: integer
         tipoDeLiga:
-          type: String
+          type: string
         condicionGarantia:
-          type: String
+          type: string
     PasivoType:
       type: object
       properties:
         numeroProducto:
-          type: String
+          type: string
         tipoProducto:
         $ref: "#/components/schemas/TipoProductoEnum"
         subProducto:
           $ref: "#/components/schemas/SubProductoEnum"
         estadoPasivo:
-          type: String
+          type: string
         fechaApertura:
-          type: String
+          type: string
           format: date-time
         fechaCierre:
-          type: String
+          type: string
           format: date-time
         capital:
           type: number
@@ -420,23 +420,23 @@ components:
       type: object
       properties:
         fecha:
-          type: String
+          type: string
           format: date-time
         numeroPQR:
           type: integer
         motivo:
-          type: String
+          type: string
         resultadoPQR:
 #          $ref: "#/components/schemas/ResultadoPQREnum"
           type: string
         comentario:
-          type: String
+          type: string
         digitoVerificacion:
-          type: String
+          type: string
         tipoDocumento:
           $ref: "#/components/schemas/TipoDocumentoEnum"
         numeroDocumento:
-          type: String
+          type: string
 
 
     EstadoCivilEnum:
@@ -473,7 +473,7 @@ components:
         - 01 TITULAR
         - 02 CONYUGE
     TipoReporteXmlEnum:
-      type: String
+      type: string
       enum:
         - CONSULTA DETALLADA
         - HISTORICO DE ENDEUDAMIENTO

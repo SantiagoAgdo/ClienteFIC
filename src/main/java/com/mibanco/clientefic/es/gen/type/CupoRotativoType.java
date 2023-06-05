@@ -1,5 +1,6 @@
 package com.mibanco.clientefic.es.gen.type;
 
+import java.util.Date;
 import jakarta.validation.constraints.*;
 import jakarta.validation.Valid;
 
@@ -12,14 +13,14 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("CupoRotativoType")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-06-05T11:23:37.436663-05:00[America/Bogota]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-06-05T13:54:01.725107-05:00[America/Bogota]")
 public class CupoRotativoType   {
-  private @Valid String estado = null;
-  private @Valid String fechaDeVencimiento = null;
+  private @Valid String estado;
+  private @Valid Date fechaDeVencimiento;
   private @Valid Float montoCupoCredito;
   private @Valid Float montoUtilizado;
   private @Valid Integer numeroCliente;
-  private @Valid String numeroCupo = null;
+  private @Valid String numeroCupo;
   private @Valid Float saldoDisponible;
 
   /**
@@ -42,19 +43,19 @@ public class CupoRotativoType   {
 
   /**
    **/
-  public CupoRotativoType fechaDeVencimiento(String fechaDeVencimiento) {
+  public CupoRotativoType fechaDeVencimiento(Date fechaDeVencimiento) {
     this.fechaDeVencimiento = fechaDeVencimiento;
     return this;
   }
 
   
   @JsonProperty("fechaDeVencimiento")
-  public String getFechaDeVencimiento() {
+  public Date getFechaDeVencimiento() {
     return fechaDeVencimiento;
   }
 
   @JsonProperty("fechaDeVencimiento")
-  public void setFechaDeVencimiento(String fechaDeVencimiento) {
+  public void setFechaDeVencimiento(Date fechaDeVencimiento) {
     this.fechaDeVencimiento = fechaDeVencimiento;
   }
 

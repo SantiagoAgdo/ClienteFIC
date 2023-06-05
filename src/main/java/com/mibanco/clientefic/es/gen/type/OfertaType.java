@@ -12,16 +12,16 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("OfertaType")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-06-05T11:23:37.436663-05:00[America/Bogota]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-06-05T13:54:01.725107-05:00[America/Bogota]")
 public class OfertaType   {
   private @Valid Integer numeroOferta;
-  private @Valid String tipoLead = null;
-  private @Valid String tipoOferta = null;
+  private @Valid String tipoLead;
+  private @Valid String tipoOferta;
   private @Valid Float monto;
   private @Valid Integer plazo;
   private @Valid Integer numeroCliente;
-  private @Valid String tipoDeLiga = null;
-  private @Valid String condicionGarantia = null;
+  private @Valid String tipoDeLiga;
+  private @Valid String condicionGarantia;
 
   /**
    **/

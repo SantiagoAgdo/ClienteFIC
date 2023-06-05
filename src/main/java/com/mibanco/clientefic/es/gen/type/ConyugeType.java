@@ -13,14 +13,14 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("ConyugeType")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-06-05T11:23:37.436663-05:00[America/Bogota]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-06-05T13:54:01.725107-05:00[America/Bogota]")
 public class ConyugeType   {
   private @Valid TipoDocumentoEnum tipoDocumento;
-  private @Valid String numeroDocumento = null;
-  private @Valid String primerNombre = null;
-  private @Valid String segundoNombre = null;
-  private @Valid String primerApellido = null;
-  private @Valid String segundoApellido = null;
+  private @Valid String numeroDocumento;
+  private @Valid String primerNombre;
+  private @Valid String segundoNombre;
+  private @Valid String primerApellido;
+  private @Valid String segundoApellido;
   private @Valid Integer numeroCliente;
 
   /**

@@ -1,5 +1,6 @@
 package com.mibanco.clientefic.es.gen.type;
 
+import java.util.Date;
 import jakarta.validation.constraints.*;
 import jakarta.validation.Valid;
 
@@ -12,28 +13,28 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("ContactoType")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-06-05T11:23:37.436663-05:00[America/Bogota]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-06-05T13:54:01.725107-05:00[America/Bogota]")
 public class ContactoType   {
-  private @Valid String fecha = null;
-  private @Valid String tipoContacto = null;
-  private @Valid String resultadoComentarios = null;
+  private @Valid Date fecha;
+  private @Valid String tipoContacto;
+  private @Valid String resultadoComentarios;
   private @Valid Integer numeroCliente;
 
   /**
    **/
-  public ContactoType fecha(String fecha) {
+  public ContactoType fecha(Date fecha) {
     this.fecha = fecha;
     return this;
   }
 
   
   @JsonProperty("fecha")
-  public String getFecha() {
+  public Date getFecha() {
     return fecha;
   }
 
   @JsonProperty("fecha")
-  public void setFecha(String fecha) {
+  public void setFecha(Date fecha) {
     this.fecha = fecha;
   }
 
