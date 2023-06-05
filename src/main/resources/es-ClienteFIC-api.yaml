@@ -35,8 +35,8 @@ paths:
             schema:
               $ref: "#/components/schemas/ClienteFICType"
       responses:
-        "200":
-          description: Cliente type creado.
+        "201":
+          description: ClienteFIC creado.
           content:
             application/json:
               schema:
@@ -44,10 +44,103 @@ paths:
                 items:
                   $ref: "#/components/schemas/ClienteFICType"
         "400":
-          description: "Parámetros de entrada no validos."
+          description: Peticion con datos invalidos
+          content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Error'
         "404":
           description: "No se encuentra el cliente FIC."
-
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v1/es/alerta:
+    get:
+      summary: Consulta alerta
+      parameters:
+        - in: query
+          name: tipoDocumento
+          schema:
+            type: string
+          description: tipo de documento
+        - in: query
+          name: numeroDocumento
+          schema:
+            type: integer
+          description: numero de documento
+        - in: query
+          name: digitoVerificacion
+          schema:
+            type: integer
+          description: digito de verificacion
+      responses:
+        "200":
+          description: get alerta.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AlertaType"
+        "400":
+          description: Peticion con datos invalidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: "No se encuentra el cliente FIC."
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v1/es/centralRiesgo:
+    get:
+      summary: Consulta Central
+      parameters:
+        - in: query
+          name: tipoDocumento
+          schema:
+            type: string
+          description: tipo de documento
+        - in: query
+          name: numeroDocumento
+          schema:
+            type: integer
+          description: numero de documento
+        - in: query
+          name: digitoVerificacion
+          schema:
+            type: integer
+          description: digito de verificacion
+      responses:
+        "200":
+          description: get alerta.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CentralRiesgoType"
+        "400":
+          description: Peticion con datos invalidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: "No se encuentra el cliente FIC."
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
 #---------------------------------------------
 #Se declaran los Modelos/Schemas del servicio
 #---------------------------------------------
@@ -949,4 +1042,29 @@ components:
         - BONO BN02 BONO > 18 MESES DTF
         - BONO BN03 BONO < 18 MESES IBR
 
+    Error:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: "The request is invalid."
+      required:
+        - status
+        - message
 
+  responses:
+    NotFound:
+      description: The specified resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'

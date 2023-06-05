@@ -25,7 +25,7 @@ public class ClienteFICController implements V1ClienteFIC {
     ClienteFICMapper clienteFICMapper;
 
     @Override
-    public List<ClienteFICType> crearClienteFICType(ClienteFICType clienteFICType) {
+    public Response crearClienteFICType(ClienteFICType clienteFICType) {
 
         logger.info("Inicia crearClienteFIC en ClienteFICController");
 
@@ -34,11 +34,39 @@ public class ClienteFICController implements V1ClienteFIC {
             clienteFICType = clienteFICServiceImpl.crearClienteFICType(clienteFIC);
 
             logger.info("Finaliza crearClienteFIC en ClienteFICController");
-            return List.of(clienteFICType);
+            return Response.status(Response.Status.OK).entity(clienteFICType).build();
 
         }catch (ClienteFICException e){
             logger.info("Finaliza crearClienteFIC en ClienteFICController");
-            throw new ClienteFICException(ErrorCts.SERVICIO+ e.getMessage() + " en ClienteFICController" + Response.status(404));
+            throw new ClienteFICException(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), ErrorCts.SERVICIO + " - " + e.getMessage());
+        }
+    }
+
+    @Override
+    public Response v1EsAlertaGet(String tipoDocumento, Integer numeroDocumento, Integer digitoVerificacion) {
+        logger.info("Inicia consulta de Alerta");
+
+        try{
+            logger.info("Finaliza consulta de Alerta");
+            return Response.status(Response.Status.OK).entity(null).build();
+
+        }catch (ClienteFICException e){
+            logger.info("Finaliza consulta de Alerta");
+            throw new ClienteFICException(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), ErrorCts.SERVICIO + " - " + e.getMessage());
+        }
+    }
+
+    @Override
+    public Response v1EsCentralRiesgoGet(String tipoDocumento, Integer numeroDocumento, Integer digitoVerificacion) {
+        logger.info("Inicia consulta en central de riesgos");
+
+        try{
+            logger.info("Finaliza consulta en central de riesgos");
+            return Response.status(Response.Status.OK).entity(null).build();
+
+        }catch (ClienteFICException e){
+            logger.info("Finaliza consulta en central de riesgos");
+            throw new ClienteFICException(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), ErrorCts.SERVICIO + " - " + e.getMessage());
         }
     }
 

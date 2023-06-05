@@ -153,6 +153,7 @@
                                 <validateSpec>false</validateSpec>
                                 <useJakartaEe>true</useJakartaEe>
                                 <useJakartaNamespace>true</useJakartaNamespace>
+                                <returnResponse>true</returnResponse>
                             </configOptions>
                         </configuration>
                     </execution>

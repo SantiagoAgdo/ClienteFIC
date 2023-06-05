@@ -7,14 +7,13 @@ import jakarta.ws.rs.ext.ExceptionMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ClienteFICExceptionHandler implements ExceptionMapper<ClienteFICExceptionObj> {
+public class ClienteFICExceptionHandler implements ExceptionMapper<ClienteFICException> {
 
     public static final Logger logger = LoggerFactory.getLogger(ClienteFICExceptionHandler.class);
 
 
     @Override
-    public Response toResponse(ClienteFICExceptionObj e) {
-
+    public Response toResponse(ClienteFICException e) {
         logger.error("Exception: " + e.getMessage());
         ErrorMessage error = new ErrorMessage();
         error.setStatus(e.getStatus());

@@ -6,7 +6,6 @@ import com.mibanco.clientefic.es.dao.entity.ClienteFICEntity;
 import com.mibanco.clientefic.es.gen.type.ClienteFICType;
 import com.mibanco.clientefic.es.services.contract.ClienteFICService;
 import com.mibanco.clientefic.es.utils.Exceptions.ClienteFICException;
-import com.mibanco.clientefic.es.utils.Exceptions.ClienteFICExceptionObj;
 import com.mibanco.clientefic.es.utils.mapper.ClienteFICMapper;
 import com.mibanco.clientefic.es.utils.validators.ClienteFICValidator;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -47,12 +46,9 @@ public class ClienteFICServiceImpl implements ClienteFICService {
 
             return clienteFICMapp;
 
-        }catch (ClienteFICException e){
-            logger.error(ErrorCts.SERVICIO + " " + e.getMessage() + " en ClienteFICServiceImpl ");
-            throw  new ClienteFICException(ErrorCts.SERVICIO + Response.status(404));
-        } catch (ClienteFICExceptionObj e) {
+        }catch (ClienteFICException e) {
             logger.error(ErrorCts.VALIDACION + " " + e.getMessage()  + " en ClienteFICServiceImpl ");
-            throw  new ClienteFICException(ErrorCts.SERVICIO + Response.status(404));
+            throw  new ClienteFICException(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), ErrorCts.SERVICIO);
         }
 
     }
