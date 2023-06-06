@@ -1,4 +1,4 @@
-package com.mibanco.clientefic.es.dto;
+package com.mibanco.clientefic.es.utils.dto;
 
 import lombok.Data;
 

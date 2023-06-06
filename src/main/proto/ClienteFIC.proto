@@ -1,0 +1,149 @@
+//syntax = "proto3";
+//
+//import "google/protobuf/timestamp.proto";
+//
+//option java_multiple_files = true;
+//option java_package = "com.mibanco.clientefic.es";
+//option java_outer_classname = "ClienteFICGrpc";
+//
+//package ClienteFICGrpc;
+//
+//message CrearClienteFICGrpc {
+//  AlertaType alerta = 1;
+//  ClienteBaseType clienteBase = 2;
+//  CentralRiesgoType centralRiesgo = 3;
+//  ContactoType contacto = 4;
+//  ConyugeType conyuge = 5;
+//  CupoRotativoType cupoRotativo = 6;
+//  int32 digitoVerificacion = 7;
+//  DomicilioType domicilio = ;
+//  DomicilioEmpresaType domicilioEmpresa = 8;
+//  EstadoCivilEnum estadoCivil = 9;
+//  string funcionarioUltimaActualizacion = 10;
+//  NegocioType negocio = 11;
+//  string numeroDocumentoRepresentanteLegal = 12;
+//  OfertaType oferta = 13;
+//  PasivoType pasivo = 14;
+//  PQRType PQR = 15;
+//  string prestamo = 16;
+//  string primerApellidoRepresentanteLegal = 17;
+//  string primerNombreRepresentanteLegal = 18;
+//  string razonSocial = 19;
+//  string segundoApellidoRepresentanteLegal = 20;
+//  string segundoNombreRepresentanteLegal = 21;
+//  bool seRequiereActualizacion = 22;
+//  TipoDocumentoEnum tipoDocumentoRepresentanteLegal = 23;
+//  float totalActivos = 24;
+//  Date ultimaFechaActualizacion = 25;
+//}
+//
+//message AlertaType {
+//  string tipoAlerta = 1;
+//  string banco = 2;
+//  google.protobuf.Timestamp fecha = 3;
+//  TipoDocumentoEnum tipoDocumento = 4;
+//  string numeroDocumento = 5;
+//  string digitoVerificacion = 6;
+//}
+//
+//message ClienteBaseType {
+//  int64 id = 1;
+//  int32 numeroCliente = 2;
+//  TipoPersonaEnum tipoPersona = 3;
+//  TipoDocumentoEnum tipoDocumento = 4;
+//  int32 numeroDocumento = 5;
+//  google.protobuf.Timestamp fechaExpedicionDocumento = 6;
+//  string primerNombre = 7;
+//  int32 numeroCelular =  8;
+//  string segundoNombre = 9;
+//  string primerApellido = 10;
+//  string segundoApellido = 11;
+//  string correoElectronico = 12;
+//}
+//
+//message CentralRiesgoType{
+//  string antiguedadUbicacion = 1;
+//  string consultaDetallada = 2;
+//  string estadoDocumento = 3;
+//  Date fechaConsultaMasReciente = 4;
+//  Date fechaExpedicion = 5;
+//  string genero = 6;
+//  string lugarExpedicion = 7;
+//  string numeroDocumento = 8;
+//  string rangoEdad = 9;
+//  string resultadoConsultaMasReciente = 10;
+//  bool tieneRUT = 11;
+//  TipoDocumentoEnum tipoDocumento = 12;
+//  TipoRelacionEnum tipoRelacion = 13;
+//  TipoReporteXmlEnum tipoReporte = 14;
+//  bool vbVigenteParaSerConsultado = 15;
+//  string digitoVerificacion = 16;
+//}
+//
+//message ContactoType{
+//  Date fecha = 1;
+//  string tipoContacto = 2;
+//  string resultadoComentarios = 3;
+//  Integer numeroCliente = 4;
+//}
+//
+//message  ConyugeType{
+//  TipoDocumentoEnum tipoDocumento = 1;
+//  string numeroDocumento = 2;
+//  string primerNombre = 3;
+//  string segundoNombre = 4;
+//  string primerApellido = 5;
+//  string segundoApellido = 6;
+//  Integer numeroCliente = 7;
+//}
+//
+//message  CupoRotativoType{
+//  string estado = 1;
+//  Date fechaDeVencimiento = 2;
+//  Float montoCupoCredito = 3;
+//  Float montoUtilizado = 4;
+//  Integer numeroCliente = 5;
+//  string numeroCupo = 6;
+//  Float saldoDisponible = 7;
+//}
+//
+//message DomicilioType{
+//  Integer numeroCliente = 1;
+//  TipoViviendaEnum tipoVivienda = 2;
+//}
+//
+//message DomicilioEmpresaType{
+//  Integer numeroCliente = 1;
+//  TipoActividadCIIUEnum tipoActividadCIIU = 2;
+//  string tipoLocal = 3;
+//}
+//
+//enum EstadoCivilEnum{
+//  "SOLTERA"  = "SOLTERA ";
+//  CASADA = "CASADA ";
+//  DIVORCIADA = "DIVORCIADA ";
+//  VIUDA  = "VIUDA ";
+//  UNION_LIBRE  = "UNION ";
+//  OTRO = "OTRO";
+//}
+//
+//
+//
+//
+//
+//
+//
+//message NovedadResponse{
+//  GetNovedadByDocumentRequest novedadCDTDigital = 1;
+//}
+//
+//message Creado{
+//  CrearNovedadCDTDigitalGrpc novedadCDTDigital = 1;
+//}
+//
+//service NovedadClienteCDTServiceGrpc {
+//  rpc crearNovedadCDT(CrearNovedadCDTDigitalGrpc) returns (Creado);
+//  rpc consultarNovedad(GetNovedadByDocumentRequest) returns (NovedadResponse);
+//}
+//
+//

@@ -7,7 +7,6 @@ import com.mibanco.clientefic.es.gen.type.ClienteFICType;
 import com.mibanco.clientefic.es.services.contract.ClienteFICService;
 import com.mibanco.clientefic.es.utils.Exceptions.ClienteFICException;
 import com.mibanco.clientefic.es.utils.mapper.ClienteFICMapper;
-import com.mibanco.clientefic.es.utils.validators.ClienteFICValidator;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -26,9 +25,6 @@ public class ClienteFICServiceImpl implements ClienteFICService {
 
     @Inject
     ClienteFICMapper clienteFICMapper;
-
-    @Inject
-    ClienteFICValidator clienteFICValidator;
 
     @Override
     @Transactional

@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("DomicilioEmpresaType")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-06-05T13:54:01.725107-05:00[America/Bogota]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-06-06T12:10:12.590977-05:00[America/Bogota]")
 public class DomicilioEmpresaType   {
   private @Valid Integer numeroCliente;
   private @Valid TipoActividadCIIUEnum tipoActividadCIIU;

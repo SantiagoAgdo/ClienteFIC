@@ -64,17 +64,17 @@ paths:
         - in: query
           name: tipoDocumento
           schema:
-            type: string
+            $ref: "#/components/schemas/TipoDocumentoEnum"
           description: tipo de documento
         - in: query
           name: numeroDocumento
           schema:
-            type: integer
+            type: string
           description: numero de documento
         - in: query
           name: digitoVerificacion
           schema:
-            type: integer
+            type: string
           description: digito de verificacion
       responses:
         "200":
@@ -107,16 +107,17 @@ paths:
           name: tipoDocumento
           schema:
             type: string
+            $ref: "#/components/schemas/TipoDocumentoEnum"
           description: tipo de documento
         - in: query
           name: numeroDocumento
           schema:
-            type: integer
+            type: string
           description: numero de documento
         - in: query
           name: digitoVerificacion
           schema:
-            type: integer
+            type: string
           description: digito de verificacion
       responses:
         "200":

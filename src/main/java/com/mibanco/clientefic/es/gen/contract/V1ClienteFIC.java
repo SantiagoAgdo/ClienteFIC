@@ -4,6 +4,7 @@ import com.mibanco.clientefic.es.gen.type.AlertaType;
 import com.mibanco.clientefic.es.gen.type.CentralRiesgoType;
 import com.mibanco.clientefic.es.gen.type.ClienteFICType;
 import com.mibanco.clientefic.es.gen.type.Error;
+import com.mibanco.clientefic.es.gen.type.TipoDocumentoEnum;
 
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
@@ -17,7 +18,7 @@ import jakarta.validation.constraints.*;
 import jakarta.validation.Valid;
 
 @Path("/v1/es")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-06-05T13:54:01.725107-05:00[America/Bogota]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-06-06T12:10:12.590977-05:00[America/Bogota]")
 public interface V1ClienteFIC {
 
     @POST
@@ -29,10 +30,10 @@ public interface V1ClienteFIC {
     @GET
     @Path("/alerta")
     @Produces({ "application/json" })
-    Response v1EsAlertaGet(@QueryParam("tipoDocumento")   String tipoDocumento,@QueryParam("numeroDocumento")   Integer numeroDocumento,@QueryParam("digitoVerificacion")   Integer digitoVerificacion);
+    Response v1EsAlertaGet(@QueryParam("tipoDocumento")   TipoDocumentoEnum tipoDocumento,@QueryParam("numeroDocumento")   String numeroDocumento,@QueryParam("digitoVerificacion")   String digitoVerificacion);
 
     @GET
     @Path("/centralRiesgo")
     @Produces({ "application/json" })
-    Response v1EsCentralRiesgoGet(@QueryParam("tipoDocumento")   String tipoDocumento,@QueryParam("numeroDocumento")   Integer numeroDocumento,@QueryParam("digitoVerificacion")   Integer digitoVerificacion);
+    Response v1EsCentralRiesgoGet(@QueryParam("tipoDocumento")   TipoDocumentoEnum tipoDocumento,@QueryParam("numeroDocumento")   String numeroDocumento,@QueryParam("digitoVerificacion")   String digitoVerificacion);
 }
