@@ -40,23 +40,7 @@ public class ClienteFICController implements V1ClienteFIC {
     ClienteFICValidator clienteFICValidator;
 
     @Override
-    public Response crearClienteFICType(ClienteFICType clienteFICType) {
-        logger.info("Inicia crearClienteFIC en ClienteFICController");
-        try {
-            clienteFICValidator.verificarClienteFIC(clienteFICType);
-            ClienteFICEntity clienteFIC = clienteFICMapper.clienteFICToEntity(clienteFICType);
-            clienteFICType = clienteFICServiceImpl.crearClienteFICType(clienteFIC);
-            logger.info("Finaliza crearClienteFIC en ClienteFICController");
-            return Response.status(Response.Status.OK).entity(clienteFICType).build();
-
-        } catch (ClienteFICException e) {
-            logger.info("Finaliza crearClienteFIC en ClienteFICController");
-            throw new ClienteFICException(Response.Status.BAD_REQUEST.getStatusCode(), e.getMessage());
-        }
-    }
-
-    @Override
-    public Response v1EsAlertaGet(TipoDocumentoEnum tipoDocumento, String numeroDocumento, String digitoVerificacion) {
+    public Response consultarAlerta(TipoDocumentoEnum tipoDocumento, String numeroDocumento, String digitoVerificacion) {
         logger.info("Inicia consulta de Alerta");
         try {
             clienteFICValidator.validarAlerta(tipoDocumento, numeroDocumento, digitoVerificacion);
@@ -70,7 +54,7 @@ public class ClienteFICController implements V1ClienteFIC {
     }
 
     @Override
-    public Response v1EsCentralRiesgoGet(TipoDocumentoEnum tipoDocumento, String numeroDocumento, String digitoVerificacion) {
+    public Response consultarCentralDeRiesgo(TipoDocumentoEnum tipoDocumento, String numeroDocumento, String digitoVerificacion) {
         logger.info("Inicia consulta de CentralRiesgo");
         try {
             List<CentralRiesgoType> listaAlertas = centralRiesgoServiceImpl.getListAlerts(tipoDocumento, numeroDocumento, digitoVerificacion);
@@ -82,5 +66,65 @@ public class ClienteFICController implements V1ClienteFIC {
         }
     }
 
+    @Override
+    public Response consultarClienteFICPorNombre(String nombre) {
+        return null;
+    }
+
+    @Override
+    public Response consultarConyuge(Integer numeroCliente) {
+        return null;
+    }
+
+    @Override
+    public Response consultarCupoRotativo(Integer numeroCliente) {
+        return null;
+    }
+
+    @Override
+    public Response consultarDireccionTelefono(Integer numeroCliente) {
+        return null;
+    }
+
+    @Override
+    public Response consultarHistorialContacto(Integer numeroCliente) {
+        return null;
+    }
+
+    @Override
+    public Response consultarOferta(Integer numeroCliente) {
+        return null;
+    }
+
+    @Override
+    public Response consultarPQR(TipoDocumentoEnum tipoDocumento, String numeroDocumento, String digitoVerificacion) {
+        return null;
+    }
+
+    @Override
+    public Response consultarPasivo(Integer numeroCliente) {
+        return null;
+    }
+
+    @Override
+    public Response consutaClientePorIdentificacion(TipoDocumentoEnum tipoDocumento, Integer numeroDocumento, Integer digitoVerificacion) {
+        return null;
+    }
+
+    @Override
+    public Response crearClienteFIC(ClienteFICType clienteFICType) {
+        logger.info("Inicia crearClienteFIC en ClienteFICController");
+        try {
+            clienteFICValidator.verificarClienteFIC(clienteFICType);
+            ClienteFICEntity clienteFIC = clienteFICMapper.clienteFICToEntity(clienteFICType);
+            clienteFICType = clienteFICServiceImpl.crearClienteFICType(clienteFIC);
+            logger.info("Finaliza crearClienteFIC en ClienteFICController");
+            return Response.status(Response.Status.OK).entity(clienteFICType).build();
+
+        } catch (ClienteFICException e) {
+            logger.info("Finaliza crearClienteFIC en ClienteFICController");
+            throw new ClienteFICException(Response.Status.BAD_REQUEST.getStatusCode(), e.getMessage());
+        }
+    }
 
 }
