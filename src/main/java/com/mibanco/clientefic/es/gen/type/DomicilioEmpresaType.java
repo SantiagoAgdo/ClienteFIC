@@ -12,48 +12,51 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
+
 @JsonTypeName("DomicilioEmpresaType")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-06-08T11:27:25.572270-05:00[America/Bogota]")
-public class DomicilioEmpresaType   {
-  private @Valid Integer numeroCliente;
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-06-08T12:18:21.282597-05:00[America/Bogota]")
+public class DomicilioEmpresaType {
+    private @Valid Integer numeroCliente;
     private @Valid TipoActividadCIIUEnum tipoActividadCIIU;
     private @Valid TipoLocalEnum tipoLocal;
 
-  /**
-   **/
-  public DomicilioEmpresaType numeroCliente(Integer numeroCliente) {
-    this.numeroCliente = numeroCliente;
-    return this;
-  }
+    /**
+     *
+     **/
+    public DomicilioEmpresaType numeroCliente(Integer numeroCliente) {
+        this.numeroCliente = numeroCliente;
+        return this;
+    }
 
-  
-  @JsonProperty("numeroCliente")
-  public Integer getNumeroCliente() {
-    return numeroCliente;
-  }
 
-  @JsonProperty("numeroCliente")
-  public void setNumeroCliente(Integer numeroCliente) {
-    this.numeroCliente = numeroCliente;
-  }
+    @JsonProperty("numeroCliente")
+    public Integer getNumeroCliente() {
+        return numeroCliente;
+    }
 
-  /**
-   **/
-  public DomicilioEmpresaType tipoActividadCIIU(TipoActividadCIIUEnum tipoActividadCIIU) {
-    this.tipoActividadCIIU = tipoActividadCIIU;
-    return this;
-  }
+    @JsonProperty("numeroCliente")
+    public void setNumeroCliente(Integer numeroCliente) {
+        this.numeroCliente = numeroCliente;
+    }
 
-  
-  @JsonProperty("tipoActividadCIIU")
-  public TipoActividadCIIUEnum getTipoActividadCIIU() {
-    return tipoActividadCIIU;
-  }
+    /**
+     *
+     **/
+    public DomicilioEmpresaType tipoActividadCIIU(TipoActividadCIIUEnum tipoActividadCIIU) {
+        this.tipoActividadCIIU = tipoActividadCIIU;
+        return this;
+    }
 
-  @JsonProperty("tipoActividadCIIU")
-  public void setTipoActividadCIIU(TipoActividadCIIUEnum tipoActividadCIIU) {
-    this.tipoActividadCIIU = tipoActividadCIIU;
-  }
+
+    @JsonProperty("tipoActividadCIIU")
+    public TipoActividadCIIUEnum getTipoActividadCIIU() {
+        return tipoActividadCIIU;
+    }
+
+    @JsonProperty("tipoActividadCIIU")
+    public void setTipoActividadCIIU(TipoActividadCIIUEnum tipoActividadCIIU) {
+        this.tipoActividadCIIU = tipoActividadCIIU;
+    }
 
     /**
      *
@@ -72,26 +75,26 @@ public class DomicilioEmpresaType   {
     @JsonProperty("tipoLocal")
     public void setTipoLocal(TipoLocalEnum tipoLocal) {
         this.tipoLocal = tipoLocal;
-  }
-
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    DomicilioEmpresaType domicilioEmpresaType = (DomicilioEmpresaType) o;
-    return Objects.equals(this.numeroCliente, domicilioEmpresaType.numeroCliente) &&
-        Objects.equals(this.tipoActividadCIIU, domicilioEmpresaType.tipoActividadCIIU) &&
-        Objects.equals(this.tipoLocal, domicilioEmpresaType.tipoLocal);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(numeroCliente, tipoActividadCIIU, tipoLocal);
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        DomicilioEmpresaType domicilioEmpresaType = (DomicilioEmpresaType) o;
+        return Objects.equals(this.numeroCliente, domicilioEmpresaType.numeroCliente) &&
+                Objects.equals(this.tipoActividadCIIU, domicilioEmpresaType.tipoActividadCIIU) &&
+                Objects.equals(this.tipoLocal, domicilioEmpresaType.tipoLocal);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(numeroCliente, tipoActividadCIIU, tipoLocal);
   }
 
   @Override

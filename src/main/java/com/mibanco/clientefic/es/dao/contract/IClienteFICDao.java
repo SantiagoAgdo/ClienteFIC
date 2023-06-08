@@ -9,7 +9,13 @@ public interface IClienteFICDao {
 
     void crearClienteFIC(ClienteFICEntity clienteFIC);
 
+    List<AlertaEntity> getListaAlertas(ConsultaClienteByData data);
+
+    List<CentralRiesgoEntity> getListaCentralRiesgo(ConsultaClienteByData data);
+
     ClienteFICEntity getClienteByIdentificacion(ConsultaClienteByData data);
+
+    ConsultarClientePorNombreOutputEntity getClienteByNombre(String nombre);
 
     ConyugeType getConyuge(Integer numeroCliente);
 

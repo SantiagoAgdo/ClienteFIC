@@ -57,25 +57,29 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /v1/es/alerta:
+  /v1/es/alerta/{tipoDocumento}/{numeroDocumento}/{digitoVerificacion}:
     get:
       summary: Consulta alerta
       operationId: ConsultarAlerta
       parameters:
-        - in: query
+        - in: path
           name: tipoDocumento
+          required: true
           schema:
+            type: string
             $ref: "#/components/schemas/TipoDocumentoEnum"
           description: tipo de documento
-        - in: query
+        - in: path
           name: numeroDocumento
+          required: true
           schema:
-            type: string
+            type: integer
           description: numero de documento
-        - in: query
+        - in: path
           name: digitoVerificacion
+          required: true
           schema:
-            type: string
+            type: integer
           description: digito de verificacion
       responses:
         "200":
@@ -100,30 +104,33 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /v1/es/centralRiesgo:
+  /v1/es/centralRiesgo/{tipoDocumento}/{numeroDocumento}/{digitoVerificacion}:
     get:
       summary: Consulta Central
       operationId: consultarCentralDeRiesgo
       parameters:
-        - in: query
+        - in: path
           name: tipoDocumento
+          required: true
           schema:
             type: string
             $ref: "#/components/schemas/TipoDocumentoEnum"
           description: tipo de documento
-        - in: query
+        - in: path
           name: numeroDocumento
+          required: true
           schema:
-            type: string
+            type: integer
           description: numero de documento
-        - in: query
+        - in: path
           name: digitoVerificacion
+          required: true
           schema:
-            type: string
+            type: integer
           description: digito de verificacion
       responses:
         "200":
-          description: get alerta.
+          description: get Consulta Central.
           content:
             application/json:
               schema:
@@ -170,7 +177,7 @@ paths:
           description: digito de verificacion
       responses:
         "200":
-          description: get alerta.
+          description: get Cliente FIC Por Identificacion.
           content:
             application/json:
               schema:

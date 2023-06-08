@@ -20,12 +20,84 @@ public class ClienteFICDAO implements IClienteFICDao {
     }
 
     @Override
+    public List<AlertaEntity> getListaAlertas(ConsultaClienteByData data) {
+        List<ClienteFICEntity> cliente = list.stream()
+                .filter(x -> x.getClienteBase().getTipoDocumento() == data.getTipoDocumento())
+                .filter(x -> x.getClienteBase().getNumeroDocumento().equals(data.getNumeroDocumento()))
+                .filter(x -> x.getDigitoVerificacion().equals(data.getDigitoVerificacion()))
+                .collect(Collectors.toList());
+
+        List<AlertaEntity> query = new ArrayList<>();
+        for (ClienteFICEntity cli : cliente) {
+            AlertaEntity dataAlert = new AlertaEntity(
+                    cli.getAlerta().getTipoAlerta(),
+                    cli.getAlerta().getBanco(),
+                    cli.getAlerta().getFecha(),
+                    cli.getAlerta().getTipoDocumento(),
+                    cli.getAlerta().getNumeroDocumento(),
+                    cli.getAlerta().getDigitoVerificacion()
+            );
+            query.add(dataAlert);
+        }
+        return query;
+    }
+
+    @Override
+    public List<CentralRiesgoEntity> getListaCentralRiesgo(ConsultaClienteByData data) {
+        List<ClienteFICEntity> cliente = list.stream()
+                .filter(x -> x.getClienteBase().getTipoDocumento() == data.getTipoDocumento())
+                .filter(x -> x.getClienteBase().getNumeroDocumento().equals(data.getNumeroDocumento()))
+                .filter(x -> x.getDigitoVerificacion().equals(data.getDigitoVerificacion()))
+                .collect(Collectors.toList());
+
+        List<CentralRiesgoEntity> query = new ArrayList<>();
+        for (ClienteFICEntity cli : cliente) {
+            CentralRiesgoEntity dataCentral = new CentralRiesgoEntity(
+                    cli.getCentralRiesgo().getAntiguedadUbicacion(),
+                    cli.getCentralRiesgo().getConsultaDetallada(),
+                    cli.getCentralRiesgo().getEstadoDocumento(),
+                    cli.getCentralRiesgo().getFechaConsultaMasReciente(),
+                    cli.getCentralRiesgo().getFechaExpedicion(),
+                    cli.getCentralRiesgo().getGenero(),
+                    cli.getCentralRiesgo().getLugarExpedicion(),
+                    cli.getCentralRiesgo().getNumeroDocumento(),
+                    cli.getCentralRiesgo().getRangoEdad(),
+                    cli.getCentralRiesgo().getResultadoConsultaMasReciente(),
+                    cli.getCentralRiesgo().getTieneRUT(),
+                    cli.getCentralRiesgo().getTipoDocumento(),
+                    cli.getCentralRiesgo().getTipoRelacion(),
+                    cli.getCentralRiesgo().getTipoReporte(),
+                    cli.getCentralRiesgo().getVbVigenteParaSerConsultado(),
+                    cli.getCentralRiesgo().getDigitoVerificacion()
+            );
+            query.add(dataCentral);
+        }
+        return query;
+    }
+
+    @Override
     public ClienteFICEntity getClienteByIdentificacion(ConsultaClienteByData data) {
 
         return list.stream()
                 .filter(x -> x.getClienteBase().getNumeroDocumento().equals(data.getNumeroDocumento()))
                 .findFirst()
                 .orElse(null);
+    }
+
+    @Override
+    public ConsultarClientePorNombreOutputEntity getClienteByNombre(String nombre) {
+
+        ClienteFICEntity cliente = list.stream()
+                .filter(x -> x.getClienteBase().getPrimerNombre().equals(nombre))
+                .findFirst()
+                .orElse(null);
+
+        ConsultarClientePorNombreEntity query = new ConsultarClientePorNombreEntity(
+                cliente.getClienteBase().getTipoDocumento(),
+                cliente.getClienteBase().getNumeroDocumento(),
+                cliente.getClienteBase().getPrimerNombre() + " " + cliente.getClienteBase().getPrimerApellido());
+
+        return new ConsultarClientePorNombreOutputEntity(1, query);
     }
 
     @Override

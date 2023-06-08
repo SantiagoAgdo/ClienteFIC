@@ -48,11 +48,52 @@ public class ClienteFICServiceImpl implements ClienteFICService {
     }
 
     @Override
+    public List<AlertaType> getListaAlertas(ConsultaClienteByData data) {
+        logger.info("Inicia consulta de Alertas");
+        try {
+            List<AlertaEntity> list = clienteFICDAO.getListaAlertas(data);
+            logger.info("Termina consulta de Alertas");
+            return list.stream().map(clienteFICMapper::alertaToType)
+                    .collect(Collectors.toList());
+        } catch (ClienteFICException e) {
+            logger.error(ErrorCts.OUTPUT_CLIENTES + " en ClienteFICServiceImpl exception: " + e.getMessage());
+            throw new ClienteFICException(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), ErrorCts.SERVICIO);
+        }
+    }
+
+    @Override
+    public List<CentralRiesgoType> getListaCentralRiesgo(ConsultaClienteByData data) {
+        logger.info("Inicia consulta de cliente por identificacion");
+        try {
+            List<CentralRiesgoEntity> list = clienteFICDAO.getListaCentralRiesgo(data);
+            logger.info("Termina consulta de cliente por identificacion");
+            return list.stream().map(clienteFICMapper::centralRiesgoFICToType)
+                    .collect(Collectors.toList());
+        } catch (ClienteFICException e) {
+            logger.error(ErrorCts.OUTPUT_CLIENTES + " en ClienteFICServiceImpl exception: " + e.getMessage());
+            throw new ClienteFICException(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), ErrorCts.SERVICIO);
+        }
+    }
+
+    @Override
     public ClienteFICEntity getClienteByIdentificacion(ConsultaClienteByData dataCliente) {
         logger.info("Inicia consulta de cliente por identificacion");
         try {
             ClienteFICEntity rpt = clienteFICDAO.getClienteByIdentificacion(dataCliente);
             logger.info("Termina consulta de cliente por identificacion");
+            return rpt;
+        } catch (ClienteFICException e) {
+            logger.error(ErrorCts.OUTPUT_CLIENTES + " en ClienteFICServiceImpl exception: " + e.getMessage());
+            throw new ClienteFICException(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), ErrorCts.SERVICIO);
+        }
+    }
+
+    @Override
+    public ConsultarClientePorNombreOutputEntity getClienteByNombre(String nombre) {
+        logger.info("Inicia consulta Cliente por nombre");
+        try {
+            ConsultarClientePorNombreOutputEntity rpt = clienteFICDAO.getClienteByNombre(nombre);
+            logger.info("Termina consulta Cliente por nombre");
             return rpt;
         } catch (ClienteFICException e) {
             logger.error(ErrorCts.OUTPUT_CLIENTES + " en ClienteFICServiceImpl exception: " + e.getMessage());

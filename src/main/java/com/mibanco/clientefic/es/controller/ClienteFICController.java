@@ -4,10 +4,7 @@ import com.mibanco.clientefic.es.constans.ErrorCts;
 import com.mibanco.clientefic.es.dao.entity.*;
 import com.mibanco.clientefic.es.gen.contract.V1ClienteFIC;
 import com.mibanco.clientefic.es.gen.type.*;
-import com.mibanco.clientefic.es.services.impl.AlertaServiceImpl;
-import com.mibanco.clientefic.es.services.impl.CentralRiesgoServiceImpl;
 import com.mibanco.clientefic.es.services.impl.ClienteFICServiceImpl;
-import com.mibanco.clientefic.es.services.impl.ClientePorNombreServiceImpl;
 import com.mibanco.clientefic.es.utils.Exceptions.ClienteFICException;
 import com.mibanco.clientefic.es.utils.mapper.ClienteFICMapper;
 import com.mibanco.clientefic.es.utils.validators.ClienteFICValidator;
@@ -26,26 +23,17 @@ public class ClienteFICController implements V1ClienteFIC {
     ClienteFICServiceImpl clienteFICServiceImpl;
 
     @Inject
-    AlertaServiceImpl alertaServiceImpl;
-
-    @Inject
-    ClientePorNombreServiceImpl clientePorNombreServiceImpl;
-
-    @Inject
-    CentralRiesgoServiceImpl centralRiesgoServiceImpl;
-
-    @Inject
     ClienteFICMapper clienteFICMapper;
 
     @Inject
     ClienteFICValidator clienteFICValidator;
 
     @Override
-    public Response consultarAlerta(TipoDocumentoEnum tipoDocumento, String numeroDocumento, String digitoVerificacion) {
+    public Response consultarAlerta(TipoDocumentoEnum tipoDocumento, Integer numeroDocumento, Integer digitoVerificacion) {
         logger.info("Inicia consulta de Alerta");
         try {
-            clienteFICValidator.validarAlerta(tipoDocumento, numeroDocumento, digitoVerificacion);
-            List<AlertaType> listaAlertas = alertaServiceImpl.getListAlerts(tipoDocumento, numeroDocumento, digitoVerificacion);
+            clienteFICValidator.validarConsulta(tipoDocumento, numeroDocumento, digitoVerificacion);
+            List<AlertaType> listaAlertas = clienteFICServiceImpl.getListaAlertas(new ConsultaClienteByData(tipoDocumento, numeroDocumento, digitoVerificacion));
             logger.info("Finaliza consulta de Alerta");
             return Response.status(Response.Status.OK).entity(listaAlertas).build();
         } catch (ClienteFICException e) {
@@ -55,10 +43,11 @@ public class ClienteFICController implements V1ClienteFIC {
     }
 
     @Override
-    public Response consultarCentralDeRiesgo(TipoDocumentoEnum tipoDocumento, String numeroDocumento, String digitoVerificacion) {
+    public Response consultarCentralDeRiesgo(TipoDocumentoEnum tipoDocumento, Integer numeroDocumento, Integer digitoVerificacion) {
         logger.info("Inicia consulta de CentralRiesgo");
         try {
-            List<CentralRiesgoType> listaAlertas = centralRiesgoServiceImpl.getListAlerts(tipoDocumento, numeroDocumento, digitoVerificacion);
+            clienteFICValidator.validarConsulta(tipoDocumento, numeroDocumento, digitoVerificacion);
+            List<CentralRiesgoType> listaAlertas = clienteFICServiceImpl.getListaCentralRiesgo(new ConsultaClienteByData(tipoDocumento, numeroDocumento, digitoVerificacion));
             logger.info("Finaliza consulta de CentralRiesgo");
             return Response.status(Response.Status.OK).entity(listaAlertas).build();
         } catch (ClienteFICException e) {
@@ -72,7 +61,7 @@ public class ClienteFICController implements V1ClienteFIC {
         logger.info("Inicia consulta de Cliente FIC por Nombre");
         try {
             clienteFICValidator.validarNombre(nombre);
-            ConsultarClientePorNombreOutputEntity cliente = clientePorNombreServiceImpl.cliente(nombre);
+            ConsultarClientePorNombreOutputEntity cliente = clienteFICServiceImpl.getClienteByNombre(nombre);
             logger.info("Finaliza consulta de Cliente FIC por Nombre");
             return Response.status(Response.Status.OK).entity(cliente).build();
         } catch (ClienteFICException e) {

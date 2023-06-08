@@ -12,6 +12,14 @@ public class ClienteFICMapper {
         return new ModelMapper().map(entity, ClienteFICType.class);
     }
 
+    public AlertaType alertaToType(AlertaEntity entity) {
+        return new ModelMapper().map(entity, AlertaType.class);
+    }
+
+    public CentralRiesgoType centralRiesgoFICToType(CentralRiesgoEntity entity) {
+        return new ModelMapper().map(entity, CentralRiesgoType.class);
+    }
+
     public ClienteFICEntity clienteFICToEntity(ClienteFICType entity) {
         return new ModelMapper().map(entity, ClienteFICEntity.class);
     }

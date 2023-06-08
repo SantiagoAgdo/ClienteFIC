@@ -26,18 +26,18 @@ import jakarta.validation.constraints.*;
 import jakarta.validation.Valid;
 
 @Path("/v1/es")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-06-08T11:27:25.572270-05:00[America/Bogota]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-06-08T12:18:21.282597-05:00[America/Bogota]")
 public interface V1ClienteFIC {
 
     @GET
-    @Path("/alerta")
-    @Produces({ "application/json" })
-    Response consultarAlerta(@QueryParam("tipoDocumento")   TipoDocumentoEnum tipoDocumento,@QueryParam("numeroDocumento")   String numeroDocumento,@QueryParam("digitoVerificacion")   String digitoVerificacion);
+    @Path("/alerta/{tipoDocumento}/{numeroDocumento}/{digitoVerificacion}")
+    @Produces({"application/json"})
+    Response consultarAlerta(@PathParam("tipoDocumento") TipoDocumentoEnum tipoDocumento, @PathParam("numeroDocumento") Integer numeroDocumento, @PathParam("digitoVerificacion") Integer digitoVerificacion);
 
     @GET
-    @Path("/centralRiesgo")
-    @Produces({ "application/json" })
-    Response consultarCentralDeRiesgo(@QueryParam("tipoDocumento")   TipoDocumentoEnum tipoDocumento,@QueryParam("numeroDocumento")   String numeroDocumento,@QueryParam("digitoVerificacion")   String digitoVerificacion);
+    @Path("/centralRiesgo/{tipoDocumento}/{numeroDocumento}/{digitoVerificacion}")
+    @Produces({"application/json"})
+    Response consultarCentralDeRiesgo(@PathParam("tipoDocumento") TipoDocumentoEnum tipoDocumento, @PathParam("numeroDocumento") Integer numeroDocumento, @PathParam("digitoVerificacion") Integer digitoVerificacion);
 
     @GET
     @Path("/clienteFIC/{nombre}")
