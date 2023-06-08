@@ -197,5 +197,4 @@ public class ClienteFICController implements V1ClienteFIC {
             throw new ClienteFICException(Response.Status.BAD_REQUEST.getStatusCode(), e.getMessage());
         }
     }
-
 }
