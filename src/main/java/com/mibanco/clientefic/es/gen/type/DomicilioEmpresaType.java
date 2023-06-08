@@ -1,6 +1,7 @@
 package com.mibanco.clientefic.es.gen.type;
 
 import com.mibanco.clientefic.es.gen.type.TipoActividadCIIUEnum;
+import com.mibanco.clientefic.es.gen.type.TipoLocalEnum;
 import jakarta.validation.constraints.*;
 import jakarta.validation.Valid;
 
@@ -11,13 +12,12 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
-
 @JsonTypeName("DomicilioEmpresaType")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-06-07T14:26:43.029742-05:00[America/Bogota]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-06-08T11:27:25.572270-05:00[America/Bogota]")
 public class DomicilioEmpresaType   {
   private @Valid Integer numeroCliente;
-  private @Valid TipoActividadCIIUEnum tipoActividadCIIU;
-  private @Valid String tipoLocal;
+    private @Valid TipoActividadCIIUEnum tipoActividadCIIU;
+    private @Valid TipoLocalEnum tipoLocal;
 
   /**
    **/
@@ -55,22 +55,23 @@ public class DomicilioEmpresaType   {
     this.tipoActividadCIIU = tipoActividadCIIU;
   }
 
-  /**
-   **/
-  public DomicilioEmpresaType tipoLocal(String tipoLocal) {
-    this.tipoLocal = tipoLocal;
-    return this;
-  }
+    /**
+     *
+     **/
+    public DomicilioEmpresaType tipoLocal(TipoLocalEnum tipoLocal) {
+        this.tipoLocal = tipoLocal;
+        return this;
+    }
 
-  
-  @JsonProperty("tipoLocal")
-  public String getTipoLocal() {
-    return tipoLocal;
-  }
 
-  @JsonProperty("tipoLocal")
-  public void setTipoLocal(String tipoLocal) {
-    this.tipoLocal = tipoLocal;
+    @JsonProperty("tipoLocal")
+    public TipoLocalEnum getTipoLocal() {
+        return tipoLocal;
+    }
+
+    @JsonProperty("tipoLocal")
+    public void setTipoLocal(TipoLocalEnum tipoLocal) {
+        this.tipoLocal = tipoLocal;
   }
 
 

@@ -26,7 +26,7 @@ import jakarta.validation.constraints.*;
 import jakarta.validation.Valid;
 
 @Path("/v1/es")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-06-07T14:26:43.029742-05:00[America/Bogota]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-06-08T11:27:25.572270-05:00[America/Bogota]")
 public interface V1ClienteFIC {
 
     @GET
@@ -71,8 +71,8 @@ public interface V1ClienteFIC {
 
     @GET
     @Path("/pqr/{tipoDocumento}/{numeroDocumento}/{digitoVerificacion}")
-    @Produces({ "application/json" })
-    Response consultarPQR(@PathParam("tipoDocumento") TipoDocumentoEnum tipoDocumento,@PathParam("numeroDocumento") String numeroDocumento,@PathParam("digitoVerificacion") String digitoVerificacion);
+    @Produces({"application/json"})
+    Response consultarPQR(@PathParam("tipoDocumento") TipoDocumentoEnum tipoDocumento, @PathParam("numeroDocumento") Integer numeroDocumento, @PathParam("digitoVerificacion") Integer digitoVerificacion);
 
     @GET
     @Path("/pasivo/{numeroCliente}")

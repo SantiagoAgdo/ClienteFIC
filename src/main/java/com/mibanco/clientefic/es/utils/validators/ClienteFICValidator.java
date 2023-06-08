@@ -18,95 +18,96 @@ public class ClienteFICValidator {
 
     private String msmError = "";
 
-    public Response verificarClienteFIC(ClienteFICType clienteFICType) throws ClienteFICException {
+    public void verificarClienteFIC(ClienteFICType clienteFICType) throws ClienteFICException {
 
-        if (!validarObjeto(clienteFICType)) {
+        if (validarObjeto(clienteFICType)) {
             throw new ClienteFICException(
                     Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.VALIDACION + msmError
             );
         }
-        if (!validarObjeto(clienteFICType.getAlerta())) {
+        if (validarObjeto(clienteFICType.getAlerta())) {
             throw new ClienteFICException(
                     Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.VALIDACION + msmError
             );
         }
-        if (!validarObjeto(clienteFICType.getClienteBase())) {
+        if (validarObjeto(clienteFICType.getClienteBase())) {
             throw new ClienteFICException(
                     Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.VALIDACION + msmError
             );
         }
-        if (!validarObjeto(clienteFICType.getCentralRiesgo())) {
+        if (validarObjeto(clienteFICType.getCentralRiesgo())) {
             throw new ClienteFICException(
                     Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.VALIDACION + msmError
             );
         }
-        if (!validarObjeto(clienteFICType.getContacto())) {
+        if (validarObjeto(clienteFICType.getContacto())) {
             throw new ClienteFICException(
                     Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.VALIDACION + msmError
             );
         }
-        if (!validarObjeto(clienteFICType.getConyuge())) {
+        if (validarObjeto(clienteFICType.getConyuge())) {
             throw new ClienteFICException(
                     Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.VALIDACION + msmError
             );
         }
-        if (!validarObjeto(clienteFICType.getCupoRotativo())) {
+        if (validarObjeto(clienteFICType.getCupoRotativo())) {
             throw new ClienteFICException(
                     Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.VALIDACION + msmError
             );
         }
-        if (!validarObjeto(clienteFICType.getDomicilioEmpresa())) {
+        if (validarObjeto(clienteFICType.getDomicilioEmpresa())) {
+            throw new ClienteFICException(
+                    Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.VALIDACION + msmError
+            );
+        }
+        if (validarObjeto(clienteFICType.getNegocio())) {
+            throw new ClienteFICException(
+                    Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.VALIDACION + msmError
+            );
+        }
+        if (validarObjeto(clienteFICType.getOferta())) {
+            throw new ClienteFICException(
+                    Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.VALIDACION + msmError
+            );
+        }
+        if (validarObjeto(clienteFICType.getPasivo())) {
+            throw new ClienteFICException(
+                    Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.VALIDACION + msmError
+            );
+        }
+        if (validarObjeto(clienteFICType.getPQR())) {
             throw new ClienteFICException(
                     Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.VALIDACION + msmError
             );
         }
 
-        if (!validarObjeto(clienteFICType.getNegocio())) {
-            throw new ClienteFICException(
-                    Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.VALIDACION + msmError
-            );
-        }
-        if (!validarObjeto(clienteFICType.getOferta())) {
-            throw new ClienteFICException(
-                    Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.VALIDACION + msmError
-            );
-        }
-        if (!validarObjeto(clienteFICType.getPasivo())) {
-            throw new ClienteFICException(
-                    Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.VALIDACION + msmError
-            );
-        }
-        if (!validarObjeto(clienteFICType.getPQR())) {
-            throw new ClienteFICException(
-                    Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.VALIDACION + msmError
-            );
-        }
         logger.info("Validacion realizadas correctamente");
-        return Response.ok().build();
+        Response.ok().build();
     }
 
-    public Response validarAlerta(TipoDocumentoEnum tipoDocumento, String numeroDocumento, String digitoVerificacion) throws ClienteFICException {
-        if (numeroDocumento == null || numeroDocumento.isEmpty()){
+    public void validarAlerta(TipoDocumentoEnum tipoDocumento, String numeroDocumento, String digitoVerificacion) throws ClienteFICException {
+        if (numeroDocumento == null || numeroDocumento.isEmpty()) {
             throw new ClienteFICException(
-                    Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.VALIDACION + "Alerta, numeroDocumento invalido"
+                    Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.VALIDACION + " numeroDocumento invalido"
             );
         }
-        if (digitoVerificacion == null || digitoVerificacion.isEmpty()){
+        if (digitoVerificacion == null || digitoVerificacion.isEmpty()) {
             throw new ClienteFICException(
-                    Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.VALIDACION + "Alerta, digitoVerificacion invalido"
+                    Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.VALIDACION + " digitoVerificacion invalido"
             );
         }
         for (TipoDocumentoEnum enumValue : TipoDocumentoEnum.values()) {
             if (enumValue.name().equals(tipoDocumento)) {
                 logger.info("Validacion realizadas correctamente");
-                return Response.ok().build();
+                Response.ok().build();
+                return;
             }
         }
+
         throw new ClienteFICException(
-                Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.VALIDACION + "Alertar, tipoDocumento invalido"
+                Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.VALIDACION + " tipoDocumento invalido"
         );
     }
-
 
     public boolean validarObjeto(Object obj) {
         Class<?> objClass = obj.getClass();
@@ -133,8 +134,56 @@ public class ClienteFICValidator {
             msmError = msmError.substring(0, msmError.length() - 2);
         }
 
-        return isValidateSuccess;
+        return !isValidateSuccess;
     }
 
+    public void validarNombre(String nombre) {
 
+        if (nombre == null || nombre.isEmpty()) {
+            throw new ClienteFICException(
+                    Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.VALIDACION + "Alerta, digitoVerificacion invalido"
+            );
+        }
+
+        logger.info("Validacion realizadas correctamente");
+        Response.ok().build();
+
+    }
+
+    public void validarNumeroCliente(Integer num) {
+
+        if (num == null) {
+            throw new ClienteFICException(
+                    Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.VALIDACION + " numero de Cliente invalido"
+            );
+        }
+
+        logger.info("Validacion realizadas correctamente");
+        Response.ok().build();
+
+    }
+
+    public void validarConsulta(TipoDocumentoEnum tipoDocumento, Integer numeroDocumento, Integer digitoVerificacion) throws ClienteFICException {
+        if (numeroDocumento == null || numeroDocumento < 0) {
+            throw new ClienteFICException(
+                    Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.VALIDACION + " numeroDocumento invalido"
+            );
+        }
+        if (digitoVerificacion == null || digitoVerificacion < 0) {
+            throw new ClienteFICException(
+                    Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.VALIDACION + " digitoVerificacion invalido"
+            );
+        }
+        for (TipoDocumentoEnum enumValue : TipoDocumentoEnum.values()) {
+            if (enumValue.name().equals(tipoDocumento.name())) {
+                logger.info("Validacion realizadas correctamente");
+                Response.ok().build();
+                return;
+            }
+        }
+
+        throw new ClienteFICException(
+                Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.VALIDACION + " tipoDocumento invalido"
+        );
+    }
 }

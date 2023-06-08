@@ -445,13 +445,13 @@ paths:
           name: numeroDocumento
           required: true
           schema:
-            type: string
+            type: integer
           description: numero de documento
         - in: path
           name: digitoVerificacion
           required: true
           schema:
-            type: string
+            type: integer
           description: digito de verificacion
       responses:
         "200":
@@ -692,7 +692,7 @@ components:
         tipoActividadCIIU:
           $ref: "#/components/schemas/TipoActividadCIIUEnum"
         tipoLocal:
-#          $ref: "#/components/schemas/TipoLocalEnum"
+          $ref: "#/components/schemas/TipoLocalEnum"
           type: string
     NegocioType:
       type: object
@@ -783,8 +783,11 @@ components:
         totalClientes:
           type: integer
         clientes:
-          $ref: "#/components/schemas/ConsultarClientePorNombre"
-    ConsultarClientePorNombre:
+          $ref: "#/components/schemas/ConsultarClientePorNombreType"
+      required:
+        - totalClientes
+        - clientes
+    ConsultarClientePorNombreType:
       type: object
       properties:
         tipoDocumento:
