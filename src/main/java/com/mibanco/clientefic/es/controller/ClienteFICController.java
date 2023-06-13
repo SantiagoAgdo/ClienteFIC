@@ -190,7 +190,7 @@ public class ClienteFICController implements V1ClienteFIC {
             ClienteFICEntity clienteFIC = clienteFICMapper.clienteFICToEntity(clienteFICType);
             clienteFICType = clienteFICServiceImpl.crearClienteFICType(clienteFIC);
             logger.info("Finaliza crearClienteFIC en ClienteFICController");
-            return Response.status(Response.Status.OK).entity(clienteFICType).build();
+            return Response.status(Response.Status.CREATED).entity(clienteFICType).build();
 
         } catch (ClienteFICException e) {
             logger.info("Finaliza crearClienteFIC en ClienteFICController");
