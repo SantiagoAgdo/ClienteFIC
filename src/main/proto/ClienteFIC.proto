@@ -176,7 +176,7 @@ enum EstadoCivilEnum{
 }
 
 enum TipoDocumentoEnum{
-  CC_CEDULA_DE_CIUDADANIA_ = 0;
+  CC_CEDULA_DE_CIUDADANIA = 0;
   TI_TARJETA_DE_IDENTIDAD_ = 1;
   CDI_CARNE_DIPLOMATICO_ = 2;
   CE_CEDULA_DE_EXTRANJERIA_ = 3;
@@ -718,7 +718,7 @@ enum TipoActividadCIIUEnum{
 }
 
 enum SubProductoEnum{
-  REMA_AAFC_APORTES_AFC_CENTRALIZADO_ = 0;
+  REMA_AAFC_APORTES_AFC_CENTRALIZADO = 0;
   REMA_AARL_APORTES_ARL_CENTRALIZADO_ = 1;
   REMC_ABOG_ANTICIPO_ABOGADOS_CENTRALIZADO_ = 2;
   REMA_AFP_AFP_PENSIONES__CENTRALIZADO_ = 3;
@@ -731,20 +731,41 @@ enum SubProductoEnum{
   BONO_BN03_BONO_MENOR_18_MESES_IB_ = 10;
 }
 
+
+message ConsultaClienteByData{
+  TipoDocumentoEnum tipoDocumento = 1;
+  int32 numeroDocumento = 2;
+  int32 digitoVerificacion = 3;
+}
+
+message NumeroCliente{
+  int32 numeroCliente = 1;
+}
+
 //Responses
 
 message ResponseClienteFIC{
   CrearClienteFICGrpc clienteFICRpt = 1;
 }
-
-message Parameter{
-  CrearClienteFICGrpc creacionClienteFIC = 1;
-}
+//
+//message Parameter{
+//  CrearClienteFICGrpc creacionClienteFIC = 1;
+//}
 
 //Services
 
 service ClienteFICServiceGrpc {
-  rpc clienteFIC(Parameter) returns (ResponseClienteFIC);
+  rpc clienteFIC(CrearClienteFICGrpc) returns (ResponseClienteFIC);
+  rpc consultarAlerta(ConsultaClienteByData) returns (AlertaType);
+  rpc consultarCentralDeRiesgo(ConsultaClienteByData) returns (CentralRiesgoType);
+  rpc consultarPQR(ConsultaClienteByData) returns (CentralRiesgoType);
+  rpc consutaClientePorIdentificacion(ConsultaClienteByData) returns (CentralRiesgoType);
+  rpc consultarConyuge(NumeroCliente) returns (CentralRiesgoType);
+  rpc consultarCupoRotativo(NumeroCliente) returns (CentralRiesgoType);
+  rpc consultarDireccionTelefono(NumeroCliente) returns (CentralRiesgoType);
+  rpc consultarHistorialContacto(NumeroCliente) returns (CentralRiesgoType);
+  rpc consultarOferta(NumeroCliente) returns (CentralRiesgoType);
+  rpc consultarPasivo(NumeroCliente) returns (CentralRiesgoType);
 }
 
 

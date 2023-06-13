@@ -25,20 +25,26 @@ public class ClienteFICDAO implements IClienteFICDao {
                 .filter(x -> x.getClienteBase().getTipoDocumento() == data.getTipoDocumento())
                 .filter(x -> x.getClienteBase().getNumeroDocumento().equals(data.getNumeroDocumento()))
                 .filter(x -> x.getDigitoVerificacion().equals(data.getDigitoVerificacion()))
-                .collect(Collectors.toList());
+                .toList();
 
         List<AlertaEntity> query = new ArrayList<>();
-        for (ClienteFICEntity cli : cliente) {
-            AlertaEntity dataAlert = new AlertaEntity(
-                    cli.getAlerta().getTipoAlerta(),
-                    cli.getAlerta().getBanco(),
-                    cli.getAlerta().getFecha(),
-                    cli.getAlerta().getTipoDocumento(),
-                    cli.getAlerta().getNumeroDocumento(),
-                    cli.getAlerta().getDigitoVerificacion()
-            );
-            query.add(dataAlert);
+
+        if (cliente.size() != 0) {
+            for (ClienteFICEntity cli : cliente) {
+                AlertaEntity dataAlert = new AlertaEntity(
+                        cli.getAlerta().getTipoAlerta(),
+                        cli.getAlerta().getBanco(),
+                        cli.getAlerta().getFecha(),
+                        cli.getAlerta().getTipoDocumento(),
+                        cli.getAlerta().getNumeroDocumento(),
+                        cli.getAlerta().getDigitoVerificacion()
+                );
+                query.add(dataAlert);
+            }
+        } else {
+            return query;
         }
+
         return query;
     }
 
@@ -48,7 +54,7 @@ public class ClienteFICDAO implements IClienteFICDao {
                 .filter(x -> x.getClienteBase().getTipoDocumento() == data.getTipoDocumento())
                 .filter(x -> x.getClienteBase().getNumeroDocumento().equals(data.getNumeroDocumento()))
                 .filter(x -> x.getDigitoVerificacion().equals(data.getDigitoVerificacion()))
-                .collect(Collectors.toList());
+                .toList();
 
         List<CentralRiesgoEntity> query = new ArrayList<>();
         for (ClienteFICEntity cli : cliente) {
@@ -114,7 +120,7 @@ public class ClienteFICDAO implements IClienteFICDao {
     public List<CupoRotativoEntity> getCupoRotativo(Integer numeroCliente) {
         List<ClienteFICEntity> cliente = list.stream()
                 .filter(x -> x.getClienteBase().getNumeroDocumento().equals(numeroCliente))
-                .collect(Collectors.toList());
+                .toList();
 
         List<CupoRotativoEntity> cupoRotativoList = new ArrayList<>();
         for (ClienteFICEntity cli : cliente) {
@@ -136,7 +142,7 @@ public class ClienteFICDAO implements IClienteFICDao {
     public List<ConsultarDirrecionTelefonoEntity> getDirrecionTelefono(Integer numeroCliente) {
         List<ClienteFICEntity> cliente = list.stream()
                 .filter(x -> x.getClienteBase().getNumeroDocumento().equals(numeroCliente))
-                .collect(Collectors.toList());
+                .toList();
 
         List<ConsultarDirrecionTelefonoEntity> query = new ArrayList<>();
         for (ClienteFICEntity cli : cliente) {
@@ -160,7 +166,7 @@ public class ClienteFICDAO implements IClienteFICDao {
     public List<ContactoEntity> getContacto(Integer numeroCliente) {
         List<ClienteFICEntity> cliente = list.stream()
                 .filter(x -> x.getClienteBase().getNumeroDocumento().equals(numeroCliente))
-                .collect(Collectors.toList());
+                .toList();
 
         List<ContactoEntity> query = new ArrayList<>();
         for (ClienteFICEntity cli : cliente) {
@@ -179,7 +185,7 @@ public class ClienteFICDAO implements IClienteFICDao {
     public List<OfertaEntity> getOferta(Integer numeroCliente) {
         List<ClienteFICEntity> cliente = list.stream()
                 .filter(x -> x.getClienteBase().getNumeroDocumento().equals(numeroCliente))
-                .collect(Collectors.toList());
+                .toList();
 
         List<OfertaEntity> query = new ArrayList<>();
         for (ClienteFICEntity cli : cliente) {
@@ -202,7 +208,7 @@ public class ClienteFICDAO implements IClienteFICDao {
     public List<PasivoEntity> getPasivo(Integer numeroCliente) {
         List<ClienteFICEntity> cliente = list.stream()
                 .filter(x -> x.getClienteBase().getNumeroDocumento().equals(numeroCliente))
-                .collect(Collectors.toList());
+                .toList();
 
         List<PasivoEntity> query = new ArrayList<>();
         for (ClienteFICEntity cli : cliente) {
@@ -230,7 +236,7 @@ public class ClienteFICDAO implements IClienteFICDao {
                 .filter(x -> x.getClienteBase().getNumeroDocumento().equals(data.getNumeroDocumento()))
                 .filter(x -> x.getClienteBase().getTipoDocumento() == data.getTipoDocumento())
                 .filter(x -> x.getDigitoVerificacion().equals(data.getDigitoVerificacion()))
-                .collect(Collectors.toList());
+                .toList();
 
         List<PQREntity> query = new ArrayList<>();
         for (ClienteFICEntity cli : cliente) {

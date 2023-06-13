@@ -2,11 +2,13 @@ package com.mibanco.clientefic.es.dao.entity;
 
 import com.mibanco.clientefic.es.gen.type.TipoDocumentoEnum;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 import java.util.Date;
 
 @Data
+@NoArgsConstructor
 public class AlertaEntity {
 
     private String tipoAlerta;

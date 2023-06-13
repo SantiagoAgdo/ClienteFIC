@@ -66,7 +66,6 @@ paths:
           name: tipoDocumento
           required: true
           schema:
-            type: string
             $ref: "#/components/schemas/TipoDocumentoEnum"
           description: tipo de documento
         - in: path
@@ -113,7 +112,6 @@ paths:
           name: tipoDocumento
           required: true
           schema:
-            type: string
             $ref: "#/components/schemas/TipoDocumentoEnum"
           description: tipo de documento
         - in: path
@@ -160,7 +158,6 @@ paths:
           name: tipoDocumento
           required: true
           schema:
-            type: string
             $ref: "#/components/schemas/TipoDocumentoEnum"
           description: tipo de documento
         - in: path
@@ -445,7 +442,6 @@ paths:
           name: tipoDocumento
           required: true
           schema:
-            type: string
             $ref: "#/components/schemas/TipoDocumentoEnum"
           description: tipo de documento
         - in: path
@@ -613,7 +609,7 @@ components:
         genero:
           type: string
         historicoEndeudamiento:
-          type string
+          type: string
         lugarExpedicion:
           type: string
         numeroDocumento:
@@ -700,7 +696,6 @@ components:
           $ref: "#/components/schemas/TipoActividadCIIUEnum"
         tipoLocal:
           $ref: "#/components/schemas/TipoLocalEnum"
-          type: string
     NegocioType:
       type: object
       properties:
@@ -738,7 +733,7 @@ components:
         numeroProducto:
           type: string
         tipoProducto:
-        $ref: "#/components/schemas/TipoProductoEnum"
+          $ref: "#/components/schemas/TipoProductoEnum"
         subProducto:
           $ref: "#/components/schemas/SubProductoEnum"
         estadoPasivo:

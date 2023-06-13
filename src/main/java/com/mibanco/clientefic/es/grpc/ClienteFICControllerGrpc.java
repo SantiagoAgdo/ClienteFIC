@@ -2,7 +2,6 @@ package com.mibanco.clientefic.es.grpc;
 
 import com.mibanco.clientefic.es.ClienteFICServiceGrpcGrpc;
 import com.mibanco.clientefic.es.CrearClienteFICGrpc;
-import com.mibanco.clientefic.es.Parameter;
 import com.mibanco.clientefic.es.constans.ErrorCts;
 import com.mibanco.clientefic.es.controller.ClienteFICController;
 import com.mibanco.clientefic.es.dao.entity.ClienteFICEntity;
@@ -18,7 +17,6 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.core.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 
 @GrpcService
 public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteFICServiceGrpcImplBase {
@@ -41,11 +39,8 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
 
         try {
             ClienteFICType type = clienteFICService.crearClienteFICType(entity);
-            ResponseClienteFIC response = ResponseClienteFIC.newBuilder()
-                    .setClienteFICRpt(mapper.clienteGrpcToGrpc(type)).build();
-
+            ResponseClienteFIC response = ResponseClienteFIC.newBuilder().setClienteFICRpt(mapper.clienteGrpcToGrpc(type)).build();
             responseObs.onNext(response);
-
             logger.info("Finaliza creacion Cliente FIC por GRPC");
             responseObs.onCompleted();
         } catch (ClienteFICException e) {
@@ -53,6 +48,5 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
             throw new ClienteFICException(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), ErrorCts.SERVICIO + " Creacion Novedad Grpc - Exception: " + e.getMessage());
         }
     }
-
 
 }
