@@ -1,0 +1,129 @@
+{
+  "alerta": {
+    "tipoAlerta": "string",
+    "banco": "string",
+    "fecha": "2022-03-10",
+    "tipoDocumento": "PAS_PASAPORTE",
+    "numeroDocumento": "10002",
+    "digitoVerificacion": "string"
+  },
+  "clienteBase": {
+    "id": 0,
+    "numeroCliente": 0,
+    "tipoPersona": "_2_NATURAL",
+    "tipoDocumento": "PAS_PASAPORTE",
+    "numeroDocumento": 10002,
+    "fechaExpedicionDocumento": "2022-03-10",
+    "primerNombre": "Pablo",
+    "numeroCelular": 0,
+    "segundoNombre": "string",
+    "primerApellido": "Emilio",
+    "segundoApellido": "string",
+    "correoElectronico": "string"
+  },
+  "centralRiesgo": {
+    "antiguedadUbicacion": "string",
+    "consultaDetallada": "string",
+    "estadoDocumento": "string",
+    "fechaConsultaMasReciente": "2022-03-10",
+    "fechaExpedicion": "2022-03-10",
+    "genero": "string",
+    "lugarExpedicion": "string",
+    "historicoEndeudamiento": "string",
+    "numeroDocumento": "10002",
+    "rangoEdad": "string",
+    "resultadoConsultaMasReciente": "string",
+    "tieneRUT": true,
+    "tipoDocumento": "PAS_PASAPORTE",
+    "tipoRelacion": "_02_CONYUGE",
+    "tipoReporte": "CONSULTA_DETALLADA",
+    "vbVigenteParaSerConsultado": true,
+    "digitoVerificacion": "string"
+  },
+  "contacto": {
+    "fecha": "2022-03-10",
+    "tipoContacto": "string",
+    "resultadoComentarios": "string",
+    "numeroCliente": 0
+  },
+  "conyuge": {
+    "tipoDocumento": "PAS_PASAPORTE",
+    "numeroDocumento": "10002",
+    "primerNombre": "string",
+    "segundoNombre": "string",
+    "primerApellido": "string",
+    "segundoApellido": "string",
+    "numeroCliente": 0
+  },
+  "cupoRotativo": {
+    "estado": "string",
+    "fechaDeVencimiento": "2022-03-10",
+    "montoCupoCredito": 0,
+    "montoUtilizado": 0,
+    "numeroCliente": 0,
+    "numeroCupo": "string",
+    "saldoDisponible": 0
+  },
+  "digitoVerificacion": 0,
+  "domicilio": {
+    "numeroCliente": 0,
+    "tipoVivienda": "_3_FAMILIAR"
+  },
+  "domicilioEmpresa": {
+    "numeroCliente": 0,
+    "tipoActividadCIIU": "_10_ASALARIADOS",
+    "tipoLocal": "PROPIO_SIN_HIPOTECA"
+  },
+  "estadoCivil": "1 SOLTERA(O)",
+  "funcionarioUltimaActualizacion": "string",
+  "negocio": {
+    "direccion": "string",
+    "telefono": 0,
+    "tipoActividadCIIU": "_10_ASALARIADOS",
+    "numeroCliente": 0
+  },
+  "numeroDocumentoRepresentanteLegal": "10003",
+  "oferta": {
+    "numeroOferta": 111,
+    "tipoLead": "string",
+    "tipoOferta": "string",
+    "monto": 10000000,
+    "plazo": 12,
+    "numeroCliente": 0,
+    "tipoDeLiga": "Bundes",
+    "condicionGarantia": "Compra pierde"
+  },
+  "pasivo": {
+    "numeroProducto": "100003213321",
+    "subProducto": "REMA AAFC APORTES AFC - CENTRALIZADO",
+    "estadoPasivo": "ok",
+    "fechaApertura": "2022-03-10",
+    "fechaCierre": "2022-03-10",
+    "tipoProducto": "BONO_BONOS",
+    "capital": 3213213,
+    "intereses": 2,
+    "otros": 0,
+    "saldoTotal": 30000000,
+    "numeroCliente": 10002
+  },
+  "PQR": {
+    "fecha": "2022-03-10",
+    "numeroPQR": 0,
+    "motivo": "string",
+    "resultadoPQR": "string",
+    "comentario": "string",
+    "digitoVerificacion": "string",
+    "tipoDocumento": "PAS_PASAPORTE",
+    "numeroDocumento": "10002"
+  },
+  "prestamo": "string",
+  "primerApellidoRepresentanteLegal": "string",
+  "primerNombreRepresentanteLegal": "string",
+  "razonSocial": "string",
+  "segundoApellidoRepresentanteLegal": "string",
+  "segundoNombreRepresentanteLegal": "string",
+  "seRequiereActualizacion": true,
+  "tipoDocumentoRepresentanteLegal": "PAS_PASAPORTE",
+  "totalActivos": 0,
+  "ultimaFechaActualizacion": "2022-03-10"
+}

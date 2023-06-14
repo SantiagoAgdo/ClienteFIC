@@ -1,7 +1,5 @@
 syntax = "proto3";
 
-import "google/protobuf/timestamp.proto";
-
 //Configs
 
 option java_multiple_files = true;
@@ -37,14 +35,14 @@ message CrearClienteFICGrpc {
   bool seRequiereActualizacion = 22;
   TipoDocumentoEnum tipoDocumentoRepresentanteLegal = 23;
   float totalActivos = 24;
-  google.protobuf.Timestamp ultimaFechaActualizacion = 25;
+  string ultimaFechaActualizacion = 25;
   DomicilioType domicilio = 26;
 }
 
 message AlertaType {
   string tipoAlerta = 1;
   string banco = 2;
-  google.protobuf.Timestamp fecha = 3;
+  string fecha = 3;
   TipoDocumentoEnum tipoDocumento = 4;
   string numeroDocumento = 5;
   string digitoVerificacion = 6;
@@ -56,7 +54,7 @@ message ClienteBaseType {
   TipoPersonaEnum tipoPersona = 3;
   TipoDocumentoEnum tipoDocumento = 4;
   int32 numeroDocumento = 5;
-  google.protobuf.Timestamp fechaExpedicionDocumento = 6;
+  string fechaExpedicionDocumento = 6;
   string primerNombre = 7;
   int32 numeroCelular = 8;
   string segundoNombre = 9;
@@ -69,8 +67,8 @@ message CentralRiesgoType{
   string antiguedadUbicacion = 1;
   string consultaDetallada = 2;
   string estadoDocumento = 3;
-  google.protobuf.Timestamp fechaConsultaMasReciente = 4;
-  google.protobuf.Timestamp fechaExpedicion = 5;
+  string fechaConsultaMasReciente = 4;
+  string fechaExpedicion = 5;
   string genero = 6;
   string lugarExpedicion = 7;
   string numeroDocumento = 8;
@@ -82,10 +80,11 @@ message CentralRiesgoType{
   TipoReporteXmlEnum tipoReporte = 14;
   bool vbVigenteParaSerConsultado = 15;
   string digitoVerificacion = 16;
+  string historicoEndeudamiento = 17;
 }
 
 message ContactoType{
-  google.protobuf.Timestamp fecha = 1;
+  string fecha = 1;
   string tipoContacto = 2;
   string resultadoComentarios = 3;
   int32 numeroCliente = 4;
@@ -103,7 +102,7 @@ message  ConyugeType{
 
 message  CupoRotativoType{
   string estado = 1;
-  google.protobuf.Timestamp fechaDeVencimiento = 2;
+  string fechaDeVencimiento = 2;
   float montoCupoCredito = 3;
   float montoUtilizado = 4;
   int32 numeroCliente = 5;
@@ -144,17 +143,18 @@ message PasivoType{
   string numeroProducto = 1;
   SubProductoEnum subProducto = 2;
   string estadoPasivo = 3;
-  google.protobuf.Timestamp fechaApertura = 4;
-  google.protobuf.Timestamp fechaCierre = 5;
+  string fechaApertura = 4;
+  string fechaCierre = 5;
   float capital = 6;
   float intereses = 7;
   float otros = 8;
   float saldoTotal = 9;
   int32 numeroCliente = 10;
+  TipoProductoEnum tipoProducto = 11;
 }
 
 message PQRType{
-  google.protobuf.Timestamp fecha = 1;
+  string fecha = 1;
   int32 numeroPQR = 2;
   string motivo = 3;
   string resultadoPQR = 4;
@@ -715,6 +715,44 @@ enum TipoActividadCIIUEnum{
   OTRAS_ACTIVIDADES_RECREATIVAS_Y_DE_ESPARCIMIETO = 500  ;
   OTRAS_ACTIVIDADES_DE_ESPECTACULOS_EN_VIVO2 = 501  ;
   ROWS = 502  ;
+}
+
+enum TipoProductoEnum{
+
+  BCA1_BONO_MENOR_5_AnOS_COSTO_AMORTIZADO_ = 0;
+  BCA2_BONOS_MENOR_5_AnOS_COST_AMORT_VINCULADOS_ = 1;
+  BONO_BONOS_ = 2;
+  CACN_CUENTA_AHORROS_CONTRACTUAL_ = 3;
+  CAEL_CUENTA_AHORRO_ELECTRONICA_ = 4;
+  CAFC_CUENTA_AHORROS_AFC_ = 5;
+  CAPR_CUENTA_AHORRO_PROGRAMADO_ = 6;
+  CATR_CUENTA_AHORRO_TRADICIONAL_ = 7;
+  CCCG_CUENTAS_DE_CHEQUES_DE_GERENCIA_ = 8;
+  CCNR_CUENTA_CORRIENTE_NO_REMUNERADA_ = 9;
+  CCRE_CUENTA_CORRIENTE_REMUNERADA_ = 10;
+  CDTE_RESIDENTE_EN_EXTRANJERO_RTE_FTE_20_PORC_ = 11;
+  CDTS_CDTS_BANCOMPARTIR_ = 12;
+  CRDL_LINEAS_DE_CREDITO_BANCOMPARTIR_ = 13;
+  CTCB_CUENTA_CORRIENTE_CORRESPONSAL_BANCARIO_ = 14;
+  GRFG_GARANTIAS_FONDOS_DE_GARANTIA_BANCOMPARTIR_ = 15;
+  GRHI_GARANTIAS_HIPOTECARIAS_BANCOMPARTIR_ = 16;
+  GRPR_GARANTIA_PRENDARIA_BANCOMPARTIR_ = 17;
+  INTA_INTANGIBLES_ = 18;
+  PCOM_COMERCIAL_BANCOMPARTIR_ = 19;
+  PCON_CONSUMO_BANCOMPARTIR_ = 20;
+  PLQD_LIQUIDEZ_BANCOMPARTIR_ = 21;
+  PMIC_MICROCREDITO_BANCOMPARTIR_ = 22;
+  PRDS_REDESCUENTO_BANCOMPARTIR_ = 23;
+  PSOB_SOBREGIRO_BANCOMPARTIR_ = 24;
+  PVIV_VIVIENDA_BANCOMPARTIR_ = 25;
+  REMA_REMANENTES_POR_PAGAR_ = 26;
+  REMC_REMANENTES_POR_COBRAR_ = 27;
+  REMK_REMANENTES_CASTIGADOS_ = 28;
+  ROTC_CREDILINEAS_CONSUMO_BANCOMPARTIR_ = 29;
+  ROTL_CUPO_ROTATIVO_COMERCIAL_ = 30;
+  ROTM_CUPO_ROTATIVO_MICROCREDITO_ = 31;
+  RUCM_ROTATIVO_UTILIZACIONES_COMERCIAL_ = 32;
+  RUMC_ROTATIVO_UTILIZACIONES_MICROCREDITO_2 = 33;
 }
 
 enum SubProductoEnum{

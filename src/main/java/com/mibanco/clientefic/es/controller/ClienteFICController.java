@@ -40,16 +40,17 @@ public class ClienteFICController implements V1ClienteFIC {
             return listaAlertas.size() != 0 ?
                     Response.status(Response.Status.OK).entity(listaAlertas).build() :
                     Response.status(Response.Status.OK).entity(ErrorCts.SIN_REGISTROS).build();
-//                  Response.status(Response.Status.NO_CONTENT).entity().build();
 
         } catch (ClienteFICExceptionValidation e) {
 
             LOG.error("Error en Validaciones de Alerta - ClienteFICController");
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
-        } catch (ClienteFICException e) {
+
+        } catch (Exception e) {
 
             LOG.error("Error en consulta de Alerta - ClienteFICController");
-            return Response.serverError().entity(e.getMessage()).build();
+            throw new ClienteFICException(e.getMessage() + ErrorCts.SERVICIO);
+
         }
     }
 
