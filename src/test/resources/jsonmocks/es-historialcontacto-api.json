@@ -1,0 +1,8 @@
+{
+  "contacto": {
+    "fecha": "2022-03-10",
+    "tipoContacto": "string",
+    "resultadoComentarios": "string",
+    "numeroCliente": 0
+  }
+}

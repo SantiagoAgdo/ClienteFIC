@@ -1,0 +1,15 @@
+{
+  "pasivo": {
+    "numeroProducto": "100003213321",
+    "subProducto": "REMA AAFC APORTES AFC - CENTRALIZADO",
+    "estadoPasivo": "ok",
+    "fechaApertura": "2022-03-10",
+    "fechaCierre": "2022-03-10",
+    "tipoProducto": "BONO BONOS",
+    "capital": 3213213,
+    "intereses": 2,
+    "otros": 0,
+    "saldoTotal": 30000000,
+    "numeroCliente": 10002
+  }
+}

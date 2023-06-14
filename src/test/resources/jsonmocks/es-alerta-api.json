@@ -1,0 +1,10 @@
+{
+  "alerta": {
+    "tipoAlerta": "string",
+    "banco": "string",
+    "fecha": "2022-03-10",
+    "tipoDocumento": "CC CEDULA DE CIUDADANÍA",
+    "numeroDocumento": "10002",
+    "digitoVerificacion": "string"
+  }
+}

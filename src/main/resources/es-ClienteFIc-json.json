@@ -3,15 +3,15 @@
     "tipoAlerta": "string",
     "banco": "string",
     "fecha": "2022-03-10",
-    "tipoDocumento": "PAS_PASAPORTE",
+    "tipoDocumento": "PAS PASAPORTE",
     "numeroDocumento": "10002",
     "digitoVerificacion": "string"
   },
   "clienteBase": {
     "id": 0,
     "numeroCliente": 0,
-    "tipoPersona": "_2_NATURAL",
-    "tipoDocumento": "PAS_PASAPORTE",
+    "tipoPersona": "2 NATURAL",
+    "tipoDocumento": "PAS PASAPORTE",
     "numeroDocumento": 10002,
     "fechaExpedicionDocumento": "2022-03-10",
     "primerNombre": "Pablo",
@@ -34,9 +34,9 @@
     "rangoEdad": "string",
     "resultadoConsultaMasReciente": "string",
     "tieneRUT": true,
-    "tipoDocumento": "PAS_PASAPORTE",
-    "tipoRelacion": "_02_CONYUGE",
-    "tipoReporte": "CONSULTA_DETALLADA",
+    "tipoDocumento": "PAS PASAPORTE",
+    "tipoRelacion": "02 CONYUGE",
+    "tipoReporte": "CONSULTA DETALLADA",
     "vbVigenteParaSerConsultado": true,
     "digitoVerificacion": "string"
   },
@@ -47,7 +47,7 @@
     "numeroCliente": 0
   },
   "conyuge": {
-    "tipoDocumento": "PAS_PASAPORTE",
+    "tipoDocumento": "PAS PASAPORTE",
     "numeroDocumento": "10002",
     "primerNombre": "string",
     "segundoNombre": "string",
@@ -67,19 +67,19 @@
   "digitoVerificacion": 0,
   "domicilio": {
     "numeroCliente": 0,
-    "tipoVivienda": "_3_FAMILIAR"
+    "tipoVivienda": "3 FAMILIAR"
   },
   "domicilioEmpresa": {
     "numeroCliente": 0,
-    "tipoActividadCIIU": "_10_ASALARIADOS",
-    "tipoLocal": "PROPIO_SIN_HIPOTECA"
+    "tipoActividadCIIU": "10 ASALARIADOS",
+    "tipoLocal": "PROPIO SIN HIPOTECA"
   },
   "estadoCivil": "1 SOLTERA(O)",
   "funcionarioUltimaActualizacion": "string",
   "negocio": {
     "direccion": "string",
     "telefono": 0,
-    "tipoActividadCIIU": "_10_ASALARIADOS",
+    "tipoActividadCIIU": "10 ASALARIADOS",
     "numeroCliente": 0
   },
   "numeroDocumentoRepresentanteLegal": "10003",
@@ -99,7 +99,7 @@
     "estadoPasivo": "ok",
     "fechaApertura": "2022-03-10",
     "fechaCierre": "2022-03-10",
-    "tipoProducto": "BONO_BONOS",
+    "tipoProducto": "BONO BONOS",
     "capital": 3213213,
     "intereses": 2,
     "otros": 0,
@@ -113,7 +113,7 @@
     "resultadoPQR": "string",
     "comentario": "string",
     "digitoVerificacion": "string",
-    "tipoDocumento": "PAS_PASAPORTE",
+    "tipoDocumento": "PAS PASAPORTE",
     "numeroDocumento": "10002"
   },
   "prestamo": "string",
@@ -123,7 +123,7 @@
   "segundoApellidoRepresentanteLegal": "string",
   "segundoNombreRepresentanteLegal": "string",
   "seRequiereActualizacion": true,
-  "tipoDocumentoRepresentanteLegal": "PAS_PASAPORTE",
+  "tipoDocumentoRepresentanteLegal": "PAS PASAPORTE",
   "totalActivos": 0,
   "ultimaFechaActualizacion": "2022-03-10"
 }

@@ -1,0 +1,21 @@
+{
+  "centralRiesgo": {
+    "antiguedadUbicacion": "string",
+    "consultaDetallada": "string",
+    "estadoDocumento": "string",
+    "fechaConsultaMasReciente": "2022-03-10",
+    "fechaExpedicion": "2022-03-10",
+    "genero": "string",
+    "lugarExpedicion": "string",
+    "historicoEndeudamiento": "string",
+    "numeroDocumento": "10002",
+    "rangoEdad": "string",
+    "resultadoConsultaMasReciente": "string",
+    "tieneRUT": true,
+    "tipoDocumento": "CC CEDULA DE CIUDADANÍA",
+    "tipoRelacion": "01 TITULAR",
+    "tipoReporte": "CONSULTA DETALLADA",
+    "vbVigenteParaSerConsultado": true,
+    "digitoVerificacion": "string"
+  }
+}
