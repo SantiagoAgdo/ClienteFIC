@@ -801,7 +801,7 @@ components:
     ConsultarDireccionTelefonoType:
       type: object
       properties:
-        dirección:
+        direccion:
           type: string
         telefono1:
           type: integer
