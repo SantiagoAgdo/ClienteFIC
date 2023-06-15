@@ -162,4 +162,38 @@ public class ClienteFICControllerTest {
                 .statusCode(200);
     }
 
+    @Test
+    void consultaClienteByNombreTest() throws IOException {
+
+        byte[] jsonData = Files.readAllBytes(Paths.get("src/test/resources/jsonmocks/es-consultabynombre-api.json"));
+        String jsonString = new String(jsonData);
+
+        ClienteFICType clienteFIC = objectMapper.readValue(jsonString, ClienteFICType.class);
+
+        RestAssured.given()
+                .contentType(ContentType.JSON)
+                .body(clienteFIC)
+                .when()
+                .get("v1/es/clienteFIC/Pablo")
+                .then()
+                .statusCode(200);
+    }
+
+    @Test
+    void consultaClienteByIdentificacionTest() throws IOException {
+
+        byte[] jsonData = Files.readAllBytes(Paths.get("src/test/resources/jsonmocks/es-consultabyidentificacion-api.json"));
+        String jsonString = new String(jsonData);
+
+        ClienteFICType clienteFIC = objectMapper.readValue(jsonString, ClienteFICType.class);
+
+        RestAssured.given()
+                .contentType(ContentType.JSON)
+                .body(clienteFIC)
+                .when()
+                .get("v1/es/clienteFIC/CC CEDULA DE CIUDADANÍA/10002/0")
+                .then()
+                .statusCode(200);
+    }
+
 }

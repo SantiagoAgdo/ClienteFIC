@@ -1,11 +1,10 @@
 package com.mibanco.clientefic.es.grpc;
 
-import com.mibanco.clientefic.es.ClienteFICServiceGrpcGrpc;
-import com.mibanco.clientefic.es.CrearClienteFICGrpc;
+import com.mibanco.clientefic.es.*;
 import com.mibanco.clientefic.es.constans.ErrorCts;
 import com.mibanco.clientefic.es.controller.ClienteFICController;
 import com.mibanco.clientefic.es.dao.entity.ClienteFICEntity;
-import com.mibanco.clientefic.es.ResponseClienteFIC;
+import com.mibanco.clientefic.es.gen.type.AlertaType;
 import com.mibanco.clientefic.es.services.impl.ClienteFICServiceImpl;
 import com.mibanco.clientefic.es.utils.Exceptions.ClienteFICException;
 import com.mibanco.clientefic.es.utils.mapper.ClienteFICMapperGrpc;
@@ -15,6 +14,10 @@ import io.smallrye.common.annotation.Blocking;
 import jakarta.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
+
+import static com.mibanco.clientefic.es.TipoDocumentoEnum.CC_CEDULA_DE_CIUDADANIA;
 
 @GrpcService
 public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteFICServiceGrpcImplBase {
@@ -37,10 +40,7 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
             ClienteFICEntity entity = mapper.clienteGrpcToEntity(request);
             clienteFICService.crearClienteFICType(entity);
 
-            ResponseClienteFIC response = ResponseClienteFIC.newBuilder().setClienteFICRpt(
-                    request.toBuilder()
-
-            ).build();
+            ResponseClienteFIC response = ResponseClienteFIC.newBuilder().setObj(request.toBuilder()).build();
             logger.info("Finaliza creacion Cliente FIC por GRPC");
 
             responseObs.onNext(response);
@@ -48,6 +48,39 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
 
         } catch (Exception e) {
             logger.error(ErrorCts.SERVICIO + " Creacion Novedad Grpc");
+            throw new ClienteFICException(ErrorCts.SERVICIO + " Creacion Novedad Grpc - Exception: " + e.getMessage());
+        }
+    }
+
+    @Override
+    @Blocking
+    public void consultarAlerta(ConsultaClienteByData request, StreamObserver<ResponseAlerta> responseObs) {
+
+        logger.info("Inicia consulta alerta por GRPC");
+        try {
+            com.mibanco.clientefic.es.dao.entity.ConsultaClienteByData entity = mapper.dataGrpcToEntity(request);
+            List<AlertaType> list = clienteFICService.getListaAlertas(entity);
+
+            com.mibanco.clientefic.es.AlertaType item1 = null;
+            for (AlertaType alert : list) {
+                item1 = com.mibanco.clientefic.es.AlertaType.newBuilder()
+                        .setTipoAlerta(alert.getTipoAlerta())
+                        .setBanco(alert.getBanco())
+                        .setFecha(alert.getFecha().toString())
+                        .setTipoDocumento(CC_CEDULA_DE_CIUDADANIA)
+                        .setNumeroDocumento(alert.getNumeroDocumento())
+                        .setDigitoVerificacion(alert.getDigitoVerificacion())
+                        .build();
+            }
+            ResponseAlerta itemList = ResponseAlerta.newBuilder().addObj(item1).build();
+            logger.info("Finaliza creacion Cliente FIC por GRPC");
+
+            responseObs.onNext(itemList);
+            responseObs.onCompleted();
+
+        } catch (Exception e) {
+
+            logger.error(ErrorCts.SERVICIO_GRPC + "consultarAlerta en GRPC ");
             throw new ClienteFICException(ErrorCts.SERVICIO + " Creacion Novedad Grpc - Exception: " + e.getMessage());
         }
     }

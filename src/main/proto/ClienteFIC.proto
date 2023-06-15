@@ -783,27 +783,59 @@ message NumeroCliente{
 //Responses
 
 message ResponseClienteFIC{
-  CrearClienteFICGrpc clienteFICRpt = 1;
+  CrearClienteFICGrpc obj = 1;
 }
-//
-//message Parameter{
-//  CrearClienteFICGrpc creacionClienteFIC = 1;
-//}
+
+message ResponseAlerta{
+  repeated AlertaType obj = 1;
+}
+
+message ResponseCentralDeRiesgo{
+  CentralRiesgoType obj = 1;
+}
+
+message ResponsePQR{
+  PQRType obj = 1;
+}
+
+message ResponseConyuge{
+  ConyugeType obj = 1;
+}
+
+message ResponseCupoRotativo{
+  CupoRotativoType obj = 1;
+}
+
+message ResponseHistorialContacto{
+  ResponseHistorialContacto obj = 1;
+}
+
+message ResponseDirrecionTelefono{
+  ResponseDirrecionTelefono obj = 1;
+}
+
+message ResponseOferta{
+  OfertaType obj = 1;
+}
+
+message ResponsePasivo{
+  PasivoType obj = 1;
+}
 
 //Services
 
 service ClienteFICServiceGrpc {
   rpc clienteFIC(CrearClienteFICGrpc) returns (ResponseClienteFIC);
-  rpc consultarAlerta(ConsultaClienteByData) returns (AlertaType);
-  rpc consultarCentralDeRiesgo(ConsultaClienteByData) returns (CentralRiesgoType);
-  rpc consultarPQR(ConsultaClienteByData) returns (CentralRiesgoType);
-  rpc consutaClientePorIdentificacion(ConsultaClienteByData) returns (CentralRiesgoType);
-  rpc consultarConyuge(NumeroCliente) returns (CentralRiesgoType);
-  rpc consultarCupoRotativo(NumeroCliente) returns (CentralRiesgoType);
-  rpc consultarDireccionTelefono(NumeroCliente) returns (CentralRiesgoType);
-  rpc consultarHistorialContacto(NumeroCliente) returns (CentralRiesgoType);
-  rpc consultarOferta(NumeroCliente) returns (CentralRiesgoType);
-  rpc consultarPasivo(NumeroCliente) returns (CentralRiesgoType);
+  rpc consultarAlerta(ConsultaClienteByData) returns (ResponseAlerta);
+  rpc consultarCentralDeRiesgo(ConsultaClienteByData) returns (ResponseCentralDeRiesgo);
+  rpc consultarPQR(ConsultaClienteByData) returns (ResponsePQR);
+  rpc consutaClientePorIdentificacion(ConsultaClienteByData) returns (CentralRiesgoType); //---
+  rpc consultarConyuge(NumeroCliente) returns (ResponseConyuge);
+  rpc consultarCupoRotativo(NumeroCliente) returns (ResponseCupoRotativo);
+  rpc consultarDireccionTelefono(NumeroCliente) returns (ResponseDirrecionTelefono);
+  rpc consultarHistorialContacto(NumeroCliente) returns (ResponseHistorialContacto);
+  rpc consultarOferta(NumeroCliente) returns (ResponseOferta);
+  rpc consultarPasivo(NumeroCliente) returns (ResponsePasivo);
 }
 
 
