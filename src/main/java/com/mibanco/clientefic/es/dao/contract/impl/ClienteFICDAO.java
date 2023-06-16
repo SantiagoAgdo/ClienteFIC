@@ -7,7 +7,6 @@ import jakarta.enterprise.context.ApplicationScoped;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class ClienteFICDAO implements IClienteFICDao {
@@ -98,11 +97,15 @@ public class ClienteFICDAO implements IClienteFICDao {
                 .findFirst()
                 .orElse(null);
 
-        ConsultarClientePorNombreEntity query = new ConsultarClientePorNombreEntity(
-                cliente.getClienteBase().getTipoDocumento(),
-                cliente.getClienteBase().getNumeroDocumento(),
-                cliente.getClienteBase().getPrimerNombre() + " " + cliente.getClienteBase().getPrimerApellido());
-
+        ConsultarClientePorNombreEntity query = new ConsultarClientePorNombreEntity();
+        if (cliente != null) {
+            query = new ConsultarClientePorNombreEntity(
+                    cliente.getClienteBase().getTipoDocumento(),
+                    cliente.getClienteBase().getNumeroDocumento(),
+                    cliente.getClienteBase().getPrimerNombre() + " " + cliente.getClienteBase().getPrimerApellido());
+        } else {
+            return new ConsultarClientePorNombreOutputEntity(0, query);
+        }
         return new ConsultarClientePorNombreOutputEntity(1, query);
     }
 
@@ -112,8 +115,10 @@ public class ClienteFICDAO implements IClienteFICDao {
                 .filter(x -> x.getClienteBase().getNumeroDocumento().equals(numeroCliente))
                 .findFirst()
                 .orElse(null);
-
-        return conyuge.getConyuge();
+        if (conyuge != null) {
+            return conyuge.getConyuge();
+        }
+        return new ConyugeType();
     }
 
     @Override

@@ -85,7 +85,8 @@ public class ClienteFICController implements V1ClienteFIC {
             ConsultarClientePorNombreOutputEntity cliente = clienteFICServiceImpl.getClienteByNombre(nombre);
 
             LOG.info("Finaliza consulta de Cliente FIC por Nombre");
-            return Response.status(Response.Status.OK).entity(cliente).build();
+            return cliente.getTotalClientes() != 0 ? Response.status(Response.Status.OK).entity(cliente).build() :
+                    Response.status(Response.Status.OK).entity(ErrorCts.SIN_CLIENTES).build();
 
         } catch (ClienteFICExceptionValidation e) {
 
@@ -108,7 +109,8 @@ public class ClienteFICController implements V1ClienteFIC {
             ConyugeType conyuge = clienteFICServiceImpl.getConyuge(numeroCliente);
 
             LOG.info("Finaliza consulta de Conyuge");
-            return Response.status(Response.Status.OK).entity(conyuge).build();
+            return conyuge.getNumeroCliente() != null ? Response.status(Response.Status.OK).entity(conyuge).build() :
+                    Response.status(Response.Status.OK).entity(ErrorCts.CONYUGE_NO_EXISTE).build();
 
         } catch (ClienteFICExceptionValidation e) {
 
@@ -276,8 +278,8 @@ public class ClienteFICController implements V1ClienteFIC {
 
             ClienteFICEntity cliente = clienteFICServiceImpl.getClienteByIdentificacion(new ConsultaClienteByData(tipoDocumento, numeroDocumento, digitoVerificacion));
             LOG.info("Finaliza consulta de Cliente FIC por Identificacion");
-            return Response.status(Response.Status.OK).entity(cliente).build();
-
+            return cliente != null ? Response.status(Response.Status.OK).entity(cliente).build() :
+                    Response.status(Response.Status.OK).entity(ErrorCts.CLIENTE_NO_EXISTE).build();
         } catch (ClienteFICExceptionValidation e) {
 
             LOG.error("Error en Validaciones de consuta cliente por identificacion - ClienteFICController");
