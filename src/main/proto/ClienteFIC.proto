@@ -826,7 +826,7 @@ message ResponsePasivo{
 
 service ClienteFICServiceGrpc {
   rpc clienteFIC(CrearClienteFICGrpc) returns (ResponseClienteFIC);
-  rpc consultarAlerta(ConsultaClienteByData) returns (ResponseAlerta);
+  rpc consultarAlerta(ConsultaClienteByData) returns (stream ResponseAlerta);
   rpc consultarCentralDeRiesgo(ConsultaClienteByData) returns (ResponseCentralDeRiesgo);
   rpc consultarPQR(ConsultaClienteByData) returns (ResponsePQR);
   rpc consutaClientePorIdentificacion(ConsultaClienteByData) returns (CentralRiesgoType); //---

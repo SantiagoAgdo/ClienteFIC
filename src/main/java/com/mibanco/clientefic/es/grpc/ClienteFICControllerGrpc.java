@@ -9,6 +9,8 @@ import com.mibanco.clientefic.es.gen.type.AlertaType;
 import com.mibanco.clientefic.es.services.impl.ClienteFICServiceImpl;
 import com.mibanco.clientefic.es.utils.Exceptions.ClienteFICException;
 import com.mibanco.clientefic.es.utils.mapper.ClienteFICMapperGrpc;
+import io.grpc.Status;
+import io.grpc.StatusRuntimeException;
 import io.grpc.stub.StreamObserver;
 import io.quarkus.grpc.GrpcService;
 import io.smallrye.common.annotation.Blocking;
@@ -16,6 +18,7 @@ import jakarta.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.mibanco.clientefic.es.TipoDocumentoEnum.CC_CEDULA_DE_CIUDADANIA;
@@ -61,29 +64,35 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
 
         logger.info("Inicia consulta alerta por GRPC");
         try {
+//            throw new Exception();
             com.mibanco.clientefic.es.dao.entity.ConsultaClienteByData entity = mapper.dataGrpcToEntity(request);
             List<AlertaType> list = clienteFICService.getListaAlertas(entity);
 
-            com.mibanco.clientefic.es.AlertaType item1 = null;
+            List<com.mibanco.clientefic.es.AlertaType> lista = new ArrayList<>();
             for (AlertaType alert : list) {
-                item1 = com.mibanco.clientefic.es.AlertaType.newBuilder()
+                lista.add(com.mibanco.clientefic.es.AlertaType.newBuilder()
                         .setTipoAlerta(alert.getTipoAlerta())
                         .setBanco(alert.getBanco())
                         .setFecha(alert.getFecha().toString())
                         .setTipoDocumento(CC_CEDULA_DE_CIUDADANIA)
                         .setNumeroDocumento(alert.getNumeroDocumento())
                         .setDigitoVerificacion(alert.getDigitoVerificacion())
-                        .build();
+                        .build());
+
             }
-            ResponseAlerta itemList = ResponseAlerta.newBuilder().addObj(item1).build();
+            ResponseAlerta y = ResponseAlerta.newBuilder().addAllObj(lista).build();
             logger.info("Finaliza creacion Cliente FIC por GRPC");
 
-            responseObs.onNext(itemList);
+            responseObs.onNext(y);
+
             responseObs.onCompleted();
 
         } catch (Exception e) {
-
-            logger.error(ErrorCts.SERVICIO_GRPC + "consultarAlerta en GRPC ");
+            Status status = Status.fromThrowable(new StatusRuntimeException(Status.ABORTED));
+//            String message = status.getDescription() "ERRRORRRRRRR CCCCCXXXXX";
+            responseObs.onError(new StatusRuntimeException(status));
+            responseObs.onCompleted();
+            logger.error(ErrorCts.SERVICIO_GRPC + "consultarAlerta en GRPC");
             throw new ClienteFICException(ErrorCts.SERVICIO + " Creacion Novedad Grpc - Exception: " + e.getMessage());
         }
     }
