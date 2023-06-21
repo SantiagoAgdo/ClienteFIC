@@ -5,7 +5,7 @@ import com.mibanco.clientefic.es.dao.entity.ConsultaClienteByData;
 import com.mibanco.clientefic.es.dao.entity.ConsultarClientePorNombreOutputEntity;
 import com.mibanco.clientefic.es.gen.type.*;
 import com.mibanco.clientefic.es.services.impl.ClienteFICServiceImpl;
-import com.mibanco.clientefic.es.utils.Exceptions.ClienteFICException;
+import com.mibanco.clientefic.es.utils.exceptions.ApplicationException;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.graphql.Description;
@@ -35,9 +35,9 @@ public class ClienteFICControllerGraph {
             List<AlertaType> alerta = clienteFICService.getListaAlertas(new ConsultaClienteByData(tipoDocumento, numeroDocumento, digitoVerificacion));
             logger.info("Termina consulta alerta en Graphql");
             return alerta;
-        } catch (ClienteFICException e) {
+        } catch (ApplicationException e) {
             logger.error("Ocurrio un error en getAlerta Graphql");
-            throw new ClienteFICException(Response.Status.NOT_FOUND.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
+            throw new ApplicationException(Response.Status.NOT_FOUND.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
         }
     }
 
@@ -51,10 +51,10 @@ public class ClienteFICControllerGraph {
 
             logger.info("Termina consulta alerta en Graphql");
             return list;
-        } catch (ClienteFICException e) {
+        } catch (ApplicationException e) {
 
             logger.error("Ocurrio un error en getCentral Graphql");
-            throw new ClienteFICException(Response.Status.NOT_FOUND.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
+            throw new ApplicationException(Response.Status.NOT_FOUND.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
         }
     }
 
@@ -68,10 +68,10 @@ public class ClienteFICControllerGraph {
 
             logger.info("Termina consulta PQR en Graphql");
             return list;
-        } catch (ClienteFICException e) {
+        } catch (ApplicationException e) {
 
             logger.error("Ocurrio un error en getPQR Graphql");
-            throw new ClienteFICException(Response.Status.NOT_FOUND.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
+            throw new ApplicationException(Response.Status.NOT_FOUND.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
         }
     }
 
@@ -85,10 +85,10 @@ public class ClienteFICControllerGraph {
 
             logger.info("Termina consulta cliente en Graphql");
             return list;
-        } catch (ClienteFICException e) {
+        } catch (ApplicationException e) {
 
             logger.error("Ocurrio un error en getClienteByIdentificacion Graphql");
-            throw new ClienteFICException(Response.Status.NOT_FOUND.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
+            throw new ApplicationException(Response.Status.NOT_FOUND.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
         }
     }
 
@@ -102,10 +102,10 @@ public class ClienteFICControllerGraph {
 
             logger.info("Termina consulta conyuge en Graphql");
             return data;
-        } catch (ClienteFICException e) {
+        } catch (ApplicationException e) {
 
             logger.error("Ocurrio un error en getConyuge Graphql");
-            throw new ClienteFICException(Response.Status.NOT_FOUND.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
+            throw new ApplicationException(Response.Status.NOT_FOUND.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
         }
     }
 
@@ -118,10 +118,10 @@ public class ClienteFICControllerGraph {
             List<CupoRotativoType> list = clienteFICService.getCupoRotativo(numeroCliente);
             logger.info("Termina consulta cupo rotativo en Graphql");
             return list;
-        } catch (ClienteFICException e) {
+        } catch (ApplicationException e) {
 
             logger.error("Ocurrio un error en getCupoRotativo Graphql");
-            throw new ClienteFICException(Response.Status.NOT_FOUND.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
+            throw new ApplicationException(Response.Status.NOT_FOUND.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
         }
     }
 
@@ -135,10 +135,10 @@ public class ClienteFICControllerGraph {
 
             logger.info("Termina consulta dirreccion y telefono en Graphql");
             return data;
-        } catch (ClienteFICException e) {
+        } catch (ApplicationException e) {
 
             logger.error("Ocurrio un error en getDirreccionYTelefono Graphql");
-            throw new ClienteFICException(Response.Status.NOT_FOUND.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
+            throw new ApplicationException(Response.Status.NOT_FOUND.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
         }
     }
 
@@ -152,10 +152,10 @@ public class ClienteFICControllerGraph {
 
             logger.info("Termina consulta contacto en Graphql");
             return data;
-        } catch (ClienteFICException e) {
+        } catch (ApplicationException e) {
 
             logger.error("Ocurrio un error en getHistorialContacto Graphql");
-            throw new ClienteFICException(Response.Status.NOT_FOUND.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
+            throw new ApplicationException(Response.Status.NOT_FOUND.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
         }
     }
 
@@ -169,10 +169,10 @@ public class ClienteFICControllerGraph {
 
             logger.info("Termina consulta oferta en Graphql");
             return data;
-        } catch (ClienteFICException e) {
+        } catch (ApplicationException e) {
 
             logger.error("Ocurrio un error en getOferta Graphql");
-            throw new ClienteFICException(Response.Status.NOT_FOUND.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
+            throw new ApplicationException(Response.Status.NOT_FOUND.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
         }
     }
 
@@ -186,10 +186,10 @@ public class ClienteFICControllerGraph {
 
             logger.info("Termina consulta cliente por nombreen Graphql");
             return data;
-        } catch (ClienteFICException e) {
+        } catch (ApplicationException e) {
 
             logger.error("Ocurrio un error en getClienteByNombre Graphql");
-            throw new ClienteFICException(Response.Status.NOT_FOUND.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
+            throw new ApplicationException(Response.Status.NOT_FOUND.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
         }
     }
 
@@ -203,10 +203,10 @@ public class ClienteFICControllerGraph {
 
             logger.info("Termina consulta pasivo en Graphql");
             return data;
-        } catch (ClienteFICException e) {
+        } catch (ApplicationException e) {
 
             logger.error("Ocurrio un error en getPasivo Graphql");
-            throw new ClienteFICException(Response.Status.NOT_FOUND.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
+            throw new ApplicationException(Response.Status.NOT_FOUND.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
         }
     }
 

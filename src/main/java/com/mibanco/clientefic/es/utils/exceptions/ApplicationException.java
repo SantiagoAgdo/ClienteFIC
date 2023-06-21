@@ -1,19 +1,17 @@
-package com.mibanco.clientefic.es.utils.Exceptions;
+package com.mibanco.clientefic.es.utils.exceptions;
 
-public class ClienteFICException extends RuntimeException {
+public class ApplicationException extends RuntimeException {
 
     public static final long serialVersionUID = 1L;
 
 
     int status;
 
-    public ClienteFICException(int status, String msm) {
+    public ApplicationException(int status, String msm) {
         super(msm);
         this.status = status;
     }
 
-    public ClienteFICException(String msm) {
-    }
 
     public int getStatus() {
         return status;

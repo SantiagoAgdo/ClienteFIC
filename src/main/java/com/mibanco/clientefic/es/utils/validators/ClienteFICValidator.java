@@ -1,9 +1,9 @@
 package com.mibanco.clientefic.es.utils.validators;
 
-import com.mibanco.clientefic.es.constans.ErrorCts;
+import com.mibanco.clientefic.es.constans.Constans;
 import com.mibanco.clientefic.es.gen.type.ClienteFICType;
 import com.mibanco.clientefic.es.gen.type.TipoDocumentoEnum;
-import com.mibanco.clientefic.es.utils.Exceptions.ClienteFICExceptionValidation;
+import com.mibanco.clientefic.es.utils.exceptions.ApplicationExceptionValidation;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.ws.rs.core.Response;
 import org.slf4j.Logger;
@@ -18,67 +18,67 @@ public class ClienteFICValidator {
 
     private String msmError = "";
 
-    public void verificarClienteFIC(ClienteFICType clienteFICType) throws ClienteFICExceptionValidation {
+    public void verificarClienteFIC(ClienteFICType clienteFICType) throws ApplicationExceptionValidation {
 
         if (validarObjeto(clienteFICType)) {
-            throw new ClienteFICExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.SERVICIO + msmError + " es obligatorio"
+            throw new ApplicationExceptionValidation(
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO + msmError + " es obligatorio"
             );
         }
         if (validarObjeto(clienteFICType.getAlerta())) {
-            throw new ClienteFICExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.SERVICIO + msmError + " es obligatorio"
+            throw new ApplicationExceptionValidation(
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO + msmError + " es obligatorio"
             );
         }
         if (validarObjeto(clienteFICType.getClienteBase())) {
-            throw new ClienteFICExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.SERVICIO + msmError + " es obligatorio"
+            throw new ApplicationExceptionValidation(
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO + msmError + " es obligatorio"
             );
         }
         if (validarObjeto(clienteFICType.getCentralRiesgo())) {
-            throw new ClienteFICExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.SERVICIO + msmError + " es obligatorio"
+            throw new ApplicationExceptionValidation(
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO + msmError + " es obligatorio"
             );
         }
 
         if (validarObjeto(clienteFICType.getContacto())) {
-            throw new ClienteFICExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.SERVICIO + msmError + " es obligatorio"
+            throw new ApplicationExceptionValidation(
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO + msmError + " es obligatorio"
             );
         }
         if (validarObjeto(clienteFICType.getConyuge())) {
-            throw new ClienteFICExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.SERVICIO + msmError + " es obligatorio"
+            throw new ApplicationExceptionValidation(
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO + msmError + " es obligatorio"
             );
         }
         if (validarObjeto(clienteFICType.getCupoRotativo())) {
-            throw new ClienteFICExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.SERVICIO + msmError + " es obligatorio"
+            throw new ApplicationExceptionValidation(
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO + msmError + " es obligatorio"
             );
         }
         if (validarObjeto(clienteFICType.getDomicilioEmpresa())) {
-            throw new ClienteFICExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.SERVICIO + msmError + " es obligatorio"
+            throw new ApplicationExceptionValidation(
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO + msmError + " es obligatorio"
             );
         }
         if (validarObjeto(clienteFICType.getNegocio())) {
-            throw new ClienteFICExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.SERVICIO + msmError + " es obligatorio"
+            throw new ApplicationExceptionValidation(
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO + msmError + " es obligatorio"
             );
         }
         if (validarObjeto(clienteFICType.getOferta())) {
-            throw new ClienteFICExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.SERVICIO + msmError + " es obligatorio"
+            throw new ApplicationExceptionValidation(
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO + msmError + " es obligatorio"
             );
         }
         if (validarObjeto(clienteFICType.getPasivo())) {
-            throw new ClienteFICExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.SERVICIO + msmError + " es obligatorio"
+            throw new ApplicationExceptionValidation(
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO + msmError + " es obligatorio"
             );
         }
         if (validarObjeto(clienteFICType.getPQR())) {
-            throw new ClienteFICExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.SERVICIO + msmError + " es obligatorio"
+            throw new ApplicationExceptionValidation(
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO + msmError + " es obligatorio"
             );
         }
 
@@ -117,8 +117,8 @@ public class ClienteFICValidator {
     public void validarNombre(String nombre) {
 
         if (nombre == null || nombre.isEmpty()) {
-            throw new ClienteFICExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.VALIDACION + " digitoVerificacion invalido"
+            throw new ApplicationExceptionValidation(
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.VALIDACION + " digitoVerificacion invalido"
             );
         }
 
@@ -130,8 +130,8 @@ public class ClienteFICValidator {
     public void validarNumeroCliente(Integer num) {
 
         if (num == null) {
-            throw new ClienteFICExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.VALIDACION + " numero de Cliente invalido"
+            throw new ApplicationExceptionValidation(
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.VALIDACION + " numero de Cliente invalido"
             );
         }
 
@@ -140,15 +140,15 @@ public class ClienteFICValidator {
 
     }
 
-    public void validarConsulta(TipoDocumentoEnum tipoDocumento, Integer numeroDocumento, Integer digitoVerificacion) throws ClienteFICExceptionValidation {
+    public void validarConsulta(TipoDocumentoEnum tipoDocumento, Integer numeroDocumento, Integer digitoVerificacion) throws ApplicationExceptionValidation {
         if (numeroDocumento == null || numeroDocumento < 0) {
-            throw new ClienteFICExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.VALIDACION + " numeroDocumento invalido"
+            throw new ApplicationExceptionValidation(
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.VALIDACION + " numeroDocumento invalido"
             );
         }
         if (digitoVerificacion == null || digitoVerificacion < 0 || digitoVerificacion > 99) {
-            throw new ClienteFICExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.VALIDACION + " digitoVerificacion invalido"
+            throw new ApplicationExceptionValidation(
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.VALIDACION + " digitoVerificacion invalido"
             );
         }
         for (TipoDocumentoEnum enumValue : TipoDocumentoEnum.values()) {
@@ -159,21 +159,21 @@ public class ClienteFICValidator {
             }
         }
 
-        throw new ClienteFICExceptionValidation(
-                Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.VALIDACION + " tipoDocumento invalido"
+        throw new ApplicationExceptionValidation(
+                Response.Status.BAD_REQUEST.getStatusCode(), Constans.VALIDACION + " tipoDocumento invalido"
         );
     }
 
-    public void validarConsultaGRPC(com.mibanco.clientefic.es.TipoDocumentoEnum tipoDocumento, Integer numeroDocumento, Integer digitoVerificacion) throws ClienteFICExceptionValidation {
+    public void validarConsultaGRPC(com.mibanco.clientefic.es.TipoDocumentoEnum tipoDocumento, Integer numeroDocumento, Integer digitoVerificacion) throws ApplicationExceptionValidation {
 
         if (numeroDocumento == null || numeroDocumento < 0) {
-            throw new ClienteFICExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.VALIDACION + " numeroDocumento invalido"
+            throw new ApplicationExceptionValidation(
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.VALIDACION + " numeroDocumento invalido"
             );
         }
         if (digitoVerificacion == null || digitoVerificacion < 0 || digitoVerificacion > 99) {
-            throw new ClienteFICExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.VALIDACION + " digitoVerificacion invalido"
+            throw new ApplicationExceptionValidation(
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.VALIDACION + " digitoVerificacion invalido"
             );
         }
         for (TipoDocumentoEnum enumValue : TipoDocumentoEnum.values()) {
@@ -184,8 +184,8 @@ public class ClienteFICValidator {
             }
         }
 
-        throw new ClienteFICExceptionValidation(
-                Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.VALIDACION + " tipoDocumento invalido"
+        throw new ApplicationExceptionValidation(
+                Response.Status.BAD_REQUEST.getStatusCode(), Constans.VALIDACION + " tipoDocumento invalido"
         );
     }
 }

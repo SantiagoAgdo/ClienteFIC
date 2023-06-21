@@ -1,6 +1,6 @@
 package com.mibanco.clientefic.es.constans;
 
-public class ErrorCts {
+public class Constans {
 
     public static final String SERVICIO = "Se presento error en este servicio: campo ";
     public static final String SERVICIO_INTERNAL = "Se presento el siguiente error en el servicio: ";

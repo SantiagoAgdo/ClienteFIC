@@ -1,12 +1,12 @@
 package com.mibanco.clientefic.es.controller;
 
-import com.mibanco.clientefic.es.constans.ErrorCts;
+import com.mibanco.clientefic.es.constans.Constans;
 import com.mibanco.clientefic.es.dao.entity.*;
 import com.mibanco.clientefic.es.gen.contract.V1ClienteFIC;
 import com.mibanco.clientefic.es.gen.type.*;
 import com.mibanco.clientefic.es.services.impl.ClienteFICServiceImpl;
-import com.mibanco.clientefic.es.utils.Exceptions.ClienteFICException;
-import com.mibanco.clientefic.es.utils.Exceptions.ClienteFICExceptionValidation;
+import com.mibanco.clientefic.es.utils.exceptions.ApplicationException;
+import com.mibanco.clientefic.es.utils.exceptions.ApplicationExceptionValidation;
 import com.mibanco.clientefic.es.utils.mapper.ClienteFICMapper;
 import com.mibanco.clientefic.es.utils.validators.ClienteFICValidator;
 import jakarta.inject.Inject;
@@ -38,17 +38,17 @@ public class ClienteFICController implements V1ClienteFIC {
 
             LOG.info("Finaliza consulta de Alerta");
             return listaAlertas.size() != 0 ? Response.status(Response.Status.OK).entity(listaAlertas).build() :
-                    Response.status(Response.Status.OK).entity(ErrorCts.SIN_REGISTROS).build(); //204 Not Content
+                    Response.status(Response.Status.OK).entity(Constans.SIN_REGISTROS).build(); //204 Not Content
 
-        } catch (ClienteFICExceptionValidation e) {
+        } catch (ApplicationExceptionValidation e) {
 
             LOG.error("Error en Validaciones de Alerta - ClienteFICController");
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
 
-        } catch (ClienteFICException e) {
+        } catch (ApplicationException e) {
 
-            LOG.error(ErrorCts.SERVICIO_INTERNAL + "getListaAlertas en ClienteFICServiceImpl exception: " + e.getMessage());
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ErrorCts.SERVICIO_INTERNAL + "getListaAlertas, exception: " + e.getMessage()).build();
+            LOG.error(Constans.SERVICIO_INTERNAL + "getListaAlertas en ClienteFICServiceImpl exception: " + e.getMessage());
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constans.SERVICIO_INTERNAL + "getListaAlertas, exception: " + e.getMessage()).build();
         }
     }
 
@@ -62,17 +62,17 @@ public class ClienteFICController implements V1ClienteFIC {
             List<CentralRiesgoType> list = clienteFICServiceImpl.getListaCentralRiesgo(new ConsultaClienteByData(tipoDocumento, numeroDocumento, digitoVerificacion));
             LOG.info("Finaliza consulta de CentralRiesgo");
             return list.size() != 0 ? Response.status(Response.Status.OK).entity(list).build() :
-                    Response.status(Response.Status.OK).entity(ErrorCts.SIN_REGISTROS).build();
+                    Response.status(Response.Status.OK).entity(Constans.SIN_REGISTROS).build();
 
-        } catch (ClienteFICExceptionValidation e) {
+        } catch (ApplicationExceptionValidation e) {
 
             LOG.error("Error en Validaciones de CentralRiesgo - ClienteFICController");
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
 
-        } catch (ClienteFICException e) {
+        } catch (ApplicationException e) {
 
-            LOG.error(ErrorCts.SERVICIO_INTERNAL + "consultarCentralDeRiesgo en ClienteFICServiceImpl exception: " + e.getMessage());
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ErrorCts.SERVICIO_INTERNAL + "consultarCentralDeRiesgo, exception: " + e.getMessage()).build();
+            LOG.error(Constans.SERVICIO_INTERNAL + "consultarCentralDeRiesgo en ClienteFICServiceImpl exception: " + e.getMessage());
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constans.SERVICIO_INTERNAL + "consultarCentralDeRiesgo, exception: " + e.getMessage()).build();
         }
     }
 
@@ -86,17 +86,17 @@ public class ClienteFICController implements V1ClienteFIC {
 
             LOG.info("Finaliza consulta de Cliente FIC por Nombre");
             return cliente.getTotalClientes() != 0 ? Response.status(Response.Status.OK).entity(cliente).build() :
-                    Response.status(Response.Status.OK).entity(ErrorCts.SIN_CLIENTES).build();
+                    Response.status(Response.Status.OK).entity(Constans.SIN_CLIENTES).build();
 
-        } catch (ClienteFICExceptionValidation e) {
+        } catch (ApplicationExceptionValidation e) {
 
             LOG.error("Error en Validaciones de consulta cliente FIC por nombre - ClienteFICController");
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
 
-        } catch (ClienteFICException e) {
+        } catch (ApplicationException e) {
 
-            LOG.error(ErrorCts.SERVICIO_INTERNAL + "consultarClienteFICPorNombre en ClienteFICServiceImpl exception: " + e.getMessage());
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ErrorCts.SERVICIO_INTERNAL + "consultarClienteFICPorNombre, exception: " + e.getMessage()).build();
+            LOG.error(Constans.SERVICIO_INTERNAL + "consultarClienteFICPorNombre en ClienteFICServiceImpl exception: " + e.getMessage());
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constans.SERVICIO_INTERNAL + "consultarClienteFICPorNombre, exception: " + e.getMessage()).build();
         }
     }
 
@@ -110,17 +110,17 @@ public class ClienteFICController implements V1ClienteFIC {
 
             LOG.info("Finaliza consulta de Conyuge");
             return conyuge.getNumeroCliente() != null ? Response.status(Response.Status.OK).entity(conyuge).build() :
-                    Response.status(Response.Status.OK).entity(ErrorCts.CONYUGE_NO_EXISTE).build();
+                    Response.status(Response.Status.OK).entity(Constans.CONYUGE_NO_EXISTE).build();
 
-        } catch (ClienteFICExceptionValidation e) {
+        } catch (ApplicationExceptionValidation e) {
 
             LOG.error("Error en Validaciones de consultar conyuge - ClienteFICController");
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
 
-        } catch (ClienteFICException e) {
+        } catch (ApplicationException e) {
 
-            LOG.error(ErrorCts.SERVICIO_INTERNAL + "consultarConyuge en ClienteFICServiceImpl exception: " + e.getMessage());
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ErrorCts.SERVICIO_INTERNAL + "consultarConyuge, exception: " + e.getMessage()).build();
+            LOG.error(Constans.SERVICIO_INTERNAL + "consultarConyuge en ClienteFICServiceImpl exception: " + e.getMessage());
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constans.SERVICIO_INTERNAL + "consultarConyuge, exception: " + e.getMessage()).build();
         }
     }
 
@@ -134,17 +134,17 @@ public class ClienteFICController implements V1ClienteFIC {
 
             LOG.info("Finaliza consulta de Cupo Rotativo");
             return list.size() != 0 ? Response.status(Response.Status.OK).entity(list).build() :
-                    Response.status(Response.Status.OK).entity(ErrorCts.SIN_REGISTROS).build();
+                    Response.status(Response.Status.OK).entity(Constans.SIN_REGISTROS).build();
 
-        } catch (ClienteFICExceptionValidation e) {
+        } catch (ApplicationExceptionValidation e) {
 
             LOG.error("Error en Validaciones de cupo rotativo - ClienteFICController");
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
 
-        } catch (ClienteFICException e) {
+        } catch (ApplicationException e) {
 
-            LOG.error(ErrorCts.SERVICIO_INTERNAL + "consultarCupoRotativo en ClienteFICServiceImpl exception: " + e.getMessage());
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ErrorCts.SERVICIO_INTERNAL + "consultarCupoRotativo, exception: " + e.getMessage()).build();
+            LOG.error(Constans.SERVICIO_INTERNAL + "consultarCupoRotativo en ClienteFICServiceImpl exception: " + e.getMessage());
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constans.SERVICIO_INTERNAL + "consultarCupoRotativo, exception: " + e.getMessage()).build();
         }
     }
 
@@ -158,17 +158,17 @@ public class ClienteFICController implements V1ClienteFIC {
 
             LOG.info("Finaliza consulta de Dirrecion y Telefono");
             return list.size() != 0 ? Response.status(Response.Status.OK).entity(list).build() :
-                    Response.status(Response.Status.OK).entity(ErrorCts.SIN_REGISTROS).build();
+                    Response.status(Response.Status.OK).entity(Constans.SIN_REGISTROS).build();
 
-        } catch (ClienteFICExceptionValidation e) {
+        } catch (ApplicationExceptionValidation e) {
 
             LOG.error("Error en Validaciones de Dirrecion Telefono - ClienteFICController");
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
 
-        } catch (ClienteFICException e) {
+        } catch (ApplicationException e) {
 
-            LOG.error(ErrorCts.SERVICIO_INTERNAL + "consultarDireccionTelefono en ClienteFICServiceImpl exception: " + e.getMessage());
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ErrorCts.SERVICIO_INTERNAL + "consultarDireccionTelefono, exception: " + e.getMessage()).build();
+            LOG.error(Constans.SERVICIO_INTERNAL + "consultarDireccionTelefono en ClienteFICServiceImpl exception: " + e.getMessage());
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constans.SERVICIO_INTERNAL + "consultarDireccionTelefono, exception: " + e.getMessage()).build();
         }
     }
 
@@ -182,17 +182,17 @@ public class ClienteFICController implements V1ClienteFIC {
 
             LOG.info("Finaliza consulta de Historial Contacto");
             return list.size() != 0 ? Response.status(Response.Status.OK).entity(list).build() :
-                    Response.status(Response.Status.OK).entity(ErrorCts.SIN_REGISTROS).build();
+                    Response.status(Response.Status.OK).entity(Constans.SIN_REGISTROS).build();
 
-        } catch (ClienteFICExceptionValidation e) {
+        } catch (ApplicationExceptionValidation e) {
 
             LOG.error("Error en Validaciones de Contacto - ClienteFICController");
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
 
-        } catch (ClienteFICException e) {
+        } catch (ApplicationException e) {
 
-            LOG.error(ErrorCts.SERVICIO_INTERNAL + "consultarHistorialContacto en ClienteFICServiceImpl exception: " + e.getMessage());
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ErrorCts.SERVICIO_INTERNAL + "consultarHistorialContacto, exception: " + e.getMessage()).build();
+            LOG.error(Constans.SERVICIO_INTERNAL + "consultarHistorialContacto en ClienteFICServiceImpl exception: " + e.getMessage());
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constans.SERVICIO_INTERNAL + "consultarHistorialContacto, exception: " + e.getMessage()).build();
         }
     }
 
@@ -206,17 +206,17 @@ public class ClienteFICController implements V1ClienteFIC {
 
             LOG.info("Finaliza consulta de Oferta");
             return list.size() != 0 ? Response.status(Response.Status.OK).entity(list).build() :
-                    Response.status(Response.Status.OK).entity(ErrorCts.SIN_REGISTROS).build();
+                    Response.status(Response.Status.OK).entity(Constans.SIN_REGISTROS).build();
 
-        } catch (ClienteFICExceptionValidation e) {
+        } catch (ApplicationExceptionValidation e) {
 
             LOG.error("Error en Validaciones de oferta - ClienteFICController");
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
 
-        } catch (ClienteFICException e) {
+        } catch (ApplicationException e) {
 
-            LOG.error(ErrorCts.SERVICIO_INTERNAL + "consultarOferta en ClienteFICServiceImpl exception: " + e.getMessage());
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ErrorCts.SERVICIO_INTERNAL + "consultarOferta, exception: " + e.getMessage()).build();
+            LOG.error(Constans.SERVICIO_INTERNAL + "consultarOferta en ClienteFICServiceImpl exception: " + e.getMessage());
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constans.SERVICIO_INTERNAL + "consultarOferta, exception: " + e.getMessage()).build();
         }
     }
 
@@ -230,17 +230,17 @@ public class ClienteFICController implements V1ClienteFIC {
 
             LOG.info("Finaliza consulta de PQR");
             return list.size() != 0 ? Response.status(Response.Status.OK).entity(list).build() :
-                    Response.status(Response.Status.OK).entity(ErrorCts.SIN_REGISTROS).build();
+                    Response.status(Response.Status.OK).entity(Constans.SIN_REGISTROS).build();
 
-        } catch (ClienteFICExceptionValidation e) {
+        } catch (ApplicationExceptionValidation e) {
 
             LOG.error("Error en Validaciones de consulta PQR - ClienteFICController");
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
 
-        } catch (ClienteFICException e) {
+        } catch (ApplicationException e) {
 
-            LOG.error(ErrorCts.SERVICIO_INTERNAL + "consultarPQR en ClienteFICServiceImpl exception: " + e.getMessage());
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ErrorCts.SERVICIO_INTERNAL + "consultarPQR, exception: " + e.getMessage()).build();
+            LOG.error(Constans.SERVICIO_INTERNAL + "consultarPQR en ClienteFICServiceImpl exception: " + e.getMessage());
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constans.SERVICIO_INTERNAL + "consultarPQR, exception: " + e.getMessage()).build();
         }
     }
 
@@ -254,17 +254,17 @@ public class ClienteFICController implements V1ClienteFIC {
 
             LOG.info("Finaliza consulta Pasivo");
             return list.size() != 0 ? Response.status(Response.Status.OK).entity(list).build() :
-                    Response.status(Response.Status.OK).entity(ErrorCts.SIN_REGISTROS).build();
+                    Response.status(Response.Status.OK).entity(Constans.SIN_REGISTROS).build();
 
-        } catch (ClienteFICExceptionValidation e) {
+        } catch (ApplicationExceptionValidation e) {
 
             LOG.error("Error en Validaciones de consultar pasivo - ClienteFICController");
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
 
-        } catch (ClienteFICException e) {
+        } catch (ApplicationException e) {
 
-            LOG.error(ErrorCts.SERVICIO_INTERNAL + "consultarPasivo en ClienteFICServiceImpl exception: " + e.getMessage());
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ErrorCts.SERVICIO_INTERNAL + "consultarPasivo, exception: " + e.getMessage()).build();
+            LOG.error(Constans.SERVICIO_INTERNAL + "consultarPasivo en ClienteFICServiceImpl exception: " + e.getMessage());
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constans.SERVICIO_INTERNAL + "consultarPasivo, exception: " + e.getMessage()).build();
         }
 
     }
@@ -279,16 +279,16 @@ public class ClienteFICController implements V1ClienteFIC {
             ClienteFICEntity cliente = clienteFICServiceImpl.getClienteByIdentificacion(new ConsultaClienteByData(tipoDocumento, numeroDocumento, digitoVerificacion));
             LOG.info("Finaliza consulta de Cliente FIC por Identificacion");
             return cliente != null ? Response.status(Response.Status.OK).entity(cliente).build() :
-                    Response.status(Response.Status.OK).entity(ErrorCts.CLIENTE_NO_EXISTE).build();
-        } catch (ClienteFICExceptionValidation e) {
+                    Response.status(Response.Status.OK).entity(Constans.CLIENTE_NO_EXISTE).build();
+        } catch (ApplicationExceptionValidation e) {
 
             LOG.error("Error en Validaciones de consuta cliente por identificacion - ClienteFICController");
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
 
-        } catch (ClienteFICException e) {
+        } catch (ApplicationException e) {
 
-            LOG.error(ErrorCts.SERVICIO_INTERNAL + "consutaClientePorIdentificacion en ClienteFICServiceImpl exception: " + e.getMessage());
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ErrorCts.SERVICIO_INTERNAL + "consutaClientePorIdentificacion, exception: " + e.getMessage()).build();
+            LOG.error(Constans.SERVICIO_INTERNAL + "consutaClientePorIdentificacion en ClienteFICServiceImpl exception: " + e.getMessage());
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constans.SERVICIO_INTERNAL + "consutaClientePorIdentificacion, exception: " + e.getMessage()).build();
         }
     }
 
@@ -304,16 +304,16 @@ public class ClienteFICController implements V1ClienteFIC {
             LOG.info("Finaliza crearClienteFIC en ClienteFICController");
             return Response.status(Response.Status.CREATED).entity(clienteFICType).build();
 
-        } catch (ClienteFICExceptionValidation e) {
+        } catch (ApplicationExceptionValidation e) {
 
             LOG.error("Error en validaciones de creacion de cliente FIC - ClienteFICController");
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
 
-        } catch (ClienteFICException e) {
+        } catch (ApplicationException e) {
 
-            LOG.error(ErrorCts.SERVICIO_INTERNAL + "crearClienteFIC en ClienteFICServiceImpl exception: " + e.getMessage());
+            LOG.error(Constans.SERVICIO_INTERNAL + "crearClienteFIC en ClienteFICServiceImpl exception: " + e.getMessage());
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity(ErrorCts.SERVICIO_INTERNAL + "crearClienteFIC, exception: " + e.getMessage()).build();
+                    .entity(Constans.SERVICIO_INTERNAL + "crearClienteFIC, exception: " + e.getMessage()).build();
         }
     }
 }

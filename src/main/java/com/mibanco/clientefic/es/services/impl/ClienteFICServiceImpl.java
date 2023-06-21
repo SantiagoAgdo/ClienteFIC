@@ -4,7 +4,7 @@ import com.mibanco.clientefic.es.dao.contract.impl.ClienteFICDAO;
 import com.mibanco.clientefic.es.dao.entity.*;
 import com.mibanco.clientefic.es.gen.type.*;
 import com.mibanco.clientefic.es.services.contract.ClienteFICService;
-import com.mibanco.clientefic.es.utils.Exceptions.ClienteFICException;
+import com.mibanco.clientefic.es.utils.exceptions.ApplicationException;
 import com.mibanco.clientefic.es.utils.mapper.ClienteFICMapper;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -29,7 +29,7 @@ public class ClienteFICServiceImpl implements ClienteFICService {
 
     @Override
     @Transactional
-    public ClienteFICType crearClienteFICType(ClienteFICEntity clienteFIC) throws ClienteFICException {
+    public ClienteFICType crearClienteFICType(ClienteFICEntity clienteFIC) throws ApplicationException {
 
         LOG.info("Inicia Creacion de cliente FIC en ClienteFICServiceImpl");
         ClienteFICType clienteMapper = clienteFICMapper.clienteFICToType(clienteFIC);
@@ -41,7 +41,7 @@ public class ClienteFICServiceImpl implements ClienteFICService {
     }
 
     @Override
-    public List<AlertaType> getListaAlertas(ConsultaClienteByData data) throws ClienteFICException {
+    public List<AlertaType> getListaAlertas(ConsultaClienteByData data) throws ApplicationException {
 
         LOG.info("Inicia consulta de Alertas");
         List<AlertaEntity> list = clienteFICDAO.getListaAlertas(data);
@@ -52,7 +52,7 @@ public class ClienteFICServiceImpl implements ClienteFICService {
     }
 
     @Override
-    public List<CentralRiesgoType> getListaCentralRiesgo(ConsultaClienteByData data) throws ClienteFICException {
+    public List<CentralRiesgoType> getListaCentralRiesgo(ConsultaClienteByData data) throws ApplicationException {
 
         LOG.info("Inicia consulta de cliente por identificacion");
         List<CentralRiesgoEntity> list = clienteFICDAO.getListaCentralRiesgo(data);
@@ -63,7 +63,7 @@ public class ClienteFICServiceImpl implements ClienteFICService {
     }
 
     @Override
-    public ClienteFICEntity getClienteByIdentificacion(ConsultaClienteByData dataCliente) throws ClienteFICException {
+    public ClienteFICEntity getClienteByIdentificacion(ConsultaClienteByData dataCliente) throws ApplicationException {
 
         LOG.info("Inicia consulta de cliente por identificacion");
         ClienteFICEntity rpt = clienteFICDAO.getClienteByIdentificacion(dataCliente);
@@ -74,7 +74,7 @@ public class ClienteFICServiceImpl implements ClienteFICService {
     }
 
     @Override
-    public ConsultarClientePorNombreOutputEntity getClienteByNombre(String nombre) throws ClienteFICException {
+    public ConsultarClientePorNombreOutputEntity getClienteByNombre(String nombre) throws ApplicationException {
 
         LOG.info("Inicia consulta Cliente por nombre");
         ConsultarClientePorNombreOutputEntity rpt = clienteFICDAO.getClienteByNombre(nombre);
@@ -84,7 +84,7 @@ public class ClienteFICServiceImpl implements ClienteFICService {
     }
 
     @Override
-    public ConyugeType getConyuge(Integer numeroCliente) throws ClienteFICException {
+    public ConyugeType getConyuge(Integer numeroCliente) throws ApplicationException {
 
         LOG.info("Inicia consulta de conyuge");
         ConyugeType rpt = clienteFICDAO.getConyuge(numeroCliente);
@@ -105,7 +105,7 @@ public class ClienteFICServiceImpl implements ClienteFICService {
     }
 
     @Override
-    public List<ConsultarDireccionTelefonoType> getDirrecionTelefono(Integer numeroCliente) throws ClienteFICException {
+    public List<ConsultarDireccionTelefonoType> getDirrecionTelefono(Integer numeroCliente) throws ApplicationException {
 
         LOG.info("Inicia consulta de Dirreccion Telefono");
         List<ConsultarDirrecionTelefonoEntity> list = clienteFICDAO.getDirrecionTelefono(numeroCliente);
@@ -116,7 +116,7 @@ public class ClienteFICServiceImpl implements ClienteFICService {
     }
 
     @Override
-    public List<ContactoType> getContacto(Integer numeroCliente) throws ClienteFICException {
+    public List<ContactoType> getContacto(Integer numeroCliente) throws ApplicationException {
 
         LOG.info("Inicia consulta de Historial Contacto");
         List<ContactoEntity> list = clienteFICDAO.getContacto(numeroCliente);
@@ -126,7 +126,7 @@ public class ClienteFICServiceImpl implements ClienteFICService {
     }
 
     @Override
-    public List<OfertaType> getOferta(Integer numeroCliente) throws ClienteFICException {
+    public List<OfertaType> getOferta(Integer numeroCliente) throws ApplicationException {
 
         LOG.info("Inicia consulta de Oferta");
         List<OfertaEntity> list = clienteFICDAO.getOferta(numeroCliente);
@@ -147,7 +147,7 @@ public class ClienteFICServiceImpl implements ClienteFICService {
     }
 
     @Override
-    public List<PQRType> getPQR(ConsultaClienteByData dataCliente) throws ClienteFICException {
+    public List<PQRType> getPQR(ConsultaClienteByData dataCliente) throws ApplicationException {
 
         LOG.info("Inicia consulta de PQR");
         List<PQREntity> list = clienteFICDAO.getPQR(dataCliente);
