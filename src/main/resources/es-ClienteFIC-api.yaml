@@ -838,17 +838,17 @@ components:
     TipoDocumentoEnum:
       type: string
       enum:
-        - CC CEDULA DE CIUDADANÍA
-        - TI TARJETA DE IDENTIDAD
-        - CDI CARNE DIPLOMATICO
-        - CE CEDULA DE EXTRANJERÍA
-        - CPA CEDULA PAISES ANDINOS
-        - NIT NUMERO DE IDENTIFICACION TRIBUTARIA
-        - PAS PASAPORTE
-        - RCN REGISTRO CIVIL
-        - RUT REGISTRO UNICO TRIBUTARIO
-        - TE TERCEROS DEL EXTERIOR SIN DOMICILIO
-        - RUMC ROTATIVO UTILIZACIONES MICROCREDITO
+        - CC
+        - TI
+        - CDI
+        - CE
+        - CPA
+        - NIT
+        - PAS
+        - RCN
+        - RUT
+        - TE
+        - RUMC
     TipoRelacionEnum:
       type: string
       enum:

@@ -176,17 +176,17 @@ enum EstadoCivilEnum{
 }
 
 enum TipoDocumentoEnum{
-  CC_CEDULA_DE_CIUDADANIA = 0;
-  TI_TARJETA_DE_IDENTIDAD_ = 1;
-  CDI_CARNE_DIPLOMATICO_ = 2;
-  CE_CEDULA_DE_EXTRANJERIA_ = 3;
-  CPA_CEDULA_PAISES_ANDINOS_ = 4;
-  NIT_NUMERO_DE_IDENTIFICACION_TRIBUTARIA_ = 5;
-  PAS_PASAPORTE_ = 6;
-  RCN_REGISTRO_CIVIL_ = 7;
-  RUT_REGISTRO_UNICO_TRIBUTARIO_ = 8;
-  TE_TERCEROS_DEL_EXTERIOR_SIN_DOMICILIO_ = 9;
-  RUMC_ROTATIVO_UTILIZACIONES_MICROCREDITO_ = 10;
+  CC = 0;
+  TI = 1;
+  CDI = 2;
+  CE = 3;
+  CPA = 4;
+  NIT = 5;
+  PAS = 6;
+  RCN = 7;
+  RUT = 8;
+  TE = 9;
+  RUMC = 10;
 }
 
 enum TipoPersonaEnum{
@@ -791,11 +791,11 @@ message ResponseAlerta{
 }
 
 message ResponseCentralDeRiesgo{
-  CentralRiesgoType obj = 1;
+  repeated CentralRiesgoType obj = 1;
 }
 
 message ResponsePQR{
-  PQRType obj = 1;
+  repeated PQRType obj = 1;
 }
 
 message ResponseConyuge{
@@ -803,11 +803,11 @@ message ResponseConyuge{
 }
 
 message ResponseCupoRotativo{
-  CupoRotativoType obj = 1;
+  repeated CupoRotativoType obj = 1;
 }
 
 message ResponseHistorialContacto{
-  ResponseHistorialContacto obj = 1;
+  repeated ResponseHistorialContacto obj = 1;
 }
 
 message ResponseDirrecionTelefono{
@@ -815,11 +815,11 @@ message ResponseDirrecionTelefono{
 }
 
 message ResponseOferta{
-  OfertaType obj = 1;
+  repeated OfertaType obj = 1;
 }
 
 message ResponsePasivo{
-  PasivoType obj = 1;
+  repeated PasivoType obj = 1;
 }
 
 //Services
@@ -827,15 +827,15 @@ message ResponsePasivo{
 service ClienteFICServiceGrpc {
   rpc clienteFIC(CrearClienteFICGrpc) returns (ResponseClienteFIC);
   rpc consultarAlerta(ConsultaClienteByData) returns (stream ResponseAlerta);
-  rpc consultarCentralDeRiesgo(ConsultaClienteByData) returns (ResponseCentralDeRiesgo);
-  rpc consultarPQR(ConsultaClienteByData) returns (ResponsePQR);
+  rpc consultarCentralDeRiesgo(ConsultaClienteByData) returns (stream ResponseCentralDeRiesgo);
+  rpc consultarPQR(ConsultaClienteByData) returns (stream ResponsePQR);
   rpc consutaClientePorIdentificacion(ConsultaClienteByData) returns (CentralRiesgoType); //---
   rpc consultarConyuge(NumeroCliente) returns (ResponseConyuge);
-  rpc consultarCupoRotativo(NumeroCliente) returns (ResponseCupoRotativo);
+  rpc consultarCupoRotativo(NumeroCliente) returns (stream ResponseCupoRotativo);
   rpc consultarDireccionTelefono(NumeroCliente) returns (ResponseDirrecionTelefono);
-  rpc consultarHistorialContacto(NumeroCliente) returns (ResponseHistorialContacto);
-  rpc consultarOferta(NumeroCliente) returns (ResponseOferta);
-  rpc consultarPasivo(NumeroCliente) returns (ResponsePasivo);
+  rpc consultarHistorialContacto(NumeroCliente) returns (stream ResponseHistorialContacto);
+  rpc consultarOferta(NumeroCliente) returns (stream ResponseOferta);
+  rpc consultarPasivo(NumeroCliente) returns (stream ResponsePasivo);
 }
 
 

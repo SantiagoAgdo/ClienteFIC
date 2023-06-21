@@ -18,6 +18,7 @@ public class CentralRiesgoEntity {
     private Date fechaConsultaMasReciente;
     private Date fechaExpedicion;
     private String genero;
+    private String historicoEndeudamiento;
     private String lugarExpedicion;
     private String numeroDocumento;
     private String rangoEdad;

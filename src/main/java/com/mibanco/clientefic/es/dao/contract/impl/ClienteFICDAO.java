@@ -65,6 +65,7 @@ public class ClienteFICDAO implements IClienteFICDao {
                     cli.getCentralRiesgo().getFechaExpedicion(),
                     cli.getCentralRiesgo().getGenero(),
                     cli.getCentralRiesgo().getLugarExpedicion(),
+                    cli.getCentralRiesgo().getHistoricoEndeudamiento(),
                     cli.getCentralRiesgo().getNumeroDocumento(),
                     cli.getCentralRiesgo().getRangoEdad(),
                     cli.getCentralRiesgo().getResultadoConsultaMasReciente(),

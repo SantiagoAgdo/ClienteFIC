@@ -163,4 +163,29 @@ public class ClienteFICValidator {
                 Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.VALIDACION + " tipoDocumento invalido"
         );
     }
+
+    public void validarConsultaGRPC(com.mibanco.clientefic.es.TipoDocumentoEnum tipoDocumento, Integer numeroDocumento, Integer digitoVerificacion) throws ClienteFICExceptionValidation {
+
+        if (numeroDocumento == null || numeroDocumento < 0) {
+            throw new ClienteFICExceptionValidation(
+                    Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.VALIDACION + " numeroDocumento invalido"
+            );
+        }
+        if (digitoVerificacion == null || digitoVerificacion < 0 || digitoVerificacion > 99) {
+            throw new ClienteFICExceptionValidation(
+                    Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.VALIDACION + " digitoVerificacion invalido"
+            );
+        }
+        for (TipoDocumentoEnum enumValue : TipoDocumentoEnum.values()) {
+            if (enumValue.name().equals(tipoDocumento.name())) {
+                logger.info("Validacion realizadas correctamente");
+                Response.ok().build();
+                return;
+            }
+        }
+
+        throw new ClienteFICExceptionValidation(
+                Response.Status.BAD_REQUEST.getStatusCode(), ErrorCts.VALIDACION + " tipoDocumento invalido"
+        );
+    }
 }

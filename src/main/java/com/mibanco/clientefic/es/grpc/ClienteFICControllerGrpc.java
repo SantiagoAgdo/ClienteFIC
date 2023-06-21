@@ -1,16 +1,17 @@
 package com.mibanco.clientefic.es.grpc;
 
 import com.mibanco.clientefic.es.*;
-import com.mibanco.clientefic.es.constans.ErrorCts;
 import com.mibanco.clientefic.es.controller.ClienteFICController;
 import com.mibanco.clientefic.es.dao.entity.ClienteFICEntity;
 import com.mibanco.clientefic.es.gen.type.CentralRiesgoType;
 import com.mibanco.clientefic.es.gen.type.AlertaType;
+import com.mibanco.clientefic.es.gen.type.PQRType;
 import com.mibanco.clientefic.es.services.impl.ClienteFICServiceImpl;
-import com.mibanco.clientefic.es.utils.Exceptions.ClienteFICException;
+import com.mibanco.clientefic.es.utils.Exceptions.ClienteFICExceptionValidation;
 import com.mibanco.clientefic.es.utils.mapper.ClienteFICMapperGrpc;
-import io.grpc.Status;
-import io.grpc.StatusRuntimeException;
+import com.mibanco.clientefic.es.utils.validators.ClienteFICValidator;
+
+import io.grpc.*;
 import io.grpc.stub.StreamObserver;
 import io.quarkus.grpc.GrpcService;
 import io.smallrye.common.annotation.Blocking;
@@ -18,10 +19,11 @@ import jakarta.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.mibanco.clientefic.es.TipoDocumentoEnum.CC_CEDULA_DE_CIUDADANIA;
+import static com.mibanco.clientefic.es.TipoDocumentoEnum.CC;
 import static com.mibanco.clientefic.es.TipoRelacionEnum.TITULAR;
 import static com.mibanco.clientefic.es.TipoReporteXmlEnum.CONSULTA_DETALLADA;
 
@@ -35,6 +37,9 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
 
     @Inject
     ClienteFICMapperGrpc mapper;
+
+    @Inject
+    ClienteFICValidator clienteFICValidator;
 
     @Override
     @Blocking
@@ -53,8 +58,12 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
             responseObs.onCompleted();
 
         } catch (Exception e) {
-            logger.error(ErrorCts.SERVICIO + " Creacion Novedad Grpc");
-            throw new ClienteFICException(ErrorCts.SERVICIO + " Creacion Novedad Grpc - Exception: " + e.getMessage());
+            Status status = Status.INTERNAL;
+            Metadata metadata = new Metadata();
+            metadata.put(Metadata.Key.of("Error", Metadata.ASCII_STRING_MARSHALLER), "Fallo servicio creacion cliente FIC");
+
+            StatusException statusException = status.asException(metadata);
+            responseObs.onError(statusException);
         }
     }
 
@@ -64,7 +73,8 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
 
         logger.info("Inicia consulta alerta por GRPC");
         try {
-//            throw new Exception();
+
+            clienteFICValidator.validarConsultaGRPC(request.getTipoDocumento(), request.getNumeroDocumento(), request.getDigitoVerificacion());
             com.mibanco.clientefic.es.dao.entity.ConsultaClienteByData entity = mapper.dataGrpcToEntity(request);
             List<AlertaType> list = clienteFICService.getListaAlertas(entity);
 
@@ -74,26 +84,34 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
                         .setTipoAlerta(alert.getTipoAlerta())
                         .setBanco(alert.getBanco())
                         .setFecha(alert.getFecha().toString())
-                        .setTipoDocumento(CC_CEDULA_DE_CIUDADANIA)
+                        .setTipoDocumento(CC)
                         .setNumeroDocumento(alert.getNumeroDocumento())
                         .setDigitoVerificacion(alert.getDigitoVerificacion())
                         .build());
-
             }
-            ResponseAlerta y = ResponseAlerta.newBuilder().addAllObj(lista).build();
+
+            ResponseAlerta response = ResponseAlerta.newBuilder().addAllObj(lista).build();
             logger.info("Finaliza creacion Cliente FIC por GRPC");
 
-            responseObs.onNext(y);
-
+            responseObs.onNext(response);
             responseObs.onCompleted();
 
+        } catch (ClienteFICExceptionValidation e) {
+            Status status = Status.INVALID_ARGUMENT;
+
+            Metadata metadata = new Metadata();
+            metadata.put(Metadata.Key.of("Error", Metadata.ASCII_STRING_MARSHALLER), e.getMessage());
+            StatusException statusException = status.asException(metadata);
+
+            responseObs.onError(statusException);
         } catch (Exception e) {
-            Status status = Status.fromThrowable(new StatusRuntimeException(Status.ABORTED));
-//            String message = status.getDescription() "ERRRORRRRRRR CCCCCXXXXX";
-            responseObs.onError(new StatusRuntimeException(status));
-            responseObs.onCompleted();
-            logger.error(ErrorCts.SERVICIO_GRPC + "consultarAlerta en GRPC");
-            throw new ClienteFICException(ErrorCts.SERVICIO + " Creacion Novedad Grpc - Exception: " + e.getMessage());
+            Status status = Status.INTERNAL;
+
+            Metadata metadata = new Metadata();
+            metadata.put(Metadata.Key.of("Error", Metadata.ASCII_STRING_MARSHALLER), "Pruebaaaaaaaaaa");
+            StatusException statusException = status.asException(metadata);
+
+            responseObs.onError(statusException);
         }
     }
 
@@ -103,12 +121,13 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
 
         logger.info("Inicia consulta central Riesgo por GRPC");
         try {
+            clienteFICValidator.validarConsultaGRPC(request.getTipoDocumento(), request.getNumeroDocumento(), request.getDigitoVerificacion());
             com.mibanco.clientefic.es.dao.entity.ConsultaClienteByData entity = mapper.dataGrpcToEntity(request);
             List<CentralRiesgoType> list = clienteFICService.getListaCentralRiesgo(entity);
 
-            com.mibanco.clientefic.es.CentralRiesgoType items = null;
+            List<com.mibanco.clientefic.es.CentralRiesgoType> lista = new ArrayList<>();
             for (CentralRiesgoType i : list) {
-                items = com.mibanco.clientefic.es.CentralRiesgoType.newBuilder()
+                lista.add(com.mibanco.clientefic.es.CentralRiesgoType.newBuilder()
                         .setAntiguedadUbicacion(i.getAntiguedadUbicacion())
                         .setConsultaDetallada(i.getConsultaDetallada())
                         .setEstadoDocumento(i.getEstadoDocumento())
@@ -121,23 +140,82 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
                         .setRangoEdad(i.getRangoEdad())
                         .setResultadoConsultaMasReciente(i.getResultadoConsultaMasReciente())
                         .setTieneRUT(i.getTieneRUT())
-                        .setTipoDocumento(CC_CEDULA_DE_CIUDADANIA)
+                        .setTipoDocumento(CC)
                         .setTipoRelacion(TITULAR)
                         .setTipoReporte(CONSULTA_DETALLADA)
                         .setVbVigenteParaSerConsultado(i.getVbVigenteParaSerConsultado())
                         .setDigitoVerificacion(i.getDigitoVerificacion())
-                        .build();
+                        .build());
             }
-            ResponseCentralDeRiesgo itemList = ResponseCentralDeRiesgo.newBuilder().setObj(items).build();
-            logger.info("Finaliza creacion Cliente FIC por GRPC");
+            ResponseCentralDeRiesgo response = ResponseCentralDeRiesgo.newBuilder().addAllObj(lista).build();
+            logger.info("Finaliza consulta centralRiesgo por GRPC");
 
-            responseObs.onNext(itemList);
+            responseObs.onNext(response);
             responseObs.onCompleted();
 
-        } catch (Exception e) {
+        } catch (ClienteFICExceptionValidation e) {
+            Status status = Status.INVALID_ARGUMENT;
 
-            logger.error(ErrorCts.SERVICIO_GRPC + "consultarAlerta en GRPC ");
-            throw new ClienteFICException(ErrorCts.SERVICIO + " Creacion Novedad Grpc - Exception: " + e.getMessage());
+            Metadata metadata = new Metadata();
+            metadata.put(Metadata.Key.of("Error", Metadata.ASCII_STRING_MARSHALLER), e.getMessage());
+            StatusException statusException = status.asException(metadata);
+
+            responseObs.onError(statusException);
+        } catch (Exception e) {
+            Status status = Status.INTERNAL;
+
+            Metadata metadata = new Metadata();
+            metadata.put(Metadata.Key.of("Error", Metadata.ASCII_STRING_MARSHALLER), e.getMessage());
+            StatusException statusException = status.asException(metadata);
+
+            responseObs.onError(statusException);
+        }
+    }
+
+    @Override
+    @Blocking
+    public void consultarPQR(ConsultaClienteByData request, StreamObserver<ResponsePQR> responseObs) {
+        logger.info("Inicia consulta PQR por GRPC");
+        try {
+            clienteFICValidator.validarConsultaGRPC(request.getTipoDocumento(), request.getNumeroDocumento(), request.getDigitoVerificacion());
+            com.mibanco.clientefic.es.dao.entity.ConsultaClienteByData entity = mapper.dataGrpcToEntity(request);
+            List<PQRType> list = clienteFICService.getPQR(entity);
+
+            List<com.mibanco.clientefic.es.PQRType> lista = new ArrayList<>();
+            for (PQRType i : list) {
+                lista.add(com.mibanco.clientefic.es.PQRType.newBuilder()
+                        .setFecha(i.getFecha().toString())
+                        .setNumeroPQR(i.getNumeroPQR())
+                        .setMotivo(i.getMotivo())
+                        .setResultadoPQR(i.getResultadoPQR())
+                        .setComentario(i.getComentario())
+                        .setDigitoVerificacion(i.getDigitoVerificacion())
+                        .setTipoDocumento(CC)
+                        .setNumeroDocumento(i.getNumeroDocumento())
+                        .build());
+            }
+            ResponsePQR response = ResponsePQR.newBuilder().addAllObj(lista).build();
+            logger.info("Finaliza consulta PQR por GRPC");
+
+            responseObs.onNext(response);
+            responseObs.onCompleted();
+
+        } catch (ClienteFICExceptionValidation e) {
+            Status status = Status.INVALID_ARGUMENT;
+
+            Metadata metadata = new Metadata();
+            metadata.put(Metadata.Key.of("Error", Metadata.ASCII_STRING_MARSHALLER), e.getMessage());
+            StatusException statusException = status.asException(metadata);
+
+            responseObs.onError(statusException);
+        } catch (Exception e) {
+            Status status = Status.INTERNAL;
+
+            Metadata metadata = new Metadata();
+            metadata.put(Metadata.Key.of("Error", Metadata.ASCII_STRING_MARSHALLER), e.getMessage());
+            StatusException statusException = status.asException(metadata);
+
+            responseObs.onError(statusException);
         }
     }
 
