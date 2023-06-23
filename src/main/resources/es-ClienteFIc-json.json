@@ -3,7 +3,7 @@
     "tipoAlerta": "string",
     "banco": "string",
     "fecha": "2022-03-10",
-    "tipoDocumento": "PAS PASAPORTE",
+    "tipoDocumento": "PAS",
     "numeroDocumento": "10002",
     "digitoVerificacion": "string"
   },
@@ -11,7 +11,7 @@
     "id": 0,
     "numeroCliente": 0,
     "tipoPersona": "2 NATURAL",
-    "tipoDocumento": "PAS PASAPORTE",
+    "tipoDocumento": "PAS",
     "numeroDocumento": 10002,
     "fechaExpedicionDocumento": "2022-03-10",
     "primerNombre": "Pablo",
@@ -34,7 +34,7 @@
     "rangoEdad": "string",
     "resultadoConsultaMasReciente": "string",
     "tieneRUT": true,
-    "tipoDocumento": "PAS PASAPORTE",
+    "tipoDocumento": "PAS",
     "tipoRelacion": "02 CONYUGE",
     "tipoReporte": "CONSULTA DETALLADA",
     "vbVigenteParaSerConsultado": true,
@@ -47,7 +47,7 @@
     "numeroCliente": 0
   },
   "conyuge": {
-    "tipoDocumento": "PAS PASAPORTE",
+    "tipoDocumento": "PAS",
     "numeroDocumento": "10002",
     "primerNombre": "string",
     "segundoNombre": "string",
@@ -113,7 +113,7 @@
     "resultadoPQR": "string",
     "comentario": "string",
     "digitoVerificacion": "string",
-    "tipoDocumento": "PAS PASAPORTE",
+    "tipoDocumento": "PAS",
     "numeroDocumento": "10002"
   },
   "prestamo": "string",
@@ -123,7 +123,7 @@
   "segundoApellidoRepresentanteLegal": "string",
   "segundoNombreRepresentanteLegal": "string",
   "seRequiereActualizacion": true,
-  "tipoDocumentoRepresentanteLegal": "PAS PASAPORTE",
+  "tipoDocumentoRepresentanteLegal": "PAS",
   "totalActivos": 0,
   "ultimaFechaActualizacion": "2022-03-10"
 }

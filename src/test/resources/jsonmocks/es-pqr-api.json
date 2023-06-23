@@ -6,7 +6,7 @@
     "resultadoPQR": "string",
     "comentario": "string",
     "digitoVerificacion": "string",
-    "tipoDocumento": "CC CEDULA DE CIUDADANÍA",
+    "tipoDocumento": "CC",
     "numeroDocumento": "10002"
   }
 }

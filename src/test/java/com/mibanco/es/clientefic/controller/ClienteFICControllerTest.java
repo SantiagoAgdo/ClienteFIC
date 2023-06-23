@@ -55,7 +55,7 @@ public class ClienteFICControllerTest {
                 .contentType(ContentType.JSON)
                 .body(clienteFIC)
                 .when()
-                .get("v1/es/centralRiesgo/CC CEDULA DE CIUDADANÍA/10002/0")
+                .get("v1/es/centralRiesgo/CC/10002/0")
                 .then()
                 .statusCode(200);
     }
@@ -157,7 +157,7 @@ public class ClienteFICControllerTest {
                 .contentType(ContentType.JSON)
                 .body(clienteFIC)
                 .when()
-                .get("v1/es/pqr/CC CEDULA DE CIUDADANÍA/10002/0")
+                .get("v1/es/pqr/CC/10002/0")
                 .then()
                 .statusCode(200);
     }
@@ -191,7 +191,7 @@ public class ClienteFICControllerTest {
                 .contentType(ContentType.JSON)
                 .body(clienteFIC)
                 .when()
-                .get("v1/es/clienteFIC/CC CEDULA DE CIUDADANÍA/10002/0")
+                .get("v1/es/clienteFIC/CC/10002/0")
                 .then()
                 .statusCode(200);
     }

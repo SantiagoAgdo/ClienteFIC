@@ -12,7 +12,7 @@
     "rangoEdad": "string",
     "resultadoConsultaMasReciente": "string",
     "tieneRUT": true,
-    "tipoDocumento": "CC CEDULA DE CIUDADANÍA",
+    "tipoDocumento": "CC",
     "tipoRelacion": "01 TITULAR",
     "tipoReporte": "CONSULTA DETALLADA",
     "vbVigenteParaSerConsultado": true,

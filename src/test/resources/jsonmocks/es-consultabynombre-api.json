@@ -1,7 +1,7 @@
 {
   "totalClientes": 1,
   "clientes": {
-    "tipoDocumento": "CC CEDULA DE CIUDADANÍA",
+    "tipoDocumento": "CC",
     "numeroDocumento": 10002,
     "nombreCompleto": "Pablo Emilio"
   }
