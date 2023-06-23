@@ -10,32 +10,32 @@ import java.util.Date;
 @AllArgsConstructor
 public class ClienteFICEntity {
 
-    private AlertaType alerta;
-    private ClienteBaseType clienteBase;
-    private CentralRiesgoType centralRiesgo;
-    private ContactoEntity contacto;
-    private ConyugeType conyuge;
-    private CupoRotativoType cupoRotativo;
-    private Integer digitoVerificacion;
-    private DomicilioType domicilio;
-    private DomicilioEmpresaType domicilioEmpresa;
-    private EstadoCivilEnum estadoCivil;
-    private String funcionarioUltimaActualizacion;
-    private NegocioType negocio;
-    private String numeroDocumentoRepresentanteLegal;
-    private OfertaType oferta;
-    private PasivoType pasivo;
-    private PQRType PQR;
-    private String prestamo;
-    private String primerApellidoRepresentanteLegal;
-    private String primerNombreRepresentanteLegal;
-    private String razonSocial;
-    private String segundoApellidoRepresentanteLegal;
-    private String segundoNombreRepresentanteLegal;
-    private Boolean seRequiereActualizacion;
-    private TipoDocumentoEnum tipoDocumentoRepresentanteLegal;
-    private Float totalActivos;
-    private Date ultimaFechaActualizacion;
+    public AlertaType alerta;
+    public ClienteBaseType clienteBase;
+    public CentralRiesgoType centralRiesgo;
+    public ContactoEntity contacto;
+    public ConyugeType conyuge;
+    public CupoRotativoType cupoRotativo;
+    public Integer digitoVerificacion;
+    public DomicilioType domicilio;
+    public DomicilioEmpresaType domicilioEmpresa;
+    public EstadoCivilEnum estadoCivil;
+    public String funcionarioUltimaActualizacion;
+    public NegocioType negocio;
+    public String numeroDocumentoRepresentanteLegal;
+    public OfertaType oferta;
+    public PasivoType pasivo;
+    public PQRType PQR;
+    public String prestamo;
+    public String primerApellidoRepresentanteLegal;
+    public String primerNombreRepresentanteLegal;
+    public String razonSocial;
+    public String segundoApellidoRepresentanteLegal;
+    public String segundoNombreRepresentanteLegal;
+    public Boolean seRequiereActualizacion;
+    public TipoDocumentoEnum tipoDocumentoRepresentanteLegal;
+    public String totalActivos;
+    public Date ultimaFechaActualizacion;
 
     public ClienteFICEntity() {
     }

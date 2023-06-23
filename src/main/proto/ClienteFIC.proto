@@ -110,6 +110,18 @@ message  CupoRotativoType{
   float saldoDisponible = 7;
 }
 
+message DirrecionTelefonoType{
+  string direccion = 1;
+  int32 telefono1 = 2;
+  TipoViviendaEnum tipoVivienda = 3;
+  TipoViviendaEnum tipoLocal = 4;
+  TipoDireccionEnum tipoDireccion = 5;
+  DepartamentoEnum codigoDepartamento = 6;
+  CiudadEnum codigoMunicipio = 7;
+  BarrioEnum codigoBarrio = 8;
+  int64 telefono2 = 9;
+}
+
 message DomicilioType{
   int32 numeroCliente = 1;
   TipoViviendaEnum tipoVivienda = 2;
@@ -769,6 +781,45 @@ enum SubProductoEnum{
   BONO_BN03_BONO_MENOR_18_MESES_IB_ = 10;
 }
 
+enum TipoDireccionEnum{
+  EMPR_EMPRESA = 0;
+
+  OFIC_OFICINA = 1;
+
+  RESI_RESIDENCIA = 2;
+}
+
+enum DepartamentoEnum{
+  _05 = 0;
+  _11 = 1;
+  _12 = 2;
+  _13 = 3;
+  _15 = 4;
+  _17 = 5;
+  _18 = 6;
+  _19 = 7;
+  _20 = 8;
+  _23 = 9;
+  _25 = 10;
+}
+
+enum CiudadEnum{
+  _05001 = 0;
+  _05002 = 1;
+  _05004 = 2;
+  _05021 = 3;
+  _05030 = 4;
+  _05031 = 5;
+  _05034 = 6;
+  _05036 = 7;
+  _05038 = 8;
+  _05040 = 9;
+}
+
+enum BarrioEnum{
+  SINDATA = 0;
+}
+
 
 message ConsultaClienteByData{
   TipoDocumentoEnum tipoDocumento = 1;
@@ -807,11 +858,11 @@ message ResponseCupoRotativo{
 }
 
 message ResponseHistorialContacto{
-  repeated ResponseHistorialContacto obj = 1;
+  repeated ContactoType obj = 1;
 }
 
 message ResponseDirrecionTelefono{
-  ResponseDirrecionTelefono obj = 1;
+  repeated DirrecionTelefonoType obj = 1;
 }
 
 message ResponseOferta{
@@ -822,6 +873,11 @@ message ResponsePasivo{
   repeated PasivoType obj = 1;
 }
 
+message  ResponseCliente{
+  CrearClienteFICGrpc cliente = 1;
+}
+
+
 //Services
 
 service ClienteFICServiceGrpc {
@@ -829,10 +885,10 @@ service ClienteFICServiceGrpc {
   rpc consultarAlerta(ConsultaClienteByData) returns (stream ResponseAlerta);
   rpc consultarCentralDeRiesgo(ConsultaClienteByData) returns (stream ResponseCentralDeRiesgo);
   rpc consultarPQR(ConsultaClienteByData) returns (stream ResponsePQR);
-  rpc consutaClientePorIdentificacion(ConsultaClienteByData) returns (CentralRiesgoType); //---
+  rpc consutaClientePorIdentificacion(ConsultaClienteByData) returns (ResponseCliente); //---
   rpc consultarConyuge(NumeroCliente) returns (ResponseConyuge);
   rpc consultarCupoRotativo(NumeroCliente) returns (stream ResponseCupoRotativo);
-  rpc consultarDireccionTelefono(NumeroCliente) returns (ResponseDirrecionTelefono);
+  rpc consultarDireccionTelefono(NumeroCliente) returns (stream ResponseDirrecionTelefono);
   rpc consultarHistorialContacto(NumeroCliente) returns (stream ResponseHistorialContacto);
   rpc consultarOferta(NumeroCliente) returns (stream ResponseOferta);
   rpc consultarPasivo(NumeroCliente) returns (stream ResponsePasivo);

@@ -164,7 +164,7 @@ public class ClienteFICValidator {
         );
     }
 
-    public void validarConsultaGRPC(com.mibanco.clientefic.es.TipoDocumentoEnum tipoDocumento, Integer numeroDocumento, Integer digitoVerificacion) throws ApplicationExceptionValidation {
+    public void validaConsulta(com.mibanco.clientefic.es.TipoDocumentoEnum tipoDocumento, Integer numeroDocumento, Integer digitoVerificacion) throws ApplicationExceptionValidation {
 
         if (numeroDocumento == null || numeroDocumento < 0) {
             throw new ApplicationExceptionValidation(

@@ -182,7 +182,7 @@ public class ClienteFICController implements V1ClienteFIC {
 
             LOG.info("Finaliza consulta de Historial Contacto");
             return list.size() != 0 ? Response.status(Response.Status.OK).entity(list).build() :
-                    Response.status(Response.Status.OK).entity(Constans.SIN_REGISTROS).build();
+                    Response.status(Response.Status.OK).entity(Constans.SIN_CONTACTO).build();
 
         } catch (ApplicationExceptionValidation e) {
 
@@ -206,7 +206,7 @@ public class ClienteFICController implements V1ClienteFIC {
 
             LOG.info("Finaliza consulta de Oferta");
             return list.size() != 0 ? Response.status(Response.Status.OK).entity(list).build() :
-                    Response.status(Response.Status.OK).entity(Constans.SIN_REGISTROS).build();
+                    Response.status(Response.Status.OK).entity(Constans.SIN_OFERTAS).build();
 
         } catch (ApplicationExceptionValidation e) {
 
@@ -230,7 +230,7 @@ public class ClienteFICController implements V1ClienteFIC {
 
             LOG.info("Finaliza consulta de PQR");
             return list.size() != 0 ? Response.status(Response.Status.OK).entity(list).build() :
-                    Response.status(Response.Status.OK).entity(Constans.SIN_REGISTROS).build();
+                    Response.status(Response.Status.OK).entity(Constans.SIN_PQR).build();
 
         } catch (ApplicationExceptionValidation e) {
 
@@ -254,7 +254,7 @@ public class ClienteFICController implements V1ClienteFIC {
 
             LOG.info("Finaliza consulta Pasivo");
             return list.size() != 0 ? Response.status(Response.Status.OK).entity(list).build() :
-                    Response.status(Response.Status.OK).entity(Constans.SIN_REGISTROS).build();
+                    Response.status(Response.Status.OK).entity(Constans.SIN_PASIVO).build();
 
         } catch (ApplicationExceptionValidation e) {
 
