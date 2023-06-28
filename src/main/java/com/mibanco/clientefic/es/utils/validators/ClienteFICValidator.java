@@ -9,7 +9,10 @@ import jakarta.ws.rs.core.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.Field;
+import java.beans.BeanInfo;
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
 
 @ApplicationScoped
 public class ClienteFICValidator {
@@ -20,65 +23,65 @@ public class ClienteFICValidator {
 
     public void verificarClienteFIC(ClienteFICType clienteFICType) throws ApplicationExceptionValidation {
 
-        if (validarObjeto(clienteFICType)) {
+        if (tieneAtributosNulos(clienteFICType)) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO + msmError + " es obligatorio"
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO_INTERNAL + msmError + " obligatorios"
             );
         }
-        if (validarObjeto(clienteFICType.getAlerta())) {
+        if (tieneAtributosNulos(clienteFICType.getAlerta())) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO + msmError + " es obligatorio"
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO_INTERNAL + msmError + " obligatorios"
             );
         }
-        if (validarObjeto(clienteFICType.getClienteBase())) {
+        if (tieneAtributosNulos(clienteFICType.getClienteBase())) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO + msmError + " es obligatorio"
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO_INTERNAL + msmError + " obligatorios"
             );
         }
-        if (validarObjeto(clienteFICType.getCentralRiesgo())) {
+        if (tieneAtributosNulos(clienteFICType.getCentralRiesgo())) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO + msmError + " es obligatorio"
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO_INTERNAL + msmError + " obligatorios"
             );
         }
 
-        if (validarObjeto(clienteFICType.getContacto())) {
+        if (tieneAtributosNulos(clienteFICType.getContacto())) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO + msmError + " es obligatorio"
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO_INTERNAL + msmError + " obligatorios"
             );
         }
-        if (validarObjeto(clienteFICType.getConyuge())) {
+        if (tieneAtributosNulos(clienteFICType.getConyuge())) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO + msmError + " es obligatorio"
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO_INTERNAL + msmError + " obligatorios"
             );
         }
-        if (validarObjeto(clienteFICType.getCupoRotativo())) {
+        if (tieneAtributosNulos(clienteFICType.getCupoRotativo())) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO + msmError + " es obligatorio"
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO_INTERNAL + msmError + " obligatorios"
             );
         }
-        if (validarObjeto(clienteFICType.getDomicilioEmpresa())) {
+        if (tieneAtributosNulos(clienteFICType.getDomicilioEmpresa())) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO + msmError + " es obligatorio"
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO_INTERNAL + msmError + " obligatorios"
             );
         }
-        if (validarObjeto(clienteFICType.getNegocio())) {
+        if (tieneAtributosNulos(clienteFICType.getNegocio())) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO + msmError + " es obligatorio"
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO_INTERNAL + msmError + " obligatorios"
             );
         }
-        if (validarObjeto(clienteFICType.getOferta())) {
+        if (tieneAtributosNulos(clienteFICType.getOferta())) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO + msmError + " es obligatorio"
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO_INTERNAL + msmError + " obligatorios"
             );
         }
-        if (validarObjeto(clienteFICType.getPasivo())) {
+        if (tieneAtributosNulos(clienteFICType.getPasivo())) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO + msmError + " es obligatorio"
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO_INTERNAL + msmError + " obligatorios"
             );
         }
-        if (validarObjeto(clienteFICType.getPQR())) {
+        if (tieneAtributosNulos(clienteFICType.getPQR())) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO + msmError + " es obligatorio"
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO_INTERNAL + msmError + " obligatorios"
             );
         }
 
@@ -86,29 +89,25 @@ public class ClienteFICValidator {
         Response.ok().build();
     }
 
-    public boolean validarObjeto(Object obj) {
-        Class<?> objClass = obj.getClass();
-        Field[] atributos = objClass.getDeclaredFields();
-        msmError = objClass.getSimpleName() + " en ";
+
+    public boolean tieneAtributosNulos(Object obj) {
         boolean isValidateSuccess = true;
+        try {
+            BeanInfo bean = Introspector.getBeanInfo(obj.getClass());
+            PropertyDescriptor[] descripcionDePropiedades = bean.getPropertyDescriptors();
 
-        for (Field atr : atributos) {
-            atr.setAccessible(true);
-            try {
-                Object value = atr.get(obj);
-
-                if (value == null || value.toString().isEmpty()) {
-                    msmError += atr.getName() + ", ";
+            for (PropertyDescriptor atr : descripcionDePropiedades) {
+                Object valor = atr.getReadMethod().invoke(obj);
+                if (valor == null) {
                     isValidateSuccess = false;
                 }
-
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
             }
+        } catch (IntrospectionException | ReflectiveOperationException e) {
+            e.printStackTrace();
         }
 
         if (!isValidateSuccess) {
-            msmError = msmError.substring(0, msmError.length() - 2);
+            msmError = "Se encontro datos nulos o vacios, verifique los datos";
         }
 
         return !isValidateSuccess;
