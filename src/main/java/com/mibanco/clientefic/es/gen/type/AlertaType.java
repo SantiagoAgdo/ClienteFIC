@@ -1,22 +1,20 @@
 package com.mibanco.clientefic.es.gen.type;
 
 import com.mibanco.clientefic.es.gen.type.TipoDocumentoEnum;
-
 import java.util.Date;
-
 import jakarta.validation.constraints.*;
 import jakarta.validation.Valid;
 
 import java.util.Objects;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
+
 @JsonTypeName("AlertaType")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-06-29T09:35:48.752340-05:00[America/Bogota]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-07-04T10:53:53.775738-05:00[America/Bogota]")
 public class AlertaType {
   private @Valid String tipoAlerta;
   private @Valid String banco;
@@ -45,7 +43,6 @@ public class AlertaType {
   }
 
   /**
-   *
    **/
   public AlertaType banco(String banco) {
     this.banco = banco;
@@ -64,7 +61,6 @@ public class AlertaType {
   }
 
   /**
-   *
    **/
   public AlertaType fecha(Date fecha) {
     this.fecha = fecha;
@@ -83,7 +79,6 @@ public class AlertaType {
   }
 
   /**
-   *
    **/
   public AlertaType tipoDocumento(TipoDocumentoEnum tipoDocumento) {
     this.tipoDocumento = tipoDocumento;
@@ -102,7 +97,6 @@ public class AlertaType {
   }
 
   /**
-   *
    **/
   public AlertaType numeroDocumento(String numeroDocumento) {
     this.numeroDocumento = numeroDocumento;
@@ -121,7 +115,6 @@ public class AlertaType {
   }
 
   /**
-   *
    **/
   public AlertaType digitoVerificacion(String digitoVerificacion) {
     this.digitoVerificacion = digitoVerificacion;

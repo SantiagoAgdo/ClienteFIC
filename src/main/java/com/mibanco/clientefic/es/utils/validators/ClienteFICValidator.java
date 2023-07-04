@@ -23,6 +23,60 @@ public class ClienteFICValidator {
 
     public void verificarClienteFIC(ClienteFICType clienteFICType) throws ApplicationExceptionValidation {
 
+        if (clienteFICType == null) {
+            throw new ApplicationExceptionValidation(
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO_INTERNAL + "la peticion no puede presentar dato null."
+            );
+        }
+
+        if (clienteFICType.getAlerta() == null) {
+            throw new ApplicationExceptionValidation(
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO_INTERNAL + "la peticion no puede presentar alertas null."
+            );
+        }
+
+        if (clienteFICType.getClienteBase() == null) {
+            throw new ApplicationExceptionValidation(
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO_INTERNAL + "la peticion no puede presentar cliente base null."
+            );
+        }
+
+        if (clienteFICType.getCentralRiesgo() == null) {
+            throw new ApplicationExceptionValidation(
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO_INTERNAL + "la peticion no puede presentar central de riesgo null."
+            );
+        }
+
+        if (clienteFICType.getContacto() == null) {
+            throw new ApplicationExceptionValidation(
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO_INTERNAL + "la peticion no puede presentar contacto null."
+            );
+        }
+
+        if (clienteFICType.getConyuge() == null) {
+            throw new ApplicationExceptionValidation(
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO_INTERNAL + "la peticion no puede presentar conyuge null."
+            );
+        }
+
+        if (clienteFICType.getCupoRotativo() == null) {
+            throw new ApplicationExceptionValidation(
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO_INTERNAL + "la peticion no puede presentar cupo rotativo null."
+            );
+        }
+
+        if (clienteFICType.getOferta() == null) {
+            throw new ApplicationExceptionValidation(
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO_INTERNAL + "la peticion no puede presentar oferta null."
+            );
+        }
+
+        if (clienteFICType.getPQR() == null) {
+            throw new ApplicationExceptionValidation(
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO_INTERNAL + "la peticion no puede presentar PQR null."
+            );
+        }
+
         if (tieneAtributosNulos(clienteFICType)) {
             throw new ApplicationExceptionValidation(
                     Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO_INTERNAL + msmError + " obligatorios"
@@ -89,30 +143,6 @@ public class ClienteFICValidator {
         Response.ok().build();
     }
 
-
-    public boolean tieneAtributosNulos(Object obj) {
-        boolean isValidateSuccess = true;
-        try {
-            BeanInfo bean = Introspector.getBeanInfo(obj.getClass());
-            PropertyDescriptor[] descripcionDePropiedades = bean.getPropertyDescriptors();
-
-            for (PropertyDescriptor atr : descripcionDePropiedades) {
-                Object valor = atr.getReadMethod().invoke(obj);
-                if (valor == null) {
-                    isValidateSuccess = false;
-                }
-            }
-        } catch (IntrospectionException | ReflectiveOperationException e) {
-            e.printStackTrace();
-        }
-
-        if (!isValidateSuccess) {
-            msmError = "Se encontro datos nulos o vacios, verifique los datos";
-        }
-
-        return !isValidateSuccess;
-    }
-
     public void validarNombre(String nombre) {
 
         if (nombre == null || nombre.isEmpty()) {
@@ -137,6 +167,29 @@ public class ClienteFICValidator {
         logger.info("Validacion realizadas correctamente");
         Response.ok().build();
 
+    }
+
+    public boolean tieneAtributosNulos(Object obj) {
+        boolean isValidateSuccess = true;
+        try {
+            BeanInfo bean = Introspector.getBeanInfo(obj.getClass());
+            PropertyDescriptor[] descripcionDePropiedades = bean.getPropertyDescriptors();
+
+            for (PropertyDescriptor atr : descripcionDePropiedades) {
+                Object valor = atr.getReadMethod().invoke(obj);
+                if (valor == null) {
+                    isValidateSuccess = false;
+                }
+            }
+        } catch (IntrospectionException | ReflectiveOperationException e) {
+            e.printStackTrace();
+        }
+
+        if (!isValidateSuccess) {
+            msmError = "Se encontro datos nulos o vacios, verifique los datos";
+        }
+
+        return !isValidateSuccess;
     }
 
     public void validarConsulta(TipoDocumentoEnum tipoDocumento, Integer numeroDocumento, Integer digitoVerificacion) throws ApplicationExceptionValidation {
