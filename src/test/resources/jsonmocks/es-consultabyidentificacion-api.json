@@ -10,7 +10,7 @@
   "clienteBase": {
     "id": 0,
     "numeroCliente": 0,
-    "tipoPersona": "1 JURÍDICA",
+    "tipoPersona": "1 JURIDICA",
     "tipoDocumento": "CC",
     "numeroDocumento": 10002,
     "fechaExpedicionDocumento": "2022-03-10T00:00:00.000+00:00",

@@ -8,17 +8,26 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+
+import static io.restassured.RestAssured.given;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 @QuarkusTest
 public class ClienteFICControllerTest {
 
     @Inject
     ObjectMapper objectMapper;
+
+    @Mock
+    private ObjectMapper mockObjectMapper;
 
     @BeforeEach
     public void setup() {
@@ -29,14 +38,14 @@ public class ClienteFICControllerTest {
     @Test
     void crearClienteFICTest() throws IOException {
 
-        byte[] jsonData = Files.readAllBytes(Paths.get("src/main/resources/es-ClienteFIc-json.json"));
-        String jsonString = new String(jsonData);
+        when(mockObjectMapper.readValue(any(byte[].class), any(Class.class))).thenReturn(new ClienteFICType());
 
-        ClienteFICType clienteFIC = objectMapper.readValue(jsonString, ClienteFICType.class);
+        String jsonString = new String(Files.readAllBytes(Paths.get("src/main/resources/es-ClienteFIc-json.json")), StandardCharsets.UTF_8);
+        ClienteFICType clienteType = objectMapper.readValue(jsonString, ClienteFICType.class);
 
-        RestAssured.given()
+        given()
                 .contentType(ContentType.JSON)
-                .body(clienteFIC)
+                .body(clienteType)
                 .when()
                 .post("v1/es/clienteFIC")
                 .then()

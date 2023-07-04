@@ -833,7 +833,7 @@ components:
     TipoPersonaEnum:
       type: string
       enum:
-        - 1 JURÍDICA
+        - 1 JURIDICA
         - 2 NATURAL
     TipoDocumentoEnum:
       type: string
