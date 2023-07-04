@@ -1,9 +1,11 @@
-package com.mibanco.clientefic.es.dto;
+package com.mibanco.clientefic.es.utils.dto;
 
 import lombok.Data;
 
 @Data
 public class ErrorMessage {
-    private int status;
+
     private String message;
+    private int status;
+
 }

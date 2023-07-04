@@ -6,9 +6,9 @@ servers:
     #url produccion
     url: https://api.mibanco.com.co
 info:
-  description: Servicio de entidad ClienteCdtDigitalES.
+  description: Servicios de entidad Ficha Integral De Cliente.
   version: 0.0.1
-  title: ClienteFICES
+  title: Cliente_FIC_ES
   contact:
     name: MiBanco
     url: https://www.mibanco.com.co/
@@ -27,7 +27,7 @@ paths:
     post:
       tags:
         - Crear cliente FIC type
-      operationId: crear Cliente FIC type
+      operationId: crearClienteFIC
       requestBody:
         description: Crear cliente FIC type
         content:
@@ -35,8 +35,8 @@ paths:
             schema:
               $ref: "#/components/schemas/ClienteFICType"
       responses:
-        "200":
-          description: Cliente type creado.
+        "201":
+          description: ClienteFIC creado.
           content:
             application/json:
               schema:
@@ -44,15 +44,451 @@ paths:
                 items:
                   $ref: "#/components/schemas/ClienteFICType"
         "400":
-          description: "Parámetros de entrada no validos."
+          description: Peticion con datos invalidos
+          content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Error'
         "404":
           description: "No se encuentra el cliente FIC."
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v1/es/alerta/{tipoDocumento}/{numeroDocumento}/{digitoVerificacion}:
+    get:
+      summary: Consulta alerta
+      operationId: ConsultarAlerta
+      parameters:
+        - in: path
+          name: tipoDocumento
+          required: true
+          schema:
+            $ref: "#/components/schemas/TipoDocumentoEnum"
+          description: tipo de documento
+        - in: path
+          name: numeroDocumento
+          required: true
+          schema:
+            type: integer
+          description: numero de documento
+        - in: path
+          name: digitoVerificacion
+          required: true
+          schema:
+            type: integer
+          description: digito de verificacion
+      responses:
+        "200":
+          description: get alerta.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AlertaType"
+        "400":
+          description: Peticion con datos invalidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: "No se encuentra el cliente FIC."
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v1/es/centralRiesgo/{tipoDocumento}/{numeroDocumento}/{digitoVerificacion}:
+    get:
+      summary: Consulta Central
+      operationId: consultarCentralDeRiesgo
+      parameters:
+        - in: path
+          name: tipoDocumento
+          required: true
+          schema:
+            $ref: "#/components/schemas/TipoDocumentoEnum"
+          description: tipo de documento
+        - in: path
+          name: numeroDocumento
+          required: true
+          schema:
+            type: integer
+          description: numero de documento
+        - in: path
+          name: digitoVerificacion
+          required: true
+          schema:
+            type: integer
+          description: digito de verificacion
+      responses:
+        "200":
+          description: get Consulta Central.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CentralRiesgoType"
+        "400":
+          description: Peticion con datos invalidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: "No se encuentra el cliente FIC."
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v1/es/clienteFIC/{tipoDocumento}/{numeroDocumento}/{digitoVerificacion}:
+    get:
+      summary: Consultar Cliente FIC Por Identificacion
+      operationId: ConsutaClientePorIdentificacion
+      parameters:
+        - in: path
+          name: tipoDocumento
+          required: true
+          schema:
+            $ref: "#/components/schemas/TipoDocumentoEnum"
+          description: tipo de documento
+        - in: path
+          name: numeroDocumento
+          required: true
+          schema:
+            type: integer
+          description: numero de documento
+        - in: path
+          name: digitoVerificacion
+          required: true
+          schema:
+            type: integer
+          description: digito de verificacion
+      responses:
+        "200":
+          description: get Cliente FIC Por Identificacion.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ClienteFICType"
+        "400":
+          description: Peticion con datos invalidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: "No se encuentra el cliente FIC."
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v1/es/clienteFIC/{nombre}:
+    get:
+      summary: Consultar Cliente FIC Por nombre
+      operationId: ConsultarClienteFICPorNombre
+      parameters:
+        - in: path
+          name: nombre
+          required: true
+          schema:
+            type: string
+          description: nombre
+      responses:
+        "200":
+          description: get ClienteFIC por nombre.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ConsultarClientePorNombreOutput"
+        "400":
+          description: Peticion con datos invalidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: "No se encuentra el cliente FIC."
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v1/es/conyuge/{numeroCliente}:
+    get:
+      summary: Consultar Conyuge
+      operationId: ConsultarConyuge
+      parameters:
+        - in: path
+          name: numeroCliente
+          required: true
+          schema:
+            type: integer
+          description: numero Cliente
+      responses:
+        "200":
+          description: get conyuge por numeroCliente.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ConyugeType"
+        "400":
+          description: Peticion con datos invalidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: "No se encuentra el cliente FIC."
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v1/es/cupoRotativo/{numeroCliente}:
+    get:
+      summary: consultarCupoRotativo
+      operationId: consultarCupoRotativo
+      parameters:
+        - in: path
+          name: numeroCliente
+          required: true
+          schema:
+            type: integer
+          description: numero Cliente
+      responses:
+        "200":
+          description: get Cupo Rotativo por numeroCliente.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CupoRotativoType"
+        "400":
+          description: Peticion con datos invalidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: "No se encuentra el cliente FIC."
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v1/es/direccionTelefono/{numeroCliente}:
+    get:
+      summary: consultarDireccionTelefono
+      operationId: consultarDireccionTelefono
+      parameters:
+        - in: path
+          name: numeroCliente
+          required: true
+          schema:
+            type: integer
+          description: numero Cliente
+      responses:
+        "200":
+          description: get Direccion Telefono por numeroCliente.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ConsultarDireccionTelefonoType"
+        "400":
+          description: Peticion con datos invalidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: "No se encuentra el cliente FIC."
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v1/es/historialContacto/{numeroCliente}:
+    get:
+      summary: consultarHistorialContacto
+      operationId: consultarHistorialContacto
+      parameters:
+        - in: path
+          name: numeroCliente
+          required: true
+          schema:
+            type: integer
+          description: numero Cliente
+      responses:
+        "200":
+          description: get Historial Contacto por numeroCliente.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ContactoType"
+        "400":
+          description: Peticion con datos invalidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: "No se encuentra el cliente FIC."
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v1/es/oferta/{numeroCliente}:
+    get:
+      summary: consultarOferta
+      operationId: consultarOferta
+      parameters:
+        - in: path
+          name: numeroCliente
+          required: true
+          schema:
+            type: integer
+          description: numero Cliente
+      responses:
+        "200":
+          description: get Oferta por numeroCliente.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/OfertaType"
+        "400":
+          description: Peticion con datos invalidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: "No se encuentra el cliente FIC."
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v1/es/pasivo/{numeroCliente}:
+    get:
+      summary: consultarPasivo
+      operationId: consultarPasivo
+      parameters:
+        - in: path
+          name: numeroCliente
+          required: true
+          schema:
+            type: integer
+          description: numero Cliente
+      responses:
+        "200":
+          description: get Pasivo por numeroCliente.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PasivoType"
+        "400":
+          description: Peticion con datos invalidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: "No se encuentra el cliente FIC."
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /v1/es/pqr/{tipoDocumento}/{numeroDocumento}/{digitoVerificacion}:
+    get:
+      summary: Consulta PQR
+      operationId: consultarPQR
+      parameters:
+        - in: path
+          name: tipoDocumento
+          required: true
+          schema:
+            $ref: "#/components/schemas/TipoDocumentoEnum"
+          description: tipo de documento
+        - in: path
+          name: numeroDocumento
+          required: true
+          schema:
+            type: integer
+          description: numero de documento
+        - in: path
+          name: digitoVerificacion
+          required: true
+          schema:
+            type: integer
+          description: digito de verificacion
+      responses:
+        "200":
+          description: get alerta.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PQRType"
+        "400":
+          description: Peticion con datos invalidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: "No se encuentra el cliente FIC."
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+
 
 #---------------------------------------------
 #Se declaran los Modelos/Schemas del servicio
 #---------------------------------------------
+
 components:
   schemas:
+#    TYPES
     ClienteFICType:
       type: object
       properties:
@@ -77,11 +513,11 @@ components:
         estadoCivil:
           $ref: "#/components/schemas/EstadoCivilEnum"
         funcionarioUltimaActualizacion:
-          type: String
+          type: string
         negocio:
           $ref: "#/components/schemas/NegocioType"
         numeroDocumentoRepresentanteLegal:
-          type: String
+          type: string
         oferta:
           $ref: "#/components/schemas/OfertaType"
         pasivo:
@@ -89,17 +525,17 @@ components:
         PQR:
           $ref: "#/components/schemas/PQRType"
         prestamo:
-          type: String
+          type: string
         primerApellidoRepresentanteLegal:
-          type: String
+          type: string
         primerNombreRepresentanteLegal:
-          type: String
+          type: string
         razonSocial:
-          type: String
+          type: string
         segundoApellidoRepresentanteLegal:
-          type: String
+          type: string
         segundoNombreRepresentanteLegal:
-          type: String
+          type: string
         seRequiereActualizacion:
           type: boolean
         tipoDocumentoRepresentanteLegal:
@@ -108,7 +544,7 @@ components:
           type: number
           format: float
         ultimaFechaActualizacion:
-          type: String
+          type: string
           format: date-time
     ClienteBaseType:
       type: object
@@ -143,45 +579,45 @@ components:
       type: object
       properties:
         tipoAlerta:
-          type: String
+          type: string
         banco:
-          type: String
+          type: string
         fecha:
-          type: String
+          type: string
           format: date-time
         tipoDocumento:
           $ref: "#/components/schemas/TipoDocumentoEnum"
         numeroDocumento:
-          type: String
+          type: string
         digitoVerificacion:
-          type: String
+          type: string
     CentralRiesgoType:
       type: object
       properties:
         antiguedadUbicacion:
-          type: String
+          type: string
         consultaDetallada:
-          type: String
+          type: string
         estadoDocumento:
-          type: String
+          type: string
         fechaConsultaMasReciente:
-          type: String
+          type: string
           format: date-time
         fechaExpedicion:
-          type: String
+          type: string
           format: date-time
         genero:
-          type: String
+          type: string
         historicoEndeudamiento:
-          type String
+          type: string
         lugarExpedicion:
-          type: String
+          type: string
         numeroDocumento:
-          type: String
+          type: string
         rangoEdad:
-          type: String
+          type: string
         resultadoConsultaMasReciente:
-          type: String
+          type: string
         tieneRUT:
           type: boolean
         tipoDocumento:
@@ -193,17 +629,17 @@ components:
         vbVigenteParaSerConsultado:
           type: boolean
         digitoVerificacion:
-          type: String
+          type: string
     ContactoType:
       type: object
       properties:
         fecha:
-          type: String
+          type: string
           format: date-time
         tipoContacto:
-          type: String
+          type: string
         resultadoComentarios:
-          type: String
+          type: string
         numeroCliente:
           type: integer
     ConyugeType:
@@ -212,24 +648,24 @@ components:
         tipoDocumento:
           $ref: "#/components/schemas/TipoDocumentoEnum"
         numeroDocumento:
-          type: String
+          type: string
         primerNombre:
-          type: String
+          type: string
         segundoNombre:
-          type: String
+          type: string
         primerApellido:
-          type: String
+          type: string
         segundoApellido:
-          type: String
+          type: string
         numeroCliente:
           type: integer
     CupoRotativoType:
       type: object
       properties:
         estado:
-          type: String
+          type: string
         fechaDeVencimiento:
-          type: String
+          type: string
           format: date-time
         montoCupoCredito:
           type: number
@@ -240,7 +676,7 @@ components:
         numeroCliente:
           type: integer
         numeroCupo:
-          type: String
+          type: string
         saldoDisponible:
           type: number
           format: float
@@ -259,13 +695,12 @@ components:
         tipoActividadCIIU:
           $ref: "#/components/schemas/TipoActividadCIIUEnum"
         tipoLocal:
-#          $ref: "#/components/schemas/TipoLocalEnum"
-          type: string
+          $ref: "#/components/schemas/TipoLocalEnum"
     NegocioType:
       type: object
       properties:
         direccion:
-          type: String
+          type: string
         telefono:
           type: integer
         tipoActividadCIIU:
@@ -278,9 +713,9 @@ components:
         numeroOferta:
           type: integer
         tipoLead:
-          type: String
+          type: string
         tipoOferta:
-          type: String
+          type: string
         monto:
           type: number
           format: float
@@ -289,25 +724,25 @@ components:
         numeroCliente:
           type: integer
         tipoDeLiga:
-          type: String
+          type: string
         condicionGarantia:
-          type: String
+          type: string
     PasivoType:
       type: object
       properties:
         numeroProducto:
-          type: String
+          type: string
         tipoProducto:
-        $ref: "#/components/schemas/TipoProductoEnum"
+          $ref: "#/components/schemas/TipoProductoEnum"
         subProducto:
           $ref: "#/components/schemas/SubProductoEnum"
         estadoPasivo:
-          type: String
+          type: string
         fechaApertura:
-          type: String
+          type: string
           format: date-time
         fechaCierre:
-          type: String
+          type: string
           format: date-time
         capital:
           type: number
@@ -327,25 +762,65 @@ components:
       type: object
       properties:
         fecha:
-          type: String
+          type: string
           format: date-time
         numeroPQR:
           type: integer
         motivo:
-          type: String
+          type: string
         resultadoPQR:
 #          $ref: "#/components/schemas/ResultadoPQREnum"
           type: string
         comentario:
-          type: String
+          type: string
         digitoVerificacion:
-          type: String
+          type: string
         tipoDocumento:
           $ref: "#/components/schemas/TipoDocumentoEnum"
         numeroDocumento:
-          type: String
+          type: string
+    ConsultarClientePorNombreOutput:
+      type: object
+      properties:
+        totalClientes:
+          type: integer
+        clientes:
+          $ref: "#/components/schemas/ConsultarClientePorNombreType"
+      required:
+        - totalClientes
+        - clientes
+    ConsultarClientePorNombreType:
+      type: object
+      properties:
+        tipoDocumento:
+          $ref: "#/components/schemas/TipoDocumentoEnum"
+        numeroDocumento:
+          type: integer
+        nombreCompleto:
+          type: string
+    ConsultarDireccionTelefonoType:
+      type: object
+      properties:
+        direccion:
+          type: string
+        telefono1:
+          type: integer
+        tipoVivienda:
+          $ref: "#/components/schemas/TipoViviendaEnum"
+        tipoLocal:
+          $ref: "#/components/schemas/TipoLocalEnum"
+        tipoDireccion:
+          $ref: "#/components/schemas/TipoDireccionEnum"
+        codigoDepartamento:
+          $ref: "#/components/schemas/DepartamentoEnum"
+        codigoMunicipio:
+          $ref: "#/components/schemas/CiudadEnum"
+        codigoBarrio:
+          $ref: "#/components/schemas/BarrioEnum"
+        telefono2:
+          type: integer
 
-
+#    ENUMERADORES
     EstadoCivilEnum:
       type: string
       enum:
@@ -363,24 +838,24 @@ components:
     TipoDocumentoEnum:
       type: string
       enum:
-        - CC CEDULA DE CIUDADANÍA
-        - TI TARJETA DE IDENTIDAD
-        - CDI CARNE DIPLOMATICO
-        - CE CEDULA DE EXTRANJERÍA
-        - CPA CEDULA PAISES ANDINOS
-        - NIT NUMERO DE IDENTIFICACION TRIBUTARIA
-        - PAS PASAPORTE
-        - RCN REGISTRO CIVIL
-        - RUT REGISTRO UNICO TRIBUTARIO
-        - TE TERCEROS DEL EXTERIOR SIN DOMICILIO
-        - RUMC ROTATIVO UTILIZACIONES MICROCREDITO
+        - CC
+        - TI
+        - CDI
+        - CE
+        - CPA
+        - NIT
+        - PAS
+        - RCN
+        - RUT
+        - TE
+        - RUMC
     TipoRelacionEnum:
       type: string
       enum:
         - 01 TITULAR
         - 02 CONYUGE
     TipoReporteXmlEnum:
-      type: String
+      type: string
       enum:
         - CONSULTA DETALLADA
         - HISTORICO DE ENDEUDAMIENTO
@@ -948,5 +1423,76 @@ components:
         - BONO BN01 BONO < 18 MESES DTF
         - BONO BN02 BONO > 18 MESES DTF
         - BONO BN03 BONO < 18 MESES IBR
+    TipoLocalEnum:
+      type: string
+      enum:
+        - PROPIO SIN HIPOTECA
+        - PROPIO CON HIPOTECA
+        - FAMILIAR
+        - ARRENDADO
+    TipoDireccionEnum:
+      type: string
+      enum:
+        - EMPR EMPRESA
+        - OFIC OFICINA
+        - RESI RESIDENCIA
+    DepartamentoEnum:
+      type: string
+      enum:
+        - 05 ANTIOQUIA
+        - 08 ATLANTICO
+        - 11 BOGOTA D.C.
+        - 12 FUERA DEL PAIS
+        - 13 BOLIVAR
+        - 15 BOYACA
+        - 17 CALDAS
+        - 18 CAQUETA
+        - 19 CAUCA
+        - 20 CESAR
+        - 23 CORDOBA
+        - 25 CUNDINAMARCA
+    CiudadEnum:
+      type: string
+      enum:
+        - 05001 MEDELLIN
+        - 05002 ABEJORRAL
+        - 05004 ABRIAQUI
+        - 05021 ALEJANDRIA
+        - 05030 AMAGA
+        - 05031 AMALFI
+        - 05034 ANDES
+        - 05036 ANGELOPOLIS
+        - 05038 ANGOSTURA
+        - 05040 ANORI
+    BarrioEnum:
+      type: string
+      enum:
+        - SINDATAENMODELING
 
+#   ERRORES
+    Error:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: "The request is invalid."
+      required:
+        - status
+        - message
 
+  responses:
+    NotFound:
+      description: The specified resource was not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'

@@ -1,6 +1,7 @@
 package com.mibanco.clientefic.es.gen.type;
 
 import com.mibanco.clientefic.es.gen.type.TipoDocumentoEnum;
+import java.util.Date;
 import jakarta.validation.constraints.*;
 import jakarta.validation.Valid;
 
@@ -13,23 +14,24 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("AlertaType")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-06-02T11:50:18.213230-05:00[America/Bogota]")
-public class AlertaType   {
-  private @Valid String tipoAlerta = null;
-  private @Valid String banco = null;
-  private @Valid String fecha = null;
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-07-04T10:53:53.775738-05:00[America/Bogota]")
+public class AlertaType {
+  private @Valid String tipoAlerta;
+  private @Valid String banco;
+  private @Valid Date fecha;
   private @Valid TipoDocumentoEnum tipoDocumento;
-  private @Valid String numeroDocumento = null;
-  private @Valid String digitoVerificacion = null;
+  private @Valid String numeroDocumento;
+  private @Valid String digitoVerificacion;
 
   /**
+   *
    **/
   public AlertaType tipoAlerta(String tipoAlerta) {
     this.tipoAlerta = tipoAlerta;
     return this;
   }
 
-  
+
   @JsonProperty("tipoAlerta")
   public String getTipoAlerta() {
     return tipoAlerta;
@@ -47,7 +49,7 @@ public class AlertaType   {
     return this;
   }
 
-  
+
   @JsonProperty("banco")
   public String getBanco() {
     return banco;
@@ -60,19 +62,19 @@ public class AlertaType   {
 
   /**
    **/
-  public AlertaType fecha(String fecha) {
+  public AlertaType fecha(Date fecha) {
     this.fecha = fecha;
     return this;
   }
 
-  
+
   @JsonProperty("fecha")
-  public String getFecha() {
+  public Date getFecha() {
     return fecha;
   }
 
   @JsonProperty("fecha")
-  public void setFecha(String fecha) {
+  public void setFecha(Date fecha) {
     this.fecha = fecha;
   }
 
@@ -83,7 +85,7 @@ public class AlertaType   {
     return this;
   }
 
-  
+
   @JsonProperty("tipoDocumento")
   public TipoDocumentoEnum getTipoDocumento() {
     return tipoDocumento;
@@ -101,7 +103,7 @@ public class AlertaType   {
     return this;
   }
 
-  
+
   @JsonProperty("numeroDocumento")
   public String getNumeroDocumento() {
     return numeroDocumento;
@@ -119,7 +121,7 @@ public class AlertaType   {
     return this;
   }
 
-  
+
   @JsonProperty("digitoVerificacion")
   public String getDigitoVerificacion() {
     return digitoVerificacion;
@@ -141,11 +143,11 @@ public class AlertaType   {
     }
     AlertaType alertaType = (AlertaType) o;
     return Objects.equals(this.tipoAlerta, alertaType.tipoAlerta) &&
-        Objects.equals(this.banco, alertaType.banco) &&
-        Objects.equals(this.fecha, alertaType.fecha) &&
-        Objects.equals(this.tipoDocumento, alertaType.tipoDocumento) &&
-        Objects.equals(this.numeroDocumento, alertaType.numeroDocumento) &&
-        Objects.equals(this.digitoVerificacion, alertaType.digitoVerificacion);
+            Objects.equals(this.banco, alertaType.banco) &&
+            Objects.equals(this.fecha, alertaType.fecha) &&
+            Objects.equals(this.tipoDocumento, alertaType.tipoDocumento) &&
+            Objects.equals(this.numeroDocumento, alertaType.numeroDocumento) &&
+            Objects.equals(this.digitoVerificacion, alertaType.digitoVerificacion);
   }
 
   @Override
@@ -157,7 +159,7 @@ public class AlertaType   {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class AlertaType {\n");
-    
+
     sb.append("    tipoAlerta: ").append(toIndentedString(tipoAlerta)).append("\n");
     sb.append("    banco: ").append(toIndentedString(banco)).append("\n");
     sb.append("    fecha: ").append(toIndentedString(fecha)).append("\n");

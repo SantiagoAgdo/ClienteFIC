@@ -1,0 +1,12 @@
+{
+  "PQR": {
+    "fecha": "2022-03-10",
+    "numeroPQR": 0,
+    "motivo": "string",
+    "resultadoPQR": "string",
+    "comentario": "string",
+    "digitoVerificacion": "string",
+    "tipoDocumento": "CC",
+    "numeroDocumento": "10002"
+  }
+}

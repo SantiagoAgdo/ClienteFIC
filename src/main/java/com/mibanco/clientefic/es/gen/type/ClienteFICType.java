@@ -14,6 +14,7 @@ import com.mibanco.clientefic.es.gen.type.OfertaType;
 import com.mibanco.clientefic.es.gen.type.PQRType;
 import com.mibanco.clientefic.es.gen.type.PasivoType;
 import com.mibanco.clientefic.es.gen.type.TipoDocumentoEnum;
+import java.util.Date;
 import jakarta.validation.constraints.*;
 import jakarta.validation.Valid;
 
@@ -24,10 +25,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
-
 @JsonTypeName("ClienteFICType")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-06-02T11:50:18.213230-05:00[America/Bogota]")
-public class ClienteFICType   {
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-07-04T10:53:53.775738-05:00[America/Bogota]")
+public class ClienteFICType {
   private @Valid AlertaType alerta;
   private @Valid ClienteBaseType clienteBase;
   private @Valid CentralRiesgoType centralRiesgo;
@@ -38,31 +38,32 @@ public class ClienteFICType   {
   private @Valid DomicilioType domicilio;
   private @Valid DomicilioEmpresaType domicilioEmpresa;
   private @Valid EstadoCivilEnum estadoCivil;
-  private @Valid String funcionarioUltimaActualizacion = null;
+  private @Valid String funcionarioUltimaActualizacion;
   private @Valid NegocioType negocio;
-  private @Valid String numeroDocumentoRepresentanteLegal = null;
+  private @Valid String numeroDocumentoRepresentanteLegal;
   private @Valid OfertaType oferta;
   private @Valid PasivoType pasivo;
   private @Valid PQRType PQR;
-  private @Valid String prestamo = null;
-  private @Valid String primerApellidoRepresentanteLegal = null;
-  private @Valid String primerNombreRepresentanteLegal = null;
-  private @Valid String razonSocial = null;
-  private @Valid String segundoApellidoRepresentanteLegal = null;
-  private @Valid String segundoNombreRepresentanteLegal = null;
+  private @Valid String prestamo;
+  private @Valid String primerApellidoRepresentanteLegal;
+  private @Valid String primerNombreRepresentanteLegal;
+  private @Valid String razonSocial;
+  private @Valid String segundoApellidoRepresentanteLegal;
+  private @Valid String segundoNombreRepresentanteLegal;
   private @Valid Boolean seRequiereActualizacion;
   private @Valid TipoDocumentoEnum tipoDocumentoRepresentanteLegal;
   private @Valid Float totalActivos;
-  private @Valid String ultimaFechaActualizacion = null;
+  private @Valid Date ultimaFechaActualizacion;
 
   /**
+   *
    **/
   public ClienteFICType alerta(AlertaType alerta) {
     this.alerta = alerta;
     return this;
   }
 
-  
+
   @JsonProperty("alerta")
   public AlertaType getAlerta() {
     return alerta;
@@ -74,13 +75,14 @@ public class ClienteFICType   {
   }
 
   /**
+   *
    **/
   public ClienteFICType clienteBase(ClienteBaseType clienteBase) {
     this.clienteBase = clienteBase;
     return this;
   }
 
-  
+
   @JsonProperty("clienteBase")
   public ClienteBaseType getClienteBase() {
     return clienteBase;
@@ -92,13 +94,14 @@ public class ClienteFICType   {
   }
 
   /**
+   *
    **/
   public ClienteFICType centralRiesgo(CentralRiesgoType centralRiesgo) {
     this.centralRiesgo = centralRiesgo;
     return this;
   }
 
-  
+
   @JsonProperty("centralRiesgo")
   public CentralRiesgoType getCentralRiesgo() {
     return centralRiesgo;
@@ -110,13 +113,14 @@ public class ClienteFICType   {
   }
 
   /**
+   *
    **/
   public ClienteFICType contacto(ContactoType contacto) {
     this.contacto = contacto;
     return this;
   }
 
-  
+
   @JsonProperty("contacto")
   public ContactoType getContacto() {
     return contacto;
@@ -128,13 +132,14 @@ public class ClienteFICType   {
   }
 
   /**
+   *
    **/
   public ClienteFICType conyuge(ConyugeType conyuge) {
     this.conyuge = conyuge;
     return this;
   }
 
-  
+
   @JsonProperty("conyuge")
   public ConyugeType getConyuge() {
     return conyuge;
@@ -146,13 +151,14 @@ public class ClienteFICType   {
   }
 
   /**
+   *
    **/
   public ClienteFICType cupoRotativo(CupoRotativoType cupoRotativo) {
     this.cupoRotativo = cupoRotativo;
     return this;
   }
 
-  
+
   @JsonProperty("cupoRotativo")
   public CupoRotativoType getCupoRotativo() {
     return cupoRotativo;
@@ -164,13 +170,14 @@ public class ClienteFICType   {
   }
 
   /**
+   *
    **/
   public ClienteFICType digitoVerificacion(Integer digitoVerificacion) {
     this.digitoVerificacion = digitoVerificacion;
     return this;
   }
 
-  
+
   @JsonProperty("digitoVerificacion")
   public Integer getDigitoVerificacion() {
     return digitoVerificacion;
@@ -182,13 +189,14 @@ public class ClienteFICType   {
   }
 
   /**
+   *
    **/
   public ClienteFICType domicilio(DomicilioType domicilio) {
     this.domicilio = domicilio;
     return this;
   }
 
-  
+
   @JsonProperty("domicilio")
   public DomicilioType getDomicilio() {
     return domicilio;
@@ -200,13 +208,14 @@ public class ClienteFICType   {
   }
 
   /**
+   *
    **/
   public ClienteFICType domicilioEmpresa(DomicilioEmpresaType domicilioEmpresa) {
     this.domicilioEmpresa = domicilioEmpresa;
     return this;
   }
 
-  
+
   @JsonProperty("domicilioEmpresa")
   public DomicilioEmpresaType getDomicilioEmpresa() {
     return domicilioEmpresa;
@@ -218,13 +227,14 @@ public class ClienteFICType   {
   }
 
   /**
+   *
    **/
   public ClienteFICType estadoCivil(EstadoCivilEnum estadoCivil) {
     this.estadoCivil = estadoCivil;
     return this;
   }
 
-  
+
   @JsonProperty("estadoCivil")
   public EstadoCivilEnum getEstadoCivil() {
     return estadoCivil;
@@ -236,13 +246,14 @@ public class ClienteFICType   {
   }
 
   /**
+   *
    **/
   public ClienteFICType funcionarioUltimaActualizacion(String funcionarioUltimaActualizacion) {
     this.funcionarioUltimaActualizacion = funcionarioUltimaActualizacion;
     return this;
   }
 
-  
+
   @JsonProperty("funcionarioUltimaActualizacion")
   public String getFuncionarioUltimaActualizacion() {
     return funcionarioUltimaActualizacion;
@@ -254,13 +265,14 @@ public class ClienteFICType   {
   }
 
   /**
+   *
    **/
   public ClienteFICType negocio(NegocioType negocio) {
     this.negocio = negocio;
     return this;
   }
 
-  
+
   @JsonProperty("negocio")
   public NegocioType getNegocio() {
     return negocio;
@@ -272,13 +284,14 @@ public class ClienteFICType   {
   }
 
   /**
+   *
    **/
   public ClienteFICType numeroDocumentoRepresentanteLegal(String numeroDocumentoRepresentanteLegal) {
     this.numeroDocumentoRepresentanteLegal = numeroDocumentoRepresentanteLegal;
     return this;
   }
 
-  
+
   @JsonProperty("numeroDocumentoRepresentanteLegal")
   public String getNumeroDocumentoRepresentanteLegal() {
     return numeroDocumentoRepresentanteLegal;
@@ -290,13 +303,14 @@ public class ClienteFICType   {
   }
 
   /**
+   *
    **/
   public ClienteFICType oferta(OfertaType oferta) {
     this.oferta = oferta;
     return this;
   }
 
-  
+
   @JsonProperty("oferta")
   public OfertaType getOferta() {
     return oferta;
@@ -308,13 +322,14 @@ public class ClienteFICType   {
   }
 
   /**
+   *
    **/
   public ClienteFICType pasivo(PasivoType pasivo) {
     this.pasivo = pasivo;
     return this;
   }
 
-  
+
   @JsonProperty("pasivo")
   public PasivoType getPasivo() {
     return pasivo;
@@ -326,13 +341,14 @@ public class ClienteFICType   {
   }
 
   /**
+   *
    **/
   public ClienteFICType PQR(PQRType PQR) {
     this.PQR = PQR;
     return this;
   }
 
-  
+
   @JsonProperty("PQR")
   public PQRType getPQR() {
     return PQR;
@@ -344,13 +360,14 @@ public class ClienteFICType   {
   }
 
   /**
+   *
    **/
   public ClienteFICType prestamo(String prestamo) {
     this.prestamo = prestamo;
     return this;
   }
 
-  
+
   @JsonProperty("prestamo")
   public String getPrestamo() {
     return prestamo;
@@ -362,13 +379,14 @@ public class ClienteFICType   {
   }
 
   /**
+   *
    **/
   public ClienteFICType primerApellidoRepresentanteLegal(String primerApellidoRepresentanteLegal) {
     this.primerApellidoRepresentanteLegal = primerApellidoRepresentanteLegal;
     return this;
   }
 
-  
+
   @JsonProperty("primerApellidoRepresentanteLegal")
   public String getPrimerApellidoRepresentanteLegal() {
     return primerApellidoRepresentanteLegal;
@@ -380,13 +398,14 @@ public class ClienteFICType   {
   }
 
   /**
+   *
    **/
   public ClienteFICType primerNombreRepresentanteLegal(String primerNombreRepresentanteLegal) {
     this.primerNombreRepresentanteLegal = primerNombreRepresentanteLegal;
     return this;
   }
 
-  
+
   @JsonProperty("primerNombreRepresentanteLegal")
   public String getPrimerNombreRepresentanteLegal() {
     return primerNombreRepresentanteLegal;
@@ -398,13 +417,14 @@ public class ClienteFICType   {
   }
 
   /**
+   *
    **/
   public ClienteFICType razonSocial(String razonSocial) {
     this.razonSocial = razonSocial;
     return this;
   }
 
-  
+
   @JsonProperty("razonSocial")
   public String getRazonSocial() {
     return razonSocial;
@@ -416,13 +436,14 @@ public class ClienteFICType   {
   }
 
   /**
+   *
    **/
   public ClienteFICType segundoApellidoRepresentanteLegal(String segundoApellidoRepresentanteLegal) {
     this.segundoApellidoRepresentanteLegal = segundoApellidoRepresentanteLegal;
     return this;
   }
 
-  
+
   @JsonProperty("segundoApellidoRepresentanteLegal")
   public String getSegundoApellidoRepresentanteLegal() {
     return segundoApellidoRepresentanteLegal;
@@ -434,13 +455,14 @@ public class ClienteFICType   {
   }
 
   /**
+   *
    **/
   public ClienteFICType segundoNombreRepresentanteLegal(String segundoNombreRepresentanteLegal) {
     this.segundoNombreRepresentanteLegal = segundoNombreRepresentanteLegal;
     return this;
   }
 
-  
+
   @JsonProperty("segundoNombreRepresentanteLegal")
   public String getSegundoNombreRepresentanteLegal() {
     return segundoNombreRepresentanteLegal;
@@ -452,13 +474,14 @@ public class ClienteFICType   {
   }
 
   /**
+   *
    **/
   public ClienteFICType seRequiereActualizacion(Boolean seRequiereActualizacion) {
     this.seRequiereActualizacion = seRequiereActualizacion;
     return this;
   }
 
-  
+
   @JsonProperty("seRequiereActualizacion")
   public Boolean getSeRequiereActualizacion() {
     return seRequiereActualizacion;
@@ -470,13 +493,14 @@ public class ClienteFICType   {
   }
 
   /**
+   *
    **/
   public ClienteFICType tipoDocumentoRepresentanteLegal(TipoDocumentoEnum tipoDocumentoRepresentanteLegal) {
     this.tipoDocumentoRepresentanteLegal = tipoDocumentoRepresentanteLegal;
     return this;
   }
 
-  
+
   @JsonProperty("tipoDocumentoRepresentanteLegal")
   public TipoDocumentoEnum getTipoDocumentoRepresentanteLegal() {
     return tipoDocumentoRepresentanteLegal;
@@ -488,13 +512,14 @@ public class ClienteFICType   {
   }
 
   /**
+   *
    **/
   public ClienteFICType totalActivos(Float totalActivos) {
     this.totalActivos = totalActivos;
     return this;
   }
 
-  
+
   @JsonProperty("totalActivos")
   public Float getTotalActivos() {
     return totalActivos;
@@ -506,20 +531,21 @@ public class ClienteFICType   {
   }
 
   /**
+   *
    **/
-  public ClienteFICType ultimaFechaActualizacion(String ultimaFechaActualizacion) {
+  public ClienteFICType ultimaFechaActualizacion(Date ultimaFechaActualizacion) {
     this.ultimaFechaActualizacion = ultimaFechaActualizacion;
     return this;
   }
 
-  
+
   @JsonProperty("ultimaFechaActualizacion")
-  public String getUltimaFechaActualizacion() {
+  public Date getUltimaFechaActualizacion() {
     return ultimaFechaActualizacion;
   }
 
   @JsonProperty("ultimaFechaActualizacion")
-  public void setUltimaFechaActualizacion(String ultimaFechaActualizacion) {
+  public void setUltimaFechaActualizacion(Date ultimaFechaActualizacion) {
     this.ultimaFechaActualizacion = ultimaFechaActualizacion;
   }
 
@@ -534,31 +560,31 @@ public class ClienteFICType   {
     }
     ClienteFICType clienteFICType = (ClienteFICType) o;
     return Objects.equals(this.alerta, clienteFICType.alerta) &&
-        Objects.equals(this.clienteBase, clienteFICType.clienteBase) &&
-        Objects.equals(this.centralRiesgo, clienteFICType.centralRiesgo) &&
-        Objects.equals(this.contacto, clienteFICType.contacto) &&
-        Objects.equals(this.conyuge, clienteFICType.conyuge) &&
-        Objects.equals(this.cupoRotativo, clienteFICType.cupoRotativo) &&
-        Objects.equals(this.digitoVerificacion, clienteFICType.digitoVerificacion) &&
-        Objects.equals(this.domicilio, clienteFICType.domicilio) &&
-        Objects.equals(this.domicilioEmpresa, clienteFICType.domicilioEmpresa) &&
-        Objects.equals(this.estadoCivil, clienteFICType.estadoCivil) &&
-        Objects.equals(this.funcionarioUltimaActualizacion, clienteFICType.funcionarioUltimaActualizacion) &&
-        Objects.equals(this.negocio, clienteFICType.negocio) &&
-        Objects.equals(this.numeroDocumentoRepresentanteLegal, clienteFICType.numeroDocumentoRepresentanteLegal) &&
-        Objects.equals(this.oferta, clienteFICType.oferta) &&
-        Objects.equals(this.pasivo, clienteFICType.pasivo) &&
-        Objects.equals(this.PQR, clienteFICType.PQR) &&
-        Objects.equals(this.prestamo, clienteFICType.prestamo) &&
-        Objects.equals(this.primerApellidoRepresentanteLegal, clienteFICType.primerApellidoRepresentanteLegal) &&
-        Objects.equals(this.primerNombreRepresentanteLegal, clienteFICType.primerNombreRepresentanteLegal) &&
-        Objects.equals(this.razonSocial, clienteFICType.razonSocial) &&
-        Objects.equals(this.segundoApellidoRepresentanteLegal, clienteFICType.segundoApellidoRepresentanteLegal) &&
-        Objects.equals(this.segundoNombreRepresentanteLegal, clienteFICType.segundoNombreRepresentanteLegal) &&
-        Objects.equals(this.seRequiereActualizacion, clienteFICType.seRequiereActualizacion) &&
-        Objects.equals(this.tipoDocumentoRepresentanteLegal, clienteFICType.tipoDocumentoRepresentanteLegal) &&
-        Objects.equals(this.totalActivos, clienteFICType.totalActivos) &&
-        Objects.equals(this.ultimaFechaActualizacion, clienteFICType.ultimaFechaActualizacion);
+            Objects.equals(this.clienteBase, clienteFICType.clienteBase) &&
+            Objects.equals(this.centralRiesgo, clienteFICType.centralRiesgo) &&
+            Objects.equals(this.contacto, clienteFICType.contacto) &&
+            Objects.equals(this.conyuge, clienteFICType.conyuge) &&
+            Objects.equals(this.cupoRotativo, clienteFICType.cupoRotativo) &&
+            Objects.equals(this.digitoVerificacion, clienteFICType.digitoVerificacion) &&
+            Objects.equals(this.domicilio, clienteFICType.domicilio) &&
+            Objects.equals(this.domicilioEmpresa, clienteFICType.domicilioEmpresa) &&
+            Objects.equals(this.estadoCivil, clienteFICType.estadoCivil) &&
+            Objects.equals(this.funcionarioUltimaActualizacion, clienteFICType.funcionarioUltimaActualizacion) &&
+            Objects.equals(this.negocio, clienteFICType.negocio) &&
+            Objects.equals(this.numeroDocumentoRepresentanteLegal, clienteFICType.numeroDocumentoRepresentanteLegal) &&
+            Objects.equals(this.oferta, clienteFICType.oferta) &&
+            Objects.equals(this.pasivo, clienteFICType.pasivo) &&
+            Objects.equals(this.PQR, clienteFICType.PQR) &&
+            Objects.equals(this.prestamo, clienteFICType.prestamo) &&
+            Objects.equals(this.primerApellidoRepresentanteLegal, clienteFICType.primerApellidoRepresentanteLegal) &&
+            Objects.equals(this.primerNombreRepresentanteLegal, clienteFICType.primerNombreRepresentanteLegal) &&
+            Objects.equals(this.razonSocial, clienteFICType.razonSocial) &&
+            Objects.equals(this.segundoApellidoRepresentanteLegal, clienteFICType.segundoApellidoRepresentanteLegal) &&
+            Objects.equals(this.segundoNombreRepresentanteLegal, clienteFICType.segundoNombreRepresentanteLegal) &&
+            Objects.equals(this.seRequiereActualizacion, clienteFICType.seRequiereActualizacion) &&
+            Objects.equals(this.tipoDocumentoRepresentanteLegal, clienteFICType.tipoDocumentoRepresentanteLegal) &&
+            Objects.equals(this.totalActivos, clienteFICType.totalActivos) &&
+            Objects.equals(this.ultimaFechaActualizacion, clienteFICType.ultimaFechaActualizacion);
   }
 
   @Override
@@ -570,7 +596,7 @@ public class ClienteFICType   {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ClienteFICType {\n");
-    
+
     sb.append("    alerta: ").append(toIndentedString(alerta)).append("\n");
     sb.append("    clienteBase: ").append(toIndentedString(clienteBase)).append("\n");
     sb.append("    centralRiesgo: ").append(toIndentedString(centralRiesgo)).append("\n");

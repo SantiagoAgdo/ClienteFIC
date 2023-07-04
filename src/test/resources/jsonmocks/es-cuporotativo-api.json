@@ -1,0 +1,11 @@
+{
+  "cupoRotativo": {
+    "estado": "string",
+    "fechaDeVencimiento": "2022-03-10",
+    "montoCupoCredito": 0,
+    "montoUtilizado": 0,
+    "numeroCliente": 0,
+    "numeroCupo": "string",
+    "saldoDisponible": 0
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "oferta": {
+    "numeroOferta": 111,
+    "tipoLead": "string",
+    "tipoOferta": "string",
+    "monto": 10000000,
+    "plazo": 12,
+    "numeroCliente": 0,
+    "tipoDeLiga": "Bundes",
+    "condicionGarantia": "Compra pierde"
+  }
+}
