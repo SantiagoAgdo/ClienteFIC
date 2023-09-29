@@ -16,7 +16,7 @@ public class ClienteBaseEntity {
     private TipoPersonaEnum tipoPersona;
     private TipoDocumentoEnum tipoDocumento;
     private Integer numeroDocumento;
-    private Date fechaExpedicionDocumento;
+    private String fechaExpedicionDocumento;
     private String primerNombre;
     private Integer numeroCelular;
     private String segundoNombre;

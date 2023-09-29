@@ -14,7 +14,6 @@ import com.mibanco.clientefic.es.gen.type.OfertaType;
 import com.mibanco.clientefic.es.gen.type.PQRType;
 import com.mibanco.clientefic.es.gen.type.PasivoType;
 import com.mibanco.clientefic.es.gen.type.TipoDocumentoEnum;
-import java.util.Date;
 import jakarta.validation.constraints.*;
 import jakarta.validation.Valid;
 
@@ -25,8 +24,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
+
 @JsonTypeName("ClienteFICType")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-07-04T10:53:53.775738-05:00[America/Bogota]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-09-29T14:37:33.528331-05:00[America/Bogota]")
 public class ClienteFICType {
   private @Valid AlertaType alerta;
   private @Valid ClienteBaseType clienteBase;
@@ -53,10 +53,9 @@ public class ClienteFICType {
   private @Valid Boolean seRequiereActualizacion;
   private @Valid TipoDocumentoEnum tipoDocumentoRepresentanteLegal;
   private @Valid Float totalActivos;
-  private @Valid Date ultimaFechaActualizacion;
+  private @Valid String ultimaFechaActualizacion;
 
   /**
-   *
    **/
   public ClienteFICType alerta(AlertaType alerta) {
     this.alerta = alerta;
@@ -75,7 +74,6 @@ public class ClienteFICType {
   }
 
   /**
-   *
    **/
   public ClienteFICType clienteBase(ClienteBaseType clienteBase) {
     this.clienteBase = clienteBase;
@@ -94,7 +92,6 @@ public class ClienteFICType {
   }
 
   /**
-   *
    **/
   public ClienteFICType centralRiesgo(CentralRiesgoType centralRiesgo) {
     this.centralRiesgo = centralRiesgo;
@@ -113,7 +110,6 @@ public class ClienteFICType {
   }
 
   /**
-   *
    **/
   public ClienteFICType contacto(ContactoType contacto) {
     this.contacto = contacto;
@@ -132,7 +128,6 @@ public class ClienteFICType {
   }
 
   /**
-   *
    **/
   public ClienteFICType conyuge(ConyugeType conyuge) {
     this.conyuge = conyuge;
@@ -151,7 +146,6 @@ public class ClienteFICType {
   }
 
   /**
-   *
    **/
   public ClienteFICType cupoRotativo(CupoRotativoType cupoRotativo) {
     this.cupoRotativo = cupoRotativo;
@@ -170,7 +164,6 @@ public class ClienteFICType {
   }
 
   /**
-   *
    **/
   public ClienteFICType digitoVerificacion(Integer digitoVerificacion) {
     this.digitoVerificacion = digitoVerificacion;
@@ -189,7 +182,6 @@ public class ClienteFICType {
   }
 
   /**
-   *
    **/
   public ClienteFICType domicilio(DomicilioType domicilio) {
     this.domicilio = domicilio;
@@ -208,7 +200,6 @@ public class ClienteFICType {
   }
 
   /**
-   *
    **/
   public ClienteFICType domicilioEmpresa(DomicilioEmpresaType domicilioEmpresa) {
     this.domicilioEmpresa = domicilioEmpresa;
@@ -227,7 +218,6 @@ public class ClienteFICType {
   }
 
   /**
-   *
    **/
   public ClienteFICType estadoCivil(EstadoCivilEnum estadoCivil) {
     this.estadoCivil = estadoCivil;
@@ -246,7 +236,6 @@ public class ClienteFICType {
   }
 
   /**
-   *
    **/
   public ClienteFICType funcionarioUltimaActualizacion(String funcionarioUltimaActualizacion) {
     this.funcionarioUltimaActualizacion = funcionarioUltimaActualizacion;
@@ -265,7 +254,6 @@ public class ClienteFICType {
   }
 
   /**
-   *
    **/
   public ClienteFICType negocio(NegocioType negocio) {
     this.negocio = negocio;
@@ -284,7 +272,6 @@ public class ClienteFICType {
   }
 
   /**
-   *
    **/
   public ClienteFICType numeroDocumentoRepresentanteLegal(String numeroDocumentoRepresentanteLegal) {
     this.numeroDocumentoRepresentanteLegal = numeroDocumentoRepresentanteLegal;
@@ -303,7 +290,6 @@ public class ClienteFICType {
   }
 
   /**
-   *
    **/
   public ClienteFICType oferta(OfertaType oferta) {
     this.oferta = oferta;
@@ -322,7 +308,6 @@ public class ClienteFICType {
   }
 
   /**
-   *
    **/
   public ClienteFICType pasivo(PasivoType pasivo) {
     this.pasivo = pasivo;
@@ -341,7 +326,6 @@ public class ClienteFICType {
   }
 
   /**
-   *
    **/
   public ClienteFICType PQR(PQRType PQR) {
     this.PQR = PQR;
@@ -360,7 +344,6 @@ public class ClienteFICType {
   }
 
   /**
-   *
    **/
   public ClienteFICType prestamo(String prestamo) {
     this.prestamo = prestamo;
@@ -379,7 +362,6 @@ public class ClienteFICType {
   }
 
   /**
-   *
    **/
   public ClienteFICType primerApellidoRepresentanteLegal(String primerApellidoRepresentanteLegal) {
     this.primerApellidoRepresentanteLegal = primerApellidoRepresentanteLegal;
@@ -398,7 +380,6 @@ public class ClienteFICType {
   }
 
   /**
-   *
    **/
   public ClienteFICType primerNombreRepresentanteLegal(String primerNombreRepresentanteLegal) {
     this.primerNombreRepresentanteLegal = primerNombreRepresentanteLegal;
@@ -417,7 +398,6 @@ public class ClienteFICType {
   }
 
   /**
-   *
    **/
   public ClienteFICType razonSocial(String razonSocial) {
     this.razonSocial = razonSocial;
@@ -436,7 +416,6 @@ public class ClienteFICType {
   }
 
   /**
-   *
    **/
   public ClienteFICType segundoApellidoRepresentanteLegal(String segundoApellidoRepresentanteLegal) {
     this.segundoApellidoRepresentanteLegal = segundoApellidoRepresentanteLegal;
@@ -455,7 +434,6 @@ public class ClienteFICType {
   }
 
   /**
-   *
    **/
   public ClienteFICType segundoNombreRepresentanteLegal(String segundoNombreRepresentanteLegal) {
     this.segundoNombreRepresentanteLegal = segundoNombreRepresentanteLegal;
@@ -474,7 +452,6 @@ public class ClienteFICType {
   }
 
   /**
-   *
    **/
   public ClienteFICType seRequiereActualizacion(Boolean seRequiereActualizacion) {
     this.seRequiereActualizacion = seRequiereActualizacion;
@@ -493,7 +470,6 @@ public class ClienteFICType {
   }
 
   /**
-   *
    **/
   public ClienteFICType tipoDocumentoRepresentanteLegal(TipoDocumentoEnum tipoDocumentoRepresentanteLegal) {
     this.tipoDocumentoRepresentanteLegal = tipoDocumentoRepresentanteLegal;
@@ -512,7 +488,6 @@ public class ClienteFICType {
   }
 
   /**
-   *
    **/
   public ClienteFICType totalActivos(Float totalActivos) {
     this.totalActivos = totalActivos;
@@ -533,19 +508,19 @@ public class ClienteFICType {
   /**
    *
    **/
-  public ClienteFICType ultimaFechaActualizacion(Date ultimaFechaActualizacion) {
+  public ClienteFICType ultimaFechaActualizacion(String ultimaFechaActualizacion) {
     this.ultimaFechaActualizacion = ultimaFechaActualizacion;
     return this;
   }
 
 
   @JsonProperty("ultimaFechaActualizacion")
-  public Date getUltimaFechaActualizacion() {
+  public String getUltimaFechaActualizacion() {
     return ultimaFechaActualizacion;
   }
 
   @JsonProperty("ultimaFechaActualizacion")
-  public void setUltimaFechaActualizacion(Date ultimaFechaActualizacion) {
+  public void setUltimaFechaActualizacion(String ultimaFechaActualizacion) {
     this.ultimaFechaActualizacion = ultimaFechaActualizacion;
   }
 

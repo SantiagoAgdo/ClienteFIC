@@ -25,8 +25,8 @@ import java.util.List;
 import jakarta.validation.constraints.*;
 import jakarta.validation.Valid;
 
-@Path("/v1/es")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-07-04T10:53:53.775738-05:00[America/Bogota]")
+@Path("/v1/es/cliente-fic")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-09-29T14:37:33.528331-05:00[America/Bogota]")
 public interface V1ClienteFIC {
 
     @GET
@@ -35,14 +35,14 @@ public interface V1ClienteFIC {
     Response consultarAlerta(@PathParam("tipoDocumento") TipoDocumentoEnum tipoDocumento, @PathParam("numeroDocumento") Integer numeroDocumento, @PathParam("digitoVerificacion") Integer digitoVerificacion);
 
     @GET
-    @Path("/centralRiesgo/{tipoDocumento}/{numeroDocumento}/{digitoVerificacion}")
+    @Path("/central-riesgo/{tipoDocumento}/{numeroDocumento}/{digitoVerificacion}")
     @Produces({"application/json"})
     Response consultarCentralDeRiesgo(@PathParam("tipoDocumento") TipoDocumentoEnum tipoDocumento, @PathParam("numeroDocumento") Integer numeroDocumento, @PathParam("digitoVerificacion") Integer digitoVerificacion);
 
     @GET
-    @Path("/clienteFIC/{nombre}")
+    @Path("/nombre/{nombre}/{apellido}/{razonSocial}")
     @Produces({"application/json"})
-    Response consultarClienteFICPorNombre(@PathParam("nombre") String nombre);
+    Response consultarClienteFICPorNombre(@PathParam("nombre") String nombre, @PathParam("apellido") String apellido, @PathParam("razonSocial") String razonSocial);
 
     @GET
     @Path("/conyuge/{numeroCliente}")
@@ -50,17 +50,17 @@ public interface V1ClienteFIC {
     Response consultarConyuge(@PathParam("numeroCliente") Integer numeroCliente);
 
     @GET
-    @Path("/cupoRotativo/{numeroCliente}")
+    @Path("/cupo-rotativo/{numeroCliente}")
     @Produces({"application/json"})
     Response consultarCupoRotativo(@PathParam("numeroCliente") Integer numeroCliente);
 
     @GET
-    @Path("/direccionTelefono/{numeroCliente}")
+    @Path("/direccion-telefono/{numeroCliente}")
     @Produces({"application/json"})
     Response consultarDireccionTelefono(@PathParam("numeroCliente") Integer numeroCliente);
 
     @GET
-    @Path("/historialContacto/{numeroCliente}")
+    @Path("/historial-contacto/{numeroCliente}")
     @Produces({"application/json"})
     Response consultarHistorialContacto(@PathParam("numeroCliente") Integer numeroCliente);
 
@@ -80,12 +80,12 @@ public interface V1ClienteFIC {
     Response consultarPasivo(@PathParam("numeroCliente") Integer numeroCliente);
 
     @GET
-    @Path("/clienteFIC/{tipoDocumento}/{numeroDocumento}/{digitoVerificacion}")
+    @Path("/{tipoDocumento}/{numeroDocumento}/{digitoVerificacion}")
     @Produces({"application/json"})
     Response consutaClientePorIdentificacion(@PathParam("tipoDocumento") TipoDocumentoEnum tipoDocumento, @PathParam("numeroDocumento") Integer numeroDocumento, @PathParam("digitoVerificacion") Integer digitoVerificacion);
 
     @POST
-    @Path("/clienteFIC")
+    @Path("/usuario")
     @Consumes({"application/json"})
     @Produces({"application/json"})
     Response crearClienteFIC(@Valid ClienteFICType clienteFICType);

@@ -13,6 +13,8 @@ import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.util.Arrays;
+import java.util.List;
 
 @ApplicationScoped
 public class ClienteFICValidator {
@@ -147,9 +149,35 @@ public class ClienteFICValidator {
 
         if (nombre == null || nombre.isEmpty()) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.VALIDACION + " digitoVerificacion invalido"
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.VALIDACION + " nombre invalido"
             );
         }
+
+        logger.info("Validacion realizadas correctamente");
+        Response.ok().build();
+
+    }
+
+    public void validarConsultaPorNombre(String nombre, String apellido, String razonSocial) {
+
+        if (nombre == null || nombre.isEmpty()) {
+            throw new ApplicationExceptionValidation(
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.VALIDACION + " nombre invalido"
+            );
+        }
+
+        if (apellido == null || apellido.isEmpty()) {
+            throw new ApplicationExceptionValidation(
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.VALIDACION + " apellido invalido"
+            );
+        }
+
+        if (razonSocial == null || razonSocial.isEmpty()) {
+            throw new ApplicationExceptionValidation(
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.VALIDACION + " razonSocial invalido"
+            );
+        }
+
 
         logger.info("Validacion realizadas correctamente");
         Response.ok().build();
@@ -167,6 +195,18 @@ public class ClienteFICValidator {
         logger.info("Validacion realizadas correctamente");
         Response.ok().build();
 
+    }
+
+    void x() {
+        List<Integer> list = Arrays.asList(1, 2, 3, 4, 5);
+
+        int sum = list.stream()
+
+                .map(n -> n * 2)
+
+                .reduce(0, (a, b) -> a + b);
+
+        System.out.println(sum);
     }
 
     public boolean tieneAtributosNulos(Object obj) {
@@ -216,7 +256,7 @@ public class ClienteFICValidator {
         );
     }
 
-    public void validaConsulta(com.mibanco.clientefic.es.TipoDocumentoEnum tipoDocumento, Integer numeroDocumento, Integer digitoVerificacion) throws ApplicationExceptionValidation {
+    public void validaConsulta(String tipoDocumento, Integer numeroDocumento, Integer digitoVerificacion) throws ApplicationExceptionValidation {
 
         if (numeroDocumento == null || numeroDocumento < 0) {
             throw new ApplicationExceptionValidation(
@@ -228,16 +268,11 @@ public class ClienteFICValidator {
                     Response.Status.BAD_REQUEST.getStatusCode(), Constans.VALIDACION + " digitoVerificacion invalido"
             );
         }
-        for (TipoDocumentoEnum enumValue : TipoDocumentoEnum.values()) {
-            if (enumValue.name().equals(tipoDocumento.name())) {
-                logger.info("Validacion realizadas correctamente");
-                Response.ok().build();
-                return;
-            }
+        if (tipoDocumento == null) {
+            throw new ApplicationExceptionValidation(
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.VALIDACION + " tipoDocumento invalido"
+            );
         }
 
-        throw new ApplicationExceptionValidation(
-                Response.Status.BAD_REQUEST.getStatusCode(), Constans.VALIDACION + " tipoDocumento invalido"
-        );
     }
 }

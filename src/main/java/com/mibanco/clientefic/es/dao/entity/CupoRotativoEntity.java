@@ -10,7 +10,7 @@ import java.util.Date;
 public class CupoRotativoEntity {
 
     private String estado;
-    private Date fechaDeVencimiento;
+    private String fechaDeVencimiento;
     private Float montoCupoCredito;
     private Float montoUtilizado;
     private Integer numeroCliente;

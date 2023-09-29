@@ -23,7 +23,7 @@ tags:
 #Endpoints del Entidad
 #----------------------------
 paths:
-  /v1/es/clienteFIC:
+  /v1/es/cliente-fic/usuario:
     post:
       tags:
         - Crear cliente FIC type
@@ -57,7 +57,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /v1/es/alerta/{tipoDocumento}/{numeroDocumento}/{digitoVerificacion}:
+  /v1/es/cliente-fic/alerta/{tipoDocumento}/{numeroDocumento}/{digitoVerificacion}:
     get:
       summary: Consulta alerta
       operationId: ConsultarAlerta
@@ -103,7 +103,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /v1/es/centralRiesgo/{tipoDocumento}/{numeroDocumento}/{digitoVerificacion}:
+  /v1/es/cliente-fic/central-riesgo/{tipoDocumento}/{numeroDocumento}/{digitoVerificacion}:
     get:
       summary: Consulta Central
       operationId: consultarCentralDeRiesgo
@@ -149,7 +149,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /v1/es/clienteFIC/{tipoDocumento}/{numeroDocumento}/{digitoVerificacion}:
+  /v1/es/cliente-fic/{tipoDocumento}/{numeroDocumento}/{digitoVerificacion}:
     get:
       summary: Consultar Cliente FIC Por Identificacion
       operationId: ConsutaClientePorIdentificacion
@@ -195,7 +195,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /v1/es/clienteFIC/{nombre}:
+  /v1/es/cliente-fic/nombre/{nombre}/{apellido}/{razonSocial}:
     get:
       summary: Consultar Cliente FIC Por nombre
       operationId: ConsultarClienteFICPorNombre
@@ -206,6 +206,18 @@ paths:
           schema:
             type: string
           description: nombre
+        - in: path
+          name: apellido
+          required: true
+          schema:
+            type: string
+          description: apellido
+        - in: path
+          name: razonSocial
+          required: true
+          schema:
+            type: string
+          description: razonSocial
       responses:
         "200":
           description: get ClienteFIC por nombre.
@@ -229,7 +241,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /v1/es/conyuge/{numeroCliente}:
+  /v1/es/cliente-fic/conyuge/{numeroCliente}:
     get:
       summary: Consultar Conyuge
       operationId: ConsultarConyuge
@@ -263,7 +275,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /v1/es/cupoRotativo/{numeroCliente}:
+  /v1/es/cliente-fic/cupo-rotativo/{numeroCliente}:
     get:
       summary: consultarCupoRotativo
       operationId: consultarCupoRotativo
@@ -297,7 +309,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /v1/es/direccionTelefono/{numeroCliente}:
+  /v1/es/cliente-fic/direccion-telefono/{numeroCliente}:
     get:
       summary: consultarDireccionTelefono
       operationId: consultarDireccionTelefono
@@ -331,7 +343,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /v1/es/historialContacto/{numeroCliente}:
+  /v1/es/cliente-fic/historial-contacto/{numeroCliente}:
     get:
       summary: consultarHistorialContacto
       operationId: consultarHistorialContacto
@@ -365,7 +377,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /v1/es/oferta/{numeroCliente}:
+  /v1/es/cliente-fic/oferta/{numeroCliente}:
     get:
       summary: consultarOferta
       operationId: consultarOferta
@@ -399,7 +411,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /v1/es/pasivo/{numeroCliente}:
+  /v1/es/cliente-fic/pasivo/{numeroCliente}:
     get:
       summary: consultarPasivo
       operationId: consultarPasivo
@@ -433,7 +445,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /v1/es/pqr/{tipoDocumento}/{numeroDocumento}/{digitoVerificacion}:
+  /v1/es/cliente-fic/pqr/{tipoDocumento}/{numeroDocumento}/{digitoVerificacion}:
     get:
       summary: Consulta PQR
       operationId: consultarPQR
@@ -545,7 +557,6 @@ components:
           format: float
         ultimaFechaActualizacion:
           type: string
-          format: date-time
     ClienteBaseType:
       type: object
       properties:
@@ -562,7 +573,6 @@ components:
           type: integer
         fechaExpedicionDocumento:
           type: string
-          format: date-time
         primerNombre:
           type: string
         numeroCelular:
@@ -584,7 +594,6 @@ components:
           type: string
         fecha:
           type: string
-          format: date-time
         tipoDocumento:
           $ref: "#/components/schemas/TipoDocumentoEnum"
         numeroDocumento:
@@ -602,10 +611,8 @@ components:
           type: string
         fechaConsultaMasReciente:
           type: string
-          format: date-time
         fechaExpedicion:
           type: string
-          format: date-time
         genero:
           type: string
         historicoEndeudamiento:
@@ -635,7 +642,6 @@ components:
       properties:
         fecha:
           type: string
-          format: date-time
         tipoContacto:
           type: string
         resultadoComentarios:
@@ -666,7 +672,6 @@ components:
           type: string
         fechaDeVencimiento:
           type: string
-          format: date-time
         montoCupoCredito:
           type: number
           format: float
@@ -740,10 +745,8 @@ components:
           type: string
         fechaApertura:
           type: string
-          format: date-time
         fechaCierre:
           type: string
-          format: date-time
         capital:
           type: number
           format: float
@@ -763,7 +766,6 @@ components:
       properties:
         fecha:
           type: string
-          format: date-time
         numeroPQR:
           type: integer
         motivo:

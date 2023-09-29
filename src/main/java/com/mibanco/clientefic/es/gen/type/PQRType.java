@@ -1,7 +1,6 @@
 package com.mibanco.clientefic.es.gen.type;
 
 import com.mibanco.clientefic.es.gen.type.TipoDocumentoEnum;
-import java.util.Date;
 import jakarta.validation.constraints.*;
 import jakarta.validation.Valid;
 
@@ -13,9 +12,9 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("PQRType")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-07-04T10:53:53.775738-05:00[America/Bogota]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-09-29T14:37:33.528331-05:00[America/Bogota]")
 public class PQRType {
-    private @Valid Date fecha;
+    private @Valid String fecha;
     private @Valid Integer numeroPQR;
     private @Valid String motivo;
     private @Valid String resultadoPQR;
@@ -27,19 +26,19 @@ public class PQRType {
     /**
      *
      **/
-    public PQRType fecha(Date fecha) {
+    public PQRType fecha(String fecha) {
         this.fecha = fecha;
         return this;
     }
 
 
     @JsonProperty("fecha")
-    public Date getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
     @JsonProperty("fecha")
-    public void setFecha(Date fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 

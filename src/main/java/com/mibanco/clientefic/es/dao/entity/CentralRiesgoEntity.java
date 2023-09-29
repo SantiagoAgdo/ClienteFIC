@@ -6,7 +6,6 @@ import com.mibanco.clientefic.es.gen.type.TipoReporteXmlEnum;
 import lombok.Data;
 import lombok.AllArgsConstructor;
 
-import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -15,8 +14,8 @@ public class CentralRiesgoEntity {
     private String antiguedadUbicacion;
     private String consultaDetallada;
     private String estadoDocumento;
-    private Date fechaConsultaMasReciente;
-    private Date fechaExpedicion;
+    private String fechaConsultaMasReciente;
+    private String fechaExpedicion;
     private String genero;
     private String historicoEndeudamiento;
     private String lugarExpedicion;

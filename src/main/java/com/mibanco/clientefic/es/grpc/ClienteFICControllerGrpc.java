@@ -29,16 +29,6 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.mibanco.clientefic.es.BarrioEnum.SINDATA;
-import static com.mibanco.clientefic.es.CiudadEnum._05001;
-import static com.mibanco.clientefic.es.DepartamentoEnum._12;
-import static com.mibanco.clientefic.es.SubProductoEnum.REMA_AAFC_APORTES_AFC_CENTRALIZADO;
-import static com.mibanco.clientefic.es.TipoDireccionEnum.EMPR_EMPRESA;
-import static com.mibanco.clientefic.es.TipoDocumentoEnum.CC;
-import static com.mibanco.clientefic.es.TipoProductoEnum.BONO_BONOS_;
-import static com.mibanco.clientefic.es.TipoRelacionEnum.TITULAR;
-import static com.mibanco.clientefic.es.TipoReporteXmlEnum.CONSULTA_DETALLADA;
-import static com.mibanco.clientefic.es.TipoViviendaEnum.PROPIO_SIN_HIPOTECA;
 
 @GrpcService
 public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteFICServiceGrpcImplBase {
@@ -94,7 +84,7 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
                         .setTipoAlerta(alert.getTipoAlerta())
                         .setBanco(alert.getBanco())
                         .setFecha(alert.getFecha().toString())
-                        .setTipoDocumento(CC)
+                        .setTipoDocumento(alert.getTipoDocumento().toString())
                         .setNumeroDocumento(alert.getNumeroDocumento())
                         .setDigitoVerificacion(alert.getDigitoVerificacion())
                         .build());
@@ -143,9 +133,9 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
                         .setRangoEdad(centralRiesgoItem.getRangoEdad())
                         .setResultadoConsultaMasReciente(centralRiesgoItem.getResultadoConsultaMasReciente())
                         .setTieneRUT(centralRiesgoItem.getTieneRUT())
-                        .setTipoDocumento(CC)
-                        .setTipoRelacion(TITULAR)
-                        .setTipoReporte(CONSULTA_DETALLADA)
+                        .setTipoDocumento(centralRiesgoItem.getTipoDocumento().toString())
+                        .setTipoRelacion(centralRiesgoItem.getTipoRelacion().toString())
+                        .setTipoReporte(centralRiesgoItem.getTipoReporte().toString())
                         .setVbVigenteParaSerConsultado(centralRiesgoItem.getVbVigenteParaSerConsultado())
                         .setDigitoVerificacion(centralRiesgoItem.getDigitoVerificacion())
                         .build());
@@ -185,7 +175,7 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
                         .setResultadoPQR(pqrItem.getResultadoPQR())
                         .setComentario(pqrItem.getComentario())
                         .setDigitoVerificacion(pqrItem.getDigitoVerificacion())
-                        .setTipoDocumento(CC)
+                        .setTipoDocumento(pqrItem.getTipoDocumento().toString())
                         .setNumeroDocumento(pqrItem.getNumeroDocumento())
                         .build());
             }
@@ -206,37 +196,6 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
         }
     }
 
-    //    @Override
-//    @Blocking
-//    public void consutaClientePorIdentificacion(ConsultaClienteByData request, StreamObserver<ResponseCliente> responseObs) {
-//
-//        LOG.info("Inicia consulta cliente por identificacion GRPC");
-//        try {
-//
-//            clienteFICValidator.validaConsulta(request.getTipoDocumento(), request.getNumeroDocumento(), request.getDigitoVerificacion());
-//            com.mibanco.clientefic.es.dao.entity.ConsultaClienteByData entity = mapper.dataGrpcToEntity(request);
-//            ClienteFICEntity cliente = clienteFICService.getClienteByIdentificacion(entity);
-//
-//
-//            CrearClienteFICGrpc clienteFICTypeToGRPC = mapper.pars(cliente);
-//            ResponseCliente clienteResponse = ResponseCliente.newBuilder().setCliente(clienteFICTypeToGRPC. ) .build();
-//
-//            LOG.info("Finaliza consulta cliente por identificacion GRPC");
-//
-//            responseObs.onNext(clienteResponse);
-//            responseObs.onCompleted();
-//
-//        } catch (ApplicationExceptionValidation e) {
-//
-//            StatusException statusException = responseExceptionGrpc(Status.INVALID_ARGUMENT, e.getMessage());
-//            responseObs.onError(statusException);
-//
-//        } catch (Exception e) {
-//
-//            StatusException statusException = responseExceptionGrpc(Status.INTERNAL, e.getMessage());
-//            responseObs.onError(statusException);
-//        }
-//    }
     @Override
     @Blocking
     public void consultarConyuge(NumeroCliente request, StreamObserver<ResponseConyuge> responseObs) {
@@ -247,7 +206,7 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
 
             ResponseConyuge response = ResponseConyuge.newBuilder().setObj(
                     ResponseConyuge.newBuilder().getObj().toBuilder()
-                            .setTipoDocumento(CC)
+                            .setTipoDocumento(conyuge.getTipoDocumento().toString())
                             .setNumeroCliente(conyuge.getNumeroCliente())
                             .setNumeroDocumento(conyuge.getNumeroDocumento())
                             .setPrimerNombre(conyuge.getPrimerNombre())
@@ -322,12 +281,12 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
                         .setDireccion(item.getDireccion())
                         .setTelefono1(item.getTelefono1())
                         .setTelefono2(item.getTelefono2())
-                        .setTipoDireccion(EMPR_EMPRESA)
-                        .setTipoLocal(PROPIO_SIN_HIPOTECA)
-                        .setTipoVivienda(PROPIO_SIN_HIPOTECA)
-                        .setCodigoBarrio(SINDATA)
-                        .setCodigoDepartamento(_12)
-                        .setCodigoMunicipio(_05001)
+                        .setTipoDireccion(item.getTipoDireccion().toString())
+                        .setTipoLocal(item.getTipoLocal().toString())
+                        .setTipoVivienda(item.getTipoVivienda().toString())
+                        .setCodigoBarrio(item.getCodigoBarrio().toString())
+                        .setCodigoDepartamento(item.getCodigoDepartamento().toString())
+                        .setCodigoMunicipio(item.getCodigoMunicipio().toString())
                         .build());
             }
             ResponseDirrecionTelefono response = ResponseDirrecionTelefono.newBuilder().addAllObj(consultaListResponse).build();
@@ -437,8 +396,8 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
             for (PasivoType pasivo : consultaList) {
                 ofertaListResponse.add(com.mibanco.clientefic.es.PasivoType.newBuilder()
                         .setNumeroProducto(pasivo.getNumeroProducto())
-                        .setTipoProducto(BONO_BONOS_)
-                        .setSubProducto(REMA_AAFC_APORTES_AFC_CENTRALIZADO)
+                        .setTipoProducto(pasivo.getTipoProducto().toString())
+                        .setSubProducto(pasivo.getSubProducto().toString())
                         .setEstadoPasivo(pasivo.getEstadoPasivo())
                         .setFechaApertura(pasivo.getFechaApertura().toString())
                         .setFechaCierre(pasivo.getFechaCierre().toString())

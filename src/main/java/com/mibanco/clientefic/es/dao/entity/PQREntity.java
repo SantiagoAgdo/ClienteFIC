@@ -10,7 +10,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class PQREntity {
 
-    private Date fecha;
+    private String fecha;
     private Integer numeroPQR;
     private String motivo;
     private String resultadoPQR;

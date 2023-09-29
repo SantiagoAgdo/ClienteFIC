@@ -3,11 +3,13 @@ package com.mibanco.clientefic.es.dao.entity;
 import com.mibanco.clientefic.es.gen.type.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class ClienteFICEntity {
 
     public AlertaType alerta;
@@ -35,8 +37,6 @@ public class ClienteFICEntity {
     public Boolean seRequiereActualizacion;
     public TipoDocumentoEnum tipoDocumentoRepresentanteLegal;
     public String totalActivos;
-    public Date ultimaFechaActualizacion;
+    public String ultimaFechaActualizacion;
 
-    public ClienteFICEntity() {
-    }
 }

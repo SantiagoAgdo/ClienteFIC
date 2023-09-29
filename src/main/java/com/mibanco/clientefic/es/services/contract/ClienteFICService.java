@@ -1,6 +1,5 @@
 package com.mibanco.clientefic.es.services.contract;
 
-import com.mibanco.clientefic.es.dao.entity.CentralRiesgoEntity;
 import com.mibanco.clientefic.es.dao.entity.ClienteFICEntity;
 import com.mibanco.clientefic.es.dao.entity.ConsultaClienteByData;
 import com.mibanco.clientefic.es.dao.entity.ConsultarClientePorNombreOutputEntity;

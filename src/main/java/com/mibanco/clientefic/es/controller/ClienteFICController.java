@@ -28,6 +28,11 @@ public class ClienteFICController implements V1ClienteFIC {
     @Inject
     ClienteFICValidator clienteFICValidator;
 
+    public ClienteFICController(ClienteFICServiceImpl clienteFICService, ClienteFICValidator clienteFICValidator) {
+        this.clienteFICValidator = clienteFICValidator;
+        this.clienteFICServiceImpl = clienteFICService;
+    }
+
     @Override
     public Response consultarAlerta(TipoDocumentoEnum tipoDocumento, Integer numeroDocumento, Integer digitoVerificacion) {
 
@@ -77,11 +82,11 @@ public class ClienteFICController implements V1ClienteFIC {
     }
 
     @Override
-    public Response consultarClienteFICPorNombre(String nombre) {
+    public Response consultarClienteFICPorNombre(String nombre, String apellido, String razonSocial) {
 
         LOG.info("Inicia consulta de Cliente FIC por Nombre");
         try {
-            clienteFICValidator.validarNombre(nombre);
+            clienteFICValidator.validarConsultaPorNombre(nombre, apellido, razonSocial);
             ConsultarClientePorNombreOutputEntity cliente = clienteFICServiceImpl.getClienteByNombre(nombre);
 
             LOG.info("Finaliza consulta de Cliente FIC por Nombre");
@@ -316,4 +321,6 @@ public class ClienteFICController implements V1ClienteFIC {
                     .entity(Constans.SERVICIO_INTERNAL + "crearClienteFIC, exception: " + e.getMessage()).build();
         }
     }
+
+
 }

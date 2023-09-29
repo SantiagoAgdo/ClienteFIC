@@ -11,7 +11,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class ContactoEntity {
 
-    private Date fecha;
+    private String fecha;
     private String tipoContacto;
     private String resultadoComentarios;
     private Integer numeroCliente;

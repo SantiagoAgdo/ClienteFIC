@@ -20,7 +20,6 @@ public class ClienteFICServiceImpl implements ClienteFICService {
 
     public static final Logger LOG = LoggerFactory.getLogger(ClienteFICServiceImpl.class);
 
-
     @Inject
     ClienteFICDAO clienteFICDAO;
 
@@ -44,10 +43,10 @@ public class ClienteFICServiceImpl implements ClienteFICService {
     public List<AlertaType> getListaAlertas(ConsultaClienteByData data) throws ApplicationException {
 
         LOG.info("Inicia consulta de Alertas");
-        List<AlertaEntity> list = clienteFICDAO.getListaAlertas(data);
+        List<AlertaEntity> listAlertasResponse = clienteFICDAO.getListaAlertas(data);
 
         LOG.info("Termina consulta de Alertas");
-        return list.stream().map(clienteFICMapper::alertaToType).collect(Collectors.toList());
+        return listAlertasResponse.stream().map(clienteFICMapper::alertaToType).collect(Collectors.toList());
 
     }
 
@@ -55,10 +54,10 @@ public class ClienteFICServiceImpl implements ClienteFICService {
     public List<CentralRiesgoType> getListaCentralRiesgo(ConsultaClienteByData data) throws ApplicationException {
 
         LOG.info("Inicia consulta de cliente por identificacion");
-        List<CentralRiesgoEntity> list = clienteFICDAO.getListaCentralRiesgo(data);
+        List<CentralRiesgoEntity> listCentralRiesgoResponse = clienteFICDAO.getListaCentralRiesgo(data);
 
         LOG.info("Termina consulta de cliente por identificacion");
-        return list.stream().map(clienteFICMapper::centralRiesgoFICToType).collect(Collectors.toList());
+        return listCentralRiesgoResponse.stream().map(clienteFICMapper::centralRiesgoFICToType).collect(Collectors.toList());
 
     }
 
@@ -66,10 +65,10 @@ public class ClienteFICServiceImpl implements ClienteFICService {
     public ClienteFICEntity getClienteByIdentificacion(ConsultaClienteByData dataCliente) throws ApplicationException {
 
         LOG.info("Inicia consulta de cliente por identificacion");
-        ClienteFICEntity rpt = clienteFICDAO.getClienteByIdentificacion(dataCliente);
+        ClienteFICEntity rptClienteByIdentificacion = clienteFICDAO.getClienteByIdentificacion(dataCliente);
 
         LOG.info("Termina consulta de cliente por identificacion");
-        return rpt;
+        return rptClienteByIdentificacion;
 
     }
 
@@ -77,30 +76,30 @@ public class ClienteFICServiceImpl implements ClienteFICService {
     public ConsultarClientePorNombreOutputEntity getClienteByNombre(String nombre) throws ApplicationException {
 
         LOG.info("Inicia consulta Cliente por nombre");
-        ConsultarClientePorNombreOutputEntity rpt = clienteFICDAO.getClienteByNombre(nombre);
+        ConsultarClientePorNombreOutputEntity clienteResponse = clienteFICDAO.getClienteByNombre(nombre);
 
         LOG.info("Termina consulta Cliente por nombre");
-        return rpt;
+        return clienteResponse;
     }
 
     @Override
     public ConyugeType getConyuge(Integer numeroCliente) throws ApplicationException {
 
         LOG.info("Inicia consulta de conyuge");
-        ConyugeType rpt = clienteFICDAO.getConyuge(numeroCliente);
+        ConyugeType rptConyuge = clienteFICDAO.getConyuge(numeroCliente);
 
         LOG.info("Termina consulta de conyuge");
-        return rpt;
+        return rptConyuge;
     }
 
     @Override
     public List<CupoRotativoType> getCupoRotativo(Integer numeroCliente) {
 
         LOG.info("Inicia consulta de cupo rotativo");
-        List<CupoRotativoEntity> list = clienteFICDAO.getCupoRotativo(numeroCliente);
+        List<CupoRotativoEntity> listCupoRotativo = clienteFICDAO.getCupoRotativo(numeroCliente);
 
         LOG.info("Termina consulta de cupo rotativo");
-        return list.stream().map(clienteFICMapper::cupoRotativoFICToType).collect(Collectors.toList());
+        return listCupoRotativo.stream().map(clienteFICMapper::cupoRotativoFICToType).collect(Collectors.toList());
 
     }
 
@@ -108,10 +107,10 @@ public class ClienteFICServiceImpl implements ClienteFICService {
     public List<ConsultarDireccionTelefonoType> getDirrecionTelefono(Integer numeroCliente) throws ApplicationException {
 
         LOG.info("Inicia consulta de Dirreccion Telefono");
-        List<ConsultarDirrecionTelefonoEntity> list = clienteFICDAO.getDirrecionTelefono(numeroCliente);
+        List<ConsultarDirrecionTelefonoEntity> listDirrecionTelefonoByNumeroCliente = clienteFICDAO.getDirrecionTelefono(numeroCliente);
 
         LOG.info("Termina consulta de Dirreccion Telefono");
-        return list.stream().map(clienteFICMapper::consultaDirrecionTelelfonoToType).collect(Collectors.toList());
+        return listDirrecionTelefonoByNumeroCliente.stream().map(clienteFICMapper::consultaDirrecionTelelfonoToType).collect(Collectors.toList());
 
     }
 
@@ -119,20 +118,20 @@ public class ClienteFICServiceImpl implements ClienteFICService {
     public List<ContactoType> getContacto(Integer numeroCliente) throws ApplicationException {
 
         LOG.info("Inicia consulta de Historial Contacto");
-        List<ContactoEntity> list = clienteFICDAO.getContacto(numeroCliente);
+        List<ContactoEntity> listContacto = clienteFICDAO.getContacto(numeroCliente);
 
         LOG.info("Termina consulta de Historial Contacto");
-        return list.stream().map(clienteFICMapper::contactoToType).collect(Collectors.toList());
+        return listContacto.stream().map(clienteFICMapper::contactoToType).collect(Collectors.toList());
     }
 
     @Override
     public List<OfertaType> getOferta(Integer numeroCliente) throws ApplicationException {
 
         LOG.info("Inicia consulta de Oferta");
-        List<OfertaEntity> list = clienteFICDAO.getOferta(numeroCliente);
+        List<OfertaEntity> listOferta = clienteFICDAO.getOferta(numeroCliente);
 
         LOG.info("Termina consulta de Oferta");
-        return list.stream().map(clienteFICMapper::ofertaToType).collect(Collectors.toList());
+        return listOferta.stream().map(clienteFICMapper::ofertaToType).collect(Collectors.toList());
 
     }
 
@@ -140,19 +139,19 @@ public class ClienteFICServiceImpl implements ClienteFICService {
     public List<PasivoType> getPasivo(Integer numeroCliente) {
 
         LOG.info("Inicia consulta Pasivo");
-        List<PasivoEntity> list = clienteFICDAO.getPasivo(numeroCliente);
+        List<PasivoEntity> listPasivoResponse = clienteFICDAO.getPasivo(numeroCliente);
 
         LOG.info("Termina consulta Pasivo");
-        return list.stream().map(clienteFICMapper::pasivoToType).collect(Collectors.toList());
+        return listPasivoResponse.stream().map(clienteFICMapper::pasivoToType).collect(Collectors.toList());
     }
 
     @Override
     public List<PQRType> getPQR(ConsultaClienteByData dataCliente) throws ApplicationException {
 
         LOG.info("Inicia consulta de PQR");
-        List<PQREntity> list = clienteFICDAO.getPQR(dataCliente);
+        List<PQREntity> listPqrResponse = clienteFICDAO.getPQR(dataCliente);
 
         LOG.info("Termina consulta de PRQ");
-        return list.stream().map(clienteFICMapper::pqrToType).collect(Collectors.toList());
+        return listPqrResponse.stream().map(clienteFICMapper::pqrToType).collect(Collectors.toList());
     }
 }

@@ -3,7 +3,6 @@ package com.mibanco.clientefic.es.gen.type;
 import com.mibanco.clientefic.es.gen.type.TipoDocumentoEnum;
 import com.mibanco.clientefic.es.gen.type.TipoRelacionEnum;
 import com.mibanco.clientefic.es.gen.type.TipoReporteXmlEnum;
-import java.util.Date;
 import jakarta.validation.constraints.*;
 import jakarta.validation.Valid;
 
@@ -15,13 +14,13 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("CentralRiesgoType")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-07-04T10:53:53.775738-05:00[America/Bogota]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-09-29T14:37:33.528331-05:00[America/Bogota]")
 public class CentralRiesgoType {
     private @Valid String antiguedadUbicacion;
     private @Valid String consultaDetallada;
     private @Valid String estadoDocumento;
-    private @Valid Date fechaConsultaMasReciente;
-    private @Valid Date fechaExpedicion;
+    private @Valid String fechaConsultaMasReciente;
+    private @Valid String fechaExpedicion;
     private @Valid String genero;
     private @Valid String historicoEndeudamiento;
     private @Valid String lugarExpedicion;
@@ -95,38 +94,38 @@ public class CentralRiesgoType {
     /**
      *
      **/
-    public CentralRiesgoType fechaConsultaMasReciente(Date fechaConsultaMasReciente) {
+    public CentralRiesgoType fechaConsultaMasReciente(String fechaConsultaMasReciente) {
         this.fechaConsultaMasReciente = fechaConsultaMasReciente;
         return this;
     }
 
 
     @JsonProperty("fechaConsultaMasReciente")
-    public Date getFechaConsultaMasReciente() {
+    public String getFechaConsultaMasReciente() {
         return fechaConsultaMasReciente;
     }
 
     @JsonProperty("fechaConsultaMasReciente")
-    public void setFechaConsultaMasReciente(Date fechaConsultaMasReciente) {
+    public void setFechaConsultaMasReciente(String fechaConsultaMasReciente) {
         this.fechaConsultaMasReciente = fechaConsultaMasReciente;
     }
 
     /**
      *
      **/
-    public CentralRiesgoType fechaExpedicion(Date fechaExpedicion) {
+    public CentralRiesgoType fechaExpedicion(String fechaExpedicion) {
         this.fechaExpedicion = fechaExpedicion;
         return this;
     }
 
 
     @JsonProperty("fechaExpedicion")
-    public Date getFechaExpedicion() {
+    public String getFechaExpedicion() {
         return fechaExpedicion;
     }
 
     @JsonProperty("fechaExpedicion")
-    public void setFechaExpedicion(Date fechaExpedicion) {
+    public void setFechaExpedicion(String fechaExpedicion) {
         this.fechaExpedicion = fechaExpedicion;
     }
 
