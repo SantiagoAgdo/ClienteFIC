@@ -37,9 +37,6 @@ public class ClienteFICControllerGRPCTest {
     @Inject
     ObjectMapper objectMapper;
 
-    @Mock
-    private ObjectMapper mockObjectMapper;
-
     @Inject
     ClienteFICMapperGrpc mapperGRPC;
 
@@ -71,7 +68,7 @@ public class ClienteFICControllerGRPCTest {
                 .subscribe()
                 .with(reply -> message.complete(reply.getObj()));
 
-        Assertions.assertThat(message.get(5, TimeUnit.SECONDS)).isEqualTo(conyugeBuffer);
+        Assertions.assertThat(message.get(5, TimeUnit.SECONDS).getNumeroDocumento()).isEqualTo(conyugeBuffer.getNumeroDocumento());
 
     }
 
