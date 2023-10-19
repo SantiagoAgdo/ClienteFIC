@@ -13,7 +13,7 @@ package ClienteFICGrpc;
 message CrearClienteFICGrpc {
   AlertaType alerta = 1;
   ClienteBaseType clienteBase = 2;
-  CentralRiesgoType centralRiesgo = 3;
+  ReporteCentralRiesgoType centralRiesgo = 3;
   ContactoType contacto = 4;
   ConyugeType conyuge = 5;
   CupoRotativoType cupoRotativo = 6;
@@ -27,16 +27,13 @@ message CrearClienteFICGrpc {
   PasivoType pasivo = 14;
   PQRType PQR = 15;
   string prestamo = 16;
-  string primerApellidoRepresentanteLegal = 17;
-  string primerNombreRepresentanteLegal = 18;
-  string razonSocial = 19;
-  string segundoApellidoRepresentanteLegal = 20;
-  string segundoNombreRepresentanteLegal = 21;
-  bool seRequiereActualizacion = 22;
-  string tipoDocumentoRepresentanteLegal = 23;
-  float totalActivos = 24;
-  string ultimaFechaActualizacion = 25;
-  DomicilioType domicilio = 26;
+  string nombreRepresentanteLegal = 17;
+  string razonSocial = 18;
+  string seRequiereActualizacion = 19;
+  string tipoDocumentoRepresentanteLegal = 20;
+  float totalActivos = 21;
+  string ultimaFechaActualizacion = 22;
+  DomicilioBaseType domicilio = 23;
 }
 
 message AlertaType {
@@ -63,24 +60,31 @@ message ClienteBaseType {
   string correoElectronico = 12;
 }
 
-message CentralRiesgoType{
+message ReporteCentralRiesgoType{
   string antiguedadUbicacion = 1;
   string consultaDetallada = 2;
   string estadoDocumento = 3;
-  string fechaConsultaMasReciente = 4;
-  string fechaExpedicion = 5;
-  string genero = 6;
-  string lugarExpedicion = 7;
-  string numeroDocumento = 8;
+  string fechaExpedicion = 4;
+  string genero = 5;
+  string lugarExpedicion = 6;
+  string numeroDocumento = 7;
+  string historicoEndeudamiento = 8;
   string rangoEdad = 9;
-  string resultadoConsultaMasReciente = 10;
+  string digitoVerificacion = 10;
   bool tieneRUT = 11;
   string tipoDocumento = 12;
   string tipoRelacion = 13;
   string tipoReporte = 14;
-  bool vbVigenteParaSerConsultado = 15;
-  string digitoVerificacion = 16;
-  string historicoEndeudamiento = 17;
+  string nombre = 15;
+  string fechaConsulta = 16;
+
+}
+
+message CentralRiesgoType{
+  int32 numeroCliente = 1;
+  string fechaConsultaMasReciente = 2;
+  string resultadoConsultaMasReciente = 3;
+  string vbVigenteParaSerConsultado = 4;
 }
 
 message ContactoType{
@@ -93,10 +97,7 @@ message ContactoType{
 message  ConyugeType{
   string tipoDocumento = 1;
   string numeroDocumento = 2;
-  string primerNombre = 3;
-  string segundoNombre = 4;
-  string primerApellido = 5;
-  string segundoApellido = 6;
+  string nombre = 3;
   int32 numeroCliente = 7;
 }
 
@@ -122,15 +123,21 @@ message DirrecionTelefonoType{
   int64 telefono2 = 9;
 }
 
-message DomicilioType{
+message DomicilioBaseType{
   int32 numeroCliente = 1;
-  string tipoVivienda = 2;
+  string direcccion = 2;
+  int32 telefono1 = 3;
+  int32 telefono2 = 4;
+  string tipoVivienda = 5;
 }
 
 message DomicilioEmpresaType{
   int32 numeroCliente = 1;
-  string tipoActividadCIIU = 2;
-  string tipoLocal = 3;
+  string direcccion = 2;
+  int32 telefono1 = 3;
+  int32 telefono2 = 4;
+  string tipoActividadCIIU = 5;
+  string tipoLocal = 6;
 }
 
 message NegocioType{
@@ -216,10 +223,6 @@ message ResponseHistorialContacto{
   repeated ContactoType obj = 1;
 }
 
-message ResponseDirrecionTelefono{
-  repeated DirrecionTelefonoType obj = 1;
-}
-
 message ResponseOferta{
   repeated OfertaType obj = 1;
 }
@@ -238,12 +241,11 @@ message  ResponseCliente{
 service ClienteFICServiceGrpc {
   rpc clienteFIC(CrearClienteFICGrpc) returns (ResponseClienteFIC);
   rpc consultarAlerta(ConsultaClienteByData) returns (stream ResponseAlerta);
-  rpc consultarCentralDeRiesgo(ConsultaClienteByData) returns (stream ResponseCentralDeRiesgo);
+  rpc consultarCentralDeRiesgo(NumeroCliente) returns (stream ResponseCentralDeRiesgo);
   rpc consultarPQR(ConsultaClienteByData) returns (stream ResponsePQR);
-  rpc consutaClientePorIdentificacion(ConsultaClienteByData) returns (ResponseCliente); //---
+  rpc consutaClientePorIdentificacion(ConsultaClienteByData) returns (ResponseCliente);
   rpc consultarConyuge(NumeroCliente) returns (ResponseConyuge);
   rpc consultarCupoRotativo(NumeroCliente) returns (stream ResponseCupoRotativo);
-  rpc consultarDireccionTelefono(NumeroCliente) returns (stream ResponseDirrecionTelefono);
   rpc consultarHistorialContacto(NumeroCliente) returns (stream ResponseHistorialContacto);
   rpc consultarOferta(NumeroCliente) returns (stream ResponseOferta);
   rpc consultarPasivo(NumeroCliente) returns (stream ResponsePasivo);

@@ -103,29 +103,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /v1/es/cliente-fic/central-riesgo/{tipoDocumento}/{numeroDocumento}/{digitoVerificacion}:
+  /v1/es/cliente-fic/central-riesgo/{numeroCliente}:
     get:
       summary: Consulta Central
       operationId: consultarCentralDeRiesgo
       parameters:
         - in: path
-          name: tipoDocumento
-          required: true
-          schema:
-            $ref: "#/components/schemas/TipoDocumentoEnum"
-          description: tipo de documento
-        - in: path
-          name: numeroDocumento
+          name: numeroCliente
           required: true
           schema:
             type: integer
-          description: numero de documento
-        - in: path
-          name: digitoVerificacion
-          required: true
-          schema:
-            type: integer
-          description: digito de verificacion
+          description: numero de cliente
       responses:
         "200":
           description: get Consulta Central.
@@ -295,40 +283,6 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/CupoRotativoType"
-        "400":
-          description: Peticion con datos invalidos
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        "404":
-          description: "No se encuentra el cliente FIC."
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /v1/es/cliente-fic/direccion-telefono/{numeroCliente}:
-    get:
-      summary: consultarDireccionTelefono
-      operationId: consultarDireccionTelefono
-      parameters:
-        - in: path
-          name: numeroCliente
-          required: true
-          schema:
-            type: integer
-          description: numero Cliente
-      responses:
-        "200":
-          description: get Direccion Telefono por numeroCliente.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/ConsultarDireccionTelefonoType"
         "400":
           description: Peticion con datos invalidos
           content:
@@ -538,18 +492,12 @@ components:
           $ref: "#/components/schemas/PQRType"
         prestamo:
           type: string
-        primerApellidoRepresentanteLegal:
-          type: string
-        primerNombreRepresentanteLegal:
+        nombreRepresentanteLegal:
           type: string
         razonSocial:
           type: string
-        segundoApellidoRepresentanteLegal:
-          type: string
-        segundoNombreRepresentanteLegal:
-          type: string
         seRequiereActualizacion:
-          type: boolean
+          type: string
         tipoDocumentoRepresentanteLegal:
           $ref: "#/components/schemas/TipoDocumentoEnum"
         totalActivos:
@@ -603,15 +551,28 @@ components:
     CentralRiesgoType:
       type: object
       properties:
+        numeroCliente:
+          type: Integer
+        fechaConsultaMasReciente:
+          type: Date
+        resultadoConsultaMasReciente:
+          type: String
+        vbVigenteParaSerConsultado:
+          type: String
+    ReporteCentralRiesgoType:
+      type: object
+      properties:
         antiguedadUbicacion:
           type: string
         consultaDetallada:
           type: string
         estadoDocumento:
           type: string
-        fechaConsultaMasReciente:
-          type: string
         fechaExpedicion:
+          type: string
+        fechaConsulta:
+          type: string
+        nombre:
           type: string
         genero:
           type: string
@@ -623,8 +584,6 @@ components:
           type: string
         rangoEdad:
           type: string
-        resultadoConsultaMasReciente:
-          type: string
         tieneRUT:
           type: boolean
         tipoDocumento:
@@ -633,8 +592,6 @@ components:
           $ref: "#/components/schemas/TipoRelacionEnum"
         tipoReporte:
           $ref: "#/components/schemas/TipoReporteXmlEnum"
-        vbVigenteParaSerConsultado:
-          type: boolean
         digitoVerificacion:
           type: string
     ContactoType:
@@ -655,13 +612,7 @@ components:
           $ref: "#/components/schemas/TipoDocumentoEnum"
         numeroDocumento:
           type: string
-        primerNombre:
-          type: string
-        segundoNombre:
-          type: string
-        primerApellido:
-          type: string
-        segundoApellido:
+        nombre:
           type: string
         numeroCliente:
           type: integer
@@ -685,11 +636,17 @@ components:
         saldoDisponible:
           type: number
           format: float
-    DomicilioType:
+    DomicilioBaseType:
       type: object
       properties:
         numeroCliente:
           type: integer
+          direcccion:
+            type: string
+          telefono1:
+            type: integer
+          telefono2:
+            type: integer
         tipoVivienda:
           $ref: "#/components/schemas/TipoViviendaEnum"
     DomicilioEmpresaType:
@@ -697,6 +654,12 @@ components:
       properties:
         numeroCliente:
           type: integer
+          direccion:
+            type: string
+          telefono1:
+            type: integer
+          telefono2:
+            type: integer
         tipoActividadCIIU:
           $ref: "#/components/schemas/TipoActividadCIIUEnum"
         tipoLocal:
@@ -864,10 +827,10 @@ components:
     TipoViviendaEnum:
       type: string
       enum:
-        - 1 PROPIO SIN HIPOTECA
-        - 2 PROPIO CON HIPOTECA
-        - 3 FAMILIAR
-        - 4 ARRENDADO
+        - SH
+        - CH
+        - FA
+        - AR
     TipoActividadCIIUEnum:
       type: string
       enum:
