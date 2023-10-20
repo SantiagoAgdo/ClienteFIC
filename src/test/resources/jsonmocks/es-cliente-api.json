@@ -21,24 +21,30 @@
     "segundoApellido": "string",
     "correoElectronico": "string"
   },
-  "centralRiesgo": {
+  "ReporteCentralRiesgo": {
     "antiguedadUbicacion": "string",
     "consultaDetallada": "string",
     "estadoDocumento": "string",
     "fechaConsultaMasReciente": "2022-03-10",
     "fechaExpedicion": "2022-03-10",
     "genero": "string",
-    "historicoEndeudamiento": "string",
     "lugarExpedicion": "string",
+    "historicoEndeudamiento": "string",
     "numeroDocumento": "10002",
     "rangoEdad": "string",
     "resultadoConsultaMasReciente": "string",
     "tieneRUT": true,
-    "tipoDocumento": "CC",
-    "tipoRelacion": "01 TITULAR",
+    "tipoDocumento": "PAS",
+    "tipoRelacion": "02 CONYUGE",
     "tipoReporte": "CONSULTA DETALLADA",
     "vbVigenteParaSerConsultado": true,
-    "digitoVerificacion": "1"
+    "digitoVerificacion": "string"
+  },
+  "centralRiesgo": {
+    "numeroCliente": 10002,
+    "resultadoConsultaMasReciente" : "dsad",
+    "vbVigenteParaSerConsultado": "sgri",
+    "fechaConsultaMasReciente": "2020-01-01"
   },
   "contacto": {
     "fecha": "2022-03-10",
@@ -67,7 +73,7 @@
   "digitoVerificacion": 1,
   "domicilio": {
     "numeroCliente": 0,
-    "tipoVivienda": "1 PROPIO SIN HIPOTECA"
+    "tipoVivienda": "SH"
   },
   "domicilioEmpresa": {
     "numeroCliente": 0,

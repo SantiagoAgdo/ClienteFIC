@@ -21,7 +21,7 @@
     "segundoApellido": "string",
     "correoElectronico": "string"
   },
-  "centralRiesgo": {
+  "reporteCentralRiesgo": {
     "antiguedadUbicacion": "string",
     "consultaDetallada": "string",
     "estadoDocumento": "string",
@@ -39,6 +39,12 @@
     "tipoReporte": "CONSULTA DETALLADA",
     "vbVigenteParaSerConsultado": true,
     "digitoVerificacion": "string"
+  },
+  "centralRiesgo": {
+      "numeroCliente": 10002,
+      "resultadoConsultaMasReciente" : "dsad",
+      "vbVigenteParaSerConsultado": "sgri",
+      "fechaConsultaMasReciente": "2020-01-01"
   },
   "contacto": {
     "fecha": "2022-03-10",
@@ -67,7 +73,7 @@
   "digitoVerificacion": 0,
   "domicilio": {
     "numeroCliente": 0,
-    "tipoVivienda": "3 FAMILIAR"
+    "tipoVivienda": "SH"
   },
   "domicilioEmpresa": {
     "numeroCliente": 0,

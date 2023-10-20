@@ -464,6 +464,8 @@ components:
           $ref: "#/components/schemas/ClienteBaseType"
         centralRiesgo:
           $ref: "#/components/schemas/CentralRiesgoType"
+        reporteCentralRiesgoType:
+          $ref: "#/components/schemas/ReporteCentralRiesgoType"
         contacto:
           $ref: "#/components/schemas/ContactoType"
         conyuge:

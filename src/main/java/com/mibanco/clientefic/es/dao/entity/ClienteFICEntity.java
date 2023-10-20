@@ -15,6 +15,7 @@ public class ClienteFICEntity {
     public AlertaType alerta;
     public ClienteBaseType clienteBase;
     public CentralRiesgoType centralRiesgo;
+    public ReporteCentralRiesgoType reporteCentralRiesgoType;
     public ContactoEntity contacto;
     public ConyugeType conyuge;
     public CupoRotativoType cupoRotativo;
@@ -29,12 +30,9 @@ public class ClienteFICEntity {
     public PasivoType pasivo;
     public PQRType PQR;
     public String prestamo;
-    public String primerApellidoRepresentanteLegal;
-    public String primerNombreRepresentanteLegal;
+    public String nombreRepresentanteLegal;
     public String razonSocial;
-    public String segundoApellidoRepresentanteLegal;
-    public String segundoNombreRepresentanteLegal;
-    public Boolean seRequiereActualizacion;
+    public String seRequiereActualizacion;
     public TipoDocumentoEnum tipoDocumentoRepresentanteLegal;
     public String totalActivos;
     public String ultimaFechaActualizacion;

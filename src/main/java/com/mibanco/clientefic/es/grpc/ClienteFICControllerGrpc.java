@@ -110,34 +110,20 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
 
     @Override
     @Blocking
-    public void consultarCentralDeRiesgo(ConsultaClienteByData request, StreamObserver<ResponseCentralDeRiesgo> responseObs) {
+    public void consultarCentralDeRiesgo(NumeroCliente request, StreamObserver<ResponseCentralDeRiesgo> responseObs) {
 
         LOG.info("Inicia consulta central Riesgo por GRPC");
         try {
-            clienteFICValidator.validaConsulta(request.getTipoDocumento(), request.getNumeroDocumento(), request.getDigitoVerificacion());
-            com.mibanco.clientefic.es.dao.entity.ConsultaClienteByData entity = mapper.dataGrpcToEntity(request);
-            List<CentralRiesgoType> centralRiesgoList = clienteFICService.getListaCentralRiesgo(entity);
+            clienteFICValidator.validarNumeroCliente(request.getNumeroCliente());
+            List<CentralRiesgoType> centralRiesgoList = clienteFICService.getListaCentralRiesgo(request.getNumeroCliente());
 
             List<com.mibanco.clientefic.es.CentralRiesgoType> centralRiesgoResponse = new ArrayList<>();
             for (CentralRiesgoType centralRiesgoItem : centralRiesgoList) {
                 centralRiesgoResponse.add(com.mibanco.clientefic.es.CentralRiesgoType.newBuilder()
-                        .setAntiguedadUbicacion(centralRiesgoItem.getAntiguedadUbicacion())
-                        .setConsultaDetallada(centralRiesgoItem.getConsultaDetallada())
-                        .setEstadoDocumento(centralRiesgoItem.getEstadoDocumento())
-                        .setFechaConsultaMasReciente(centralRiesgoItem.getFechaConsultaMasReciente().toString())
-                        .setFechaExpedicion(centralRiesgoItem.getFechaExpedicion().toString())
-                        .setGenero(centralRiesgoItem.getGenero())
-                        .setHistoricoEndeudamiento(centralRiesgoItem.getHistoricoEndeudamiento())
-                        .setLugarExpedicion(centralRiesgoItem.getLugarExpedicion())
-                        .setNumeroDocumento(centralRiesgoItem.getNumeroDocumento())
-                        .setRangoEdad(centralRiesgoItem.getRangoEdad())
+                        .setNumeroCliente(centralRiesgoItem.getNumeroCliente())
                         .setResultadoConsultaMasReciente(centralRiesgoItem.getResultadoConsultaMasReciente())
-                        .setTieneRUT(centralRiesgoItem.getTieneRUT())
-                        .setTipoDocumento(centralRiesgoItem.getTipoDocumento().toString())
-                        .setTipoRelacion(centralRiesgoItem.getTipoRelacion().toString())
-                        .setTipoReporte(centralRiesgoItem.getTipoReporte().toString())
                         .setVbVigenteParaSerConsultado(centralRiesgoItem.getVbVigenteParaSerConsultado())
-                        .setDigitoVerificacion(centralRiesgoItem.getDigitoVerificacion())
+                        .setFechaConsultaMasReciente(centralRiesgoItem.getFechaConsultaMasReciente().toString())
                         .build());
             }
             ResponseCentralDeRiesgo response = ResponseCentralDeRiesgo.newBuilder().addAllObj(centralRiesgoResponse).build();
@@ -209,11 +195,7 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
                             .setTipoDocumento(conyuge.getTipoDocumento().toString())
                             .setNumeroCliente(conyuge.getNumeroCliente())
                             .setNumeroDocumento(conyuge.getNumeroDocumento())
-                            .setPrimerNombre(conyuge.getPrimerNombre())
-                            .setSegundoNombre(conyuge.getSegundoNombre())
-                            .setSegundoApellido(conyuge.getSegundoApellido())
-                            .setPrimerApellido(conyuge.getPrimerApellido())
-
+                            .setNombre(conyuge.getNombre())
             ).build();
             LOG.info("Finaliza consulta conyuge por GRPC");
 
@@ -252,45 +234,6 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
             }
             ResponseCupoRotativo response = ResponseCupoRotativo.newBuilder().addAllObj(cupoListResponse).build();
             LOG.info("Finaliza consulta cupo rotativo por GRPC");
-
-            responseObs.onNext(response);
-            responseObs.onCompleted();
-
-        } catch (ApplicationExceptionValidation e) {
-
-            StatusException statusException = responseExceptionGrpc(Status.INVALID_ARGUMENT, e.getMessage());
-            responseObs.onError(statusException);
-
-        } catch (Exception e) {
-            StatusException statusException = responseExceptionGrpc(Status.INTERNAL, e.getMessage());
-            responseObs.onError(statusException);
-        }
-    }
-
-    @Override
-    @Blocking
-    public void consultarDireccionTelefono(NumeroCliente request, StreamObserver<ResponseDirrecionTelefono> responseObs) {
-        LOG.info("Inicia consultarDireccionTelefono por GRPC");
-        try {
-            clienteFICValidator.validarNumeroCliente(request.getNumeroCliente());
-            List<ConsultarDireccionTelefonoType> consultaList = clienteFICService.getDirrecionTelefono(request.getNumeroCliente());
-
-            List<com.mibanco.clientefic.es.DirrecionTelefonoType> consultaListResponse = new ArrayList<>();
-            for (ConsultarDireccionTelefonoType item : consultaList) {
-                consultaListResponse.add(com.mibanco.clientefic.es.DirrecionTelefonoType.newBuilder()
-                        .setDireccion(item.getDireccion())
-                        .setTelefono1(item.getTelefono1())
-                        .setTelefono2(item.getTelefono2())
-                        .setTipoDireccion(item.getTipoDireccion().toString())
-                        .setTipoLocal(item.getTipoLocal().toString())
-                        .setTipoVivienda(item.getTipoVivienda().toString())
-                        .setCodigoBarrio(item.getCodigoBarrio().toString())
-                        .setCodigoDepartamento(item.getCodigoDepartamento().toString())
-                        .setCodigoMunicipio(item.getCodigoMunicipio().toString())
-                        .build());
-            }
-            ResponseDirrecionTelefono response = ResponseDirrecionTelefono.newBuilder().addAllObj(consultaListResponse).build();
-            LOG.info("Finaliza consultarDireccionTelefono por GRPC");
 
             responseObs.onNext(response);
             responseObs.onCompleted();

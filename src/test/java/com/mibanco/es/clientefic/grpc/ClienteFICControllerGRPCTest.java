@@ -114,21 +114,14 @@ public class ClienteFICControllerGRPCTest {
     public void consultaCentralGRPCTest() throws IOException, ExecutionException, InterruptedException, TimeoutException {
 
         this.createClienteMock();
+        NumeroCliente numeroCliente = NumeroCliente.newBuilder().setNumeroCliente(10002).build();
 
         CompletableFuture<List<CentralRiesgoType>> message = new CompletableFuture<>();
-
-        ConsultaClienteByData data = ConsultaClienteByData.newBuilder()
-                .setTipoDocumento("CC")
-                .setNumeroDocumento(10002)
-                .setDigitoVerificacion(1)
-                .build();
-
-        client.consultarCentralDeRiesgo(data)
+        client.consultarCentralDeRiesgo(numeroCliente)
                 .subscribe()
                 .with(reply -> message.complete(reply.getObjList()));
 
         Assertions.assertThat(message.get(5, TimeUnit.SECONDS)).asList();
-
     }
 
     @Test
@@ -189,26 +182,9 @@ public class ClienteFICControllerGRPCTest {
 
         CompletableFuture<List<PasivoType>> message = new CompletableFuture<>();
 
-        NumeroCliente numeroCLiente = NumeroCliente.newBuilder().setNumeroCliente(10002).build();
+        NumeroCliente numeroCliente = NumeroCliente.newBuilder().setNumeroCliente(10002).build();
 
-        client.consultarPasivo(numeroCLiente)
-                .subscribe()
-                .with(reply -> message.complete(reply.getObjList()));
-
-        Assertions.assertThat(message.get(5, TimeUnit.SECONDS)).asList();
-
-    }
-
-    @Test
-    public void consultaDirreccionTelefonoGRPCTest() throws IOException, ExecutionException, InterruptedException, TimeoutException {
-
-        this.createClienteMock();
-
-        CompletableFuture<List<DirrecionTelefonoType>> message = new CompletableFuture<>();
-
-        NumeroCliente numeroCLiente = NumeroCliente.newBuilder().setNumeroCliente(10002).build();
-
-        client.consultarDireccionTelefono(numeroCLiente)
+        client.consultarPasivo(numeroCliente)
                 .subscribe()
                 .with(reply -> message.complete(reply.getObjList()));
 

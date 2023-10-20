@@ -13,8 +13,7 @@ public interface ClienteFICService {
 
     List<AlertaType> getListaAlertas(ConsultaClienteByData dataCliente);
 
-    List<CentralRiesgoType> getListaCentralRiesgo(ConsultaClienteByData dataCliente);
-
+    List<CentralRiesgoType> getListaCentralRiesgo(Integer numeroCliente);
 
     ClienteFICEntity getClienteByIdentificacion(ConsultaClienteByData dataCliente);
 
@@ -23,8 +22,6 @@ public interface ClienteFICService {
     ConyugeType getConyuge(Integer numeroCliente);
 
     List<CupoRotativoType> getCupoRotativo(Integer numeroCliente);
-
-    List<ConsultarDireccionTelefonoType> getDirrecionTelefono(Integer numeroCliente);
 
     List<ContactoType> getContacto(Integer numeroCliente);
 

@@ -12,9 +12,10 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
+
 @JsonTypeName("PasivoType")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-09-29T14:37:33.528331-05:00[America/Bogota]")
-public class PasivoType {
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-10-19T17:48:45.203159600-05:00[America/Bogota]")
+public class PasivoType   {
   private @Valid String numeroProducto;
   private @Valid TipoProductoEnum tipoProducto;
   private @Valid SubProductoEnum subProducto;
@@ -28,14 +29,13 @@ public class PasivoType {
   private @Valid Integer numeroCliente;
 
   /**
-   *
    **/
   public PasivoType numeroProducto(String numeroProducto) {
     this.numeroProducto = numeroProducto;
     return this;
   }
 
-
+  
   @JsonProperty("numeroProducto")
   public String getNumeroProducto() {
     return numeroProducto;
@@ -47,14 +47,13 @@ public class PasivoType {
   }
 
   /**
-   *
    **/
   public PasivoType tipoProducto(TipoProductoEnum tipoProducto) {
     this.tipoProducto = tipoProducto;
     return this;
   }
 
-
+  
   @JsonProperty("tipoProducto")
   public TipoProductoEnum getTipoProducto() {
     return tipoProducto;
@@ -66,14 +65,13 @@ public class PasivoType {
   }
 
   /**
-   *
    **/
   public PasivoType subProducto(SubProductoEnum subProducto) {
     this.subProducto = subProducto;
     return this;
   }
 
-
+  
   @JsonProperty("subProducto")
   public SubProductoEnum getSubProducto() {
     return subProducto;
@@ -85,14 +83,13 @@ public class PasivoType {
   }
 
   /**
-   *
    **/
   public PasivoType estadoPasivo(String estadoPasivo) {
     this.estadoPasivo = estadoPasivo;
     return this;
   }
 
-
+  
   @JsonProperty("estadoPasivo")
   public String getEstadoPasivo() {
     return estadoPasivo;
@@ -104,14 +101,13 @@ public class PasivoType {
   }
 
   /**
-   *
    **/
   public PasivoType fechaApertura(String fechaApertura) {
     this.fechaApertura = fechaApertura;
     return this;
   }
 
-
+  
   @JsonProperty("fechaApertura")
   public String getFechaApertura() {
     return fechaApertura;
@@ -123,14 +119,13 @@ public class PasivoType {
   }
 
   /**
-   *
    **/
   public PasivoType fechaCierre(String fechaCierre) {
     this.fechaCierre = fechaCierre;
     return this;
   }
 
-
+  
   @JsonProperty("fechaCierre")
   public String getFechaCierre() {
     return fechaCierre;
@@ -142,14 +137,13 @@ public class PasivoType {
   }
 
   /**
-   *
    **/
   public PasivoType capital(Float capital) {
     this.capital = capital;
     return this;
   }
 
-
+  
   @JsonProperty("capital")
   public Float getCapital() {
     return capital;
@@ -161,14 +155,13 @@ public class PasivoType {
   }
 
   /**
-   *
    **/
   public PasivoType intereses(Float intereses) {
     this.intereses = intereses;
     return this;
   }
 
-
+  
   @JsonProperty("intereses")
   public Float getIntereses() {
     return intereses;
@@ -180,14 +173,13 @@ public class PasivoType {
   }
 
   /**
-   *
    **/
   public PasivoType otros(Float otros) {
     this.otros = otros;
     return this;
   }
 
-
+  
   @JsonProperty("otros")
   public Float getOtros() {
     return otros;
@@ -199,14 +191,13 @@ public class PasivoType {
   }
 
   /**
-   *
    **/
   public PasivoType saldoTotal(Float saldoTotal) {
     this.saldoTotal = saldoTotal;
     return this;
   }
 
-
+  
   @JsonProperty("saldoTotal")
   public Float getSaldoTotal() {
     return saldoTotal;
@@ -218,14 +209,13 @@ public class PasivoType {
   }
 
   /**
-   *
    **/
   public PasivoType numeroCliente(Integer numeroCliente) {
     this.numeroCliente = numeroCliente;
     return this;
   }
 
-
+  
   @JsonProperty("numeroCliente")
   public Integer getNumeroCliente() {
     return numeroCliente;
@@ -247,16 +237,16 @@ public class PasivoType {
     }
     PasivoType pasivoType = (PasivoType) o;
     return Objects.equals(this.numeroProducto, pasivoType.numeroProducto) &&
-            Objects.equals(this.tipoProducto, pasivoType.tipoProducto) &&
-            Objects.equals(this.subProducto, pasivoType.subProducto) &&
-            Objects.equals(this.estadoPasivo, pasivoType.estadoPasivo) &&
-            Objects.equals(this.fechaApertura, pasivoType.fechaApertura) &&
-            Objects.equals(this.fechaCierre, pasivoType.fechaCierre) &&
-            Objects.equals(this.capital, pasivoType.capital) &&
-            Objects.equals(this.intereses, pasivoType.intereses) &&
-            Objects.equals(this.otros, pasivoType.otros) &&
-            Objects.equals(this.saldoTotal, pasivoType.saldoTotal) &&
-            Objects.equals(this.numeroCliente, pasivoType.numeroCliente);
+        Objects.equals(this.tipoProducto, pasivoType.tipoProducto) &&
+        Objects.equals(this.subProducto, pasivoType.subProducto) &&
+        Objects.equals(this.estadoPasivo, pasivoType.estadoPasivo) &&
+        Objects.equals(this.fechaApertura, pasivoType.fechaApertura) &&
+        Objects.equals(this.fechaCierre, pasivoType.fechaCierre) &&
+        Objects.equals(this.capital, pasivoType.capital) &&
+        Objects.equals(this.intereses, pasivoType.intereses) &&
+        Objects.equals(this.otros, pasivoType.otros) &&
+        Objects.equals(this.saldoTotal, pasivoType.saldoTotal) &&
+        Objects.equals(this.numeroCliente, pasivoType.numeroCliente);
   }
 
   @Override
@@ -268,7 +258,7 @@ public class PasivoType {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class PasivoType {\n");
-
+    
     sb.append("    numeroProducto: ").append(toIndentedString(numeroProducto)).append("\n");
     sb.append("    tipoProducto: ").append(toIndentedString(tipoProducto)).append("\n");
     sb.append("    subProducto: ").append(toIndentedString(subProducto)).append("\n");

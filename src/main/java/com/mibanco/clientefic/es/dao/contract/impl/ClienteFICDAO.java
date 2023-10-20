@@ -37,12 +37,12 @@ public class ClienteFICDAO implements IClienteFICDao {
     }
 
     @Override
-    public List<CentralRiesgoEntity> getListaCentralRiesgo(ConsultaClienteByData data) {
-        List<ClienteFICEntity> cliente = list.stream().filter(x -> x.getClienteBase().getTipoDocumento() == data.getTipoDocumento()).filter(x -> x.getClienteBase().getNumeroDocumento().equals(data.getNumeroDocumento())).filter(x -> x.getDigitoVerificacion().equals(data.getDigitoVerificacion())).toList();
+    public List<CentralRiesgoEntity> getListaCentralRiesgo(Integer numeroCliente) {
+        List<ClienteFICEntity> cliente = list.stream().filter(x -> x.getClienteBase().getNumeroDocumento().equals(numeroCliente)).toList();
 
         List<CentralRiesgoEntity> query = new ArrayList<>();
         for (ClienteFICEntity cli : cliente) {
-            CentralRiesgoEntity dataCentral = new CentralRiesgoEntity(cli.getCentralRiesgo().getAntiguedadUbicacion(), cli.getCentralRiesgo().getConsultaDetallada(), cli.getCentralRiesgo().getEstadoDocumento(), cli.getCentralRiesgo().getFechaConsultaMasReciente(), cli.getCentralRiesgo().getFechaExpedicion(), cli.getCentralRiesgo().getGenero(), cli.getCentralRiesgo().getLugarExpedicion(), cli.getCentralRiesgo().getHistoricoEndeudamiento(), cli.getCentralRiesgo().getNumeroDocumento(), cli.getCentralRiesgo().getRangoEdad(), cli.getCentralRiesgo().getResultadoConsultaMasReciente(), cli.getCentralRiesgo().getTieneRUT(), cli.getCentralRiesgo().getTipoDocumento(), cli.getCentralRiesgo().getTipoRelacion(), cli.getCentralRiesgo().getTipoReporte(), cli.getCentralRiesgo().getVbVigenteParaSerConsultado(), cli.getCentralRiesgo().getDigitoVerificacion());
+            CentralRiesgoEntity dataCentral = new CentralRiesgoEntity(cli.getCentralRiesgo().getNumeroCliente(), cli.getCentralRiesgo().getResultadoConsultaMasReciente(), cli.getCentralRiesgo().getVbVigenteParaSerConsultado(), cli.getCentralRiesgo().getFechaConsultaMasReciente());
             query.add(dataCentral);
         }
         return query;
@@ -87,22 +87,6 @@ public class ClienteFICDAO implements IClienteFICDao {
             cupoRotativoList.add(cup);
         }
         return cupoRotativoList;
-    }
-
-    @Override
-    public List<ConsultarDirrecionTelefonoEntity> getDirrecionTelefono(Integer numeroCliente) {
-        List<ClienteFICEntity> cliente = list.stream().filter(x -> x.getClienteBase().getNumeroDocumento().equals(numeroCliente)).toList();
-
-        List<ConsultarDirrecionTelefonoEntity> query = new ArrayList<>();
-        for (ClienteFICEntity cli : cliente) {
-            ConsultarDirrecionTelefonoEntity data = new ConsultarDirrecionTelefonoEntity(cli.getNegocio().getDireccion(), cli.getNegocio().getTelefono(), cli.getDomicilio().getTipoVivienda(), cli.getDomicilioEmpresa().getTipoLocal(), TipoDireccionEnum.EMPR_EMPRESA, //QUEMADO
-                    DepartamentoEnum._11_BOGOTA_D_C_, //QUEMADO
-                    CiudadEnum._05001_MEDELLIN, //QUEMADO
-                    BarrioEnum.SINDATAENMODELING, //QUEMADO
-                    cli.getNegocio().getTelefono());
-            query.add(data);
-        }
-        return query;
     }
 
     @Override

@@ -85,7 +85,7 @@ public class ClienteFICControllerTest {
                 .contentType(ContentType.JSON)
                 .body(clienteFIC)
                 .when()
-                .get("v1/es/cliente-fic/central-riesgo/CC/10002/0")
+                .get("v1/es/cliente-fic/central-riesgo/10002")
                 .then()
                 .statusCode(200);
     }

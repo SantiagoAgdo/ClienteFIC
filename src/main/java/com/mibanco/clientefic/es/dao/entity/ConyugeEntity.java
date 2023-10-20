@@ -10,9 +10,6 @@ public class ConyugeEntity {
 
     private TipoDocumentoEnum tipoDocumento;
     private String numeroDocumento;
-    private String primerNombre;
-    private String segundoNombre;
-    private String primerApellido;
-    private String segundoApellido;
+    private String nombre;
     private Integer numeroCliente;
 }

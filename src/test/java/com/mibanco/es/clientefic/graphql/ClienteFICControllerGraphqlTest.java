@@ -104,32 +104,6 @@ public class ClienteFICControllerGraphqlTest {
     }
 
     @Test
-    public void consultaDirrecionTelefonoTest() {
-        String query = """
-                query ConsultaDireccionTelefono {
-                    consultaDireccionTelefono(numeroCliente: 10002) {
-                        codigoBarrio
-                        codigoDepartamento
-                        codigoMunicipio
-                        direccion
-                        telefono1
-                        telefono2
-                        tipoDireccion
-                        tipoLocal
-                        tipoVivienda
-                    }
-                }""";
-
-        given()
-                .contentType(ContentType.JSON)
-                .body(query)
-                .when()
-                .post("/graphql")
-                .then()
-                .statusCode(200);
-    }
-
-    @Test
     public void consultaHistorialContactoTest() {
         String query = """
                 query ConsultaHistorialContacto {

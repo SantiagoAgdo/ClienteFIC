@@ -67,7 +67,7 @@
   "digitoVerificacion": 0,
   "domicilio": {
     "numeroCliente": 0,
-    "tipoVivienda": "1 PROPIO SIN HIPOTECA"
+    "tipoVivienda": "SH"
   },
   "domicilioEmpresa": {
     "numeroCliente": 0,
@@ -107,11 +107,8 @@
     "numeroCliente": 10002
   },
   "prestamo": "string",
-  "primerApellidoRepresentanteLegal": "string",
-  "primerNombreRepresentanteLegal": "string",
+  "nombreRepresentanteLegal": "string",
   "razonSocial": "string",
-  "segundoApellidoRepresentanteLegal": "string",
-  "segundoNombreRepresentanteLegal": "string",
   "seRequiereActualizacion": true,
   "tipoDocumentoRepresentanteLegal": "CC",
   "totalActivos": 0.0,

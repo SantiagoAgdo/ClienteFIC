@@ -51,10 +51,10 @@ public class ClienteFICServiceImpl implements ClienteFICService {
     }
 
     @Override
-    public List<CentralRiesgoType> getListaCentralRiesgo(ConsultaClienteByData data) throws ApplicationException {
+    public List<CentralRiesgoType> getListaCentralRiesgo(Integer numeroCliente) throws ApplicationException {
 
         LOG.info("Inicia consulta de cliente por identificacion");
-        List<CentralRiesgoEntity> listCentralRiesgoResponse = clienteFICDAO.getListaCentralRiesgo(data);
+        List<CentralRiesgoEntity> listCentralRiesgoResponse = clienteFICDAO.getListaCentralRiesgo(numeroCliente);
 
         LOG.info("Termina consulta de cliente por identificacion");
         return listCentralRiesgoResponse.stream().map(clienteFICMapper::centralRiesgoFICToType).collect(Collectors.toList());
@@ -100,17 +100,6 @@ public class ClienteFICServiceImpl implements ClienteFICService {
 
         LOG.info("Termina consulta de cupo rotativo");
         return listCupoRotativo.stream().map(clienteFICMapper::cupoRotativoFICToType).collect(Collectors.toList());
-
-    }
-
-    @Override
-    public List<ConsultarDireccionTelefonoType> getDirrecionTelefono(Integer numeroCliente) throws ApplicationException {
-
-        LOG.info("Inicia consulta de Dirreccion Telefono");
-        List<ConsultarDirrecionTelefonoEntity> listDirrecionTelefonoByNumeroCliente = clienteFICDAO.getDirrecionTelefono(numeroCliente);
-
-        LOG.info("Termina consulta de Dirreccion Telefono");
-        return listDirrecionTelefonoByNumeroCliente.stream().map(clienteFICMapper::consultaDirrecionTelelfonoToType).collect(Collectors.toList());
 
     }
 

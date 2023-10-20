@@ -4,7 +4,6 @@ import com.mibanco.clientefic.es.gen.type.AlertaType;
 import com.mibanco.clientefic.es.gen.type.CentralRiesgoType;
 import com.mibanco.clientefic.es.gen.type.ClienteFICType;
 import com.mibanco.clientefic.es.gen.type.ConsultarClientePorNombreOutput;
-import com.mibanco.clientefic.es.gen.type.ConsultarDireccionTelefonoType;
 import com.mibanco.clientefic.es.gen.type.ContactoType;
 import com.mibanco.clientefic.es.gen.type.ConyugeType;
 import com.mibanco.clientefic.es.gen.type.CupoRotativoType;
@@ -26,67 +25,62 @@ import jakarta.validation.constraints.*;
 import jakarta.validation.Valid;
 
 @Path("/v1/es/cliente-fic")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-09-29T14:37:33.528331-05:00[America/Bogota]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-10-19T17:48:45.203159600-05:00[America/Bogota]")
 public interface V1ClienteFIC {
 
     @GET
     @Path("/alerta/{tipoDocumento}/{numeroDocumento}/{digitoVerificacion}")
-    @Produces({"application/json"})
-    Response consultarAlerta(@PathParam("tipoDocumento") TipoDocumentoEnum tipoDocumento, @PathParam("numeroDocumento") Integer numeroDocumento, @PathParam("digitoVerificacion") Integer digitoVerificacion);
+    @Produces({ "application/json" })
+    Response consultarAlerta(@PathParam("tipoDocumento") TipoDocumentoEnum tipoDocumento,@PathParam("numeroDocumento") Integer numeroDocumento,@PathParam("digitoVerificacion") Integer digitoVerificacion);
 
     @GET
-    @Path("/central-riesgo/{tipoDocumento}/{numeroDocumento}/{digitoVerificacion}")
-    @Produces({"application/json"})
-    Response consultarCentralDeRiesgo(@PathParam("tipoDocumento") TipoDocumentoEnum tipoDocumento, @PathParam("numeroDocumento") Integer numeroDocumento, @PathParam("digitoVerificacion") Integer digitoVerificacion);
+    @Path("/central-riesgo/{numeroCliente}")
+    @Produces({ "application/json" })
+    Response consultarCentralDeRiesgo(@PathParam("numeroCliente") Integer numeroCliente);
 
     @GET
     @Path("/nombre/{nombre}/{apellido}/{razonSocial}")
-    @Produces({"application/json"})
-    Response consultarClienteFICPorNombre(@PathParam("nombre") String nombre, @PathParam("apellido") String apellido, @PathParam("razonSocial") String razonSocial);
+    @Produces({ "application/json" })
+    Response consultarClienteFICPorNombre(@PathParam("nombre") String nombre,@PathParam("apellido") String apellido,@PathParam("razonSocial") String razonSocial);
 
     @GET
     @Path("/conyuge/{numeroCliente}")
-    @Produces({"application/json"})
+    @Produces({ "application/json" })
     Response consultarConyuge(@PathParam("numeroCliente") Integer numeroCliente);
 
     @GET
     @Path("/cupo-rotativo/{numeroCliente}")
-    @Produces({"application/json"})
+    @Produces({ "application/json" })
     Response consultarCupoRotativo(@PathParam("numeroCliente") Integer numeroCliente);
 
     @GET
-    @Path("/direccion-telefono/{numeroCliente}")
-    @Produces({"application/json"})
-    Response consultarDireccionTelefono(@PathParam("numeroCliente") Integer numeroCliente);
-
-    @GET
     @Path("/historial-contacto/{numeroCliente}")
-    @Produces({"application/json"})
+    @Produces({ "application/json" })
     Response consultarHistorialContacto(@PathParam("numeroCliente") Integer numeroCliente);
 
     @GET
     @Path("/oferta/{numeroCliente}")
-    @Produces({"application/json"})
+    @Produces({ "application/json" })
     Response consultarOferta(@PathParam("numeroCliente") Integer numeroCliente);
 
     @GET
     @Path("/pqr/{tipoDocumento}/{numeroDocumento}/{digitoVerificacion}")
-    @Produces({"application/json"})
-    Response consultarPQR(@PathParam("tipoDocumento") TipoDocumentoEnum tipoDocumento, @PathParam("numeroDocumento") Integer numeroDocumento, @PathParam("digitoVerificacion") Integer digitoVerificacion);
+    @Produces({ "application/json" })
+    Response consultarPQR(@PathParam("tipoDocumento") TipoDocumentoEnum tipoDocumento,@PathParam("numeroDocumento") Integer numeroDocumento,@PathParam("digitoVerificacion") Integer digitoVerificacion);
 
     @GET
     @Path("/pasivo/{numeroCliente}")
-    @Produces({"application/json"})
+    @Produces({ "application/json" })
     Response consultarPasivo(@PathParam("numeroCliente") Integer numeroCliente);
 
     @GET
     @Path("/{tipoDocumento}/{numeroDocumento}/{digitoVerificacion}")
-    @Produces({"application/json"})
-    Response consutaClientePorIdentificacion(@PathParam("tipoDocumento") TipoDocumentoEnum tipoDocumento, @PathParam("numeroDocumento") Integer numeroDocumento, @PathParam("digitoVerificacion") Integer digitoVerificacion);
+    @Produces({ "application/json" })
+    Response consutaClientePorIdentificacion(@PathParam("tipoDocumento") TipoDocumentoEnum tipoDocumento,@PathParam("numeroDocumento") Integer numeroDocumento,@PathParam("digitoVerificacion") Integer digitoVerificacion);
 
     @POST
     @Path("/usuario")
-    @Consumes({"application/json"})
-    @Produces({"application/json"})
+    @Consumes({ "application/json" })
+    @Produces({ "application/json" })
     Response crearClienteFIC(@Valid ClienteFICType clienteFICType);
 }

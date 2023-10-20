@@ -43,11 +43,11 @@ public class ClienteFICControllerGraph {
 
     @Query("consultaCentralRiesgo")
     @Description("Consulta de central de riesgo")
-    public List<CentralRiesgoType> getCentral(@Name("TipoDocumento") TipoDocumentoEnum tipoDocumento, @Name("numeroDocumento") Integer numeroDocumento, @Name("digitoVerificacion") Integer digitoVerificacion) {
+    public List<CentralRiesgoType> getCentral(@Name("numeroDocumento") Integer numeroCliente) {
 
         logger.info("Inicia consulta alerta en Graphql");
         try {
-            List<CentralRiesgoType> list = clienteFICService.getListaCentralRiesgo(new ConsultaClienteByData(tipoDocumento, numeroDocumento, digitoVerificacion));
+            List<CentralRiesgoType> list = clienteFICService.getListaCentralRiesgo(numeroCliente);
 
             logger.info("Termina consulta alerta en Graphql");
             return list;
@@ -121,23 +121,6 @@ public class ClienteFICControllerGraph {
         } catch (ApplicationException e) {
 
             logger.error("Ocurrio un error en getCupoRotativo Graphql");
-            throw new ApplicationException(Response.Status.NOT_FOUND.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
-        }
-    }
-
-    @Query("consultaDireccionTelefono")
-    @Description("Consulta de Dirreccion y telefono de cliente")
-    public List<ConsultarDireccionTelefonoType> getDirreccionYTelefono(@Name("numeroCliente") Integer numeroCliente) {
-
-        logger.info("Inicia consulta dirreccion y telefono en Graphql");
-        try {
-            List<ConsultarDireccionTelefonoType> data = clienteFICService.getDirrecionTelefono(numeroCliente);
-
-            logger.info("Termina consulta dirreccion y telefono en Graphql");
-            return data;
-        } catch (ApplicationException e) {
-
-            logger.error("Ocurrio un error en getDirreccionYTelefono Graphql");
             throw new ApplicationException(Response.Status.NOT_FOUND.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
         }
     }

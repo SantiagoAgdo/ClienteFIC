@@ -11,7 +11,7 @@ public interface IClienteFICDao {
 
     List<AlertaEntity> getListaAlertas(ConsultaClienteByData data);
 
-    List<CentralRiesgoEntity> getListaCentralRiesgo(ConsultaClienteByData data);
+    List<CentralRiesgoEntity> getListaCentralRiesgo(Integer numeroCliente);
 
     ClienteFICEntity getClienteByIdentificacion(ConsultaClienteByData data);
 
@@ -20,8 +20,6 @@ public interface IClienteFICDao {
     ConyugeType getConyuge(Integer numeroCliente);
 
     List<CupoRotativoEntity> getCupoRotativo(Integer numeroCliente);
-
-    List<ConsultarDirrecionTelefonoEntity> getDirrecionTelefono(Integer numeroCliente);
 
     List<ContactoEntity> getContacto(Integer numeroCliente);
 

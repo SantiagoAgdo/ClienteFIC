@@ -13,22 +13,21 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("AlertaType")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-09-29T14:37:33.528331-05:00[America/Bogota]")
-public class AlertaType {
-    private @Valid String tipoAlerta;
-    private @Valid String banco;
-    private @Valid String fecha;
-    private @Valid TipoDocumentoEnum tipoDocumento;
-    private @Valid String numeroDocumento;
-    private @Valid String digitoVerificacion;
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-10-19T17:48:45.203159600-05:00[America/Bogota]")
+public class AlertaType   {
+  private @Valid String tipoAlerta;
+  private @Valid String banco;
+  private @Valid String fecha;
+  private @Valid TipoDocumentoEnum tipoDocumento;
+  private @Valid String numeroDocumento;
+  private @Valid String digitoVerificacion;
 
-    /**
-     *
-     **/
-    public AlertaType tipoAlerta(String tipoAlerta) {
+  /**
+   **/
+  public AlertaType tipoAlerta(String tipoAlerta) {
     this.tipoAlerta = tipoAlerta;
     return this;
-    }
+  }
 
   
   @JsonProperty("tipoAlerta")
@@ -59,30 +58,29 @@ public class AlertaType {
     this.banco = banco;
   }
 
-    /**
-     *
-     **/
-    public AlertaType fecha(String fecha) {
-        this.fecha = fecha;
-        return this;
-    }
+  /**
+   **/
+  public AlertaType fecha(String fecha) {
+    this.fecha = fecha;
+    return this;
+  }
 
+  
+  @JsonProperty("fecha")
+  public String getFecha() {
+    return fecha;
+  }
 
-    @JsonProperty("fecha")
-    public String getFecha() {
-        return fecha;
-    }
-
-    @JsonProperty("fecha")
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
+  @JsonProperty("fecha")
+  public void setFecha(String fecha) {
+    this.fecha = fecha;
   }
 
   /**
    **/
   public AlertaType tipoDocumento(TipoDocumentoEnum tipoDocumento) {
     this.tipoDocumento = tipoDocumento;
-      return this;
+    return this;
   }
 
   
@@ -100,7 +98,7 @@ public class AlertaType {
    **/
   public AlertaType numeroDocumento(String numeroDocumento) {
     this.numeroDocumento = numeroDocumento;
-      return this;
+    return this;
   }
 
   
@@ -118,7 +116,7 @@ public class AlertaType {
    **/
   public AlertaType digitoVerificacion(String digitoVerificacion) {
     this.digitoVerificacion = digitoVerificacion;
-      return this;
+    return this;
   }
 
   
@@ -142,12 +140,12 @@ public class AlertaType {
       return false;
     }
     AlertaType alertaType = (AlertaType) o;
-      return Objects.equals(this.tipoAlerta, alertaType.tipoAlerta) &&
-              Objects.equals(this.banco, alertaType.banco) &&
-              Objects.equals(this.fecha, alertaType.fecha) &&
-              Objects.equals(this.tipoDocumento, alertaType.tipoDocumento) &&
-              Objects.equals(this.numeroDocumento, alertaType.numeroDocumento) &&
-              Objects.equals(this.digitoVerificacion, alertaType.digitoVerificacion);
+    return Objects.equals(this.tipoAlerta, alertaType.tipoAlerta) &&
+        Objects.equals(this.banco, alertaType.banco) &&
+        Objects.equals(this.fecha, alertaType.fecha) &&
+        Objects.equals(this.tipoDocumento, alertaType.tipoDocumento) &&
+        Objects.equals(this.numeroDocumento, alertaType.numeroDocumento) &&
+        Objects.equals(this.digitoVerificacion, alertaType.digitoVerificacion);
   }
 
   @Override

@@ -58,13 +58,13 @@ public class ClienteFICController implements V1ClienteFIC {
     }
 
     @Override
-    public Response consultarCentralDeRiesgo(TipoDocumentoEnum tipoDocumento, Integer numeroDocumento, Integer digitoVerificacion) {
+    public Response consultarCentralDeRiesgo(Integer numeroCliente) {
 
         LOG.info("Inicia consulta de CentralRiesgo");
         try {
-            clienteFICValidator.validarConsulta(tipoDocumento, numeroDocumento, digitoVerificacion);
+            clienteFICValidator.validarNumeroCliente(numeroCliente);
 
-            List<CentralRiesgoType> list = clienteFICServiceImpl.getListaCentralRiesgo(new ConsultaClienteByData(tipoDocumento, numeroDocumento, digitoVerificacion));
+            List<CentralRiesgoType> list = clienteFICServiceImpl.getListaCentralRiesgo(numeroCliente);
             LOG.info("Finaliza consulta de CentralRiesgo");
             return list.size() != 0 ? Response.status(Response.Status.OK).entity(list).build() :
                     Response.status(Response.Status.OK).entity(Constans.SIN_REGISTROS).build();
@@ -150,30 +150,6 @@ public class ClienteFICController implements V1ClienteFIC {
 
             LOG.error(Constans.SERVICIO_INTERNAL + "consultarCupoRotativo en ClienteFICServiceImpl exception: " + e.getMessage());
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constans.SERVICIO_INTERNAL + "consultarCupoRotativo, exception: " + e.getMessage()).build();
-        }
-    }
-
-    @Override
-    public Response consultarDireccionTelefono(Integer numeroCliente) {
-
-        LOG.info("Inicia consulta de Dirrecion y Telefono");
-        try {
-            clienteFICValidator.validarNumeroCliente(numeroCliente);
-            List<ConsultarDireccionTelefonoType> list = clienteFICServiceImpl.getDirrecionTelefono(numeroCliente);
-
-            LOG.info("Finaliza consulta de Dirrecion y Telefono");
-            return list.size() != 0 ? Response.status(Response.Status.OK).entity(list).build() :
-                    Response.status(Response.Status.OK).entity(Constans.SIN_REGISTROS).build();
-
-        } catch (ApplicationExceptionValidation e) {
-
-            LOG.error("Error en Validaciones de Dirrecion Telefono - ClienteFICController");
-            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
-
-        } catch (ApplicationException e) {
-
-            LOG.error(Constans.SERVICIO_INTERNAL + "consultarDireccionTelefono en ClienteFICServiceImpl exception: " + e.getMessage());
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constans.SERVICIO_INTERNAL + "consultarDireccionTelefono, exception: " + e.getMessage()).build();
         }
     }
 
