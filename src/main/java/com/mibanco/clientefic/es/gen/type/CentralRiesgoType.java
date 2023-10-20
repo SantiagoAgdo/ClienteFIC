@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("CentralRiesgoType")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-10-19T17:48:45.203159600-05:00[America/Bogota]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-10-20T12:58:53.012310-05:00[America/Bogota]")
 public class CentralRiesgoType   {
   private @Valid Integer numeroCliente = null;
   private @Valid Date fechaConsultaMasReciente = null;

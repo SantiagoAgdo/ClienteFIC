@@ -55,10 +55,7 @@
   "conyuge": {
     "tipoDocumento": "CC",
     "numeroDocumento": "10002",
-    "primerNombre": "string",
-    "segundoNombre": "string",
-    "primerApellido": "string",
-    "segundoApellido": "string",
+    "nombre": "string",
     "numeroCliente": 0
   },
   "cupoRotativo": {
