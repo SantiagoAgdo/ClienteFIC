@@ -110,7 +110,7 @@ public class ClienteFICControllerTest {
     @Test
     void consultarCupoRotativoTest() throws IOException {
 
-        byte[] jsonData = Files.readAllBytes(Paths.get("src/test/resources/jsonmocks/es-cuporotativo-api.json"));
+         byte[] jsonData = Files.readAllBytes(Paths.get("src/test/resources/jsonmocks/es-cuporotativo-api.json"));
         String jsonString = new String(jsonData);
 
         ClienteFICType clienteFIC = objectMapper.readValue(jsonString, ClienteFICType.class);
