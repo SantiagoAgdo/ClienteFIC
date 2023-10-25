@@ -143,4 +143,12 @@ public class ClienteFICServiceImpl implements ClienteFICService {
         LOG.info("Termina consulta de PRQ");
         return listPqrResponse.stream().map(clienteFICMapper::pqrToType).collect(Collectors.toList());
     }
+
+
+    public void getSP() {
+
+        LOG.info("Inicia consulta SP");
+        clienteFICDAO.getSP();
+        LOG.info("Termina consulta SP");
+    }
 }

@@ -34,23 +34,17 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/ClienteFICType"
+  /v1/es/cliente-fic/testProcedure:
+    get:
+      summary: Consultar procediemiento
+      operationId: consultarProcediemitnoAlmacenado
       responses:
-        "201":
-          description: ClienteFIC creado.
+        "200":
+          description: get Procedimiento.
           content:
             application/json:
               schema:
                 type: array
-                items:
-                  $ref: "#/components/schemas/ClienteFICType"
-        "400":
-          description: Peticion con datos invalidos
-          content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/Error'
-        "404":
-          description: "No se encuentra el cliente FIC."
         default:
           description: Unexpected error
           content:

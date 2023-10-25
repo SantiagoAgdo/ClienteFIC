@@ -251,6 +251,27 @@ public class ClienteFICController implements V1ClienteFIC {
     }
 
     @Override
+    public Response consultarProcediemitnoAlmacenado() {
+        LOG.info("Inicia consulta de procediemitno Almacenado");
+        try {
+            clienteFICServiceImpl.getSP();
+
+            LOG.info("Finaliza consulta Pasivo");
+            return Response.status(Response.Status.OK).entity("OK").build();
+
+        } catch (ApplicationExceptionValidation e) {
+
+            LOG.error("Error en Validaciones de consultar pasivo - ClienteFICController");
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+
+        } catch (ApplicationException e) {
+
+            LOG.error(Constans.SERVICIO_INTERNAL + "consultarPasivo en ClienteFICServiceImpl exception: " + e.getMessage());
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constans.SERVICIO_INTERNAL + "consultarPasivo, exception: " + e.getMessage()).build();
+        }
+    }
+
+    @Override
     public Response consutaClientePorIdentificacion(TipoDocumentoEnum tipoDocumento, Integer numeroDocumento, Integer digitoVerificacion) {
 
         LOG.info("Inicia consulta de Cliente FIC por Identificacion ");

@@ -3,8 +3,10 @@ package com.mibanco.clientefic.es.dao.contract.impl;
 import com.mibanco.clientefic.es.dao.contract.IClienteFICDao;
 import com.mibanco.clientefic.es.dao.entity.*;
 import com.mibanco.clientefic.es.gen.type.*;
+import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
 
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -138,5 +140,34 @@ public class ClienteFICDAO implements IClienteFICDao {
         return query;
     }
 
+    public void getSP() {
+        try {
+            // Establecer la conexión con la base de datos
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/clientes", "root", "1234");
+
+            // Llamar al procedimiento almacenado
+            CallableStatement callableStatement = connection.prepareCall("{call sp_obtener_usuarios()}");
+
+            ResultSet resultSet = callableStatement.executeQuery();
+
+            // Procesar el resultado si es necesario
+            while (resultSet.next()) {
+                // Acceder a los resultados, por ejemplo, si el procedimiento retorna una columna llamada 'resultado'
+                int edad = resultSet.getInt("edad");
+                String nombre = resultSet.getString("nombre");
+                // Realizar operaciones con el resultado
+                System.out.println("Nombre: " + nombre + "edad" + edad);
+                Log.info("Nombre: " + nombre + "edad" + edad);
+            }
+
+            // Cerrar recursos
+            callableStatement.close();
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 }
