@@ -8,9 +8,7 @@ import com.mibanco.clientefic.es.gen.type.ContactoType;
 import com.mibanco.clientefic.es.gen.type.ConyugeType;
 import com.mibanco.clientefic.es.gen.type.CupoRotativoType;
 import com.mibanco.clientefic.es.gen.type.Error;
-
 import java.util.List;
-
 import com.mibanco.clientefic.es.gen.type.OfertaType;
 import com.mibanco.clientefic.es.gen.type.PQRType;
 import com.mibanco.clientefic.es.gen.type.PasivoType;
@@ -28,7 +26,7 @@ import jakarta.validation.constraints.*;
 import jakarta.validation.Valid;
 
 @Path("/v1/es/cliente-fic")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-10-25T12:59:46.564774-05:00[America/Bogota]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-10-26T16:25:31.431986-05:00[America/Bogota]")
 public interface V1ClienteFIC {
 
     @GET

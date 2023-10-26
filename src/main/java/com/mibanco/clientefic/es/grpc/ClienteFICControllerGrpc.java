@@ -155,14 +155,12 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
             List<com.mibanco.clientefic.es.PQRType> pqrListResponse = new ArrayList<>();
             for (PQRType pqrItem : pqrList) {
                 pqrListResponse.add(com.mibanco.clientefic.es.PQRType.newBuilder()
+                        .setNumeroCliente(pqrItem.getNumeroCliente())
                         .setFecha(pqrItem.getFecha().toString())
                         .setNumeroPQR(pqrItem.getNumeroPQR())
                         .setMotivo(pqrItem.getMotivo())
                         .setResultadoPQR(pqrItem.getResultadoPQR())
                         .setComentario(pqrItem.getComentario())
-                        .setDigitoVerificacion(pqrItem.getDigitoVerificacion())
-                        .setTipoDocumento(pqrItem.getTipoDocumento().toString())
-                        .setNumeroDocumento(pqrItem.getNumeroDocumento())
                         .build());
             }
             ResponsePQR response = ResponsePQR.newBuilder().addAllObj(pqrListResponse).build();
@@ -340,7 +338,7 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
                 ofertaListResponse.add(com.mibanco.clientefic.es.PasivoType.newBuilder()
                         .setNumeroProducto(pasivo.getNumeroProducto())
                         .setTipoProducto(pasivo.getTipoProducto().toString())
-                        .setSubProducto(pasivo.getSubProducto().toString())
+                        .setDetalleProducto(pasivo.getDetalleProducto())
                         .setEstadoPasivo(pasivo.getEstadoPasivo())
                         .setFechaApertura(pasivo.getFechaApertura().toString())
                         .setFechaCierre(pasivo.getFechaCierre().toString())

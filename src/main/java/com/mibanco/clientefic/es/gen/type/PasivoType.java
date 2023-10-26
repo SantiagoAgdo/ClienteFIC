@@ -1,6 +1,5 @@
 package com.mibanco.clientefic.es.gen.type;
 
-import com.mibanco.clientefic.es.gen.type.SubProductoEnum;
 import com.mibanco.clientefic.es.gen.type.TipoProductoEnum;
 import jakarta.validation.constraints.*;
 import jakarta.validation.Valid;
@@ -14,29 +13,49 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("PasivoType")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-10-25T12:59:46.564774-05:00[America/Bogota]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-10-26T16:25:31.431986-05:00[America/Bogota]")
 public class PasivoType   {
-  private @Valid String numeroProducto;
-  private @Valid TipoProductoEnum tipoProducto;
-  private @Valid SubProductoEnum subProducto;
-  private @Valid String estadoPasivo;
-  private @Valid String fechaApertura;
-  private @Valid String fechaCierre;
-  private @Valid Float capital;
-  private @Valid Float intereses;
-  private @Valid Float otros;
-  private @Valid Float saldoTotal;
-  private @Valid Integer numeroCliente;
+    private @Valid Integer numeroCliente;
+    private @Valid String numeroProducto;
+    private @Valid TipoProductoEnum tipoProducto;
+    private @Valid String detalleProducto;
+    private @Valid String estadoPasivo;
+    private @Valid String fechaApertura;
+    private @Valid String fechaCierre;
+    private @Valid Float capital;
+    private @Valid Float intereses;
+    private @Valid Float otros;
+    private @Valid Float saldoTotal;
 
-  /**
-   **/
-  public PasivoType numeroProducto(String numeroProducto) {
-    this.numeroProducto = numeroProducto;
-    return this;
-  }
+    /**
+     *
+     **/
+    public PasivoType numeroCliente(Integer numeroCliente) {
+        this.numeroCliente = numeroCliente;
+        return this;
+    }
 
-  
-  @JsonProperty("numeroProducto")
+
+    @JsonProperty("numeroCliente")
+    public Integer getNumeroCliente() {
+        return numeroCliente;
+    }
+
+    @JsonProperty("numeroCliente")
+    public void setNumeroCliente(Integer numeroCliente) {
+        this.numeroCliente = numeroCliente;
+    }
+
+    /**
+     *
+     **/
+    public PasivoType numeroProducto(String numeroProducto) {
+        this.numeroProducto = numeroProducto;
+        return this;
+    }
+
+
+    @JsonProperty("numeroProducto")
   public String getNumeroProducto() {
     return numeroProducto;
   }
@@ -64,29 +83,31 @@ public class PasivoType   {
     this.tipoProducto = tipoProducto;
   }
 
-  /**
-   **/
-  public PasivoType subProducto(SubProductoEnum subProducto) {
-    this.subProducto = subProducto;
-    return this;
-  }
+    /**
+     *
+     **/
+    public PasivoType detalleProducto(String detalleProducto) {
+        this.detalleProducto = detalleProducto;
+        return this;
+    }
 
-  
-  @JsonProperty("subProducto")
-  public SubProductoEnum getSubProducto() {
-    return subProducto;
-  }
 
-  @JsonProperty("subProducto")
-  public void setSubProducto(SubProductoEnum subProducto) {
-    this.subProducto = subProducto;
-  }
+    @JsonProperty("detalleProducto")
+    public String getDetalleProducto() {
+        return detalleProducto;
+    }
 
-  /**
-   **/
-  public PasivoType estadoPasivo(String estadoPasivo) {
-    this.estadoPasivo = estadoPasivo;
-    return this;
+    @JsonProperty("detalleProducto")
+    public void setDetalleProducto(String detalleProducto) {
+        this.detalleProducto = detalleProducto;
+    }
+
+    /**
+     *
+     **/
+    public PasivoType estadoPasivo(String estadoPasivo) {
+        this.estadoPasivo = estadoPasivo;
+        return this;
   }
 
   
@@ -208,68 +229,50 @@ public class PasivoType   {
     this.saldoTotal = saldoTotal;
   }
 
-  /**
-   **/
-  public PasivoType numeroCliente(Integer numeroCliente) {
-    this.numeroCliente = numeroCliente;
-    return this;
-  }
-
-  
-  @JsonProperty("numeroCliente")
-  public Integer getNumeroCliente() {
-    return numeroCliente;
-  }
-
-  @JsonProperty("numeroCliente")
-  public void setNumeroCliente(Integer numeroCliente) {
-    this.numeroCliente = numeroCliente;
-  }
-
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    PasivoType pasivoType = (PasivoType) o;
-    return Objects.equals(this.numeroProducto, pasivoType.numeroProducto) &&
-        Objects.equals(this.tipoProducto, pasivoType.tipoProducto) &&
-        Objects.equals(this.subProducto, pasivoType.subProducto) &&
-        Objects.equals(this.estadoPasivo, pasivoType.estadoPasivo) &&
-        Objects.equals(this.fechaApertura, pasivoType.fechaApertura) &&
-        Objects.equals(this.fechaCierre, pasivoType.fechaCierre) &&
-        Objects.equals(this.capital, pasivoType.capital) &&
-        Objects.equals(this.intereses, pasivoType.intereses) &&
-        Objects.equals(this.otros, pasivoType.otros) &&
-        Objects.equals(this.saldoTotal, pasivoType.saldoTotal) &&
-        Objects.equals(this.numeroCliente, pasivoType.numeroCliente);
+      if (this == o) {
+          return true;
+      }
+      if (o == null || getClass() != o.getClass()) {
+          return false;
+      }
+      PasivoType pasivoType = (PasivoType) o;
+      return Objects.equals(this.numeroCliente, pasivoType.numeroCliente) &&
+              Objects.equals(this.numeroProducto, pasivoType.numeroProducto) &&
+              Objects.equals(this.tipoProducto, pasivoType.tipoProducto) &&
+              Objects.equals(this.detalleProducto, pasivoType.detalleProducto) &&
+              Objects.equals(this.estadoPasivo, pasivoType.estadoPasivo) &&
+              Objects.equals(this.fechaApertura, pasivoType.fechaApertura) &&
+              Objects.equals(this.fechaCierre, pasivoType.fechaCierre) &&
+              Objects.equals(this.capital, pasivoType.capital) &&
+              Objects.equals(this.intereses, pasivoType.intereses) &&
+              Objects.equals(this.otros, pasivoType.otros) &&
+              Objects.equals(this.saldoTotal, pasivoType.saldoTotal);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(numeroProducto, tipoProducto, subProducto, estadoPasivo, fechaApertura, fechaCierre, capital, intereses, otros, saldoTotal, numeroCliente);
+      return Objects.hash(numeroCliente, numeroProducto, tipoProducto, detalleProducto, estadoPasivo, fechaApertura, fechaCierre, capital, intereses, otros, saldoTotal);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class PasivoType {\n");
-    
-    sb.append("    numeroProducto: ").append(toIndentedString(numeroProducto)).append("\n");
-    sb.append("    tipoProducto: ").append(toIndentedString(tipoProducto)).append("\n");
-    sb.append("    subProducto: ").append(toIndentedString(subProducto)).append("\n");
-    sb.append("    estadoPasivo: ").append(toIndentedString(estadoPasivo)).append("\n");
+
+      sb.append("    numeroCliente: ").append(toIndentedString(numeroCliente)).append("\n");
+      sb.append("    numeroProducto: ").append(toIndentedString(numeroProducto)).append("\n");
+      sb.append("    tipoProducto: ").append(toIndentedString(tipoProducto)).append("\n");
+      sb.append("    detalleProducto: ").append(toIndentedString(detalleProducto)).append("\n");
+      sb.append("    estadoPasivo: ").append(toIndentedString(estadoPasivo)).append("\n");
     sb.append("    fechaApertura: ").append(toIndentedString(fechaApertura)).append("\n");
     sb.append("    fechaCierre: ").append(toIndentedString(fechaCierre)).append("\n");
     sb.append("    capital: ").append(toIndentedString(capital)).append("\n");
     sb.append("    intereses: ").append(toIndentedString(intereses)).append("\n");
     sb.append("    otros: ").append(toIndentedString(otros)).append("\n");
     sb.append("    saldoTotal: ").append(toIndentedString(saldoTotal)).append("\n");
-    sb.append("    numeroCliente: ").append(toIndentedString(numeroCliente)).append("\n");
     sb.append("}");
     return sb.toString();
   }

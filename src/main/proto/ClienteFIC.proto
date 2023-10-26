@@ -159,28 +159,26 @@ message OfertaType{
 }
 
 message PasivoType{
-  string numeroProducto = 1;
-  string subProducto = 2;
-  string estadoPasivo = 3;
-  string fechaApertura = 4;
-  string fechaCierre = 5;
-  float capital = 6;
-  float intereses = 7;
-  float otros = 8;
-  float saldoTotal = 9;
-  int32 numeroCliente = 10;
+  int32 numeroCliente = 1;
+  string numeroProducto = 2;
+  string detalleProducto = 3;
+  string estadoPasivo = 4;
+  string fechaApertura = 5;
+  string fechaCierre = 6;
+  float capital = 7;
+  float intereses = 8;
+  float otros = 9;
+  float saldoTotal = 10;
   string tipoProducto = 11;
 }
 
 message PQRType{
-  string fecha = 1;
-  int32 numeroPQR = 2;
-  string motivo = 3;
-  string resultadoPQR = 4;
-  string comentario = 5;
-  string digitoVerificacion = 6;
-  string tipoDocumento = 7;
-  string numeroDocumento = 8;
+  int32 numeroCliente = 1;
+  string fecha = 2;
+  int32 numeroPQR = 3;
+  string motivo = 4;
+  string resultadoPQR = 5;
+  string comentario = 6;
 }
 
 message ConsultaClienteByData{

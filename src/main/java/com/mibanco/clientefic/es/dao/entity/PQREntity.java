@@ -1,21 +1,19 @@
 package com.mibanco.clientefic.es.dao.entity;
 
-import com.mibanco.clientefic.es.gen.type.TipoDocumentoEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.Date;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class PQREntity {
 
+    private Integer numeroCliente;
     private String fecha;
     private Integer numeroPQR;
     private String motivo;
     private String resultadoPQR;
     private String comentario;
-    private String digitoVerificacion;
-    private TipoDocumentoEnum tipoDocumento;
-    private String numeroDocumento;
 }

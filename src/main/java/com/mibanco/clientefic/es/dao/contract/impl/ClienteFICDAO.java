@@ -121,7 +121,7 @@ public class ClienteFICDAO implements IClienteFICDao {
 
         List<PasivoEntity> query = new ArrayList<>();
         for (ClienteFICEntity cli : cliente) {
-            PasivoEntity data = new PasivoEntity(cli.getPasivo().getNumeroProducto(), cli.getPasivo().getSubProducto(), cli.getPasivo().getTipoProducto(), cli.getPasivo().getEstadoPasivo(), cli.getPasivo().getFechaApertura(), cli.getPasivo().getFechaCierre(), cli.getPasivo().getCapital(), cli.getPasivo().getIntereses(), cli.getPasivo().getOtros(), cli.getPasivo().getSaldoTotal(), cli.getPasivo().getNumeroCliente());
+            PasivoEntity data = new PasivoEntity(cli.getPasivo().getNumeroCliente(), cli.getPasivo().getNumeroProducto(), cli.getPasivo().getTipoProducto(), cli.getPasivo().getDetalleProducto(), cli.getPasivo().getEstadoPasivo(), cli.getPasivo().getFechaApertura(), cli.getPasivo().getFechaCierre(), cli.getPasivo().getCapital(), cli.getPasivo().getIntereses(), cli.getPasivo().getOtros(), cli.getPasivo().getSaldoTotal());
             query.add(data);
         }
         return query;
@@ -134,7 +134,7 @@ public class ClienteFICDAO implements IClienteFICDao {
 
         List<PQREntity> query = new ArrayList<>();
         for (ClienteFICEntity cli : cliente) {
-            PQREntity pqr = new PQREntity(cli.getPQR().getFecha(), cli.getPQR().getNumeroPQR(), cli.getPQR().getMotivo(), cli.getPQR().getResultadoPQR(), cli.getPQR().getComentario(), cli.getPQR().getDigitoVerificacion(), cli.getPQR().getTipoDocumento(), cli.getPQR().getNumeroDocumento());
+            PQREntity pqr = new PQREntity(cli.getPQR().getNumeroCliente(), cli.getPQR().getFecha(), cli.getPQR().getNumeroPQR(), cli.getPQR().getMotivo(), cli.getPQR().getResultadoPQR(), cli.getPQR().getComentario());
             query.add(pqr);
         }
         return query;

@@ -440,8 +440,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 
-
-
 #---------------------------------------------
 #Se declaran los Modelos/Schemas del servicio
 #---------------------------------------------
@@ -469,7 +467,7 @@ components:
         digitoVerificacion:
           type: integer
         domicilio:
-          $ref: "#/components/schemas/DomicilioType"
+          $ref: "#/components/schemas/DomicilioBaseType"
         domicilioEmpresa:
           $ref: "#/components/schemas/DomicilioEmpresaType"
         estadoCivil:
@@ -548,7 +546,7 @@ components:
       type: object
       properties:
         numeroCliente:
-          type: Integer
+          type: integer
         fechaConsultaMasReciente:
           type: Date
         resultadoConsultaMasReciente:
@@ -694,12 +692,14 @@ components:
     PasivoType:
       type: object
       properties:
+        numeroCliente:
+          type: integer
         numeroProducto:
           type: string
         tipoProducto:
           $ref: "#/components/schemas/TipoProductoEnum"
-        subProducto:
-          $ref: "#/components/schemas/SubProductoEnum"
+        detalleProducto:
+          type: string
         estadoPasivo:
           type: string
         fechaApertura:
@@ -718,11 +718,11 @@ components:
         saldoTotal:
           type: number
           format: float
-        numeroCliente:
-          type: integer
     PQRType:
       type: object
       properties:
+        numeroCliente:
+          type: integer
         fecha:
           type: string
         numeroPQR:
@@ -730,15 +730,8 @@ components:
         motivo:
           type: string
         resultadoPQR:
-#          $ref: "#/components/schemas/ResultadoPQREnum"
           type: string
         comentario:
-          type: string
-        digitoVerificacion:
-          type: string
-        tipoDocumento:
-          $ref: "#/components/schemas/TipoDocumentoEnum"
-        numeroDocumento:
           type: string
     ConsultarClientePorNombreOutput:
       type: object

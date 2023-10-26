@@ -1,19 +1,19 @@
 package com.mibanco.clientefic.es.dao.entity;
 
-import com.mibanco.clientefic.es.gen.type.SubProductoEnum;
 import com.mibanco.clientefic.es.gen.type.TipoProductoEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.Date;
 
 @Data
 @AllArgsConstructor
 public class PasivoEntity {
 
+    private Integer numeroCliente;
     private String numeroProducto;
-    private SubProductoEnum subProducto;
     private TipoProductoEnum tipoProducto;
+    private String detalleProducto;
     private String estadoPasivo;
     private String fechaApertura;
     private String fechaCierre;
@@ -21,6 +21,5 @@ public class PasivoEntity {
     private Float intereses;
     private Float otros;
     private Float saldoTotal;
-    private Integer numeroCliente;
 
 }

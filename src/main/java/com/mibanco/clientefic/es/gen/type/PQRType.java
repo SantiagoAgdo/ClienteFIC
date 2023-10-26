@@ -1,6 +1,5 @@
 package com.mibanco.clientefic.es.gen.type;
 
-import com.mibanco.clientefic.es.gen.type.TipoDocumentoEnum;
 import jakarta.validation.constraints.*;
 import jakarta.validation.Valid;
 
@@ -13,26 +12,44 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("PQRType")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-10-25T12:59:46.564774-05:00[America/Bogota]")
-public class PQRType   {
-  private @Valid String fecha;
-  private @Valid Integer numeroPQR;
-  private @Valid String motivo;
-  private @Valid String resultadoPQR;
-  private @Valid String comentario;
-  private @Valid String digitoVerificacion;
-  private @Valid TipoDocumentoEnum tipoDocumento;
-  private @Valid String numeroDocumento;
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-10-26T16:25:31.431986-05:00[America/Bogota]")
+public class PQRType {
+    private @Valid Integer numeroCliente;
+    private @Valid String fecha;
+    private @Valid Integer numeroPQR;
+    private @Valid String motivo;
+    private @Valid String resultadoPQR;
+    private @Valid String comentario;
 
-  /**
-   **/
-  public PQRType fecha(String fecha) {
-    this.fecha = fecha;
-    return this;
-  }
+    /**
+     *
+     **/
+    public PQRType numeroCliente(Integer numeroCliente) {
+        this.numeroCliente = numeroCliente;
+        return this;
+    }
 
-  
-  @JsonProperty("fecha")
+
+    @JsonProperty("numeroCliente")
+    public Integer getNumeroCliente() {
+        return numeroCliente;
+    }
+
+    @JsonProperty("numeroCliente")
+    public void setNumeroCliente(Integer numeroCliente) {
+        this.numeroCliente = numeroCliente;
+    }
+
+    /**
+     *
+     **/
+    public PQRType fecha(String fecha) {
+        this.fecha = fecha;
+        return this;
+    }
+
+
+    @JsonProperty("fecha")
   public String getFecha() {
     return fecha;
   }
@@ -114,98 +131,40 @@ public class PQRType   {
     this.comentario = comentario;
   }
 
-  /**
-   **/
-  public PQRType digitoVerificacion(String digitoVerificacion) {
-    this.digitoVerificacion = digitoVerificacion;
-    return this;
-  }
-
-  
-  @JsonProperty("digitoVerificacion")
-  public String getDigitoVerificacion() {
-    return digitoVerificacion;
-  }
-
-  @JsonProperty("digitoVerificacion")
-  public void setDigitoVerificacion(String digitoVerificacion) {
-    this.digitoVerificacion = digitoVerificacion;
-  }
-
-  /**
-   **/
-  public PQRType tipoDocumento(TipoDocumentoEnum tipoDocumento) {
-    this.tipoDocumento = tipoDocumento;
-    return this;
-  }
-
-  
-  @JsonProperty("tipoDocumento")
-  public TipoDocumentoEnum getTipoDocumento() {
-    return tipoDocumento;
-  }
-
-  @JsonProperty("tipoDocumento")
-  public void setTipoDocumento(TipoDocumentoEnum tipoDocumento) {
-    this.tipoDocumento = tipoDocumento;
-  }
-
-  /**
-   **/
-  public PQRType numeroDocumento(String numeroDocumento) {
-    this.numeroDocumento = numeroDocumento;
-    return this;
-  }
-
-  
-  @JsonProperty("numeroDocumento")
-  public String getNumeroDocumento() {
-    return numeroDocumento;
-  }
-
-  @JsonProperty("numeroDocumento")
-  public void setNumeroDocumento(String numeroDocumento) {
-    this.numeroDocumento = numeroDocumento;
-  }
-
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    PQRType pqRType = (PQRType) o;
-    return Objects.equals(this.fecha, pqRType.fecha) &&
-        Objects.equals(this.numeroPQR, pqRType.numeroPQR) &&
-        Objects.equals(this.motivo, pqRType.motivo) &&
-        Objects.equals(this.resultadoPQR, pqRType.resultadoPQR) &&
-        Objects.equals(this.comentario, pqRType.comentario) &&
-        Objects.equals(this.digitoVerificacion, pqRType.digitoVerificacion) &&
-        Objects.equals(this.tipoDocumento, pqRType.tipoDocumento) &&
-        Objects.equals(this.numeroDocumento, pqRType.numeroDocumento);
+      if (this == o) {
+          return true;
+      }
+      if (o == null || getClass() != o.getClass()) {
+          return false;
+      }
+      PQRType pqRType = (PQRType) o;
+      return Objects.equals(this.numeroCliente, pqRType.numeroCliente) &&
+              Objects.equals(this.fecha, pqRType.fecha) &&
+              Objects.equals(this.numeroPQR, pqRType.numeroPQR) &&
+              Objects.equals(this.motivo, pqRType.motivo) &&
+              Objects.equals(this.resultadoPQR, pqRType.resultadoPQR) &&
+              Objects.equals(this.comentario, pqRType.comentario);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(fecha, numeroPQR, motivo, resultadoPQR, comentario, digitoVerificacion, tipoDocumento, numeroDocumento);
+      return Objects.hash(numeroCliente, fecha, numeroPQR, motivo, resultadoPQR, comentario);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class PQRType {\n");
-    
-    sb.append("    fecha: ").append(toIndentedString(fecha)).append("\n");
+
+      sb.append("    numeroCliente: ").append(toIndentedString(numeroCliente)).append("\n");
+      sb.append("    fecha: ").append(toIndentedString(fecha)).append("\n");
     sb.append("    numeroPQR: ").append(toIndentedString(numeroPQR)).append("\n");
     sb.append("    motivo: ").append(toIndentedString(motivo)).append("\n");
     sb.append("    resultadoPQR: ").append(toIndentedString(resultadoPQR)).append("\n");
     sb.append("    comentario: ").append(toIndentedString(comentario)).append("\n");
-    sb.append("    digitoVerificacion: ").append(toIndentedString(digitoVerificacion)).append("\n");
-    sb.append("    tipoDocumento: ").append(toIndentedString(tipoDocumento)).append("\n");
-    sb.append("    numeroDocumento: ").append(toIndentedString(numeroDocumento)).append("\n");
     sb.append("}");
     return sb.toString();
   }
