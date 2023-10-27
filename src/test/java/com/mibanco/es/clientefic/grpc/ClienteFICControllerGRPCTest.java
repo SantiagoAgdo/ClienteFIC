@@ -62,7 +62,7 @@ public class ClienteFICControllerGRPCTest {
 
         CompletableFuture<ConyugeType> message = new CompletableFuture<>();
 
-        NumeroCliente numeroCLiente = NumeroCliente.newBuilder().setNumeroCliente(10002).build();
+        NumeroCliente numeroCLiente = NumeroCliente.newBuilder().setNumeroCliente(0).build();
 
         client.consultarConyuge(numeroCLiente)
                 .subscribe()

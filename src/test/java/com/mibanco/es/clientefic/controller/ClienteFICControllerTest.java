@@ -61,7 +61,7 @@ public class ClienteFICControllerTest {
 
         when(mockObjectMapper.readValue(any(byte[].class), any(Class.class))).thenReturn(new ClienteFICType());
 
-        String jsonString = new String(Files.readAllBytes(Paths.get("src/main/resources/es-ClienteFIc-json.json")), StandardCharsets.UTF_8);
+        String jsonString = new String(Files.readAllBytes(Paths.get("src/main/resources/es-ClienteFIC-json.json")), StandardCharsets.UTF_8);
         ClienteFICType clienteType = objectMapper.readValue(jsonString, ClienteFICType.class);
 
         given()

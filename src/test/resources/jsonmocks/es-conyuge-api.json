@@ -1,6 +1,6 @@
 {
-    "tipoDocumento": "CC",
-    "numeroDocumento": "10002",
-    "nombre": "string",
-    "numeroCliente": 0
-  }
+  "tipoDocumento": "CC",
+  "numeroDocumento": "string",
+  "nombre": "string",
+  "numeroCliente": 0
+}

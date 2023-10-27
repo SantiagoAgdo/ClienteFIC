@@ -2,18 +2,18 @@
   "alerta": {
     "tipoAlerta": "string",
     "banco": "string",
-    "fecha": "2022-03-10",
+    "fecha": "string",
     "tipoDocumento": "CC",
-    "numeroDocumento": "10002",
-    "digitoVerificacion": "1"
+    "numeroDocumento": "string",
+    "digitoVerificacion": "string"
   },
   "clienteBase": {
     "id": 0,
     "numeroCliente": 0,
     "tipoPersona": "1 JURIDICA",
     "tipoDocumento": "CC",
-    "numeroDocumento": 10002,
-    "fechaExpedicionDocumento": "2022-03-10",
+    "numeroDocumento": 0,
+    "fechaExpedicionDocumento": "string",
     "primerNombre": "string",
     "numeroCelular": 0,
     "segundoNombre": "string",
@@ -21,53 +21,52 @@
     "segundoApellido": "string",
     "correoElectronico": "string"
   },
-  "ReporteCentralRiesgo": {
+  "centralRiesgo": {
+    "numeroCliente": 0,
+    "fechaConsultaMasReciente": "2022-03-10",
+    "resultadoConsultaMasReciente": "string",
+    "vbVigenteParaSerConsultado": "string"
+  },
+  "reporteCentralRiesgoType": {
     "antiguedadUbicacion": "string",
     "consultaDetallada": "string",
     "estadoDocumento": "string",
-    "fechaConsultaMasReciente": "2022-03-10",
-    "fechaExpedicion": "2022-03-10",
+    "fechaExpedicion": "string",
+    "fechaConsulta": "string",
+    "nombre": "string",
     "genero": "string",
-    "lugarExpedicion": "string",
     "historicoEndeudamiento": "string",
-    "numeroDocumento": "10002",
+    "lugarExpedicion": "string",
+    "numeroDocumento": "string",
     "rangoEdad": "string",
-    "resultadoConsultaMasReciente": "string",
     "tieneRUT": true,
-    "tipoDocumento": "PAS",
-    "tipoRelacion": "02 CONYUGE",
+    "tipoDocumento": "CC",
+    "tipoRelacion": "01 TITULAR",
     "tipoReporte": "CONSULTA DETALLADA",
-    "vbVigenteParaSerConsultado": true,
     "digitoVerificacion": "string"
   },
-  "centralRiesgo": {
-    "numeroCliente": 10002,
-    "resultadoConsultaMasReciente" : "dsad",
-    "vbVigenteParaSerConsultado": "sgri",
-    "fechaConsultaMasReciente": "2020-01-01"
-  },
   "contacto": {
-    "fecha": "2022-03-10",
+    "fecha": "string",
     "tipoContacto": "string",
     "resultadoComentarios": "string",
     "numeroCliente": 0
   },
   "conyuge": {
     "tipoDocumento": "CC",
-    "numeroDocumento": "10002",
+    "numeroDocumento": "string",
     "nombre": "string",
     "numeroCliente": 0
   },
   "cupoRotativo": {
     "estado": "string",
-    "fechaDeVencimiento": "2022-03-10",
+    "fechaDeVencimiento": "string",
     "montoCupoCredito": 0,
     "montoUtilizado": 0,
     "numeroCliente": 0,
     "numeroCupo": "string",
     "saldoDisponible": 0
   },
-  "digitoVerificacion": 1,
+  "digitoVerificacion": 0,
   "domicilio": {
     "numeroCliente": 0,
     "tipoVivienda": "SH"
@@ -85,7 +84,7 @@
     "tipoActividadCIIU": "10 ASALARIADOS",
     "numeroCliente": 0
   },
-  "numeroDocumentoRepresentanteLegal": "10002",
+  "numeroDocumentoRepresentanteLegal": "string",
   "oferta": {
     "numeroOferta": 0,
     "tipoLead": "string",
@@ -97,36 +96,31 @@
     "condicionGarantia": "string"
   },
   "pasivo": {
+    "numeroCliente": 0,
     "numeroProducto": "string",
-    "tipoProducto": "BONO BONOS",
-    "subProducto": "REMA AAFC APORTES AFC - CENTRALIZADO",
+    "tipoProducto": "BCA1 BONO MENOR 5 AÑOS COSTO AMORTIZADO",
+    "detalleProducto": "string",
     "estadoPasivo": "string",
-    "fechaApertura": "2022-03-10",
-    "fechaCierre": "2022-03-10",
+    "fechaApertura": "string",
+    "fechaCierre": "string",
     "capital": 0,
     "intereses": 0,
     "otros": 0,
-    "saldoTotal": 0,
-    "numeroCliente": 0
+    "saldoTotal": 0
   },
   "PQR": {
-    "fecha": "2022-03-10",
+    "numeroCliente": 0,
+    "fecha": "string",
     "numeroPQR": 0,
     "motivo": "string",
     "resultadoPQR": "string",
-    "comentario": "string",
-    "digitoVerificacion": "1",
-    "tipoDocumento": "CC",
-    "numeroDocumento": "10002"
+    "comentario": "string"
   },
   "prestamo": "string",
-  "primerApellidoRepresentanteLegal": "string",
-  "primerNombreRepresentanteLegal": "string",
+  "nombreRepresentanteLegal": "string",
   "razonSocial": "string",
-  "segundoApellidoRepresentanteLegal": "string",
-  "segundoNombreRepresentanteLegal": "string",
-  "seRequiereActualizacion": true,
+  "seRequiereActualizacion": "string",
   "tipoDocumentoRepresentanteLegal": "CC",
   "totalActivos": 0,
-  "ultimaFechaActualizacion": "2022-03-10"
+  "ultimaFechaActualizacion": "string"
 }

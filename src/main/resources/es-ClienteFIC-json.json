@@ -96,27 +96,25 @@
     "condicionGarantia": "string"
   },
   "pasivo": {
+    "numeroCliente": 0,
     "numeroProducto": "string",
     "tipoProducto": "BCA1 BONO MENOR 5 AÑOS COSTO AMORTIZADO",
-    "subProducto": "REMA AAFC APORTES AFC - CENTRALIZADO",
+    "detalleProducto": "string",
     "estadoPasivo": "string",
     "fechaApertura": "string",
     "fechaCierre": "string",
     "capital": 0,
     "intereses": 0,
     "otros": 0,
-    "saldoTotal": 0,
-    "numeroCliente": 0
+    "saldoTotal": 0
   },
   "PQR": {
+    "numeroCliente": 0,
     "fecha": "string",
     "numeroPQR": 0,
     "motivo": "string",
     "resultadoPQR": "string",
-    "comentario": "string",
-    "digitoVerificacion": "string",
-    "tipoDocumento": "CC",
-    "numeroDocumento": "string"
+    "comentario": "string"
   },
   "prestamo": "string",
   "nombreRepresentanteLegal": "string",
