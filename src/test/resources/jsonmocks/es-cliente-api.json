@@ -98,7 +98,7 @@
   "pasivo": {
     "numeroCliente": 0,
     "numeroProducto": "string",
-    "tipoProducto": "BCA1 BONO MENOR 5 AÑOS COSTO AMORTIZADO",
+    "tipoProducto": "CACN CUENTA AHORROS CONTRACTUAL",
     "detalleProducto": "string",
     "estadoPasivo": "string",
     "fechaApertura": "string",

@@ -26,7 +26,7 @@ import jakarta.validation.constraints.*;
 import jakarta.validation.Valid;
 
 @Path("/v1/es/cliente-fic")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-10-26T16:25:31.431986-05:00[America/Bogota]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-11-01T02:22:22.812802200-05:00[America/Bogota]")
 public interface V1ClienteFIC {
 
     @GET
@@ -66,26 +66,26 @@ public interface V1ClienteFIC {
 
     @GET
     @Path("/pqr/{tipoDocumento}/{numeroDocumento}/{digitoVerificacion}")
-    @Produces({"application/json"})
-    Response consultarPQR(@PathParam("tipoDocumento") TipoDocumentoEnum tipoDocumento, @PathParam("numeroDocumento") Integer numeroDocumento, @PathParam("digitoVerificacion") Integer digitoVerificacion);
+    @Produces({ "application/json" })
+    Response consultarPQR(@PathParam("tipoDocumento") TipoDocumentoEnum tipoDocumento,@PathParam("numeroDocumento") Integer numeroDocumento,@PathParam("digitoVerificacion") Integer digitoVerificacion);
 
     @GET
     @Path("/pasivo/{numeroCliente}")
-    @Produces({"application/json"})
+    @Produces({ "application/json" })
     Response consultarPasivo(@PathParam("numeroCliente") Integer numeroCliente);
 
     @GET
     @Path("/testProcedure")
-    @Produces({"application/json"})
+    @Produces({ "application/json" })
     Response consultarProcediemitnoAlmacenado();
 
     @GET
     @Path("/{tipoDocumento}/{numeroDocumento}/{digitoVerificacion}")
-    @Produces({"application/json"})
-    Response consutaClientePorIdentificacion(@PathParam("tipoDocumento") TipoDocumentoEnum tipoDocumento, @PathParam("numeroDocumento") Integer numeroDocumento, @PathParam("digitoVerificacion") Integer digitoVerificacion);
+    @Produces({ "application/json" })
+    Response consutaClientePorIdentificacion(@PathParam("tipoDocumento") TipoDocumentoEnum tipoDocumento,@PathParam("numeroDocumento") Integer numeroDocumento,@PathParam("digitoVerificacion") Integer digitoVerificacion);
 
     @POST
     @Path("/usuario")
-    @Consumes({"application/json"})
+    @Consumes({ "application/json" })
     Response crearClienteFIC(@Valid ClienteFICType clienteFICType);
 }

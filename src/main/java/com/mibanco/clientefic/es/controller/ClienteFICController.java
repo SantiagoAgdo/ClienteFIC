@@ -256,7 +256,6 @@ public class ClienteFICController implements V1ClienteFIC {
         try {
             clienteFICServiceImpl.getSP();
 
-            LOG.info("Finaliza consulta Pasivo");
             return Response.status(Response.Status.OK).entity("OK").build();
 
         } catch (ApplicationExceptionValidation e) {

@@ -55,7 +55,7 @@ ingress:
     nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
     nginx.ingress.kubernetes.io/cors-allow-headers: "DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,access-control-allow-origin,Authorization"
   hosts:
-    path: /v1/us/fic
+    path: /v1/es/fic
     pathType: Prefix
     host: prd.pdnsz-micros-trv.private
     

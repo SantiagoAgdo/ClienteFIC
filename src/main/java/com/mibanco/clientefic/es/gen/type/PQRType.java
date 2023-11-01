@@ -12,44 +12,42 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("PQRType")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-10-26T16:25:31.431986-05:00[America/Bogota]")
-public class PQRType {
-    private @Valid Integer numeroCliente;
-    private @Valid String fecha;
-    private @Valid Integer numeroPQR;
-    private @Valid String motivo;
-    private @Valid String resultadoPQR;
-    private @Valid String comentario;
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-11-01T02:22:22.812802200-05:00[America/Bogota]")
+public class PQRType   {
+  private @Valid Integer numeroCliente;
+  private @Valid String fecha;
+  private @Valid Integer numeroPQR;
+  private @Valid String motivo;
+  private @Valid String resultadoPQR;
+  private @Valid String comentario;
 
-    /**
-     *
-     **/
-    public PQRType numeroCliente(Integer numeroCliente) {
-        this.numeroCliente = numeroCliente;
-        return this;
-    }
+  /**
+   **/
+  public PQRType numeroCliente(Integer numeroCliente) {
+    this.numeroCliente = numeroCliente;
+    return this;
+  }
 
+  
+  @JsonProperty("numeroCliente")
+  public Integer getNumeroCliente() {
+    return numeroCliente;
+  }
 
-    @JsonProperty("numeroCliente")
-    public Integer getNumeroCliente() {
-        return numeroCliente;
-    }
+  @JsonProperty("numeroCliente")
+  public void setNumeroCliente(Integer numeroCliente) {
+    this.numeroCliente = numeroCliente;
+  }
 
-    @JsonProperty("numeroCliente")
-    public void setNumeroCliente(Integer numeroCliente) {
-        this.numeroCliente = numeroCliente;
-    }
+  /**
+   **/
+  public PQRType fecha(String fecha) {
+    this.fecha = fecha;
+    return this;
+  }
 
-    /**
-     *
-     **/
-    public PQRType fecha(String fecha) {
-        this.fecha = fecha;
-        return this;
-    }
-
-
-    @JsonProperty("fecha")
+  
+  @JsonProperty("fecha")
   public String getFecha() {
     return fecha;
   }
@@ -134,33 +132,33 @@ public class PQRType {
 
   @Override
   public boolean equals(Object o) {
-      if (this == o) {
-          return true;
-      }
-      if (o == null || getClass() != o.getClass()) {
-          return false;
-      }
-      PQRType pqRType = (PQRType) o;
-      return Objects.equals(this.numeroCliente, pqRType.numeroCliente) &&
-              Objects.equals(this.fecha, pqRType.fecha) &&
-              Objects.equals(this.numeroPQR, pqRType.numeroPQR) &&
-              Objects.equals(this.motivo, pqRType.motivo) &&
-              Objects.equals(this.resultadoPQR, pqRType.resultadoPQR) &&
-              Objects.equals(this.comentario, pqRType.comentario);
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    PQRType pqRType = (PQRType) o;
+    return Objects.equals(this.numeroCliente, pqRType.numeroCliente) &&
+        Objects.equals(this.fecha, pqRType.fecha) &&
+        Objects.equals(this.numeroPQR, pqRType.numeroPQR) &&
+        Objects.equals(this.motivo, pqRType.motivo) &&
+        Objects.equals(this.resultadoPQR, pqRType.resultadoPQR) &&
+        Objects.equals(this.comentario, pqRType.comentario);
   }
 
   @Override
   public int hashCode() {
-      return Objects.hash(numeroCliente, fecha, numeroPQR, motivo, resultadoPQR, comentario);
+    return Objects.hash(numeroCliente, fecha, numeroPQR, motivo, resultadoPQR, comentario);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class PQRType {\n");
-
-      sb.append("    numeroCliente: ").append(toIndentedString(numeroCliente)).append("\n");
-      sb.append("    fecha: ").append(toIndentedString(fecha)).append("\n");
+    
+    sb.append("    numeroCliente: ").append(toIndentedString(numeroCliente)).append("\n");
+    sb.append("    fecha: ").append(toIndentedString(fecha)).append("\n");
     sb.append("    numeroPQR: ").append(toIndentedString(numeroPQR)).append("\n");
     sb.append("    motivo: ").append(toIndentedString(motivo)).append("\n");
     sb.append("    resultadoPQR: ").append(toIndentedString(resultadoPQR)).append("\n");

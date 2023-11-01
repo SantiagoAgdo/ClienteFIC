@@ -5,7 +5,10 @@ import com.mibanco.clientefic.es.dao.entity.*;
 import com.mibanco.clientefic.es.gen.type.*;
 import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
+import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +17,16 @@ import java.util.List;
 public class ClienteFICDAO implements IClienteFICDao {
 
     List<ClienteFICEntity> list = new ArrayList<>();
+
+    @Inject
+    DataSource dataSource;
+
+    @ConfigProperty(name = "quarkus.datasource.jdbc.url")
+    String url;
+    @ConfigProperty(name = "quarkus.datasource.username")
+    String user;
+    @ConfigProperty(name = "quarkus.datasource.password")
+    String pass;
 
     @Override
     public void crearClienteFIC(ClienteFICEntity clienteFIC) {
@@ -141,33 +154,27 @@ public class ClienteFICDAO implements IClienteFICDao {
     }
 
     public void getSP() {
-        try {
-            // Establecer la conexión con la base de datos
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/clientes", "root", "1234");
+        Log.info("Inicia Proceso de consumo SP");
+        try( Connection connection = dataSource.getConnection()) {
 
-            // Llamar al procedimiento almacenado
-            CallableStatement callableStatement = connection.prepareCall("{call sp_obtener_usuarios()}");
+            CallableStatement callableStatement = connection.prepareCall("{call sp_fic_consultaClientePorNombre(?,?,?,?)}");
+            callableStatement.setString(1,"test");
+            callableStatement.registerOutParameter(2, Types.DECIMAL);
+            callableStatement.setInt(3,1);
+            callableStatement.setInt(4,20);
 
             ResultSet resultSet = callableStatement.executeQuery();
-
-            // Procesar el resultado si es necesario
             while (resultSet.next()) {
-                // Acceder a los resultados, por ejemplo, si el procedimiento retorna una columna llamada 'resultado'
-                int edad = resultSet.getInt("edad");
-                String nombre = resultSet.getString("nombre");
-                // Realizar operaciones con el resultado
-                System.out.println("Nombre: " + nombre + "edad" + edad);
-                Log.info("Nombre: " + nombre + "edad" + edad);
+                String codigo = resultSet.getString("s_codigo_tipo_ident");
+                String numero = resultSet.getString("s_numero_identificacion");
+                Log.info("Codigo: " + codigo + ", Numero: " + numero);
             }
-
-            // Cerrar recursos
             callableStatement.close();
-            connection.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+            Log.info("Termina Consulta");
         }
-
     }
-
 }

@@ -25,8 +25,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
+
 @JsonTypeName("ClienteFICType")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-10-26T16:25:31.431986-05:00[America/Bogota]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-11-01T02:22:22.812802200-05:00[America/Bogota]")
 public class ClienteFICType   {
   private @Valid AlertaType alerta;
   private @Valid ClienteBaseType clienteBase;
@@ -35,9 +36,9 @@ public class ClienteFICType   {
   private @Valid ContactoType contacto;
   private @Valid ConyugeType conyuge;
   private @Valid CupoRotativoType cupoRotativo;
-    private @Valid Integer digitoVerificacion;
-    private @Valid DomicilioBaseType domicilio;
-    private @Valid DomicilioEmpresaType domicilioEmpresa;
+  private @Valid Integer digitoVerificacion;
+  private @Valid DomicilioBaseType domicilio;
+  private @Valid DomicilioEmpresaType domicilioEmpresa;
   private @Valid EstadoCivilEnum estadoCivil;
   private @Valid String funcionarioUltimaActualizacion;
   private @Valid NegocioType negocio;
@@ -197,23 +198,22 @@ public class ClienteFICType   {
     this.digitoVerificacion = digitoVerificacion;
   }
 
-    /**
-     *
-     **/
-    public ClienteFICType domicilio(DomicilioBaseType domicilio) {
-        this.domicilio = domicilio;
-        return this;
-    }
+  /**
+   **/
+  public ClienteFICType domicilio(DomicilioBaseType domicilio) {
+    this.domicilio = domicilio;
+    return this;
+  }
 
+  
+  @JsonProperty("domicilio")
+  public DomicilioBaseType getDomicilio() {
+    return domicilio;
+  }
 
-    @JsonProperty("domicilio")
-    public DomicilioBaseType getDomicilio() {
-        return domicilio;
-    }
-
-    @JsonProperty("domicilio")
-    public void setDomicilio(DomicilioBaseType domicilio) {
-        this.domicilio = domicilio;
+  @JsonProperty("domicilio")
+  public void setDomicilio(DomicilioBaseType domicilio) {
+    this.domicilio = domicilio;
   }
 
   /**
