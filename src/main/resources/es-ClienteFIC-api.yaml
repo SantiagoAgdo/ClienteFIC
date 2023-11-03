@@ -1,9 +1,6 @@
 openapi: 3.0.1
 servers:
   - description: Index swagger
-    #url local
-    -url: https://localhost:8080
-    #url produccion
     url: https://api.mibanco.com.co
 info:
   description: Servicios de entidad Ficha Integral De Cliente.
@@ -34,17 +31,23 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/ClienteFICType"
-  /v1/es/cliente-fic/testProcedure:
-    get:
-      summary: Consultar procediemiento
-      operationId: consultarProcediemitnoAlmacenado
       responses:
         "200":
-          description: get Procedimiento.
+          description: get alerta.
           content:
             application/json:
               schema:
                 type: array
+                items:
+                  $ref: "#/components/schemas/AlertaType"
+        "400":
+          description: Peticion con datos invalidos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        "404":
+          description: "No se encuentra el cliente FIC."
         default:
           description: Unexpected error
           content:
@@ -446,7 +449,7 @@ paths:
 
 components:
   schemas:
-#    TYPES
+    #    TYPES
     ClienteFICType:
       type: object
       properties:
@@ -548,11 +551,11 @@ components:
         numeroCliente:
           type: integer
         fechaConsultaMasReciente:
-          type: Date
+          type: string
         resultadoConsultaMasReciente:
-          type: String
+          type: string
         vbVigenteParaSerConsultado:
-          type: String
+          type: string
     ReporteCentralRiesgoType:
       type: object
       properties:
@@ -635,12 +638,12 @@ components:
       properties:
         numeroCliente:
           type: integer
-          direcccion:
-            type: string
-          telefono1:
-            type: integer
-          telefono2:
-            type: integer
+        direcccion:
+          type: string
+        telefono1:
+          type: integer
+        telefono2:
+          type: integer
         tipoVivienda:
           $ref: "#/components/schemas/TipoViviendaEnum"
     DomicilioEmpresaType:
@@ -648,12 +651,12 @@ components:
       properties:
         numeroCliente:
           type: integer
-          direccion:
-            type: string
-          telefono1:
-            type: integer
-          telefono2:
-            type: integer
+        direccion:
+          type: string
+        telefono1:
+          type: integer
+        telefono2:
+          type: integer
         tipoActividadCIIU:
           $ref: "#/components/schemas/TipoActividadCIIUEnum"
         tipoLocal:
@@ -749,7 +752,7 @@ components:
         tipoDocumento:
           $ref: "#/components/schemas/TipoDocumentoEnum"
         numeroDocumento:
-          type: integer
+          type: string
         nombreCompleto:
           type: string
     ConsultarDireccionTelefonoType:
@@ -774,7 +777,7 @@ components:
         telefono2:
           type: integer
 
-#    ENUMERADORES
+    #    ENUMERADORES
     EstadoCivilEnum:
       type: string
       enum:
@@ -1423,7 +1426,7 @@ components:
       enum:
         - SINDATAENMODELING
 
-#   ERRORES
+    #   ERRORES
     Error:
       type: object
       properties:

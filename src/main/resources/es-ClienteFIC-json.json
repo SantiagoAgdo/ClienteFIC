@@ -23,7 +23,7 @@
   },
   "centralRiesgo": {
     "numeroCliente": 0,
-    "fechaConsultaMasReciente": "2022-03-10",
+    "fechaConsultaMasReciente": "string",
     "resultadoConsultaMasReciente": "string",
     "vbVigenteParaSerConsultado": "string"
   },
@@ -69,10 +69,16 @@
   "digitoVerificacion": 0,
   "domicilio": {
     "numeroCliente": 0,
+    "direcccion": "string",
+    "telefono1": 0,
+    "telefono2": 0,
     "tipoVivienda": "SH"
   },
   "domicilioEmpresa": {
     "numeroCliente": 0,
+    "direccion": "string",
+    "telefono1": 0,
+    "telefono2": 0,
     "tipoActividadCIIU": "10 ASALARIADOS",
     "tipoLocal": "PROPIO SIN HIPOTECA"
   },
@@ -98,7 +104,7 @@
   "pasivo": {
     "numeroCliente": 0,
     "numeroProducto": "string",
-    "tipoProducto": "CACN CUENTA AHORROS CONTRACTUAL",
+    "tipoProducto": "BCA1 BONO MENOR 5 AÑOS COSTO AMORTIZADO",
     "detalleProducto": "string",
     "estadoPasivo": "string",
     "fechaApertura": "string",

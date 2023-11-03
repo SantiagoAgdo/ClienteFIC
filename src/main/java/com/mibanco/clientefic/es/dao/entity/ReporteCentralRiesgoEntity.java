@@ -5,10 +5,12 @@ import com.mibanco.clientefic.es.gen.type.TipoRelacionEnum;
 import com.mibanco.clientefic.es.gen.type.TipoReporteXmlEnum;
 import lombok.Data;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class ReporteCentralRiesgoEntity {
 
     private String antiguedadUbicacion;

@@ -2,6 +2,7 @@ package com.mibanco.clientefic.es.services.impl;
 
 import com.mibanco.clientefic.es.dao.contract.impl.ClienteFICDAO;
 import com.mibanco.clientefic.es.dao.entity.*;
+import com.mibanco.clientefic.es.dto.ClienteFICDTO;
 import com.mibanco.clientefic.es.gen.type.*;
 import com.mibanco.clientefic.es.services.contract.ClienteFICService;
 import com.mibanco.clientefic.es.utils.exceptions.ApplicationException;
@@ -62,10 +63,10 @@ public class ClienteFICServiceImpl implements ClienteFICService {
     }
 
     @Override
-    public ClienteFICEntity getClienteByIdentificacion(ConsultaClienteByData dataCliente) throws ApplicationException {
+    public ClienteFICDTO getClienteByIdentificacion(ConsultaClienteByData dataCliente) throws ApplicationException {
 
         LOG.info("Inicia consulta de cliente por identificacion");
-        ClienteFICEntity rptClienteByIdentificacion = clienteFICDAO.getClienteByIdentificacion(dataCliente);
+        ClienteFICDTO rptClienteByIdentificacion = clienteFICDAO.getClienteByIdentificacion(dataCliente);
 
         LOG.info("Termina consulta de cliente por identificacion");
         return rptClienteByIdentificacion;
@@ -73,13 +74,10 @@ public class ClienteFICServiceImpl implements ClienteFICService {
     }
 
     @Override
-    public ConsultarClientePorNombreOutputEntity getClienteByNombre(String nombre) throws ApplicationException {
+    public ConsultarClientePorNombreOutputEntity getClienteByNombre(String nombre, int pagina, int tamanoPagina) throws ApplicationException {
 
         LOG.info("Inicia consulta Cliente por nombre");
-        ConsultarClientePorNombreOutputEntity clienteResponse = clienteFICDAO.getClienteByNombre(nombre);
-
-        LOG.info("Termina consulta Cliente por nombre");
-        return clienteResponse;
+        return clienteFICDAO.getClienteByNombre(nombre,pagina, tamanoPagina);
     }
 
     @Override
@@ -142,13 +140,5 @@ public class ClienteFICServiceImpl implements ClienteFICService {
 
         LOG.info("Termina consulta de PRQ");
         return listPqrResponse.stream().map(clienteFICMapper::pqrToType).collect(Collectors.toList());
-    }
-
-
-    public void getSP() {
-
-        LOG.info("Inicia consulta SP");
-        clienteFICDAO.getSP();
-        LOG.info("Termina consulta SP");
     }
 }

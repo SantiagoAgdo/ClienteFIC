@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 public class ConsultarClientePorNombreEntity {
 
     private TipoDocumentoEnum tipoDocumento;
-    private Integer numeroDocumento;
+    private String numeroDocumento;
     private String nombreCompleto;
 }

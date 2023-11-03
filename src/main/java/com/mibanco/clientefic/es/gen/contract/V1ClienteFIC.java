@@ -8,7 +8,6 @@ import com.mibanco.clientefic.es.gen.type.ContactoType;
 import com.mibanco.clientefic.es.gen.type.ConyugeType;
 import com.mibanco.clientefic.es.gen.type.CupoRotativoType;
 import com.mibanco.clientefic.es.gen.type.Error;
-import java.util.List;
 import com.mibanco.clientefic.es.gen.type.OfertaType;
 import com.mibanco.clientefic.es.gen.type.PQRType;
 import com.mibanco.clientefic.es.gen.type.PasivoType;
@@ -26,7 +25,7 @@ import jakarta.validation.constraints.*;
 import jakarta.validation.Valid;
 
 @Path("/v1/es/cliente-fic")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-11-01T02:22:22.812802200-05:00[America/Bogota]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-11-03T10:54:18.743671-05:00[America/Bogota]")
 public interface V1ClienteFIC {
 
     @GET
@@ -75,11 +74,6 @@ public interface V1ClienteFIC {
     Response consultarPasivo(@PathParam("numeroCliente") Integer numeroCliente);
 
     @GET
-    @Path("/testProcedure")
-    @Produces({ "application/json" })
-    Response consultarProcediemitnoAlmacenado();
-
-    @GET
     @Path("/{tipoDocumento}/{numeroDocumento}/{digitoVerificacion}")
     @Produces({ "application/json" })
     Response consutaClientePorIdentificacion(@PathParam("tipoDocumento") TipoDocumentoEnum tipoDocumento,@PathParam("numeroDocumento") Integer numeroDocumento,@PathParam("digitoVerificacion") Integer digitoVerificacion);
@@ -87,5 +81,6 @@ public interface V1ClienteFIC {
     @POST
     @Path("/usuario")
     @Consumes({ "application/json" })
+    @Produces({ "application/json" })
     Response crearClienteFIC(@Valid ClienteFICType clienteFICType);
 }

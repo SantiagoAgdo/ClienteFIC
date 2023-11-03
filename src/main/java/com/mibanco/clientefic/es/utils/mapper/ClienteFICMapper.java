@@ -12,6 +12,10 @@ public class ClienteFICMapper {
         return new ModelMapper().map(entity, ClienteFICType.class);
     }
 
+    public TipoDocumentoEnum stringToDoc(String documentoTipo){
+        return new ModelMapper().map(documentoTipo, TipoDocumentoEnum.class);
+    }
+
     public AlertaType alertaToType(AlertaEntity entity) {
         return new ModelMapper().map(entity, AlertaType.class);
     }

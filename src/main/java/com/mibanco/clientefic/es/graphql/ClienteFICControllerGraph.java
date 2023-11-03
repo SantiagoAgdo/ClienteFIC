@@ -3,6 +3,7 @@ package com.mibanco.clientefic.es.graphql;
 import com.mibanco.clientefic.es.dao.entity.ClienteFICEntity;
 import com.mibanco.clientefic.es.dao.entity.ConsultaClienteByData;
 import com.mibanco.clientefic.es.dao.entity.ConsultarClientePorNombreOutputEntity;
+import com.mibanco.clientefic.es.dto.ClienteFICDTO;
 import com.mibanco.clientefic.es.gen.type.*;
 import com.mibanco.clientefic.es.services.impl.ClienteFICServiceImpl;
 import com.mibanco.clientefic.es.utils.exceptions.ApplicationException;
@@ -77,11 +78,11 @@ public class ClienteFICControllerGraph {
 
     @Query("consultaClientePorIdentificacion")
     @Description("Consulta de cliente por identificacion")
-    public ClienteFICEntity getClienteByIdentificacion(@Name("TipoDocumento") TipoDocumentoEnum tipoDocumento, @Name("numeroDocumento") Integer numeroDocumento, @Name("digitoVerificacion") Integer digitoVerificacion) {
+    public ClienteFICDTO getClienteByIdentificacion(@Name("TipoDocumento") TipoDocumentoEnum tipoDocumento, @Name("numeroDocumento") Integer numeroDocumento, @Name("digitoVerificacion") Integer digitoVerificacion) {
 
         logger.info("Inicia consulta cliente en Graphql");
         try {
-            ClienteFICEntity list = clienteFICService.getClienteByIdentificacion(new ConsultaClienteByData(tipoDocumento, numeroDocumento, digitoVerificacion));
+            ClienteFICDTO list = clienteFICService.getClienteByIdentificacion(new ConsultaClienteByData(tipoDocumento, numeroDocumento, digitoVerificacion));
 
             logger.info("Termina consulta cliente en Graphql");
             return list;
@@ -165,7 +166,7 @@ public class ClienteFICControllerGraph {
 
         logger.info("Inicia consulta cliente por nombre en Graphql");
         try {
-            ConsultarClientePorNombreOutputEntity data = clienteFICService.getClienteByNombre(nombre);
+            ConsultarClientePorNombreOutputEntity data = clienteFICService.getClienteByNombre(nombre,1,15);
 
             logger.info("Termina consulta cliente por nombreen Graphql");
             return data;

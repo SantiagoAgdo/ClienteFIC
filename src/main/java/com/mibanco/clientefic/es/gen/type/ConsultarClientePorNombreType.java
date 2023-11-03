@@ -13,10 +13,10 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("ConsultarClientePorNombreType")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-11-01T02:22:22.812802200-05:00[America/Bogota]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-11-03T10:54:18.743671-05:00[America/Bogota]")
 public class ConsultarClientePorNombreType   {
   private @Valid TipoDocumentoEnum tipoDocumento;
-  private @Valid Integer numeroDocumento;
+  private @Valid String numeroDocumento;
   private @Valid String nombreCompleto;
 
   /**
@@ -39,19 +39,19 @@ public class ConsultarClientePorNombreType   {
 
   /**
    **/
-  public ConsultarClientePorNombreType numeroDocumento(Integer numeroDocumento) {
+  public ConsultarClientePorNombreType numeroDocumento(String numeroDocumento) {
     this.numeroDocumento = numeroDocumento;
     return this;
   }
 
   
   @JsonProperty("numeroDocumento")
-  public Integer getNumeroDocumento() {
+  public String getNumeroDocumento() {
     return numeroDocumento;
   }
 
   @JsonProperty("numeroDocumento")
-  public void setNumeroDocumento(Integer numeroDocumento) {
+  public void setNumeroDocumento(String numeroDocumento) {
     this.numeroDocumento = numeroDocumento;
   }
 

@@ -2,7 +2,10 @@ package com.mibanco.clientefic.es.dao.contract.impl;
 
 import com.mibanco.clientefic.es.dao.contract.IClienteFICDao;
 import com.mibanco.clientefic.es.dao.entity.*;
+import com.mibanco.clientefic.es.dto.ClienteFICDTO;
+import com.mibanco.clientefic.es.dto.ConsultaClientePorNombreDTO;
 import com.mibanco.clientefic.es.gen.type.*;
+import com.mibanco.clientefic.es.utils.mapper.ClienteFICMapper;
 import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -17,6 +20,9 @@ import java.util.List;
 public class ClienteFICDAO implements IClienteFICDao {
 
     List<ClienteFICEntity> list = new ArrayList<>();
+
+    @Inject
+    ClienteFICMapper mapper;
 
     @Inject
     DataSource dataSource;
@@ -64,23 +70,94 @@ public class ClienteFICDAO implements IClienteFICDao {
     }
 
     @Override
-    public ClienteFICEntity getClienteByIdentificacion(ConsultaClienteByData data) {
+    public ClienteFICDTO getClienteByIdentificacion(ConsultaClienteByData data) {
 
-        return list.stream().filter(x -> x.getClienteBase().getNumeroDocumento().equals(data.getNumeroDocumento())).findFirst().orElse(null);
+        Log.info("Inicia Proceso de consumo SP FICConsultaClientePorIdentificacion");
+
+        ClienteFICDTO dataResponse = new ClienteFICDTO();
+
+        try (Connection connection = dataSource.getConnection()) {
+
+            CallableStatement callableStatement = connection.prepareCall("{call sp_fic_consultaClientePorIdentificacion(?,?,?,?)}");
+            callableStatement.setString(1, data.getTipoDocumento().toString());
+            callableStatement.setString(2, data.getNumeroDocumento().toString());
+            callableStatement.setString(3, data.getDigitoVerificacion().toString());
+            callableStatement.registerOutParameter(4, Types.DECIMAL);
+
+            ResultSet resultSet = callableStatement.executeQuery();
+            while (resultSet.next()) {
+                dataResponse = new ClienteFICDTO(
+                        new AlertaEntity(),
+                        new ClienteBaseEntity(),
+                        new CentralRiesgoEntity(),
+                        new ReporteCentralRiesgoEntity(),
+                        new ContactoEntity(),
+                        new ConyugeEntity(),
+                        new CupoRotativoEntity(),
+                        1,
+                        new DomicilioBaseEntity(),
+                        new DomicilioEmpresaEntity(),
+                        EstadoCivilEnum._1_SOLTERA_O_,
+                        resultSet.getString("nombre_completo_funcionario_ult_act"),
+                        new NegocioEntity(),
+                        "10002",
+                        new OfertaEntity(),
+                        new PasivoEntity(),
+                        new PQREntity(),
+                        "",
+                        "",
+                        resultSet.getString("s_nombre_completo"),
+                        resultSet.getString("s_estado_cliente"),
+                        mapper.stringToDoc(resultSet.getString("s_codigo_tipo_ident")),
+                        resultSet.getString("m_total_activos"),
+                        resultSet.getString("d_fecha_ult_actualizacion")
+                );
+            }
+            callableStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            Log.info("Termina Consulta");
+        }
+
+        return dataResponse;
     }
 
     @Override
-    public ConsultarClientePorNombreOutputEntity getClienteByNombre(String nombre) {
+    public ConsultarClientePorNombreOutputEntity getClienteByNombre(String nombre, int pagina, int tamanoPagina) {
 
-        ClienteFICEntity cliente = list.stream().filter(x -> x.getClienteBase().getPrimerNombre().equals(nombre)).findFirst().orElse(null);
+        Log.info("Inicia Proceso de consumo SP");
 
-        ConsultarClientePorNombreEntity query = new ConsultarClientePorNombreEntity();
-        if (cliente != null) {
-            query = new ConsultarClientePorNombreEntity(cliente.getClienteBase().getTipoDocumento(), cliente.getClienteBase().getNumeroDocumento(), cliente.getClienteBase().getPrimerNombre() + " " + cliente.getClienteBase().getPrimerApellido());
-        } else {
-            return new ConsultarClientePorNombreOutputEntity(0, query);
+        List<ConsultarClientePorNombreEntity> dataResponse = new ArrayList<>();
+
+        try (Connection connection = dataSource.getConnection()) {
+
+            CallableStatement callableStatement = connection.prepareCall("{call sp_fic_consultaClientePorNombre(?,?,?,?)}");
+            callableStatement.setString(1, nombre);
+            callableStatement.registerOutParameter(2, Types.DECIMAL);
+            callableStatement.setInt(3, pagina);
+            callableStatement.setInt(4, tamanoPagina);
+
+            ResultSet resultSet = callableStatement.executeQuery();
+            while (resultSet.next()) {
+                ConsultarClientePorNombreEntity resultQuery = new ConsultarClientePorNombreEntity(
+                        mapper.stringToDoc(resultSet.getString("s_codigo_tipo_ident")),
+                        resultSet.getString("s_numero_identificacion"),
+                        resultSet.getString("s_nombre_completo")
+                );
+
+                dataResponse.add(resultQuery);
+            }
+
+            callableStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        } finally {
+            Log.info("Termina Consulta");
         }
-        return new ConsultarClientePorNombreOutputEntity(1, query);
+
+        return new ConsultarClientePorNombreOutputEntity(dataResponse.size(), dataResponse);
     }
 
     @Override
@@ -153,28 +230,4 @@ public class ClienteFICDAO implements IClienteFICDao {
         return query;
     }
 
-    public void getSP() {
-        Log.info("Inicia Proceso de consumo SP");
-        try( Connection connection = dataSource.getConnection()) {
-
-            CallableStatement callableStatement = connection.prepareCall("{call sp_fic_consultaClientePorNombre(?,?,?,?)}");
-            callableStatement.setString(1,"test");
-            callableStatement.registerOutParameter(2, Types.DECIMAL);
-            callableStatement.setInt(3,1);
-            callableStatement.setInt(4,20);
-
-            ResultSet resultSet = callableStatement.executeQuery();
-            while (resultSet.next()) {
-                String codigo = resultSet.getString("s_codigo_tipo_ident");
-                String numero = resultSet.getString("s_numero_identificacion");
-                Log.info("Codigo: " + codigo + ", Numero: " + numero);
-            }
-            callableStatement.close();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }finally {
-            Log.info("Termina Consulta");
-        }
-    }
 }

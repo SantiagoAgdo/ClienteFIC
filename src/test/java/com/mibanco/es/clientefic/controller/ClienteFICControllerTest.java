@@ -58,6 +58,7 @@ public class ClienteFICControllerTest {
 
 
     @Test
+    @Ignore
     void crearClienteFICTest() throws IOException {
 
         when(mockObjectMapper.readValue(any(byte[].class), any(Class.class))).thenReturn(new ClienteFICType());

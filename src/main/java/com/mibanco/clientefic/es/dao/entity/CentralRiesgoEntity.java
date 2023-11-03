@@ -5,18 +5,20 @@ import com.mibanco.clientefic.es.gen.type.TipoRelacionEnum;
 import com.mibanco.clientefic.es.gen.type.TipoReporteXmlEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class CentralRiesgoEntity {
 
     private Integer numeroCliente;
     private String resultadoConsultaMasReciente;
     private String vbVigenteParaSerConsultado;
-    private Date fechaConsultaMasReciente;
+    private String fechaConsultaMasReciente;
 
 
 }

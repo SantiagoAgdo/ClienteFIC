@@ -1,6 +1,5 @@
 package com.mibanco.clientefic.es.gen.type;
 
-import java.util.Date;
 import jakarta.validation.constraints.*;
 import jakarta.validation.Valid;
 
@@ -13,12 +12,12 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("CentralRiesgoType")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-11-01T02:22:22.812802200-05:00[America/Bogota]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-11-03T10:54:18.743671-05:00[America/Bogota]")
 public class CentralRiesgoType   {
   private @Valid Integer numeroCliente;
-  private @Valid Date fechaConsultaMasReciente = null;
-  private @Valid String resultadoConsultaMasReciente = null;
-  private @Valid String vbVigenteParaSerConsultado = null;
+  private @Valid String fechaConsultaMasReciente;
+  private @Valid String resultadoConsultaMasReciente;
+  private @Valid String vbVigenteParaSerConsultado;
 
   /**
    **/
@@ -40,19 +39,19 @@ public class CentralRiesgoType   {
 
   /**
    **/
-  public CentralRiesgoType fechaConsultaMasReciente(Date fechaConsultaMasReciente) {
+  public CentralRiesgoType fechaConsultaMasReciente(String fechaConsultaMasReciente) {
     this.fechaConsultaMasReciente = fechaConsultaMasReciente;
     return this;
   }
 
   
   @JsonProperty("fechaConsultaMasReciente")
-  public Date getFechaConsultaMasReciente() {
+  public String getFechaConsultaMasReciente() {
     return fechaConsultaMasReciente;
   }
 
   @JsonProperty("fechaConsultaMasReciente")
-  public void setFechaConsultaMasReciente(Date fechaConsultaMasReciente) {
+  public void setFechaConsultaMasReciente(String fechaConsultaMasReciente) {
     this.fechaConsultaMasReciente = fechaConsultaMasReciente;
   }
 

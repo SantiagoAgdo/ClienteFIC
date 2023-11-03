@@ -1,6 +1,7 @@
 package com.mibanco.clientefic.es.dao.contract;
 
 import com.mibanco.clientefic.es.dao.entity.*;
+import com.mibanco.clientefic.es.dto.ClienteFICDTO;
 import com.mibanco.clientefic.es.gen.type.*;
 
 import java.util.List;
@@ -13,9 +14,9 @@ public interface IClienteFICDao {
 
     List<CentralRiesgoEntity> getListaCentralRiesgo(Integer numeroCliente);
 
-    ClienteFICEntity getClienteByIdentificacion(ConsultaClienteByData data);
+    ClienteFICDTO getClienteByIdentificacion(ConsultaClienteByData data);
 
-    ConsultarClientePorNombreOutputEntity getClienteByNombre(String nombre);
+    ConsultarClientePorNombreOutputEntity getClienteByNombre(String nombre, int pagina, int tamanoPagina);
 
     ConyugeType getConyuge(Integer numeroCliente);
 

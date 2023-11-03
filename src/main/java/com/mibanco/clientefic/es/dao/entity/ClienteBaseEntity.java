@@ -4,11 +4,13 @@ import com.mibanco.clientefic.es.gen.type.TipoDocumentoEnum;
 import com.mibanco.clientefic.es.gen.type.TipoPersonaEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class ClienteBaseEntity {
 
     private Long id;
