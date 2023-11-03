@@ -2,6 +2,7 @@ package com.mibanco.clientefic.es.dto;
 
 import com.mibanco.clientefic.es.dao.entity.*;
 import com.mibanco.clientefic.es.gen.type.*;
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,6 +10,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@RegisterForReflection(targets = { AlertaType.class, ClienteBaseType.class, CentralRiesgoType.class,
+        ReporteCentralRiesgoType.class, ContactoEntity.class, ConyugeType.class, CupoRotativoType.class,
+        DomicilioType.class, DomicilioEmpresaType.class, NegocioType.class, OfertaType.class,
+        PasivoType.class, PQRType.class})
 public class ClienteFICDTO {
 
     public AlertaEntity alerta;

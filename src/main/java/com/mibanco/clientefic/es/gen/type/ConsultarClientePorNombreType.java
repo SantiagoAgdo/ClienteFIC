@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("ConsultarClientePorNombreType")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-11-03T10:54:18.743671-05:00[America/Bogota]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-11-03T11:16:24.868491400-05:00[America/Bogota]")
 public class ConsultarClientePorNombreType   {
   private @Valid TipoDocumentoEnum tipoDocumento;
   private @Valid String numeroDocumento;

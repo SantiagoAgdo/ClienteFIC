@@ -3,6 +3,7 @@ package com.mibanco.clientefic.es.dao.entity;
 import com.mibanco.clientefic.es.gen.type.TipoDocumentoEnum;
 import com.mibanco.clientefic.es.gen.type.TipoRelacionEnum;
 import com.mibanco.clientefic.es.gen.type.TipoReporteXmlEnum;
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@RegisterForReflection
 public class ReporteCentralRiesgoEntity {
 
     private String antiguedadUbicacion;

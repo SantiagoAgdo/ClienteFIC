@@ -1,11 +1,13 @@
 package com.mibanco.clientefic.es.dao.entity;
 
 import com.mibanco.clientefic.es.gen.type.*;
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
+@RegisterForReflection
 public class ConsultarDirrecionTelefonoEntity {
 
     private String direccion;
