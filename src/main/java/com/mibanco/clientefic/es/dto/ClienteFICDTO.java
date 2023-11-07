@@ -10,10 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@RegisterForReflection(targets = { AlertaType.class, ClienteBaseType.class, CentralRiesgoType.class,
-        ReporteCentralRiesgoType.class, ContactoEntity.class, ConyugeType.class, CupoRotativoType.class,
-        DomicilioType.class, DomicilioEmpresaType.class, NegocioType.class, OfertaType.class,
-        PasivoType.class, PQRType.class})
+@RegisterForReflection
 public class ClienteFICDTO {
 
     public AlertaEntity alerta;

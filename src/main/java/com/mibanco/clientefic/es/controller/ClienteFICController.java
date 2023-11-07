@@ -10,6 +10,7 @@ import com.mibanco.clientefic.es.utils.exceptions.ApplicationException;
 import com.mibanco.clientefic.es.utils.exceptions.ApplicationExceptionValidation;
 import com.mibanco.clientefic.es.utils.mapper.ClienteFICMapper;
 import com.mibanco.clientefic.es.utils.validators.ClienteFICValidator;
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.Response;
 import org.slf4j.Logger;
@@ -17,6 +18,10 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
+@RegisterForReflection(targets = {AlertaType.class, ClienteBaseType.class, CentralRiesgoType.class,
+        ReporteCentralRiesgoType.class, ContactoEntity.class, ConyugeType.class, CupoRotativoType.class,
+        DomicilioType.class, DomicilioEmpresaType.class, NegocioType.class, OfertaType.class,
+        PasivoType.class, PQRType.class})
 public class ClienteFICController implements V1ClienteFIC {
 
     public static final Logger LOG = LoggerFactory.getLogger(ClienteFICController.class);
@@ -88,7 +93,7 @@ public class ClienteFICController implements V1ClienteFIC {
         LOG.info("Inicia consulta de Cliente FIC por Nombre");
         try {
             clienteFICValidator.validarConsultaPorNombre(nombre, apellido, razonSocial);
-            ConsultarClientePorNombreOutputEntity cliente = clienteFICServiceImpl.getClienteByNombre(nombre,1,15);
+            ConsultarClientePorNombreOutputEntity cliente = clienteFICServiceImpl.getClienteByNombre(nombre, 1, 15);
 
             LOG.info("Finaliza consulta de Cliente FIC por Nombre");
             return cliente.getTotalClientes() != 0 ? Response.status(Response.Status.OK).entity(cliente).build() :

@@ -4,7 +4,7 @@ servers:
     url: https://api.mibanco.com.co
 info:
   description: Servicios de entidad Ficha Integral De Cliente.
-  version: 0.0.1
+  version: 1.0.0
   title: Cliente_FIC_ES
   contact:
     name: MiBanco
