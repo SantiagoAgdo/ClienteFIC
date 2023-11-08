@@ -1,9 +1,9 @@
 openapi: 3.0.1
 servers:
-  - description: Index swagger
+  - description: Índice de Swagger
     url: https://api.mibanco.com.co
 info:
-  description: Servicios de entidad Ficha Integral De Cliente.
+  description: Servicios de la entidad Ficha Integral de Cliente.
   version: 1.0.0
   title: Cliente_FIC_ES
   contact:
@@ -12,7 +12,7 @@ info:
     email: api@mibanco.com.co
   license:
     name: GNU GPLv3
-    url: ‘https://www.gnu.org/licenses/gpl-3.0.html’
+    url: https://www.gnu.org/licenses/gpl-3.0.html
 tags:
   - name: Crear cliente FIC
     description: Crear cliente FIC
@@ -33,7 +33,7 @@ paths:
               $ref: "#/components/schemas/ClienteFICType"
       responses:
         "200":
-          description: get alerta.
+          description: Obtener alerta.
           content:
             application/json:
               schema:
@@ -41,7 +41,7 @@ paths:
                 items:
                   $ref: "#/components/schemas/AlertaType"
         "400":
-          description: Peticion con datos invalidos
+          description: Petición con datos inválidos
           content:
             application/json:
               schema:
@@ -49,14 +49,14 @@ paths:
         "404":
           description: "No se encuentra el cliente FIC."
         default:
-          description: Unexpected error
+          description: Error inesperado
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
   /v1/es/cliente-fic/alerta/{tipoDocumento}/{numeroDocumento}/{digitoVerificacion}:
     get:
-      summary: Consulta alerta
+      summary: Consultar alerta
       operationId: ConsultarAlerta
       parameters:
         - in: path
@@ -64,22 +64,22 @@ paths:
           required: true
           schema:
             $ref: "#/components/schemas/TipoDocumentoEnum"
-          description: tipo de documento
+          description: Tipo de documento
         - in: path
           name: numeroDocumento
           required: true
           schema:
             type: integer
-          description: numero de documento
+          description: Número de documento
         - in: path
           name: digitoVerificacion
           required: true
           schema:
             type: integer
-          description: digito de verificacion
+          description: Dígito de verificación
       responses:
         "200":
-          description: get alerta.
+          description: Obtener alerta.
           content:
             application/json:
               schema:
@@ -87,7 +87,7 @@ paths:
                 items:
                   $ref: "#/components/schemas/AlertaType"
         "400":
-          description: Peticion con datos invalidos
+          description: Petición con datos inválidos
           content:
             application/json:
               schema:
@@ -95,14 +95,14 @@ paths:
         "404":
           description: "No se encuentra el cliente FIC."
         default:
-          description: Unexpected error
+          description: Error inesperado
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
   /v1/es/cliente-fic/central-riesgo/{numeroCliente}:
     get:
-      summary: Consulta Central
+      summary: Consultar Central
       operationId: consultarCentralDeRiesgo
       parameters:
         - in: path
@@ -110,10 +110,10 @@ paths:
           required: true
           schema:
             type: integer
-          description: numero de cliente
+          description: Número de cliente
       responses:
         "200":
-          description: get Consulta Central.
+          description: Obtener Consulta Central.
           content:
             application/json:
               schema:
@@ -121,7 +121,7 @@ paths:
                 items:
                   $ref: "#/components/schemas/CentralRiesgoType"
         "400":
-          description: Peticion con datos invalidos
+          description: Petición con datos inválidos
           content:
             application/json:
               schema:
@@ -129,37 +129,37 @@ paths:
         "404":
           description: "No se encuentra el cliente FIC."
         default:
-          description: Unexpected error
+          description: Error inesperado
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
   /v1/es/cliente-fic/{tipoDocumento}/{numeroDocumento}/{digitoVerificacion}:
     get:
-      summary: Consultar Cliente FIC Por Identificacion
-      operationId: ConsutaClientePorIdentificacion
+      summary: Consultar Cliente FIC Por Identificación
+      operationId: ConsultaClientePorIdentificacion
       parameters:
         - in: path
           name: tipoDocumento
           required: true
           schema:
             $ref: "#/components/schemas/TipoDocumentoEnum"
-          description: tipo de documento
+          description: Tipo de documento
         - in: path
           name: numeroDocumento
           required: true
           schema:
             type: integer
-          description: numero de documento
+          description: Número de documento
         - in: path
           name: digitoVerificacion
           required: true
           schema:
             type: integer
-          description: digito de verificacion
+          description: Dígito de verificación
       responses:
         "200":
-          description: get Cliente FIC Por Identificacion.
+          description: Obtener Cliente FIC Por Identificación.
           content:
             application/json:
               schema:
@@ -167,7 +167,7 @@ paths:
                 items:
                   $ref: "#/components/schemas/ClienteFICType"
         "400":
-          description: Peticion con datos invalidos
+          description: Petición con datos inválidos
           content:
             application/json:
               schema:
@@ -175,14 +175,14 @@ paths:
         "404":
           description: "No se encuentra el cliente FIC."
         default:
-          description: Unexpected error
+          description: Error inesperado
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
   /v1/es/cliente-fic/nombre/{nombre}/{apellido}/{razonSocial}:
     get:
-      summary: Consultar Cliente FIC Por nombre
+      summary: Consultar Cliente FIC Por Nombre
       operationId: ConsultarClienteFICPorNombre
       parameters:
         - in: path
@@ -190,22 +190,22 @@ paths:
           required: true
           schema:
             type: string
-          description: nombre
+          description: Nombre
         - in: path
           name: apellido
           required: true
           schema:
             type: string
-          description: apellido
+          description: Apellido
         - in: path
           name: razonSocial
           required: true
           schema:
             type: string
-          description: razonSocial
+          description: Razón Social
       responses:
         "200":
-          description: get ClienteFIC por nombre.
+          description: Obtener Cliente FIC por nombre.
           content:
             application/json:
               schema:
@@ -213,7 +213,7 @@ paths:
                 items:
                   $ref: "#/components/schemas/ConsultarClientePorNombreOutput"
         "400":
-          description: Peticion con datos invalidos
+          description: Petición con datos inválidos
           content:
             application/json:
               schema:
@@ -221,14 +221,14 @@ paths:
         "404":
           description: "No se encuentra el cliente FIC."
         default:
-          description: Unexpected error
+          description: Error inesperado
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
   /v1/es/cliente-fic/conyuge/{numeroCliente}:
     get:
-      summary: Consultar Conyuge
+      summary: Consultar Cónyuge
       operationId: ConsultarConyuge
       parameters:
         - in: path
@@ -236,10 +236,10 @@ paths:
           required: true
           schema:
             type: integer
-          description: numero Cliente
+          description: Número de Cliente
       responses:
         "200":
-          description: get conyuge por numeroCliente.
+          description: Obtener cónyuge por número de Cliente.
           content:
             application/json:
               schema:
@@ -247,7 +247,7 @@ paths:
                 items:
                   $ref: "#/components/schemas/ConyugeType"
         "400":
-          description: Peticion con datos invalidos
+          description: Petición con datos inválidos
           content:
             application/json:
               schema:
@@ -255,14 +255,14 @@ paths:
         "404":
           description: "No se encuentra el cliente FIC."
         default:
-          description: Unexpected error
+          description: Error inesperado
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
   /v1/es/cliente-fic/cupo-rotativo/{numeroCliente}:
     get:
-      summary: consultarCupoRotativo
+      summary: Consultar Cupo Rotativo
       operationId: consultarCupoRotativo
       parameters:
         - in: path
@@ -270,10 +270,10 @@ paths:
           required: true
           schema:
             type: integer
-          description: numero Cliente
+          description: Número de Cliente
       responses:
         "200":
-          description: get Cupo Rotativo por numeroCliente.
+          description: Obtener Cupo Rotativo por número de Cliente.
           content:
             application/json:
               schema:
@@ -281,7 +281,7 @@ paths:
                 items:
                   $ref: "#/components/schemas/CupoRotativoType"
         "400":
-          description: Peticion con datos invalidos
+          description: Petición con datos inválidos
           content:
             application/json:
               schema:
@@ -289,14 +289,14 @@ paths:
         "404":
           description: "No se encuentra el cliente FIC."
         default:
-          description: Unexpected error
+          description: Error inesperado
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
   /v1/es/cliente-fic/historial-contacto/{numeroCliente}:
     get:
-      summary: consultarHistorialContacto
+      summary: Consultar Historial de Contacto
       operationId: consultarHistorialContacto
       parameters:
         - in: path
@@ -304,10 +304,10 @@ paths:
           required: true
           schema:
             type: integer
-          description: numero Cliente
+          description: Número de Cliente
       responses:
         "200":
-          description: get Historial Contacto por numeroCliente.
+          description: Obtener Historial de Contacto por número de Cliente.
           content:
             application/json:
               schema:
@@ -315,7 +315,7 @@ paths:
                 items:
                   $ref: "#/components/schemas/ContactoType"
         "400":
-          description: Peticion con datos invalidos
+          description: Petición con datos inválidos
           content:
             application/json:
               schema:
@@ -323,14 +323,14 @@ paths:
         "404":
           description: "No se encuentra el cliente FIC."
         default:
-          description: Unexpected error
+          description: Error inesperado
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
   /v1/es/cliente-fic/oferta/{numeroCliente}:
     get:
-      summary: consultarOferta
+      summary: Consultar Oferta
       operationId: consultarOferta
       parameters:
         - in: path
@@ -338,10 +338,10 @@ paths:
           required: true
           schema:
             type: integer
-          description: numero Cliente
+          description: Número de Cliente
       responses:
         "200":
-          description: get Oferta por numeroCliente.
+          description: Obtener Oferta por número de Cliente.
           content:
             application/json:
               schema:
@@ -349,7 +349,7 @@ paths:
                 items:
                   $ref: "#/components/schemas/OfertaType"
         "400":
-          description: Peticion con datos invalidos
+          description: Petición con datos inválidos
           content:
             application/json:
               schema:
@@ -357,14 +357,14 @@ paths:
         "404":
           description: "No se encuentra el cliente FIC."
         default:
-          description: Unexpected error
+          description: Error inesperado
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
   /v1/es/cliente-fic/pasivo/{numeroCliente}:
     get:
-      summary: consultarPasivo
+      summary: Consultar Pasivo
       operationId: consultarPasivo
       parameters:
         - in: path
@@ -372,10 +372,10 @@ paths:
           required: true
           schema:
             type: integer
-          description: numero Cliente
+          description: Número de Cliente
       responses:
         "200":
-          description: get Pasivo por numeroCliente.
+          description: Obtener Pasivo por número de Cliente.
           content:
             application/json:
               schema:
@@ -383,7 +383,7 @@ paths:
                 items:
                   $ref: "#/components/schemas/PasivoType"
         "400":
-          description: Peticion con datos invalidos
+          description: Petición con datos inválidos
           content:
             application/json:
               schema:
@@ -391,7 +391,7 @@ paths:
         "404":
           description: "No se encuentra el cliente FIC."
         default:
-          description: Unexpected error
+          description: Error inesperado
           content:
             application/json:
               schema:
@@ -406,22 +406,22 @@ paths:
           required: true
           schema:
             $ref: "#/components/schemas/TipoDocumentoEnum"
-          description: tipo de documento
+          description: Tipo de documento
         - in: path
           name: numeroDocumento
           required: true
           schema:
             type: integer
-          description: numero de documento
+          description: Número de documento
         - in: path
           name: digitoVerificacion
           required: true
           schema:
             type: integer
-          description: digito de verificacion
+          description: Dígito de verificación
       responses:
         "200":
-          description: get alerta.
+          description: Obtener alerta.
           content:
             application/json:
               schema:
@@ -429,7 +429,7 @@ paths:
                 items:
                   $ref: "#/components/schemas/PQRType"
         "400":
-          description: Peticion con datos invalidos
+          description: Petición con datos inválidos
           content:
             application/json:
               schema:
@@ -437,7 +437,7 @@ paths:
         "404":
           description: "No se encuentra el cliente FIC."
         default:
-          description: Unexpected error
+          description: Error inesperado
           content:
             application/json:
               schema:
