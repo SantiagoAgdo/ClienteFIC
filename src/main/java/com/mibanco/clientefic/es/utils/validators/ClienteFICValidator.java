@@ -1,6 +1,6 @@
 package com.mibanco.clientefic.es.utils.validators;
 
-import com.mibanco.clientefic.es.constans.Constans;
+import com.mibanco.clientefic.es.constants.Constants;
 import com.mibanco.clientefic.es.gen.type.ClienteFICType;
 import com.mibanco.clientefic.es.gen.type.TipoDocumentoEnum;
 import com.mibanco.clientefic.es.utils.exceptions.ApplicationExceptionValidation;
@@ -27,117 +27,117 @@ public class ClienteFICValidator {
 
         if (clienteFICType == null) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO_INTERNAL + "la peticion no puede presentar dato null."
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.SERVICIO_INTERNAL + "la peticion no puede presentar dato null."
             );
         }
 
         if (clienteFICType.getAlerta() == null) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO_INTERNAL + "la peticion no puede presentar alertas null."
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.SERVICIO_INTERNAL + "la peticion no puede presentar alertas null."
             );
         }
 
         if (clienteFICType.getClienteBase() == null) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO_INTERNAL + "la peticion no puede presentar cliente base null."
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.SERVICIO_INTERNAL + "la peticion no puede presentar cliente base null."
             );
         }
 
         if (clienteFICType.getCentralRiesgo() == null) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO_INTERNAL + "la peticion no puede presentar central de riesgo null."
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.SERVICIO_INTERNAL + "la peticion no puede presentar central de riesgo null."
             );
         }
 
         if (clienteFICType.getContacto() == null) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO_INTERNAL + "la peticion no puede presentar contacto null."
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.SERVICIO_INTERNAL + "la peticion no puede presentar contacto null."
             );
         }
 
         if (clienteFICType.getConyuge() == null) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO_INTERNAL + "la peticion no puede presentar conyuge null."
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.SERVICIO_INTERNAL + "la peticion no puede presentar conyuge null."
             );
         }
 
         if (clienteFICType.getCupoRotativo() == null) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO_INTERNAL + "la peticion no puede presentar cupo rotativo null."
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.SERVICIO_INTERNAL + "la peticion no puede presentar cupo rotativo null."
             );
         }
 
         if (clienteFICType.getOferta() == null) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO_INTERNAL + "la peticion no puede presentar oferta null."
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.SERVICIO_INTERNAL + "la peticion no puede presentar oferta null."
             );
         }
 
         if (clienteFICType.getPQR() == null) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO_INTERNAL + "la peticion no puede presentar PQR null."
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.SERVICIO_INTERNAL + "la peticion no puede presentar PQR null."
             );
         }
 
         if (tieneAtributosNulos(clienteFICType)) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO_INTERNAL + msmError + " obligatorios"
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.SERVICIO_INTERNAL + msmError + " obligatorios"
             );
         }
         if (tieneAtributosNulos(clienteFICType.getAlerta())) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO_INTERNAL + msmError + " obligatorios"
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.SERVICIO_INTERNAL + msmError + " obligatorios"
             );
         }
         if (tieneAtributosNulos(clienteFICType.getClienteBase())) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO_INTERNAL + msmError + " obligatorios"
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.SERVICIO_INTERNAL + msmError + " obligatorios"
             );
         }
         if (tieneAtributosNulos(clienteFICType.getCentralRiesgo())) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO_INTERNAL + msmError + " obligatorios"
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.SERVICIO_INTERNAL + msmError + " obligatorios"
             );
         }
 
         if (tieneAtributosNulos(clienteFICType.getContacto())) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO_INTERNAL + msmError + " obligatorios"
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.SERVICIO_INTERNAL + msmError + " obligatorios"
             );
         }
         if (tieneAtributosNulos(clienteFICType.getConyuge())) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO_INTERNAL + msmError + " obligatorios"
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.SERVICIO_INTERNAL + msmError + " obligatorios"
             );
         }
         if (tieneAtributosNulos(clienteFICType.getCupoRotativo())) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO_INTERNAL + msmError + " obligatorios"
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.SERVICIO_INTERNAL + msmError + " obligatorios"
             );
         }
         if (tieneAtributosNulos(clienteFICType.getDomicilioEmpresa())) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO_INTERNAL + msmError + " obligatorios"
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.SERVICIO_INTERNAL + msmError + " obligatorios"
             );
         }
         if (tieneAtributosNulos(clienteFICType.getNegocio())) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO_INTERNAL + msmError + " obligatorios"
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.SERVICIO_INTERNAL + msmError + " obligatorios"
             );
         }
         if (tieneAtributosNulos(clienteFICType.getOferta())) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO_INTERNAL + msmError + " obligatorios"
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.SERVICIO_INTERNAL + msmError + " obligatorios"
             );
         }
         if (tieneAtributosNulos(clienteFICType.getPasivo())) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO_INTERNAL + msmError + " obligatorios"
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.SERVICIO_INTERNAL + msmError + " obligatorios"
             );
         }
         if (tieneAtributosNulos(clienteFICType.getPQR())) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.SERVICIO_INTERNAL + msmError + " obligatorios"
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.SERVICIO_INTERNAL + msmError + " obligatorios"
             );
         }
 
@@ -149,7 +149,7 @@ public class ClienteFICValidator {
 
         if (nombre == null || nombre.isEmpty()) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.VALIDACION + " nombre invalido"
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.VALIDACION + " nombre invalido"
             );
         }
 
@@ -162,19 +162,19 @@ public class ClienteFICValidator {
 
         if (nombre == null || nombre.isEmpty()) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.VALIDACION + " nombre invalido"
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.VALIDACION + " nombre invalido"
             );
         }
 
         if (apellido == null || apellido.isEmpty()) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.VALIDACION + " apellido invalido"
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.VALIDACION + " apellido invalido"
             );
         }
 
         if (razonSocial == null || razonSocial.isEmpty()) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.VALIDACION + " razonSocial invalido"
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.VALIDACION + " razonSocial invalido"
             );
         }
 
@@ -188,7 +188,7 @@ public class ClienteFICValidator {
 
         if (num == null) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.VALIDACION + " numero de Cliente invalido"
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.VALIDACION + " numero de Cliente invalido"
             );
         }
 
@@ -235,12 +235,12 @@ public class ClienteFICValidator {
     public void validarConsulta(TipoDocumentoEnum tipoDocumento, Integer numeroDocumento, Integer digitoVerificacion) throws ApplicationExceptionValidation {
         if (numeroDocumento == null || numeroDocumento < 0) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.VALIDACION + " numeroDocumento invalido"
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.VALIDACION + " numeroDocumento invalido"
             );
         }
         if (digitoVerificacion == null || digitoVerificacion < 0 || digitoVerificacion > 99) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.VALIDACION + " digitoVerificacion invalido"
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.VALIDACION + " digitoVerificacion invalido"
             );
         }
         for (TipoDocumentoEnum enumValue : TipoDocumentoEnum.values()) {
@@ -252,7 +252,7 @@ public class ClienteFICValidator {
         }
 
         throw new ApplicationExceptionValidation(
-                Response.Status.BAD_REQUEST.getStatusCode(), Constans.VALIDACION + " tipoDocumento invalido"
+                Response.Status.BAD_REQUEST.getStatusCode(), Constants.VALIDACION + " tipoDocumento invalido"
         );
     }
 
@@ -260,17 +260,17 @@ public class ClienteFICValidator {
 
         if (numeroDocumento == null || numeroDocumento < 0) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.VALIDACION + " numeroDocumento invalido"
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.VALIDACION + " numeroDocumento invalido"
             );
         }
         if (digitoVerificacion == null || digitoVerificacion < 0 || digitoVerificacion > 99) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.VALIDACION + " digitoVerificacion invalido"
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.VALIDACION + " digitoVerificacion invalido"
             );
         }
         if (tipoDocumento == null) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constans.VALIDACION + " tipoDocumento invalido"
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.VALIDACION + " tipoDocumento invalido"
             );
         }
 
