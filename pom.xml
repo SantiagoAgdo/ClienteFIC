@@ -226,7 +226,7 @@
                             <skipOverwrite>false</skipOverwrite>
                             <generateSupportingFiles>false</generateSupportingFiles>
                             <generateModels>true</generateModels>
-                            <inputSpec>src/main/resources/es-ClienteFIC-api.yaml</inputSpec>
+                            <inputSpec>src/main/resources/es-clientefic-api.yaml</inputSpec>
                             <apiNameSuffix>ClienteFIC</apiNameSuffix>
                             <skipValidateSpec>true</skipValidateSpec>
                             <configOptions>

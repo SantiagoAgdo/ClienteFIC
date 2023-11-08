@@ -10,24 +10,24 @@ public interface IClienteFICDao {
 
     void crearClienteFIC(ClienteFICEntity clienteFIC);
 
-    List<AlertaEntity> getListaAlertas(ConsultaClienteByData data);
+    List<AlertaEntity> obtenerListaAlertas(ConsultaClienteByData data);
 
-    List<CentralRiesgoEntity> getListaCentralRiesgo(Integer numeroCliente);
+    List<CentralRiesgoEntity> obtenerListaCentralRiesgo(Integer numeroCliente);
 
-    ClienteFICDTO getClienteByIdentificacion(ConsultaClienteByData data);
+    ClienteFICDTO obtenerClienteByIdentificacion(ConsultaClienteByData data);
 
-    ConsultarClientePorNombreOutputEntity getClienteByNombre(String nombre, int pagina, int tamanoPagina);
+    ConsultarClientePorNombreOutputEntity obtenerClienteByNombre(String nombre, int pagina, int tamanoPagina);
 
-    ConyugeType getConyuge(Integer numeroCliente);
+    ConyugeType obtenerConyuge(Integer numeroCliente);
 
-    List<CupoRotativoEntity> getCupoRotativo(Integer numeroCliente);
+    List<CupoRotativoEntity> obtenerCupoRotativo(Integer numeroCliente);
 
-    List<ContactoEntity> getContacto(Integer numeroCliente);
+    List<ContactoEntity> obtenerContacto(Integer numeroCliente);
 
-    List<OfertaEntity> getOferta(Integer numeroCliente);
+    List<OfertaEntity> obtenerOferta(Integer numeroCliente);
 
-    List<PasivoEntity> getPasivo(Integer numeroCliente);
+    List<PasivoEntity> obtenerPasivo(Integer numeroCliente);
 
-    List<PQREntity> getPQR(ConsultaClienteByData numeroCliente);
+    List<PQREntity> obtenerPQR(ConsultaClienteByData numeroCliente);
 
 }

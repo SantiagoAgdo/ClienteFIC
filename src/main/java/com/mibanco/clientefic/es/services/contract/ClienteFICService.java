@@ -12,24 +12,24 @@ public interface ClienteFICService {
 
     ClienteFICType crearClienteFICType(ClienteFICEntity clienteFIC);
 
-    List<AlertaType> getListaAlertas(ConsultaClienteByData dataCliente);
+    List<AlertaType> obtenerListaAlertas(ConsultaClienteByData dataCliente);
 
-    List<CentralRiesgoType> getListaCentralRiesgo(Integer numeroCliente);
+    List<CentralRiesgoType> obtenerListaCentralRiesgo(Integer numeroCliente);
 
-    ClienteFICDTO getClienteByIdentificacion(ConsultaClienteByData dataCliente);
+    ClienteFICDTO obtenerClienteByIdentificacion(ConsultaClienteByData dataCliente);
 
-    ConsultarClientePorNombreOutputEntity getClienteByNombre(String nombre, int pagina, int tamanoPagina);
+    ConsultarClientePorNombreOutputEntity obtenerClienteByNombre(String nombre, int pagina, int tamanoPagina);
 
-    ConyugeType getConyuge(Integer numeroCliente);
+    ConyugeType obtenerConyuge(Integer numeroCliente);
 
-    List<CupoRotativoType> getCupoRotativo(Integer numeroCliente);
+    List<CupoRotativoType> obtenerCupoRotativo(Integer numeroCliente);
 
-    List<ContactoType> getContacto(Integer numeroCliente);
+    List<ContactoType> obtenerContacto(Integer numeroCliente);
 
-    List<OfertaType> getOferta(Integer numeroCliente);
+    List<OfertaType> obtenerOferta(Integer numeroCliente);
 
-    List<PasivoType> getPasivo(Integer numeroCliente);
+    List<PasivoType> obtenerPasivo(Integer numeroCliente);
 
-    List<PQRType> getPQR(ConsultaClienteByData numeroCliente);
+    List<PQRType> obtenerPQR(ConsultaClienteByData numeroCliente);
 
 }

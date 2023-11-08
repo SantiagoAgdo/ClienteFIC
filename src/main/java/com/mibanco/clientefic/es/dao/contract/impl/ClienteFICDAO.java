@@ -40,7 +40,7 @@ public class ClienteFICDAO implements IClienteFICDao {
     }
 
     @Override
-    public List<AlertaEntity> getListaAlertas(ConsultaClienteByData data) {
+    public List<AlertaEntity> obtenerListaAlertas(ConsultaClienteByData data) {
         List<ClienteFICEntity> cliente = list.stream().filter(x -> x.getClienteBase().getTipoDocumento() == data.getTipoDocumento()).filter(x -> x.getClienteBase().getNumeroDocumento().equals(data.getNumeroDocumento())).filter(x -> x.getDigitoVerificacion().equals(data.getDigitoVerificacion())).toList();
 
         List<AlertaEntity> query = new ArrayList<>();
@@ -58,7 +58,7 @@ public class ClienteFICDAO implements IClienteFICDao {
     }
 
     @Override
-    public List<CentralRiesgoEntity> getListaCentralRiesgo(Integer numeroCliente) {
+    public List<CentralRiesgoEntity> obtenerListaCentralRiesgo(Integer numeroCliente) {
         List<ClienteFICEntity> cliente = list.stream().filter(x -> x.getClienteBase().getNumeroDocumento().equals(numeroCliente)).toList();
 
         List<CentralRiesgoEntity> query = new ArrayList<>();
@@ -70,7 +70,7 @@ public class ClienteFICDAO implements IClienteFICDao {
     }
 
     @Override
-    public ClienteFICDTO getClienteByIdentificacion(ConsultaClienteByData data) {
+    public ClienteFICDTO obtenerClienteByIdentificacion(ConsultaClienteByData data) {
 
         Log.info("Inicia Proceso de consumo SP FICConsultaClientePorIdentificacion");
 
@@ -124,9 +124,9 @@ public class ClienteFICDAO implements IClienteFICDao {
     }
 
     @Override
-    public ConsultarClientePorNombreOutputEntity getClienteByNombre(String nombre, int pagina, int tamanoPagina) {
+    public ConsultarClientePorNombreOutputEntity obtenerClienteByNombre(String nombre, int pagina, int tamanoPagina) {
 
-        Log.info("Inicia Proceso de consumo SP");
+        Log.info("Inicia Proceso de consumo sp_fic_consultaClientePorNombre");
 
         List<ConsultarClientePorNombreEntity> dataResponse = new ArrayList<>();
 
@@ -161,7 +161,7 @@ public class ClienteFICDAO implements IClienteFICDao {
     }
 
     @Override
-    public ConyugeType getConyuge(Integer numeroCliente) {
+    public ConyugeType obtenerConyuge(Integer numeroCliente) {
         ClienteFICEntity conyuge = list.stream().filter(x -> x.getClienteBase().getNumeroDocumento().equals(numeroCliente)).findFirst().orElse(null);
         if (conyuge != null) {
             return conyuge.getConyuge();
@@ -170,7 +170,7 @@ public class ClienteFICDAO implements IClienteFICDao {
     }
 
     @Override
-    public List<CupoRotativoEntity> getCupoRotativo(Integer numeroCliente) {
+    public List<CupoRotativoEntity> obtenerCupoRotativo(Integer numeroCliente) {
         List<ClienteFICEntity> cliente = list.stream().filter(x -> x.getClienteBase().getNumeroDocumento().equals(numeroCliente)).toList();
 
         List<CupoRotativoEntity> cupoRotativoList = new ArrayList<>();
@@ -182,7 +182,7 @@ public class ClienteFICDAO implements IClienteFICDao {
     }
 
     @Override
-    public List<ContactoEntity> getContacto(Integer numeroCliente) {
+    public List<ContactoEntity> obtenerContacto(Integer numeroCliente) {
         List<ClienteFICEntity> cliente = list.stream().filter(x -> x.getClienteBase().getNumeroDocumento().equals(numeroCliente)).toList();
 
         List<ContactoEntity> query = new ArrayList<>();
@@ -194,7 +194,7 @@ public class ClienteFICDAO implements IClienteFICDao {
     }
 
     @Override
-    public List<OfertaEntity> getOferta(Integer numeroCliente) {
+    public List<OfertaEntity> obtenerOferta(Integer numeroCliente) {
         List<ClienteFICEntity> cliente = list.stream().filter(x -> x.getClienteBase().getNumeroDocumento().equals(numeroCliente)).toList();
 
         List<OfertaEntity> query = new ArrayList<>();
@@ -206,7 +206,7 @@ public class ClienteFICDAO implements IClienteFICDao {
     }
 
     @Override
-    public List<PasivoEntity> getPasivo(Integer numeroCliente) {
+    public List<PasivoEntity> obtenerPasivo(Integer numeroCliente) {
         List<ClienteFICEntity> cliente = list.stream().filter(x -> x.getClienteBase().getNumeroDocumento().equals(numeroCliente)).toList();
 
         List<PasivoEntity> query = new ArrayList<>();
@@ -218,7 +218,7 @@ public class ClienteFICDAO implements IClienteFICDao {
     }
 
     @Override
-    public List<PQREntity> getPQR(ConsultaClienteByData data) {
+    public List<PQREntity> obtenerPQR(ConsultaClienteByData data) {
 
         List<ClienteFICEntity> cliente = list.stream().filter(x -> x.getClienteBase().getNumeroDocumento().equals(data.getNumeroDocumento())).filter(x -> x.getClienteBase().getTipoDocumento() == data.getTipoDocumento()).filter(x -> x.getDigitoVerificacion().equals(data.getDigitoVerificacion())).toList();
 

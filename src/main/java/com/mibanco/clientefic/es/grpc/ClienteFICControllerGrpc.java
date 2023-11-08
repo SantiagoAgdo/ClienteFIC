@@ -76,7 +76,7 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
 
             clienteFICValidator.validaConsulta(request.getTipoDocumento(), request.getNumeroDocumento(), request.getDigitoVerificacion());
             com.mibanco.clientefic.es.dao.entity.ConsultaClienteByData entity = mapper.dataGrpcToEntity(request);
-            List<AlertaType> alertaListType = clienteFICService.getListaAlertas(entity);
+            List<AlertaType> alertaListType = clienteFICService.obtenerListaAlertas(entity);
 
             List<com.mibanco.clientefic.es.AlertaType> alertaResponse = new ArrayList<>();
             for (AlertaType alert : alertaListType) {
@@ -115,7 +115,7 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
         LOG.info("Inicia consulta central Riesgo por GRPC");
         try {
             clienteFICValidator.validarNumeroCliente(request.getNumeroCliente());
-            List<CentralRiesgoType> centralRiesgoList = clienteFICService.getListaCentralRiesgo(request.getNumeroCliente());
+            List<CentralRiesgoType> centralRiesgoList = clienteFICService.obtenerListaCentralRiesgo(request.getNumeroCliente());
 
             List<com.mibanco.clientefic.es.CentralRiesgoType> centralRiesgoResponse = new ArrayList<>();
             for (CentralRiesgoType centralRiesgoItem : centralRiesgoList) {
@@ -150,7 +150,7 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
         try {
             clienteFICValidator.validaConsulta(request.getTipoDocumento(), request.getNumeroDocumento(), request.getDigitoVerificacion());
             com.mibanco.clientefic.es.dao.entity.ConsultaClienteByData entity = mapper.dataGrpcToEntity(request);
-            List<PQRType> pqrList = clienteFICService.getPQR(entity);
+            List<PQRType> pqrList = clienteFICService.obtenerPQR(entity);
 
             List<com.mibanco.clientefic.es.PQRType> pqrListResponse = new ArrayList<>();
             for (PQRType pqrItem : pqrList) {
@@ -186,7 +186,7 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
         LOG.info("Inicia consulta conyuge por GRPC");
         try {
             clienteFICValidator.validarNumeroCliente(request.getNumeroCliente());
-            ConyugeType conyuge = clienteFICService.getConyuge(request.getNumeroCliente());
+            ConyugeType conyuge = clienteFICService.obtenerConyuge(request.getNumeroCliente());
 
             ResponseConyuge response = ResponseConyuge.newBuilder().setObj(
                     ResponseConyuge.newBuilder().getObj().toBuilder()
@@ -217,7 +217,7 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
         LOG.info("Inicia consulta cupo rotativo por GRPC");
         try {
             clienteFICValidator.validarNumeroCliente(request.getNumeroCliente());
-            List<CupoRotativoType> cupoList = clienteFICService.getCupoRotativo(request.getNumeroCliente());
+            List<CupoRotativoType> cupoList = clienteFICService.obtenerCupoRotativo(request.getNumeroCliente());
 
             List<com.mibanco.clientefic.es.CupoRotativoType> cupoListResponse = new ArrayList<>();
             for (CupoRotativoType cupoItem : cupoList) {
@@ -255,7 +255,7 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
         try {
 
             clienteFICValidator.validarNumeroCliente(request.getNumeroCliente());
-            List<ContactoType> consultaList = clienteFICService.getContacto(request.getNumeroCliente());
+            List<ContactoType> consultaList = clienteFICService.obtenerContacto(request.getNumeroCliente());
 
             List<com.mibanco.clientefic.es.ContactoType> contactoListResponse = new ArrayList<>();
             for (ContactoType item : consultaList) {
@@ -291,7 +291,7 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
         try {
 
             clienteFICValidator.validarNumeroCliente(request.getNumeroCliente());
-            List<OfertaType> consultaList = clienteFICService.getOferta(request.getNumeroCliente());
+            List<OfertaType> consultaList = clienteFICService.obtenerOferta(request.getNumeroCliente());
 
             List<com.mibanco.clientefic.es.OfertaType> ofertaListResponse = new ArrayList<>();
             for (OfertaType oferta : consultaList) {
@@ -331,7 +331,7 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
         try {
 
             clienteFICValidator.validarNumeroCliente(request.getNumeroCliente());
-            List<PasivoType> consultaList = clienteFICService.getPasivo(request.getNumeroCliente());
+            List<PasivoType> consultaList = clienteFICService.obtenerPasivo(request.getNumeroCliente());
 
             List<com.mibanco.clientefic.es.PasivoType> ofertaListResponse = new ArrayList<>();
             for (PasivoType pasivo : consultaList) {

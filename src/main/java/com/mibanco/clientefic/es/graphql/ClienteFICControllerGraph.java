@@ -33,7 +33,7 @@ public class ClienteFICControllerGraph {
         logger.info("Inicia consulta alerta en Graphql");
 
         try {
-            List<AlertaType> alerta = clienteFICService.getListaAlertas(new ConsultaClienteByData(tipoDocumento, numeroDocumento, digitoVerificacion));
+            List<AlertaType> alerta = clienteFICService.obtenerListaAlertas(new ConsultaClienteByData(tipoDocumento, numeroDocumento, digitoVerificacion));
             logger.info("Termina consulta alerta en Graphql");
             return alerta;
         } catch (ApplicationException e) {
@@ -48,7 +48,7 @@ public class ClienteFICControllerGraph {
 
         logger.info("Inicia consulta alerta en Graphql");
         try {
-            List<CentralRiesgoType> list = clienteFICService.getListaCentralRiesgo(numeroCliente);
+            List<CentralRiesgoType> list = clienteFICService.obtenerListaCentralRiesgo(numeroCliente);
 
             logger.info("Termina consulta alerta en Graphql");
             return list;
@@ -65,7 +65,7 @@ public class ClienteFICControllerGraph {
 
         logger.info("Inicia consulta PQR en Graphql");
         try {
-            List<PQRType> list = clienteFICService.getPQR(new ConsultaClienteByData(tipoDocumento, numeroDocumento, digitoVerificacion));
+            List<PQRType> list = clienteFICService.obtenerPQR(new ConsultaClienteByData(tipoDocumento, numeroDocumento, digitoVerificacion));
 
             logger.info("Termina consulta PQR en Graphql");
             return list;
@@ -82,7 +82,7 @@ public class ClienteFICControllerGraph {
 
         logger.info("Inicia consulta cliente en Graphql");
         try {
-            ClienteFICDTO list = clienteFICService.getClienteByIdentificacion(new ConsultaClienteByData(tipoDocumento, numeroDocumento, digitoVerificacion));
+            ClienteFICDTO list = clienteFICService.obtenerClienteByIdentificacion(new ConsultaClienteByData(tipoDocumento, numeroDocumento, digitoVerificacion));
 
             logger.info("Termina consulta cliente en Graphql");
             return list;
@@ -99,7 +99,7 @@ public class ClienteFICControllerGraph {
 
         logger.info("Inicia consulta conyuge en Graphql");
         try {
-            ConyugeType data = clienteFICService.getConyuge(numeroCliente);
+            ConyugeType data = clienteFICService.obtenerConyuge(numeroCliente);
 
             logger.info("Termina consulta conyuge en Graphql");
             return data;
@@ -116,7 +116,7 @@ public class ClienteFICControllerGraph {
 
         logger.info("Inicia consulta cupo rotativo en Graphql");
         try {
-            List<CupoRotativoType> list = clienteFICService.getCupoRotativo(numeroCliente);
+            List<CupoRotativoType> list = clienteFICService.obtenerCupoRotativo(numeroCliente);
             logger.info("Termina consulta cupo rotativo en Graphql");
             return list;
         } catch (ApplicationException e) {
@@ -132,7 +132,7 @@ public class ClienteFICControllerGraph {
 
         logger.info("Inicia consulta contacto en Graphql");
         try {
-            List<ContactoType> data = clienteFICService.getContacto(numeroCliente);
+            List<ContactoType> data = clienteFICService.obtenerContacto(numeroCliente);
 
             logger.info("Termina consulta contacto en Graphql");
             return data;
@@ -149,7 +149,7 @@ public class ClienteFICControllerGraph {
 
         logger.info("Inicia consulta oferta en Graphql");
         try {
-            List<OfertaType> data = clienteFICService.getOferta(numeroCliente);
+            List<OfertaType> data = clienteFICService.obtenerOferta(numeroCliente);
 
             logger.info("Termina consulta oferta en Graphql");
             return data;
@@ -166,7 +166,7 @@ public class ClienteFICControllerGraph {
 
         logger.info("Inicia consulta cliente por nombre en Graphql");
         try {
-            ConsultarClientePorNombreOutputEntity data = clienteFICService.getClienteByNombre(nombre,1,15);
+            ConsultarClientePorNombreOutputEntity data = clienteFICService.obtenerClienteByNombre(nombre,1,15);
 
             logger.info("Termina consulta cliente por nombreen Graphql");
             return data;
@@ -183,7 +183,7 @@ public class ClienteFICControllerGraph {
 
         logger.info("Inicia consulta pasivo en Graphql");
         try {
-            List<PasivoType> data = clienteFICService.getPasivo(numeroCliente);
+            List<PasivoType> data = clienteFICService.obtenerPasivo(numeroCliente);
 
             logger.info("Termina consulta pasivo en Graphql");
             return data;
