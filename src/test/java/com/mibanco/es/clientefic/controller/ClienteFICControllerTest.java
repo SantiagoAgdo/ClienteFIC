@@ -241,7 +241,7 @@ public class ClienteFICControllerTest {
         // Configurar los valores de alerta según sea necesario
         ConsultaClienteByData x = new ConsultaClienteByData(TipoDocumentoEnum.CC, 10002, 0);
         // Configuración de los mocks
-        when(clienteFICService.getListaAlertas(x)).thenReturn(Collections.singletonList(alerta));
+        when(clienteFICService.obtenerListaAlertas(x)).thenReturn(Collections.singletonList(alerta));
 
         // Llamada al método bajo prueba
         Response response = clienteFICController.consultarAlerta(tipoDocumento, numeroDocumento, digitoVerificacion);

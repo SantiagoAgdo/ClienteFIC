@@ -263,7 +263,7 @@ public class ClienteFICController implements V1ClienteFIC {
         try {
             clienteFICValidator.validarConsulta(tipoDocumento, numeroDocumento, digitoVerificacion);
 
-            ClienteFICDTO cliente = clienteFICServiceImpl.getClienteByIdentificacion(new ConsultaClienteByData(tipoDocumento, numeroDocumento, digitoVerificacion));
+            ClienteFICDTO cliente = clienteFICServiceImpl.obtenerClienteByIdentificacion(new ConsultaClienteByData(tipoDocumento, numeroDocumento, digitoVerificacion));
 
             LOG.info("Finaliza consulta de Cliente FIC por Identificación");
             return cliente != null ? Response.status(Response.Status.OK).entity(cliente).build() :
