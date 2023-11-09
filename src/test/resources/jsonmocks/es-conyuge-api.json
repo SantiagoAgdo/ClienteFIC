@@ -2,5 +2,5 @@
   "tipoDocumento": "CC",
   "numeroDocumento": "string",
   "nombre": "string",
-  "numeroCliente": 0
+  "numeroCliente": 10002
 }

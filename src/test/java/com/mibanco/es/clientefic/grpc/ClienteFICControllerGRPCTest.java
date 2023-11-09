@@ -10,6 +10,7 @@ import io.quarkus.grpc.GrpcClient;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
 import org.assertj.core.api.Assertions;
+import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
@@ -60,7 +61,7 @@ public class ClienteFICControllerGRPCTest {
 
         CompletableFuture<ConyugeType> message = new CompletableFuture<>();
 
-        NumeroCliente numeroCLiente = NumeroCliente.newBuilder().setNumeroCliente(0).build();
+        NumeroCliente numeroCLiente = NumeroCliente.newBuilder().setNumeroCliente(10002).build();
 
         client.consultarConyuge(numeroCLiente)
                 .subscribe()

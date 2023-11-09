@@ -5,7 +5,7 @@
     "tipoOferta": "string",
     "monto": 10000000,
     "plazo": 12,
-    "numeroCliente": 0,
+    "numeroCliente": 10002,
     "tipoDeLiga": "Bundes",
     "condicionGarantia": "Compra pierde"
   }

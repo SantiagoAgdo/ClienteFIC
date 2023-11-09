@@ -9,7 +9,7 @@
   },
   "clienteBase": {
     "id": 0,
-    "numeroCliente": 0,
+    "numeroCliente": 10002,
     "tipoPersona": "1 JURIDICA",
     "tipoDocumento": "CC",
     "numeroDocumento": 10002,
@@ -44,7 +44,7 @@
     "fecha": "2022-03-10T00:00:00.000+00:00",
     "tipoContacto": "string",
     "resultadoComentarios": "string",
-    "numeroCliente": 0
+    "numeroCliente": 10002
   },
   "conyuge": {
     "tipoDocumento": "CC",
@@ -53,24 +53,24 @@
     "segundoNombre": "string",
     "primerApellido": "string",
     "segundoApellido": "string",
-    "numeroCliente": 0
+    "numeroCliente": 10002
   },
   "cupoRotativo": {
     "estado": "string",
     "fechaDeVencimiento": "2022-03-10T00:00:00.000+00:00",
     "montoCupoCredito": 0.0,
     "montoUtilizado": 0.0,
-    "numeroCliente": 0,
+    "numeroCliente": 10002,
     "numeroCupo": "string",
     "saldoDisponible": 0.0
   },
   "digitoVerificacion": 0,
   "domicilio": {
-    "numeroCliente": 0,
+    "numeroCliente": 10002,
     "tipoVivienda": "SH"
   },
   "domicilioEmpresa": {
-    "numeroCliente": 0,
+    "numeroCliente": 10002,
     "tipoActividadCIIU": "10 ASALARIADOS",
     "tipoLocal": "PROPIO SIN HIPOTECA"
   },
@@ -80,7 +80,7 @@
     "direccion": "string",
     "telefono": 0,
     "tipoActividadCIIU": "10 ASALARIADOS",
-    "numeroCliente": 0
+    "numeroCliente": 10002
   },
   "numeroDocumentoRepresentanteLegal": "10003",
   "oferta": {
@@ -89,7 +89,7 @@
     "tipoOferta": "string",
     "monto": 1.0E7,
     "plazo": 12,
-    "numeroCliente": 0,
+    "numeroCliente": 10002,
     "tipoDeLiga": "Bundes",
     "condicionGarantia": "Compra pierde"
   },

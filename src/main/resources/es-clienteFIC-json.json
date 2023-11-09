@@ -9,7 +9,7 @@
   },
   "clienteBase": {
     "id": 0,
-    "numeroCliente": 0,
+    "numeroCliente": 1,
     "tipoPersona": "1 JURIDICA",
     "tipoDocumento": "CC",
     "numeroDocumento": 0,
@@ -22,7 +22,7 @@
     "correoElectronico": "string"
   },
   "centralRiesgo": {
-    "numeroCliente": 0,
+    "numeroCliente": 1,
     "fechaConsultaMasReciente": "string",
     "resultadoConsultaMasReciente": "string",
     "vbVigenteParaSerConsultado": "string"
@@ -49,33 +49,33 @@
     "fecha": "string",
     "tipoContacto": "string",
     "resultadoComentarios": "string",
-    "numeroCliente": 0
+    "numeroCliente": 1
   },
   "conyuge": {
     "tipoDocumento": "CC",
     "numeroDocumento": "string",
     "nombre": "string",
-    "numeroCliente": 0
+    "numeroCliente": 1
   },
   "cupoRotativo": {
     "estado": "string",
     "fechaDeVencimiento": "string",
     "montoCupoCredito": 0,
     "montoUtilizado": 0,
-    "numeroCliente": 0,
+    "numeroCliente": 1,
     "numeroCupo": "string",
     "saldoDisponible": 0
   },
   "digitoVerificacion": 0,
   "domicilio": {
-    "numeroCliente": 0,
+    "numeroCliente": 1,
     "direcccion": "string",
     "telefono1": 0,
     "telefono2": 0,
     "tipoVivienda": "SH"
   },
   "domicilioEmpresa": {
-    "numeroCliente": 0,
+    "numeroCliente": 1,
     "direccion": "string",
     "telefono1": 0,
     "telefono2": 0,
@@ -88,7 +88,7 @@
     "direccion": "string",
     "telefono": 0,
     "tipoActividadCIIU": "10 ASALARIADOS",
-    "numeroCliente": 0
+    "numeroCliente": 1
   },
   "numeroDocumentoRepresentanteLegal": "string",
   "oferta": {
@@ -97,12 +97,12 @@
     "tipoOferta": "string",
     "monto": 0,
     "plazo": 0,
-    "numeroCliente": 0,
+    "numeroCliente": 1,
     "tipoDeLiga": "string",
     "condicionGarantia": "string"
   },
   "pasivo": {
-    "numeroCliente": 0,
+    "numeroCliente": 1,
     "numeroProducto": "string",
     "tipoProducto": "BCA1 BONO MENOR 5 AÑOS COSTO AMORTIZADO",
     "detalleProducto": "string",
@@ -115,7 +115,7 @@
     "saldoTotal": 0
   },
   "PQR": {
-    "numeroCliente": 0,
+    "numeroCliente": 1,
     "fecha": "string",
     "numeroPQR": 0,
     "motivo": "string",

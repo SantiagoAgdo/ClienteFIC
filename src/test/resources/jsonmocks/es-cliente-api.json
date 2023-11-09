@@ -9,7 +9,7 @@
   },
   "clienteBase": {
     "id": 0,
-    "numeroCliente": 0,
+    "numeroCliente": 10002,
     "tipoPersona": "1 JURIDICA",
     "tipoDocumento": "CC",
     "numeroDocumento": 0,
@@ -22,7 +22,7 @@
     "correoElectronico": "string"
   },
   "centralRiesgo": {
-    "numeroCliente": 0,
+    "numeroCliente": 10002,
     "fechaConsultaMasReciente": "2022-03-10",
     "resultadoConsultaMasReciente": "string",
     "vbVigenteParaSerConsultado": "string"
@@ -49,30 +49,30 @@
     "fecha": "string",
     "tipoContacto": "string",
     "resultadoComentarios": "string",
-    "numeroCliente": 0
+    "numeroCliente": 10002
   },
   "conyuge": {
     "tipoDocumento": "CC",
     "numeroDocumento": "string",
     "nombre": "string",
-    "numeroCliente": 0
+    "numeroCliente": 10002
   },
   "cupoRotativo": {
     "estado": "string",
     "fechaDeVencimiento": "string",
     "montoCupoCredito": 0,
     "montoUtilizado": 0,
-    "numeroCliente": 0,
+    "numeroCliente": 10002,
     "numeroCupo": "string",
     "saldoDisponible": 0
   },
   "digitoVerificacion": 0,
   "domicilio": {
-    "numeroCliente": 0,
+    "numeroCliente": 10002,
     "tipoVivienda": "SH"
   },
   "domicilioEmpresa": {
-    "numeroCliente": 0,
+    "numeroCliente": 10002,
     "tipoActividadCIIU": "10 ASALARIADOS",
     "tipoLocal": "PROPIO SIN HIPOTECA"
   },
@@ -82,7 +82,7 @@
     "direccion": "string",
     "telefono": 0,
     "tipoActividadCIIU": "10 ASALARIADOS",
-    "numeroCliente": 0
+    "numeroCliente": 10002
   },
   "numeroDocumentoRepresentanteLegal": "string",
   "oferta": {
@@ -91,12 +91,12 @@
     "tipoOferta": "string",
     "monto": 0,
     "plazo": 0,
-    "numeroCliente": 0,
+    "numeroCliente": 10002,
     "tipoDeLiga": "string",
     "condicionGarantia": "string"
   },
   "pasivo": {
-    "numeroCliente": 0,
+    "numeroCliente": 10002,
     "numeroProducto": "string",
     "tipoProducto": "CACN CUENTA AHORROS CONTRACTUAL",
     "detalleProducto": "string",
@@ -109,7 +109,7 @@
     "saldoTotal": 0
   },
   "PQR": {
-    "numeroCliente": 0,
+    "numeroCliente": 10002,
     "fecha": "string",
     "numeroPQR": 0,
     "motivo": "string",

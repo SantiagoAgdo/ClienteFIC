@@ -1,6 +1,6 @@
 {
   "pasivo": {
-    "numeroCliente": 0,
+    "numeroCliente": 10002,
     "numeroProducto": "string",
     "tipoProducto": "CACN CUENTA AHORROS CONTRACTUAL",
     "detalleProducto": "string",

@@ -162,7 +162,7 @@ public class ClienteFICDAO implements IClienteFICDao {
 
     @Override
     public ConyugeType obtenerConyuge(Integer numeroCliente) {
-        ClienteFICEntity conyuge = list.stream().filter(x -> x.getClienteBase().getNumeroDocumento().equals(numeroCliente)).findFirst().orElse(null);
+        ClienteFICEntity conyuge = list.stream().filter(x -> x.getClienteBase().getNumeroCliente().equals(numeroCliente)).findFirst().orElse(null);
         if (conyuge != null) {
             return conyuge.getConyuge();
         }
