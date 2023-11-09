@@ -1,5 +1,6 @@
 package com.mibanco.es.clientefic.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mibanco.clientefic.es.controller.ClienteFICController;
 import com.mibanco.clientefic.es.dao.entity.ConsultaClienteByData;
 import com.mibanco.clientefic.es.gen.type.AlertaType;
@@ -10,7 +11,6 @@ import com.mibanco.clientefic.es.utils.exceptions.ApplicationExceptionValidation
 import com.mibanco.clientefic.es.utils.validators.ClienteFICValidator;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.Response;
 import org.junit.Ignore;
@@ -19,17 +19,17 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import static io.restassured.RestAssured.given;
-import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Collections;
+
+import static io.restassured.RestAssured.given;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 
 @QuarkusTest

@@ -1,7 +1,8 @@
 package com.mibanco.clientefic.es.dto;
 
 import com.mibanco.clientefic.es.dao.entity.*;
-import com.mibanco.clientefic.es.gen.type.*;
+import com.mibanco.clientefic.es.gen.type.EstadoCivilEnum;
+import com.mibanco.clientefic.es.gen.type.TipoDocumentoEnum;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import lombok.AllArgsConstructor;
 import lombok.Data;

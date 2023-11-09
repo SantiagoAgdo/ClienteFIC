@@ -3,7 +3,6 @@ package com.mibanco.clientefic.es.grpc;
 import com.mibanco.clientefic.es.*;
 import com.mibanco.clientefic.es.controller.ClienteFICController;
 import com.mibanco.clientefic.es.dao.entity.ClienteFICEntity;
-import com.mibanco.clientefic.es.gen.type.*;
 import com.mibanco.clientefic.es.gen.type.AlertaType;
 import com.mibanco.clientefic.es.gen.type.CentralRiesgoType;
 import com.mibanco.clientefic.es.gen.type.ContactoType;
@@ -16,15 +15,15 @@ import com.mibanco.clientefic.es.services.impl.ClienteFICServiceImpl;
 import com.mibanco.clientefic.es.utils.exceptions.ApplicationExceptionValidation;
 import com.mibanco.clientefic.es.utils.mapper.ClienteFICMapperGrpc;
 import com.mibanco.clientefic.es.utils.validators.ClienteFICValidator;
-
-import io.grpc.*;
+import io.grpc.Metadata;
+import io.grpc.Status;
+import io.grpc.StatusException;
 import io.grpc.stub.StreamObserver;
 import io.quarkus.grpc.GrpcService;
 import io.smallrye.common.annotation.Blocking;
 import jakarta.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,14 +47,14 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
     @Blocking
     public void clienteFIC(CrearClienteFICGrpc request, StreamObserver<ResponseClienteFIC> responseObs) {
 
-        LOG.info("Inicia Creacion Cliente FIC por GRPC");
+        LOG.info("Inicia Creación Cliente FIC por GRPC");
 
         try {
             ClienteFICEntity entity = mapper.clienteGrpcToEntity(request);
             clienteFICService.crearClienteFICType(entity);
 
             ResponseClienteFIC response = ResponseClienteFIC.newBuilder().setObj(request.toBuilder()).build();
-            LOG.info("Finaliza creacion Cliente FIC por GRPC");
+            LOG.info("Finaliza creación Cliente FIC por GRPC");
 
             responseObs.onNext(response);
             responseObs.onCompleted();
@@ -74,7 +73,7 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
         LOG.info("Inicia consulta alerta por GRPC");
         try {
 
-            clienteFICValidator.validaConsulta(request.getTipoDocumento(), request.getNumeroDocumento(), request.getDigitoVerificacion());
+            clienteFICValidator.validarConsultaGrpc(request.getTipoDocumento(), request.getNumeroDocumento(), request.getDigitoVerificacion());
             com.mibanco.clientefic.es.dao.entity.ConsultaClienteByData entity = mapper.dataGrpcToEntity(request);
             List<AlertaType> alertaListType = clienteFICService.obtenerListaAlertas(entity);
 
@@ -91,7 +90,7 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
             }
 
             ResponseAlerta response = ResponseAlerta.newBuilder().addAllObj(alertaResponse).build();
-            LOG.info("Finaliza creacion Cliente FIC por GRPC");
+            LOG.info("Finaliza creación Cliente FIC por GRPC");
 
             responseObs.onNext(response);
             responseObs.onCompleted();
@@ -127,7 +126,7 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
                         .build());
             }
             ResponseCentralDeRiesgo response = ResponseCentralDeRiesgo.newBuilder().addAllObj(centralRiesgoResponse).build();
-            LOG.info("Finaliza consulta centralRiesgo por GRPC");
+            LOG.info("Finaliza consulta central Riesgo por GRPC");
 
             responseObs.onNext(response);
             responseObs.onCompleted();
@@ -148,7 +147,7 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
     public void consultarPQR(ConsultaClienteByData request, StreamObserver<ResponsePQR> responseObs) {
         LOG.info("Inicia consulta PQR por GRPC");
         try {
-            clienteFICValidator.validaConsulta(request.getTipoDocumento(), request.getNumeroDocumento(), request.getDigitoVerificacion());
+            clienteFICValidator.validarConsultaGrpc(request.getTipoDocumento(), request.getNumeroDocumento(), request.getDigitoVerificacion());
             com.mibanco.clientefic.es.dao.entity.ConsultaClienteByData entity = mapper.dataGrpcToEntity(request);
             List<PQRType> pqrList = clienteFICService.obtenerPQR(entity);
 
@@ -333,9 +332,9 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
             clienteFICValidator.validarNumeroCliente(request.getNumeroCliente());
             List<PasivoType> consultaList = clienteFICService.obtenerPasivo(request.getNumeroCliente());
 
-            List<com.mibanco.clientefic.es.PasivoType> ofertaListResponse = new ArrayList<>();
+            List<com.mibanco.clientefic.es.PasivoType> pasivoListResponse = new ArrayList<>();
             for (PasivoType pasivo : consultaList) {
-                ofertaListResponse.add(com.mibanco.clientefic.es.PasivoType.newBuilder()
+                pasivoListResponse.add(com.mibanco.clientefic.es.PasivoType.newBuilder()
                         .setNumeroProducto(pasivo.getNumeroProducto())
                         .setTipoProducto(pasivo.getTipoProducto().toString())
                         .setDetalleProducto(pasivo.getDetalleProducto())
@@ -349,7 +348,7 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
                         .setNumeroCliente(pasivo.getNumeroCliente())
                         .build());
             }
-            ResponsePasivo response = ResponsePasivo.newBuilder().addAllObj(ofertaListResponse).build();
+            ResponsePasivo response = ResponsePasivo.newBuilder().addAllObj(pasivoListResponse).build();
 
             LOG.info("Finaliza consultarPasivo por GRPC");
             responseObs.onNext(response);
@@ -366,15 +365,17 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
         }
     }
 
-
     private StatusException responseExceptionGrpc(Status statusCode, String exceptionMessage) {
+        // Registrando el mensaje de la excepción en el registro de errores
+        LOG.error("Exception: " + exceptionMessage);
 
-        LOG.error(exceptionMessage + "Exception: " + exceptionMessage);
-
+        // Creando metadatos para incluir el mensaje de la excepción en la respuesta GRPC
         Metadata metadata = new Metadata();
-        metadata.put(Metadata.Key.of("Error: ", Metadata.ASCII_STRING_MARSHALLER), exceptionMessage);
+        metadata.put(Metadata.Key.of("Error", Metadata.ASCII_STRING_MARSHALLER), exceptionMessage);
 
+        // Creando y devolviendo la excepción con el código de estado y los metadatos
         return statusCode.asException(metadata);
     }
+
 
 }

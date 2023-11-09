@@ -1,7 +1,10 @@
 package com.mibanco.clientefic.es.controller;
 
 import com.mibanco.clientefic.es.constants.Constants;
-import com.mibanco.clientefic.es.dao.entity.*;
+import com.mibanco.clientefic.es.dao.entity.ClienteFICEntity;
+import com.mibanco.clientefic.es.dao.entity.ConsultaClienteByData;
+import com.mibanco.clientefic.es.dao.entity.ConsultarClientePorNombreOutputEntity;
+import com.mibanco.clientefic.es.dao.entity.ContactoEntity;
 import com.mibanco.clientefic.es.dto.ClienteFICDTO;
 import com.mibanco.clientefic.es.gen.contract.V1ClienteFIC;
 import com.mibanco.clientefic.es.gen.type.*;
@@ -77,13 +80,13 @@ public class ClienteFICController implements V1ClienteFIC {
 
         } catch (ApplicationExceptionValidation e) {
 
-            LOG.error("Error en Validaciones de CentralRiesgo - ClienteFICController");
+            LOG.error("Error en validaciones de CentralRiesgo - ClienteFICController");
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
 
         } catch (ApplicationException e) {
 
-            LOG.error(Constants.SERVICIO_INTERNAL + "consultarCentralDeRiesgo en ClienteFICServiceImpl exception: " + e.getMessage());
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constants.SERVICIO_INTERNAL + "consultarCentralDeRiesgo, exception: " + e.getMessage()).build();
+            LOG.error(Constants.SERVICIO_INTERNAL + "consultarCentralDeRiesgo en ClienteFICServiceImpl excepción: " + e.getMessage());
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constants.SERVICIO_INTERNAL + "consultarCentralDeRiesgo, excepción: " + e.getMessage()).build();
         }
     }
 
@@ -106,7 +109,7 @@ public class ClienteFICController implements V1ClienteFIC {
 
         } catch (ApplicationException e) {
 
-            LOG.error(Constants.SERVICIO_INTERNAL + "consultarClienteFICPorNombre en ClienteFICServiceImpl exception: " + e.getMessage());
+            LOG.error(Constants.SERVICIO_INTERNAL + "consultarClienteFICPorNombre en ClienteFICServiceImpl excepción: " + e.getMessage());
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constants.SERVICIO_INTERNAL + "consultarClienteFICPorNombre, exception: " + e.getMessage()).build();
         }
     }
@@ -131,7 +134,7 @@ public class ClienteFICController implements V1ClienteFIC {
         } catch (ApplicationException e) {
 
             LOG.error(Constants.SERVICIO_INTERNAL + "consultarConyuge en ClienteFICServiceImpl exception: " + e.getMessage());
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constants.SERVICIO_INTERNAL + "consultarConyuge, exception: " + e.getMessage()).build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constants.SERVICIO_INTERNAL + "consultarConyuge, excepción: " + e.getMessage()).build();
         }
     }
 
@@ -154,8 +157,8 @@ public class ClienteFICController implements V1ClienteFIC {
 
         } catch (ApplicationException e) {
 
-            LOG.error(Constants.SERVICIO_INTERNAL + "consultarCupoRotativo en ClienteFICServiceImpl exception: " + e.getMessage());
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constants.SERVICIO_INTERNAL + "consultarCupoRotativo, exception: " + e.getMessage()).build();
+            LOG.error(Constants.SERVICIO_INTERNAL + "consultarCupoRotativo en ClienteFICServiceImpl excepción: " + e.getMessage());
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constants.SERVICIO_INTERNAL + "consultarCupoRotativo, excepción: " + e.getMessage()).build();
         }
     }
 
@@ -178,8 +181,8 @@ public class ClienteFICController implements V1ClienteFIC {
 
         } catch (ApplicationException e) {
 
-            LOG.error(Constants.SERVICIO_INTERNAL + "consultarHistorialContacto en ClienteFICServiceImpl exception: " + e.getMessage());
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constants.SERVICIO_INTERNAL + "consultarHistorialContacto, exception: " + e.getMessage()).build();
+            LOG.error(Constants.SERVICIO_INTERNAL + "consultarHistorialContacto en ClienteFICServiceImpl excepción: " + e.getMessage());
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constants.SERVICIO_INTERNAL + "consultarHistorialContacto, excepción: " + e.getMessage()).build();
         }
     }
 
@@ -202,8 +205,8 @@ public class ClienteFICController implements V1ClienteFIC {
 
         } catch (ApplicationException e) {
 
-            LOG.error(Constants.SERVICIO_INTERNAL + "consultarOferta en ClienteFICServiceImpl exception: " + e.getMessage());
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constants.SERVICIO_INTERNAL + "consultarOferta, exception: " + e.getMessage()).build();
+            LOG.error(Constants.SERVICIO_INTERNAL + "consultarOferta en ClienteFICServiceImpl excepción: " + e.getMessage());
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constants.SERVICIO_INTERNAL + "consultarOferta, excepción: " + e.getMessage()).build();
         }
     }
 
@@ -226,8 +229,8 @@ public class ClienteFICController implements V1ClienteFIC {
 
         } catch (ApplicationException e) {
 
-            LOG.error(Constants.SERVICIO_INTERNAL + "consultarPQR en ClienteFICServiceImpl exception: " + e.getMessage());
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constants.SERVICIO_INTERNAL + "consultarPQR, exception: " + e.getMessage()).build();
+            LOG.error(Constants.SERVICIO_INTERNAL + "consultarPQR en ClienteFICServiceImpl excepción: " + e.getMessage());
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constants.SERVICIO_INTERNAL + "consultarPQR, excepción: " + e.getMessage()).build();
         }
     }
 
@@ -250,8 +253,8 @@ public class ClienteFICController implements V1ClienteFIC {
 
         } catch (ApplicationException e) {
 
-            LOG.error(Constants.SERVICIO_INTERNAL + "consultarPasivo en ClienteFICServiceImpl exception: " + e.getMessage());
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constants.SERVICIO_INTERNAL + "consultarPasivo, exception: " + e.getMessage()).build();
+            LOG.error(Constants.SERVICIO_INTERNAL + "consultarPasivo en ClienteFICServiceImpl excepción: " + e.getMessage());
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constants.SERVICIO_INTERNAL + "consultarPasivo, excepción: " + e.getMessage()).build();
         }
 
     }
@@ -276,8 +279,8 @@ public class ClienteFICController implements V1ClienteFIC {
 
         } catch (ApplicationException e) {
 
-            LOG.error(Constants.SERVICIO_INTERNAL + "Identificación en ClienteFICServiceImpl exception: " + e.getMessage());
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constants.SERVICIO_INTERNAL + "consultaClientePorIdentificacion, exception: " + e.getMessage()).build();
+            LOG.error(Constants.SERVICIO_INTERNAL + "Identificación en ClienteFICServiceImpl excepción: " + e.getMessage());
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constants.SERVICIO_INTERNAL + "consultaClientePorIdentificacion, excepción: " + e.getMessage()).build();
         }
     }
 
@@ -300,11 +303,10 @@ public class ClienteFICController implements V1ClienteFIC {
 
         } catch (ApplicationException e) {
 
-            LOG.error(Constants.SERVICIO_INTERNAL + "crearClienteFIC en ClienteFICServiceImpl exception: " + e.getMessage());
+            LOG.error(Constants.SERVICIO_INTERNAL + "crearClienteFIC en ClienteFICServiceImpl excepción: " + e.getMessage());
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity(Constants.SERVICIO_INTERNAL + "crearClienteFIC, exception: " + e.getMessage()).build();
+                    .entity(Constants.SERVICIO_INTERNAL + "crearClienteFIC, excepción: " + e.getMessage()).build();
         }
     }
-
 
 }

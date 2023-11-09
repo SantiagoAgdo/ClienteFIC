@@ -233,7 +233,6 @@ message  ResponseCliente{
   CrearClienteFICGrpc cliente = 1;
 }
 
-
 //Services
 
 service ClienteFICServiceGrpc {

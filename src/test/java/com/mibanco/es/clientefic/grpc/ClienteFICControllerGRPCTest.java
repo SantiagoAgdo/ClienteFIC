@@ -2,7 +2,6 @@ package com.mibanco.es.clientefic.grpc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mibanco.clientefic.es.*;
-
 import com.mibanco.clientefic.es.dao.entity.ClienteFICEntity;
 import com.mibanco.clientefic.es.gen.type.ClienteFICType;
 import com.mibanco.clientefic.es.services.impl.ClienteFICServiceImpl;
@@ -13,7 +12,6 @@ import jakarta.inject.Inject;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.io.IOException;

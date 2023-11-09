@@ -32,11 +32,6 @@ public class ClienteFICMapper {
         return new ModelMapper().map(entity, CupoRotativoType.class);
     }
 
-
-    public ConsultarDireccionTelefonoType consultaDirrecionTelelfonoToType(ConsultarDirrecionTelefonoEntity entity) {
-        return new ModelMapper().map(entity, ConsultarDireccionTelefonoType.class);
-    }
-
     public ContactoType contactoToType(ContactoEntity entity) {
         return new ModelMapper().map(entity, ContactoType.class);
     }

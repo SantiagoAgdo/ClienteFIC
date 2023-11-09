@@ -25,189 +25,64 @@ public class ClienteFICValidator {
 
     public void verificarClienteFIC(ClienteFICType clienteFICType) throws ApplicationExceptionValidation {
 
-        if (clienteFICType == null) {
-            throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.SERVICIO_INTERNAL + "la peticion no puede presentar dato null."
-            );
-        }
+        verificarAtributoNoNulo(clienteFICType, "Cliente FIC");
 
-        if (clienteFICType.getAlerta() == null) {
-            throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.SERVICIO_INTERNAL + "la peticion no puede presentar alertas null."
-            );
-        }
+        verificarAtributoNoNulo(clienteFICType.getAlerta(), "Alerta");
+        verificarAtributoNoNulo(clienteFICType.getClienteBase(), "Cliente Base");
+        verificarAtributoNoNulo(clienteFICType.getCentralRiesgo(), "Central de Riesgo");
+        verificarAtributoNoNulo(clienteFICType.getContacto(), "Contacto");
+        verificarAtributoNoNulo(clienteFICType.getConyuge(), "Cónyuge");
+        verificarAtributoNoNulo(clienteFICType.getCupoRotativo(), "Cupo Rotativo");
+        verificarAtributoNoNulo(clienteFICType.getDomicilioEmpresa(), "Domicilio Empresa");
+        verificarAtributoNoNulo(clienteFICType.getNegocio(), "Negocio");
+        verificarAtributoNoNulo(clienteFICType.getOferta(), "Oferta");
+        verificarAtributoNoNulo(clienteFICType.getPasivo(), "Pasivo");
+        verificarAtributoNoNulo(clienteFICType.getPQR(), "PQR");
 
-        if (clienteFICType.getClienteBase() == null) {
-            throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.SERVICIO_INTERNAL + "la peticion no puede presentar cliente base null."
-            );
-        }
-
-        if (clienteFICType.getCentralRiesgo() == null) {
-            throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.SERVICIO_INTERNAL + "la peticion no puede presentar central de riesgo null."
-            );
-        }
-
-        if (clienteFICType.getContacto() == null) {
-            throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.SERVICIO_INTERNAL + "la peticion no puede presentar contacto null."
-            );
-        }
-
-        if (clienteFICType.getConyuge() == null) {
-            throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.SERVICIO_INTERNAL + "la peticion no puede presentar conyuge null."
-            );
-        }
-
-        if (clienteFICType.getCupoRotativo() == null) {
-            throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.SERVICIO_INTERNAL + "la peticion no puede presentar cupo rotativo null."
-            );
-        }
-
-        if (clienteFICType.getOferta() == null) {
-            throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.SERVICIO_INTERNAL + "la peticion no puede presentar oferta null."
-            );
-        }
-
-        if (clienteFICType.getPQR() == null) {
-            throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.SERVICIO_INTERNAL + "la peticion no puede presentar PQR null."
-            );
-        }
-
-        if (tieneAtributosNulos(clienteFICType)) {
-            throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.SERVICIO_INTERNAL + msmError + " obligatorios"
-            );
-        }
-        if (tieneAtributosNulos(clienteFICType.getAlerta())) {
-            throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.SERVICIO_INTERNAL + msmError + " obligatorios"
-            );
-        }
-        if (tieneAtributosNulos(clienteFICType.getClienteBase())) {
-            throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.SERVICIO_INTERNAL + msmError + " obligatorios"
-            );
-        }
-        if (tieneAtributosNulos(clienteFICType.getCentralRiesgo())) {
-            throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.SERVICIO_INTERNAL + msmError + " obligatorios"
-            );
-        }
-
-        if (tieneAtributosNulos(clienteFICType.getContacto())) {
-            throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.SERVICIO_INTERNAL + msmError + " obligatorios"
-            );
-        }
-        if (tieneAtributosNulos(clienteFICType.getConyuge())) {
-            throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.SERVICIO_INTERNAL + msmError + " obligatorios"
-            );
-        }
-        if (tieneAtributosNulos(clienteFICType.getCupoRotativo())) {
-            throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.SERVICIO_INTERNAL + msmError + " obligatorios"
-            );
-        }
-        if (tieneAtributosNulos(clienteFICType.getDomicilioEmpresa())) {
-            throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.SERVICIO_INTERNAL + msmError + " obligatorios"
-            );
-        }
-        if (tieneAtributosNulos(clienteFICType.getNegocio())) {
-            throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.SERVICIO_INTERNAL + msmError + " obligatorios"
-            );
-        }
-        if (tieneAtributosNulos(clienteFICType.getOferta())) {
-            throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.SERVICIO_INTERNAL + msmError + " obligatorios"
-            );
-        }
-        if (tieneAtributosNulos(clienteFICType.getPasivo())) {
-            throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.SERVICIO_INTERNAL + msmError + " obligatorios"
-            );
-        }
-        if (tieneAtributosNulos(clienteFICType.getPQR())) {
-            throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.SERVICIO_INTERNAL + msmError + " obligatorios"
-            );
-        }
-
-        logger.info("Validacion realizadas correctamente");
-        Response.ok().build();
+        logger.info("Validación realizadas correctamente");
     }
 
-    public void validarNombre(String nombre) {
-
-        if (nombre == null || nombre.isEmpty()) {
+    private void verificarAtributoNoNulo(Object atributo, String nombreAtributo) throws ApplicationExceptionValidation {
+        if (atributo == null || tieneAtributosNulos(atributo)) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.VALIDACION + " nombre invalido"
+                    Response.Status.BAD_REQUEST.getStatusCode(),
+                    Constants.SERVICIO_INTERNAL + "La petición no puede presentar " + nombreAtributo + " nulo o con atributos nulos."
             );
         }
-
-        logger.info("Validacion realizadas correctamente");
-        Response.ok().build();
-
     }
 
     public void validarConsultaPorNombre(String nombre, String apellido, String razonSocial) {
-
         if (nombre == null || nombre.isEmpty()) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.VALIDACION + " nombre invalido"
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.VALIDACION + " Nombre inválido"
             );
         }
 
         if (apellido == null || apellido.isEmpty()) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.VALIDACION + " apellido invalido"
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.VALIDACION + " Apellido inválido"
             );
         }
 
         if (razonSocial == null || razonSocial.isEmpty()) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.VALIDACION + " razonSocial invalido"
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.VALIDACION + " Razón Social inválida"
             );
         }
 
-
-        logger.info("Validacion realizadas correctamente");
-        Response.ok().build();
-
+        logger.info("Validación realizada correctamente");
     }
 
-    public void validarNumeroCliente(Integer num) {
-
-        if (num == null) {
+    public void validarNumeroCliente(Integer numeroCliente) {
+        if (numeroCliente == null || numeroCliente <= 0) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.VALIDACION + " numero de Cliente invalido"
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.VALIDACION + " Número de Cliente inválido"
             );
         }
 
-        logger.info("Validacion realizadas correctamente");
-        Response.ok().build();
-
+        logger.info("Validación del número de cliente realizada correctamente");
     }
 
-    void x() {
-        List<Integer> list = Arrays.asList(1, 2, 3, 4, 5);
-
-        int sum = list.stream()
-
-                .map(n -> n * 2)
-
-                .reduce(0, (a, b) -> a + b);
-
-        System.out.println(sum);
-    }
 
     public boolean tieneAtributosNulos(Object obj) {
         boolean isValidateSuccess = true;
@@ -235,44 +110,41 @@ public class ClienteFICValidator {
     public void validarConsulta(TipoDocumentoEnum tipoDocumento, Integer numeroDocumento, Integer digitoVerificacion) throws ApplicationExceptionValidation {
         if (numeroDocumento == null || numeroDocumento < 0) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.VALIDACION + " numeroDocumento invalido"
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.VALIDACION + " Número de Documento inválido"
             );
         }
         if (digitoVerificacion == null || digitoVerificacion < 0 || digitoVerificacion > 99) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.VALIDACION + " digitoVerificacion invalido"
-            );
-        }
-        for (TipoDocumentoEnum enumValue : TipoDocumentoEnum.values()) {
-            if (enumValue.name().equals(tipoDocumento.name())) {
-                logger.info("Validacion realizadas correctamente");
-                Response.ok().build();
-                return;
-            }
-        }
-
-        throw new ApplicationExceptionValidation(
-                Response.Status.BAD_REQUEST.getStatusCode(), Constants.VALIDACION + " tipoDocumento invalido"
-        );
-    }
-
-    public void validaConsulta(String tipoDocumento, Integer numeroDocumento, Integer digitoVerificacion) throws ApplicationExceptionValidation {
-
-        if (numeroDocumento == null || numeroDocumento < 0) {
-            throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.VALIDACION + " numeroDocumento invalido"
-            );
-        }
-        if (digitoVerificacion == null || digitoVerificacion < 0 || digitoVerificacion > 99) {
-            throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.VALIDACION + " digitoVerificacion invalido"
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.VALIDACION + " Dígito de Verificación inválido"
             );
         }
         if (tipoDocumento == null) {
             throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.VALIDACION + " tipoDocumento invalido"
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.VALIDACION + " Tipo de Documento inválido"
             );
         }
 
+        logger.info("Validación realizada correctamente");
     }
+
+    public void validarConsultaGrpc(String tipoDocumento, Integer numeroDocumento, Integer digitoVerificacion) throws ApplicationExceptionValidation {
+        if (numeroDocumento == null || numeroDocumento < 0) {
+            throw new ApplicationExceptionValidation(
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.VALIDACION + " Número de Documento inválido"
+            );
+        }
+        if (digitoVerificacion == null || digitoVerificacion < 0 || digitoVerificacion > 99) {
+            throw new ApplicationExceptionValidation(
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.VALIDACION + " Dígito de Verificación inválido"
+            );
+        }
+        if (tipoDocumento == null) {
+            throw new ApplicationExceptionValidation(
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.VALIDACION + " Tipo de Documento inválido"
+            );
+        }
+
+        logger.info("Validación realizada correctamente");
+    }
+
 }

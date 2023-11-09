@@ -2,7 +2,7 @@ package com.mibanco.clientefic.es.dao.contract;
 
 import com.mibanco.clientefic.es.dao.entity.*;
 import com.mibanco.clientefic.es.dto.ClienteFICDTO;
-import com.mibanco.clientefic.es.gen.type.*;
+import com.mibanco.clientefic.es.gen.type.ConyugeType;
 
 import java.util.List;
 

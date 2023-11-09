@@ -3,8 +3,8 @@ package com.mibanco.clientefic.es.dao.contract.impl;
 import com.mibanco.clientefic.es.dao.contract.IClienteFICDao;
 import com.mibanco.clientefic.es.dao.entity.*;
 import com.mibanco.clientefic.es.dto.ClienteFICDTO;
-import com.mibanco.clientefic.es.dto.ConsultaClientePorNombreDTO;
-import com.mibanco.clientefic.es.gen.type.*;
+import com.mibanco.clientefic.es.gen.type.ConyugeType;
+import com.mibanco.clientefic.es.gen.type.EstadoCivilEnum;
 import com.mibanco.clientefic.es.utils.mapper.ClienteFICMapper;
 import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -72,7 +72,7 @@ public class ClienteFICDAO implements IClienteFICDao {
     @Override
     public ClienteFICDTO obtenerClienteByIdentificacion(ConsultaClienteByData data) {
 
-        Log.info("Inicia Proceso de consumo SP FICConsultaClientePorIdentificacion");
+        Log.info("Inicia Proceso de consumo sp_fic_consultaClientePorIdentificacion");
 
         ClienteFICDTO dataResponse = new ClienteFICDTO();
 

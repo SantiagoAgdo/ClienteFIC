@@ -2,8 +2,8 @@ package com.mibanco.clientefic.es.constants;
 
 public class Constants {
 
-    public static final String SERVICIO_INTERNAL = "Se presento el siguiente error en el servicio: ";
-    public static final String VALIDACION = "Se presento el siguiente error en la validacion de: ";
+    public static final String SERVICIO_INTERNAL = "Se presentó el siguiente error en el servicio: ";
+    public static final String VALIDACION = "Se presentó el siguiente error en la validación de: ";
     public static final String SIN_REGISTROS = "No se encontraron registros ";
     public static final String SIN_PASIVO = "CLIENTE NO TIENE PASIVOS A LA FECHA";
     public static final String SIN_OFERTAS = "CLIENTE NO TIENE OFERTAS A LA FECHA ";
