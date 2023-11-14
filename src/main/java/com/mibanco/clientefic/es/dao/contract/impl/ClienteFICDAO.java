@@ -74,7 +74,7 @@ public class ClienteFICDAO implements IClienteFICDao {
 
         Log.info("Inicia Proceso de consumo sp_fic_consultaClientePorIdentificacion");
 
-        ClienteFICDTO dataResponse = new ClienteFICDTO();
+        ClienteFICDTO clienteFIC = new ClienteFICDTO();
 
         try (Connection connection = dataSource.getConnection()) {
 
@@ -86,7 +86,7 @@ public class ClienteFICDAO implements IClienteFICDao {
 
             ResultSet resultSet = callableStatement.executeQuery();
             while (resultSet.next()) {
-                dataResponse = new ClienteFICDTO(
+                clienteFIC = new ClienteFICDTO(
                         new AlertaEntity(),
                         new ClienteBaseEntity(),
                         new CentralRiesgoEntity(),
@@ -120,7 +120,7 @@ public class ClienteFICDAO implements IClienteFICDao {
             Log.info("Termina Consulta");
         }
 
-        return dataResponse;
+        return clienteFIC;
     }
 
     @Override
@@ -128,7 +128,7 @@ public class ClienteFICDAO implements IClienteFICDao {
 
         Log.info("Inicia Proceso de consumo sp_fic_consultaClientePorNombre");
 
-        List<ConsultarClientePorNombreEntity> dataResponse = new ArrayList<>();
+        List<ConsultarClientePorNombreEntity> consultarClientePorNombreList = new ArrayList<>();
 
         try (Connection connection = dataSource.getConnection()) {
 
@@ -146,7 +146,7 @@ public class ClienteFICDAO implements IClienteFICDao {
                         resultSet.getString("s_nombre_completo")
                 );
 
-                dataResponse.add(resultQuery);
+                consultarClientePorNombreList.add(resultQuery);
             }
 
             callableStatement.close();
@@ -157,7 +157,7 @@ public class ClienteFICDAO implements IClienteFICDao {
             Log.info("Termina Consulta");
         }
 
-        return new ConsultarClientePorNombreOutputEntity(dataResponse.size(), dataResponse);
+        return new ConsultarClientePorNombreOutputEntity(consultarClientePorNombreList.size(), consultarClientePorNombreList);
     }
 
     @Override
