@@ -40,14 +40,14 @@ public class ClienteFICDAO implements IClienteFICDao {
     }
 
     @Override
-    public List<AlertaEntity> obtenerListaAlertas(ConsultaClienteByDataEntity data) {
-        List<ClienteFICEntity> cliente = list.stream().filter(x -> x.getClienteBase().getTipoDocumento() == data.getTipoDocumento()).filter(x -> x.getClienteBase().getNumeroDocumento().equals(data.getNumeroDocumento())).filter(x -> x.getDigitoVerificacion().equals(data.getDigitoVerificacion())).toList();
+    public List<AlertaEntity> obtenerListaAlertas(ConsultaClienteDataEntity data) {
+        List<ClienteFICEntity> clienteFICEntityList = list.stream().filter(x -> x.getClienteBase().getTipoDocumento() == data.getTipoDocumento()).filter(x -> x.getClienteBase().getNumeroDocumento().equals(data.getNumeroDocumento())).filter(x -> x.getDigitoVerificacion().equals(data.getDigitoVerificacion())).toList();
 
         List<AlertaEntity> consultaCliente = new ArrayList<>();
 
-        if (cliente.size() != 0) {
-            for (ClienteFICEntity cli : cliente) {
-                AlertaEntity dataAlert = new AlertaEntity(cli.getAlerta().getTipoAlerta(), cli.getAlerta().getBanco(), cli.getAlerta().getFecha(), cli.getAlerta().getTipoDocumento(), cli.getAlerta().getNumeroDocumento(), cli.getAlerta().getDigitoVerificacion());
+        if (clienteFICEntityList.size() != 0) {
+            for (ClienteFICEntity clienteFIC : clienteFICEntityList) {
+                AlertaEntity dataAlert = new AlertaEntity(clienteFIC.getAlerta().getTipoAlerta(), clienteFIC.getAlerta().getBanco(), clienteFIC.getAlerta().getFecha(), clienteFIC.getAlerta().getTipoDocumento(), clienteFIC.getAlerta().getNumeroDocumento(), clienteFIC.getAlerta().getDigitoVerificacion());
                 consultaCliente.add(dataAlert);
             }
         } else {
@@ -59,18 +59,18 @@ public class ClienteFICDAO implements IClienteFICDao {
 
     @Override
     public List<CentralRiesgoEntity> obtenerListaCentralRiesgo(Integer numeroCliente) {
-        List<ClienteFICEntity> cliente = list.stream().filter(x -> x.getClienteBase().getNumeroDocumento().equals(numeroCliente)).toList();
+        List<ClienteFICEntity> clienteFICEntityList = list.stream().filter(x -> x.getClienteBase().getNumeroDocumento().equals(numeroCliente)).toList();
 
         List<CentralRiesgoEntity> consultaCliente = new ArrayList<>();
-        for (ClienteFICEntity cli : cliente) {
-            CentralRiesgoEntity dataCentral = new CentralRiesgoEntity(cli.getCentralRiesgo().getNumeroCliente(), cli.getCentralRiesgo().getResultadoConsultaMasReciente(), cli.getCentralRiesgo().getVbVigenteParaSerConsultado(), cli.getCentralRiesgo().getFechaConsultaMasReciente());
+        for (ClienteFICEntity clienteFIC : clienteFICEntityList) {
+            CentralRiesgoEntity dataCentral = new CentralRiesgoEntity(clienteFIC.getCentralRiesgo().getNumeroCliente(), clienteFIC.getCentralRiesgo().getResultadoConsultaMasReciente(), clienteFIC.getCentralRiesgo().getVbVigenteParaSerConsultado(), clienteFIC.getCentralRiesgo().getFechaConsultaMasReciente());
             consultaCliente.add(dataCentral);
         }
         return consultaCliente;
     }
 
     @Override
-    public ClienteFICDTO obtenerClienteIdentificacion(ConsultaClienteByDataEntity data) {
+    public ClienteFICDTO obtenerClienteIdentificacion(ConsultaClienteDataEntity data) {
 
         Log.info("Inicia Proceso de consumo sp_fic_consultaClientePorIdentificacion");
 
@@ -108,7 +108,7 @@ public class ClienteFICDAO implements IClienteFICDao {
                         "",
                         resultSet.getString("s_nombre_completo"),
                         resultSet.getString("s_estado_cliente"),
-                        mapper.stringToDoc(resultSet.getString("s_codigo_tipo_ident")),
+                        mapper.stringATipoDocumento(resultSet.getString("s_codigo_tipo_ident")),
                         resultSet.getString("m_total_activos"),
                         resultSet.getString("d_fecha_ult_actualizacion")
                 );
@@ -141,7 +141,7 @@ public class ClienteFICDAO implements IClienteFICDao {
             ResultSet resultSet = callableStatement.executeQuery();
             while (resultSet.next()) {
                 ConsultarClientePorNombreEntity resultconsultaCliente = new ConsultarClientePorNombreEntity(
-                        mapper.stringToDoc(resultSet.getString("s_codigo_tipo_ident")),
+                        mapper.stringATipoDocumento(resultSet.getString("s_codigo_tipo_ident")),
                         resultSet.getString("s_numero_identificacion"),
                         resultSet.getString("s_nombre_completo")
                 );
@@ -162,20 +162,20 @@ public class ClienteFICDAO implements IClienteFICDao {
 
     @Override
     public ConyugeType obtenerConyuge(Integer numeroCliente) {
-        ClienteFICEntity conyuge = list.stream().filter(x -> x.getClienteBase().getNumeroCliente().equals(numeroCliente)).findFirst().orElse(null);
-        if (conyuge != null) {
-            return conyuge.getConyuge();
+        ClienteFICEntity clienteFIC = list.stream().filter(x -> x.getClienteBase().getNumeroCliente().equals(numeroCliente)).findFirst().orElse(null);
+        if (clienteFIC != null) {
+            return clienteFIC.getConyuge();
         }
         return new ConyugeType();
     }
 
     @Override
     public List<CupoRotativoEntity> obtenerCupoRotativo(Integer numeroCliente) {
-        List<ClienteFICEntity> cliente = list.stream().filter(x -> x.getClienteBase().getNumeroDocumento().equals(numeroCliente)).toList();
+        List<ClienteFICEntity> clienteFICEntityLista = list.stream().filter(x -> x.getClienteBase().getNumeroDocumento().equals(numeroCliente)).toList();
 
         List<CupoRotativoEntity> cupoRotativoList = new ArrayList<>();
-        for (ClienteFICEntity cli : cliente) {
-            CupoRotativoEntity cupo = new CupoRotativoEntity(cli.getCupoRotativo().getEstado(), cli.getCupoRotativo().getFechaDeVencimiento(), cli.getCupoRotativo().getMontoCupoCredito(), cli.getCupoRotativo().getMontoUtilizado(), cli.getCupoRotativo().getNumeroCliente(), cli.getCupoRotativo().getNumeroCupo(), cli.getCupoRotativo().getSaldoDisponible());
+        for (ClienteFICEntity clienteFIC : clienteFICEntityLista) {
+            CupoRotativoEntity cupo = new CupoRotativoEntity(clienteFIC.getCupoRotativo().getEstado(), clienteFIC.getCupoRotativo().getFechaDeVencimiento(), clienteFIC.getCupoRotativo().getMontoCupoCredito(), clienteFIC.getCupoRotativo().getMontoUtilizado(), clienteFIC.getCupoRotativo().getNumeroCliente(), clienteFIC.getCupoRotativo().getNumeroCupo(), clienteFIC.getCupoRotativo().getSaldoDisponible());
             cupoRotativoList.add(cupo);
         }
         return cupoRotativoList;
@@ -183,11 +183,11 @@ public class ClienteFICDAO implements IClienteFICDao {
 
     @Override
     public List<ContactoEntity> obtenerContacto(Integer numeroCliente) {
-        List<ClienteFICEntity> cliente = list.stream().filter(x -> x.getClienteBase().getNumeroDocumento().equals(numeroCliente)).toList();
+        List<ClienteFICEntity> clienteFICEntityLista = list.stream().filter(x -> x.getClienteBase().getNumeroDocumento().equals(numeroCliente)).toList();
 
         List<ContactoEntity> consultaCliente = new ArrayList<>();
-        for (ClienteFICEntity cli : cliente) {
-            ContactoEntity data = new ContactoEntity(cli.getContacto().getFecha(), cli.getContacto().getTipoContacto(), cli.getContacto().getResultadoComentarios(), cli.getContacto().getNumeroCliente());
+        for (ClienteFICEntity clienteFIC : clienteFICEntityLista) {
+            ContactoEntity data = new ContactoEntity(clienteFIC.getContacto().getFecha(), clienteFIC.getContacto().getTipoContacto(), clienteFIC.getContacto().getResultadoComentarios(), clienteFIC.getContacto().getNumeroCliente());
             consultaCliente.add(data);
         }
         return consultaCliente;
@@ -195,11 +195,11 @@ public class ClienteFICDAO implements IClienteFICDao {
 
     @Override
     public List<OfertaEntity> obtenerOferta(Integer numeroCliente) {
-        List<ClienteFICEntity> cliente = list.stream().filter(x -> x.getClienteBase().getNumeroDocumento().equals(numeroCliente)).toList();
+        List<ClienteFICEntity> clienteFICEntityLista = list.stream().filter(x -> x.getClienteBase().getNumeroDocumento().equals(numeroCliente)).toList();
 
         List<OfertaEntity> consultaCliente = new ArrayList<>();
-        for (ClienteFICEntity cli : cliente) {
-            OfertaEntity data = new OfertaEntity(cli.getOferta().getNumeroOferta(), cli.getOferta().getTipoLead(), cli.getOferta().getTipoOferta(), cli.getOferta().getMonto(), cli.getOferta().getPlazo(), cli.getOferta().getNumeroCliente(), cli.getOferta().getTipoDeLiga(), cli.getOferta().getCondicionGarantia());
+        for (ClienteFICEntity clienteFIC : clienteFICEntityLista) {
+            OfertaEntity data = new OfertaEntity(clienteFIC.getOferta().getNumeroOferta(), clienteFIC.getOferta().getTipoLead(), clienteFIC.getOferta().getTipoOferta(), clienteFIC.getOferta().getMonto(), clienteFIC.getOferta().getPlazo(), clienteFIC.getOferta().getNumeroCliente(), clienteFIC.getOferta().getTipoDeLiga(), clienteFIC.getOferta().getCondicionGarantia());
             consultaCliente.add(data);
         }
         return consultaCliente;
@@ -207,24 +207,24 @@ public class ClienteFICDAO implements IClienteFICDao {
 
     @Override
     public List<PasivoEntity> obtenerPasivo(Integer numeroCliente) {
-        List<ClienteFICEntity> cliente = list.stream().filter(x -> x.getClienteBase().getNumeroDocumento().equals(numeroCliente)).toList();
+        List<ClienteFICEntity> clienteFICEntityLista = list.stream().filter(x -> x.getClienteBase().getNumeroDocumento().equals(numeroCliente)).toList();
 
         List<PasivoEntity> consultaCliente = new ArrayList<>();
-        for (ClienteFICEntity cli : cliente) {
-            PasivoEntity data = new PasivoEntity(cli.getPasivo().getNumeroCliente(), cli.getPasivo().getNumeroProducto(), cli.getPasivo().getTipoProducto(), cli.getPasivo().getDetalleProducto(), cli.getPasivo().getEstadoPasivo(), cli.getPasivo().getFechaApertura(), cli.getPasivo().getFechaCierre(), cli.getPasivo().getCapital(), cli.getPasivo().getIntereses(), cli.getPasivo().getOtros(), cli.getPasivo().getSaldoTotal());
+        for (ClienteFICEntity clienteFIC : clienteFICEntityLista) {
+            PasivoEntity data = new PasivoEntity(clienteFIC.getPasivo().getNumeroCliente(), clienteFIC.getPasivo().getNumeroProducto(), clienteFIC.getPasivo().getTipoProducto(), clienteFIC.getPasivo().getDetalleProducto(), clienteFIC.getPasivo().getEstadoPasivo(), clienteFIC.getPasivo().getFechaApertura(), clienteFIC.getPasivo().getFechaCierre(), clienteFIC.getPasivo().getCapital(), clienteFIC.getPasivo().getIntereses(), clienteFIC.getPasivo().getOtros(), clienteFIC.getPasivo().getSaldoTotal());
             consultaCliente.add(data);
         }
         return consultaCliente;
     }
 
     @Override
-    public List<PQREntity> obtenerPQR(ConsultaClienteByDataEntity data) {
+    public List<PQREntity> obtenerPQR(ConsultaClienteDataEntity data) {
 
-        List<ClienteFICEntity> cliente = list.stream().filter(x -> x.getClienteBase().getNumeroDocumento().equals(data.getNumeroDocumento())).filter(x -> x.getClienteBase().getTipoDocumento() == data.getTipoDocumento()).filter(x -> x.getDigitoVerificacion().equals(data.getDigitoVerificacion())).toList();
+        List<ClienteFICEntity> clienteFICEntityLista = list.stream().filter(x -> x.getClienteBase().getNumeroDocumento().equals(data.getNumeroDocumento())).filter(x -> x.getClienteBase().getTipoDocumento() == data.getTipoDocumento()).filter(x -> x.getDigitoVerificacion().equals(data.getDigitoVerificacion())).toList();
 
         List<PQREntity> consultaCliente = new ArrayList<>();
-        for (ClienteFICEntity cli : cliente) {
-            PQREntity pqr = new PQREntity(cli.getPQR().getNumeroCliente(), cli.getPQR().getFecha(), cli.getPQR().getNumeroPQR(), cli.getPQR().getMotivo(), cli.getPQR().getResultadoPQR(), cli.getPQR().getComentario());
+        for (ClienteFICEntity clienteFIC : clienteFICEntityLista) {
+            PQREntity pqr = new PQREntity(clienteFIC.getPQR().getNumeroCliente(), clienteFIC.getPQR().getFecha(), clienteFIC.getPQR().getNumeroPQR(), clienteFIC.getPQR().getMotivo(), clienteFIC.getPQR().getResultadoPQR(), clienteFIC.getPQR().getComentario());
             consultaCliente.add(pqr);
         }
         return consultaCliente;

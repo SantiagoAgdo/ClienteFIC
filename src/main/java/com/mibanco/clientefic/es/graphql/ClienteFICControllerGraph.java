@@ -1,6 +1,6 @@
 package com.mibanco.clientefic.es.graphql;
 
-import com.mibanco.clientefic.es.dao.entity.ConsultaClienteByDataEntity;
+import com.mibanco.clientefic.es.dao.entity.ConsultaClienteDataEntity;
 import com.mibanco.clientefic.es.dao.entity.ConsultarClientePorNombreOutputEntity;
 import com.mibanco.clientefic.es.dto.ClienteFICDTO;
 import com.mibanco.clientefic.es.gen.type.*;
@@ -32,7 +32,7 @@ public class ClienteFICControllerGraph {
         logger.info("Inicia consulta de alerta en GraphQL");
 
         try {
-            List<AlertaType> alerta = clienteFICService.obtenerListaAlertas(new ConsultaClienteByDataEntity(tipoDocumento, numeroDocumento, digitoVerificacion));
+            List<AlertaType> alerta = clienteFICService.obtenerListaAlertas(new ConsultaClienteDataEntity(tipoDocumento, numeroDocumento, digitoVerificacion));
             logger.info("Termina consulta de alerta en GraphQL");
             return alerta;
         } catch (ApplicationException e) {
@@ -64,7 +64,7 @@ public class ClienteFICControllerGraph {
 
         logger.info("Inicia consulta de PQR en GraphQL");
         try {
-            List<PQRType> list = clienteFICService.obtenerPQR(new ConsultaClienteByDataEntity(tipoDocumento, numeroDocumento, digitoVerificacion));
+            List<PQRType> list = clienteFICService.obtenerPQR(new ConsultaClienteDataEntity(tipoDocumento, numeroDocumento, digitoVerificacion));
 
             logger.info("Termina consulta de PQR en GraphQL");
             return list;
@@ -81,7 +81,7 @@ public class ClienteFICControllerGraph {
 
         logger.info("Inicia consulta de cliente en GraphQL");
         try {
-            ClienteFICDTO list = clienteFICService.obtenerClienteIdentificacion(new ConsultaClienteByDataEntity(tipoDocumento, numeroDocumento, digitoVerificacion));
+            ClienteFICDTO list = clienteFICService.obtenerClienteIdentificacion(new ConsultaClienteDataEntity(tipoDocumento, numeroDocumento, digitoVerificacion));
 
             logger.info("Termina consulta de cliente en GraphQL");
             return list;

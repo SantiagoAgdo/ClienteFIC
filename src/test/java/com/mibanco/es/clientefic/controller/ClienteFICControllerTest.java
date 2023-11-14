@@ -2,7 +2,7 @@ package com.mibanco.es.clientefic.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mibanco.clientefic.es.controller.ClienteFICController;
-import com.mibanco.clientefic.es.dao.entity.ConsultaClienteByDataEntity;
+import com.mibanco.clientefic.es.dao.entity.ConsultaClienteDataEntity;
 import com.mibanco.clientefic.es.gen.type.AlertaType;
 import com.mibanco.clientefic.es.gen.type.ClienteFICType;
 import com.mibanco.clientefic.es.gen.type.TipoDocumentoEnum;
@@ -63,7 +63,7 @@ public class ClienteFICControllerTest {
 
         when(mockObjectMapper.readValue(any(byte[].class), any(Class.class))).thenReturn(new ClienteFICType());
 
-        String jsonString = new String(Files.readAllBytes(Paths.get("src/main/resources/es-clienteFIC-json.json")), StandardCharsets.UTF_8);
+        String jsonString = new String(Files.readAllBytes(Paths.get("src/main/resources/es-pruebaclientefic-json.json")), StandardCharsets.UTF_8);
         ClienteFICType clienteType = objectMapper.readValue(jsonString, ClienteFICType.class);
 
         given()
@@ -239,7 +239,7 @@ public class ClienteFICControllerTest {
         // Mock de datos de salida
         AlertaType alerta = new AlertaType();
         // Configurar los valores de alerta según sea necesario
-        ConsultaClienteByDataEntity x = new ConsultaClienteByDataEntity(TipoDocumentoEnum.CC, 10002, 0);
+        ConsultaClienteDataEntity x = new ConsultaClienteDataEntity(TipoDocumentoEnum.CC, 10002, 0);
         // Configuración de los mocks
         when(clienteFICService.obtenerListaAlertas(x)).thenReturn(Collections.singletonList(alerta));
 

@@ -40,7 +40,7 @@ public class ClienteFICServiceImpl implements ClienteFICService {
     }
 
     @Override
-    public List<AlertaType> obtenerListaAlertas(ConsultaClienteByDataEntity data) throws ApplicationException {
+    public List<AlertaType> obtenerListaAlertas(ConsultaClienteDataEntity data) throws ApplicationException {
 
         LOG.info("Inicia consulta de Alertas");
         List<AlertaEntity> listAlertasResponse = clienteFICDAO.obtenerListaAlertas(data);
@@ -60,7 +60,7 @@ public class ClienteFICServiceImpl implements ClienteFICService {
     }
 
     @Override
-    public ClienteFICDTO obtenerClienteIdentificacion(ConsultaClienteByDataEntity dataCliente) throws ApplicationException {
+    public ClienteFICDTO obtenerClienteIdentificacion(ConsultaClienteDataEntity dataCliente) throws ApplicationException {
 
         LOG.info("Inicia consulta de cliente por identificación");
         ClienteFICDTO rptClienteByIdentificacion = clienteFICDAO.obtenerClienteIdentificacion(dataCliente);
@@ -127,7 +127,7 @@ public class ClienteFICServiceImpl implements ClienteFICService {
     }
 
     @Override
-    public List<PQRType> obtenerPQR(ConsultaClienteByDataEntity dataCliente) throws ApplicationException {
+    public List<PQRType> obtenerPQR(ConsultaClienteDataEntity dataCliente) throws ApplicationException {
 
         LOG.info("Inicia consulta de PQR");
         List<PQREntity> listPqrResponse = clienteFICDAO.obtenerPQR(dataCliente);

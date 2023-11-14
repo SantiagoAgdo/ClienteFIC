@@ -12,7 +12,7 @@ public class ClienteFICMapper {
         return new ModelMapper().map(entity, ClienteFICType.class);
     }
 
-    public TipoDocumentoEnum stringToDoc(String documentoTipo){
+    public TipoDocumentoEnum stringATipoDocumento(String documentoTipo){
         return new ModelMapper().map(documentoTipo, TipoDocumentoEnum.class);
     }
 

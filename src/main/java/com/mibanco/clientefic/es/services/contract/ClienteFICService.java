@@ -1,7 +1,7 @@
 package com.mibanco.clientefic.es.services.contract;
 
 import com.mibanco.clientefic.es.dao.entity.ClienteFICEntity;
-import com.mibanco.clientefic.es.dao.entity.ConsultaClienteByDataEntity;
+import com.mibanco.clientefic.es.dao.entity.ConsultaClienteDataEntity;
 import com.mibanco.clientefic.es.dao.entity.ConsultarClientePorNombreOutputEntity;
 import com.mibanco.clientefic.es.dto.ClienteFICDTO;
 import com.mibanco.clientefic.es.gen.type.*;
@@ -12,11 +12,11 @@ public interface ClienteFICService {
 
     ClienteFICType crearClienteFICType(ClienteFICEntity clienteFIC);
 
-    List<AlertaType> obtenerListaAlertas(ConsultaClienteByDataEntity dataCliente);
+    List<AlertaType> obtenerListaAlertas(ConsultaClienteDataEntity dataCliente);
 
     List<CentralRiesgoType> obtenerListaCentralRiesgo(Integer numeroCliente);
 
-    ClienteFICDTO obtenerClienteIdentificacion(ConsultaClienteByDataEntity dataCliente);
+    ClienteFICDTO obtenerClienteIdentificacion(ConsultaClienteDataEntity dataCliente);
 
     ConsultarClientePorNombreOutputEntity obtenerClienteNombre(String nombre, int pagina, int tamanoPagina);
 
@@ -30,6 +30,6 @@ public interface ClienteFICService {
 
     List<PasivoType> obtenerPasivo(Integer numeroCliente);
 
-    List<PQRType> obtenerPQR(ConsultaClienteByDataEntity numeroCliente);
+    List<PQRType> obtenerPQR(ConsultaClienteDataEntity numeroCliente);
 
 }

@@ -2,7 +2,7 @@ package com.mibanco.clientefic.es.controller;
 
 import com.mibanco.clientefic.es.constants.Constants;
 import com.mibanco.clientefic.es.dao.entity.ClienteFICEntity;
-import com.mibanco.clientefic.es.dao.entity.ConsultaClienteByDataEntity;
+import com.mibanco.clientefic.es.dao.entity.ConsultaClienteDataEntity;
 import com.mibanco.clientefic.es.dao.entity.ConsultarClientePorNombreOutputEntity;
 import com.mibanco.clientefic.es.dao.entity.ContactoEntity;
 import com.mibanco.clientefic.es.dto.ClienteFICDTO;
@@ -48,7 +48,7 @@ public class ClienteFICController implements V1ClienteFIC {
         LOG.info("Inicia consulta de Alerta");
         try {
             clienteFICValidator.validarConsulta(tipoDocumento, numeroDocumento, digitoVerificacion);
-            List<AlertaType> listaAlertas = clienteFICServiceImpl.obtenerListaAlertas(new ConsultaClienteByDataEntity(tipoDocumento, numeroDocumento, digitoVerificacion));
+            List<AlertaType> listaAlertas = clienteFICServiceImpl.obtenerListaAlertas(new ConsultaClienteDataEntity(tipoDocumento, numeroDocumento, digitoVerificacion));
 
             LOG.info("Finaliza consulta de Alerta");
             return listaAlertas.size() != 0 ? Response.status(Response.Status.OK).entity(listaAlertas).build() :
@@ -73,9 +73,9 @@ public class ClienteFICController implements V1ClienteFIC {
         try {
             clienteFICValidator.validarNumeroCliente(numeroCliente);
 
-            List<CentralRiesgoType> list = clienteFICServiceImpl.obtenerListaCentralRiesgo(numeroCliente);
+            List<CentralRiesgoType> listaCentralRiesgo = clienteFICServiceImpl.obtenerListaCentralRiesgo(numeroCliente);
             LOG.info("Finaliza consulta de CentralRiesgo");
-            return list.size() != 0 ? Response.status(Response.Status.OK).entity(list).build() :
+            return listaCentralRiesgo.size() != 0 ? Response.status(Response.Status.OK).entity(listaCentralRiesgo).build() :
                     Response.status(Response.Status.OK).entity(Constants.SIN_REGISTROS).build();
 
         } catch (ApplicationExceptionValidation e) {
@@ -144,10 +144,10 @@ public class ClienteFICController implements V1ClienteFIC {
         LOG.info("Inicia consulta de Cupo Rotativo");
         try {
             clienteFICValidator.validarNumeroCliente(numeroCliente);
-            List<CupoRotativoType> list = clienteFICServiceImpl.obtenerCupoRotativo(numeroCliente);
+            List<CupoRotativoType> cupoRotativoTypeLista = clienteFICServiceImpl.obtenerCupoRotativo(numeroCliente);
 
             LOG.info("Finaliza consulta de Cupo Rotativo");
-            return list.size() != 0 ? Response.status(Response.Status.OK).entity(list).build() :
+            return cupoRotativoTypeLista.size() != 0 ? Response.status(Response.Status.OK).entity(cupoRotativoTypeLista).build() :
                     Response.status(Response.Status.OK).entity(Constants.SIN_REGISTROS).build();
 
         } catch (ApplicationExceptionValidation e) {
@@ -168,10 +168,10 @@ public class ClienteFICController implements V1ClienteFIC {
         LOG.info("Inicia consulta de Historial Contacto");
         try {
             clienteFICValidator.validarNumeroCliente(numeroCliente);
-            List<ContactoType> list = clienteFICServiceImpl.obtenerContacto(numeroCliente);
+            List<ContactoType> contactoTypeLista = clienteFICServiceImpl.obtenerContacto(numeroCliente);
 
             LOG.info("Finaliza consulta de Historial Contacto");
-            return list.size() != 0 ? Response.status(Response.Status.OK).entity(list).build() :
+            return contactoTypeLista.size() != 0 ? Response.status(Response.Status.OK).entity(contactoTypeLista).build() :
                     Response.status(Response.Status.OK).entity(Constants.SIN_CONTACTO).build();
 
         } catch (ApplicationExceptionValidation e) {
@@ -192,10 +192,10 @@ public class ClienteFICController implements V1ClienteFIC {
         LOG.info("Inicia consulta de Oferta");
         try {
             clienteFICValidator.validarNumeroCliente(numeroCliente);
-            List<OfertaType> list = clienteFICServiceImpl.obtenerOferta(numeroCliente);
+            List<OfertaType> ofertaTypeLista = clienteFICServiceImpl.obtenerOferta(numeroCliente);
 
             LOG.info("Finaliza consulta de Oferta");
-            return list.size() != 0 ? Response.status(Response.Status.OK).entity(list).build() :
+            return ofertaTypeLista.size() != 0 ? Response.status(Response.Status.OK).entity(ofertaTypeLista).build() :
                     Response.status(Response.Status.OK).entity(Constants.SIN_OFERTAS).build();
 
         } catch (ApplicationExceptionValidation e) {
@@ -216,10 +216,10 @@ public class ClienteFICController implements V1ClienteFIC {
         LOG.info("Inicia consulta de PQR");
         try {
             clienteFICValidator.validarConsulta(tipoDocumento, numeroDocumento, digitoVerificacion);
-            List<PQRType> list = clienteFICServiceImpl.obtenerPQR(new ConsultaClienteByDataEntity(tipoDocumento, numeroDocumento, digitoVerificacion));
+            List<PQRType> pqrTypeLista = clienteFICServiceImpl.obtenerPQR(new ConsultaClienteDataEntity(tipoDocumento, numeroDocumento, digitoVerificacion));
 
             LOG.info("Finaliza consulta de PQR");
-            return list.size() != 0 ? Response.status(Response.Status.OK).entity(list).build() :
+            return pqrTypeLista.size() != 0 ? Response.status(Response.Status.OK).entity(pqrTypeLista).build() :
                     Response.status(Response.Status.OK).entity(Constants.SIN_PQR).build();
 
         } catch (ApplicationExceptionValidation e) {
@@ -240,10 +240,10 @@ public class ClienteFICController implements V1ClienteFIC {
         LOG.info("Inicia consulta Pasivo");
         try {
             clienteFICValidator.validarNumeroCliente(numeroCliente);
-            List<PasivoType> list = clienteFICServiceImpl.obtenerPasivo(numeroCliente);
+            List<PasivoType> pasivoTypeLista = clienteFICServiceImpl.obtenerPasivo(numeroCliente);
 
             LOG.info("Finaliza consulta Pasivo");
-            return list.size() != 0 ? Response.status(Response.Status.OK).entity(list).build() :
+            return pasivoTypeLista.size() != 0 ? Response.status(Response.Status.OK).entity(pasivoTypeLista).build() :
                     Response.status(Response.Status.OK).entity(Constants.SIN_PASIVO).build();
 
         } catch (ApplicationExceptionValidation e) {
@@ -266,10 +266,10 @@ public class ClienteFICController implements V1ClienteFIC {
         try {
             clienteFICValidator.validarConsulta(tipoDocumento, numeroDocumento, digitoVerificacion);
 
-            ClienteFICDTO cliente = clienteFICServiceImpl.obtenerClienteIdentificacion(new ConsultaClienteByDataEntity(tipoDocumento, numeroDocumento, digitoVerificacion));
+            ClienteFICDTO clienteFICDTO = clienteFICServiceImpl.obtenerClienteIdentificacion(new ConsultaClienteDataEntity(tipoDocumento, numeroDocumento, digitoVerificacion));
 
             LOG.info("Finaliza consulta de Cliente FIC por Identificación");
-            return cliente != null ? Response.status(Response.Status.OK).entity(cliente).build() :
+            return clienteFICDTO != null ? Response.status(Response.Status.OK).entity(clienteFICDTO).build() :
                     Response.status(Response.Status.OK).entity(Constants.CLIENTE_NO_EXISTE).build();
 
         } catch (ApplicationExceptionValidation e) {
