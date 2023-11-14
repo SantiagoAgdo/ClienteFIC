@@ -3,6 +3,7 @@ package com.mibanco.clientefic.es.grpc;
 import com.mibanco.clientefic.es.*;
 import com.mibanco.clientefic.es.controller.ClienteFICController;
 import com.mibanco.clientefic.es.dao.entity.ClienteFICEntity;
+import com.mibanco.clientefic.es.dao.entity.ConsultaClienteByDataEntity;
 import com.mibanco.clientefic.es.gen.type.AlertaType;
 import com.mibanco.clientefic.es.gen.type.CentralRiesgoType;
 import com.mibanco.clientefic.es.gen.type.ContactoType;
@@ -74,7 +75,7 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
         try {
 
             clienteFICValidator.validarConsultaGrpc(request.getTipoDocumento(), request.getNumeroDocumento(), request.getDigitoVerificacion());
-            com.mibanco.clientefic.es.dao.entity.ConsultaClienteByData entity = mapper.dataGrpcToEntity(request);
+            ConsultaClienteByDataEntity entity = mapper.dataGrpcToEntity(request);
             List<AlertaType> alertaListType = clienteFICService.obtenerListaAlertas(entity);
 
             List<com.mibanco.clientefic.es.AlertaType> alertaResponse = new ArrayList<>();
@@ -148,7 +149,7 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
         LOG.info("Inicia consulta PQR por GRPC");
         try {
             clienteFICValidator.validarConsultaGrpc(request.getTipoDocumento(), request.getNumeroDocumento(), request.getDigitoVerificacion());
-            com.mibanco.clientefic.es.dao.entity.ConsultaClienteByData entity = mapper.dataGrpcToEntity(request);
+            ConsultaClienteByDataEntity entity = mapper.dataGrpcToEntity(request);
             List<PQRType> pqrList = clienteFICService.obtenerPQR(entity);
 
             List<com.mibanco.clientefic.es.PQRType> pqrListResponse = new ArrayList<>();

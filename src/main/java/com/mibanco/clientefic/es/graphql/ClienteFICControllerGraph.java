@@ -1,6 +1,6 @@
 package com.mibanco.clientefic.es.graphql;
 
-import com.mibanco.clientefic.es.dao.entity.ConsultaClienteByData;
+import com.mibanco.clientefic.es.dao.entity.ConsultaClienteByDataEntity;
 import com.mibanco.clientefic.es.dao.entity.ConsultarClientePorNombreOutputEntity;
 import com.mibanco.clientefic.es.dto.ClienteFICDTO;
 import com.mibanco.clientefic.es.gen.type.*;
@@ -32,7 +32,7 @@ public class ClienteFICControllerGraph {
         logger.info("Inicia consulta de alerta en GraphQL");
 
         try {
-            List<AlertaType> alerta = clienteFICService.obtenerListaAlertas(new ConsultaClienteByData(tipoDocumento, numeroDocumento, digitoVerificacion));
+            List<AlertaType> alerta = clienteFICService.obtenerListaAlertas(new ConsultaClienteByDataEntity(tipoDocumento, numeroDocumento, digitoVerificacion));
             logger.info("Termina consulta de alerta en GraphQL");
             return alerta;
         } catch (ApplicationException e) {
@@ -64,7 +64,7 @@ public class ClienteFICControllerGraph {
 
         logger.info("Inicia consulta de PQR en GraphQL");
         try {
-            List<PQRType> list = clienteFICService.obtenerPQR(new ConsultaClienteByData(tipoDocumento, numeroDocumento, digitoVerificacion));
+            List<PQRType> list = clienteFICService.obtenerPQR(new ConsultaClienteByDataEntity(tipoDocumento, numeroDocumento, digitoVerificacion));
 
             logger.info("Termina consulta de PQR en GraphQL");
             return list;
@@ -81,7 +81,7 @@ public class ClienteFICControllerGraph {
 
         logger.info("Inicia consulta de cliente en GraphQL");
         try {
-            ClienteFICDTO list = clienteFICService.obtenerClienteByIdentificacion(new ConsultaClienteByData(tipoDocumento, numeroDocumento, digitoVerificacion));
+            ClienteFICDTO list = clienteFICService.obtenerClienteIdentificacion(new ConsultaClienteByDataEntity(tipoDocumento, numeroDocumento, digitoVerificacion));
 
             logger.info("Termina consulta de cliente en GraphQL");
             return list;
@@ -165,7 +165,7 @@ public class ClienteFICControllerGraph {
 
         logger.info("Inicia consulta cliente por nombre en GraphQL");
         try {
-            ConsultarClientePorNombreOutputEntity data = clienteFICService.obtenerClienteByNombre(nombre, 1, 15);
+            ConsultarClientePorNombreOutputEntity data = clienteFICService.obtenerClienteNombre(nombre, 1, 15);
 
             logger.info("Termina consulta cliente por nombre en GraphQL");
             return data;

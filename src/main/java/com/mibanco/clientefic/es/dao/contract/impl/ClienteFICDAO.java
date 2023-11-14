@@ -40,37 +40,37 @@ public class ClienteFICDAO implements IClienteFICDao {
     }
 
     @Override
-    public List<AlertaEntity> obtenerListaAlertas(ConsultaClienteByData data) {
+    public List<AlertaEntity> obtenerListaAlertas(ConsultaClienteByDataEntity data) {
         List<ClienteFICEntity> cliente = list.stream().filter(x -> x.getClienteBase().getTipoDocumento() == data.getTipoDocumento()).filter(x -> x.getClienteBase().getNumeroDocumento().equals(data.getNumeroDocumento())).filter(x -> x.getDigitoVerificacion().equals(data.getDigitoVerificacion())).toList();
 
-        List<AlertaEntity> query = new ArrayList<>();
+        List<AlertaEntity> consultaCliente = new ArrayList<>();
 
         if (cliente.size() != 0) {
             for (ClienteFICEntity cli : cliente) {
                 AlertaEntity dataAlert = new AlertaEntity(cli.getAlerta().getTipoAlerta(), cli.getAlerta().getBanco(), cli.getAlerta().getFecha(), cli.getAlerta().getTipoDocumento(), cli.getAlerta().getNumeroDocumento(), cli.getAlerta().getDigitoVerificacion());
-                query.add(dataAlert);
+                consultaCliente.add(dataAlert);
             }
         } else {
-            return query;
+            return consultaCliente;
         }
 
-        return query;
+        return consultaCliente;
     }
 
     @Override
     public List<CentralRiesgoEntity> obtenerListaCentralRiesgo(Integer numeroCliente) {
         List<ClienteFICEntity> cliente = list.stream().filter(x -> x.getClienteBase().getNumeroDocumento().equals(numeroCliente)).toList();
 
-        List<CentralRiesgoEntity> query = new ArrayList<>();
+        List<CentralRiesgoEntity> consultaCliente = new ArrayList<>();
         for (ClienteFICEntity cli : cliente) {
             CentralRiesgoEntity dataCentral = new CentralRiesgoEntity(cli.getCentralRiesgo().getNumeroCliente(), cli.getCentralRiesgo().getResultadoConsultaMasReciente(), cli.getCentralRiesgo().getVbVigenteParaSerConsultado(), cli.getCentralRiesgo().getFechaConsultaMasReciente());
-            query.add(dataCentral);
+            consultaCliente.add(dataCentral);
         }
-        return query;
+        return consultaCliente;
     }
 
     @Override
-    public ClienteFICDTO obtenerClienteByIdentificacion(ConsultaClienteByData data) {
+    public ClienteFICDTO obtenerClienteIdentificacion(ConsultaClienteByDataEntity data) {
 
         Log.info("Inicia Proceso de consumo sp_fic_consultaClientePorIdentificacion");
 
@@ -124,7 +124,7 @@ public class ClienteFICDAO implements IClienteFICDao {
     }
 
     @Override
-    public ConsultarClientePorNombreOutputEntity obtenerClienteByNombre(String nombre, int pagina, int tamanoPagina) {
+    public ConsultarClientePorNombreOutputEntity obtenerClienteNombre(String nombre, int pagina, int tamanoPagina) {
 
         Log.info("Inicia Proceso de consumo sp_fic_consultaClientePorNombre");
 
@@ -140,13 +140,13 @@ public class ClienteFICDAO implements IClienteFICDao {
 
             ResultSet resultSet = callableStatement.executeQuery();
             while (resultSet.next()) {
-                ConsultarClientePorNombreEntity resultQuery = new ConsultarClientePorNombreEntity(
+                ConsultarClientePorNombreEntity resultconsultaCliente = new ConsultarClientePorNombreEntity(
                         mapper.stringToDoc(resultSet.getString("s_codigo_tipo_ident")),
                         resultSet.getString("s_numero_identificacion"),
                         resultSet.getString("s_nombre_completo")
                 );
 
-                consultarClientePorNombreList.add(resultQuery);
+                consultarClientePorNombreList.add(resultconsultaCliente);
             }
 
             callableStatement.close();
@@ -175,8 +175,8 @@ public class ClienteFICDAO implements IClienteFICDao {
 
         List<CupoRotativoEntity> cupoRotativoList = new ArrayList<>();
         for (ClienteFICEntity cli : cliente) {
-            CupoRotativoEntity cup = new CupoRotativoEntity(cli.getCupoRotativo().getEstado(), cli.getCupoRotativo().getFechaDeVencimiento(), cli.getCupoRotativo().getMontoCupoCredito(), cli.getCupoRotativo().getMontoUtilizado(), cli.getCupoRotativo().getNumeroCliente(), cli.getCupoRotativo().getNumeroCupo(), cli.getCupoRotativo().getSaldoDisponible());
-            cupoRotativoList.add(cup);
+            CupoRotativoEntity cupo = new CupoRotativoEntity(cli.getCupoRotativo().getEstado(), cli.getCupoRotativo().getFechaDeVencimiento(), cli.getCupoRotativo().getMontoCupoCredito(), cli.getCupoRotativo().getMontoUtilizado(), cli.getCupoRotativo().getNumeroCliente(), cli.getCupoRotativo().getNumeroCupo(), cli.getCupoRotativo().getSaldoDisponible());
+            cupoRotativoList.add(cupo);
         }
         return cupoRotativoList;
     }
@@ -185,49 +185,49 @@ public class ClienteFICDAO implements IClienteFICDao {
     public List<ContactoEntity> obtenerContacto(Integer numeroCliente) {
         List<ClienteFICEntity> cliente = list.stream().filter(x -> x.getClienteBase().getNumeroDocumento().equals(numeroCliente)).toList();
 
-        List<ContactoEntity> query = new ArrayList<>();
+        List<ContactoEntity> consultaCliente = new ArrayList<>();
         for (ClienteFICEntity cli : cliente) {
             ContactoEntity data = new ContactoEntity(cli.getContacto().getFecha(), cli.getContacto().getTipoContacto(), cli.getContacto().getResultadoComentarios(), cli.getContacto().getNumeroCliente());
-            query.add(data);
+            consultaCliente.add(data);
         }
-        return query;
+        return consultaCliente;
     }
 
     @Override
     public List<OfertaEntity> obtenerOferta(Integer numeroCliente) {
         List<ClienteFICEntity> cliente = list.stream().filter(x -> x.getClienteBase().getNumeroDocumento().equals(numeroCliente)).toList();
 
-        List<OfertaEntity> query = new ArrayList<>();
+        List<OfertaEntity> consultaCliente = new ArrayList<>();
         for (ClienteFICEntity cli : cliente) {
             OfertaEntity data = new OfertaEntity(cli.getOferta().getNumeroOferta(), cli.getOferta().getTipoLead(), cli.getOferta().getTipoOferta(), cli.getOferta().getMonto(), cli.getOferta().getPlazo(), cli.getOferta().getNumeroCliente(), cli.getOferta().getTipoDeLiga(), cli.getOferta().getCondicionGarantia());
-            query.add(data);
+            consultaCliente.add(data);
         }
-        return query;
+        return consultaCliente;
     }
 
     @Override
     public List<PasivoEntity> obtenerPasivo(Integer numeroCliente) {
         List<ClienteFICEntity> cliente = list.stream().filter(x -> x.getClienteBase().getNumeroDocumento().equals(numeroCliente)).toList();
 
-        List<PasivoEntity> query = new ArrayList<>();
+        List<PasivoEntity> consultaCliente = new ArrayList<>();
         for (ClienteFICEntity cli : cliente) {
             PasivoEntity data = new PasivoEntity(cli.getPasivo().getNumeroCliente(), cli.getPasivo().getNumeroProducto(), cli.getPasivo().getTipoProducto(), cli.getPasivo().getDetalleProducto(), cli.getPasivo().getEstadoPasivo(), cli.getPasivo().getFechaApertura(), cli.getPasivo().getFechaCierre(), cli.getPasivo().getCapital(), cli.getPasivo().getIntereses(), cli.getPasivo().getOtros(), cli.getPasivo().getSaldoTotal());
-            query.add(data);
+            consultaCliente.add(data);
         }
-        return query;
+        return consultaCliente;
     }
 
     @Override
-    public List<PQREntity> obtenerPQR(ConsultaClienteByData data) {
+    public List<PQREntity> obtenerPQR(ConsultaClienteByDataEntity data) {
 
         List<ClienteFICEntity> cliente = list.stream().filter(x -> x.getClienteBase().getNumeroDocumento().equals(data.getNumeroDocumento())).filter(x -> x.getClienteBase().getTipoDocumento() == data.getTipoDocumento()).filter(x -> x.getDigitoVerificacion().equals(data.getDigitoVerificacion())).toList();
 
-        List<PQREntity> query = new ArrayList<>();
+        List<PQREntity> consultaCliente = new ArrayList<>();
         for (ClienteFICEntity cli : cliente) {
             PQREntity pqr = new PQREntity(cli.getPQR().getNumeroCliente(), cli.getPQR().getFecha(), cli.getPQR().getNumeroPQR(), cli.getPQR().getMotivo(), cli.getPQR().getResultadoPQR(), cli.getPQR().getComentario());
-            query.add(pqr);
+            consultaCliente.add(pqr);
         }
-        return query;
+        return consultaCliente;
     }
 
 }

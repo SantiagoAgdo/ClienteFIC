@@ -10,13 +10,13 @@ public interface IClienteFICDao {
 
     void crearClienteFIC(ClienteFICEntity clienteFIC);
 
-    List<AlertaEntity> obtenerListaAlertas(ConsultaClienteByData data);
+    List<AlertaEntity> obtenerListaAlertas(ConsultaClienteByDataEntity data);
 
     List<CentralRiesgoEntity> obtenerListaCentralRiesgo(Integer numeroCliente);
 
-    ClienteFICDTO obtenerClienteByIdentificacion(ConsultaClienteByData data);
+    ClienteFICDTO obtenerClienteIdentificacion(ConsultaClienteByDataEntity data);
 
-    ConsultarClientePorNombreOutputEntity obtenerClienteByNombre(String nombre, int pagina, int tamanoPagina);
+    ConsultarClientePorNombreOutputEntity obtenerClienteNombre(String nombre, int pagina, int tamanoPagina);
 
     ConyugeType obtenerConyuge(Integer numeroCliente);
 
@@ -28,6 +28,6 @@ public interface IClienteFICDao {
 
     List<PasivoEntity> obtenerPasivo(Integer numeroCliente);
 
-    List<PQREntity> obtenerPQR(ConsultaClienteByData numeroCliente);
+    List<PQREntity> obtenerPQR(ConsultaClienteByDataEntity numeroCliente);
 
 }

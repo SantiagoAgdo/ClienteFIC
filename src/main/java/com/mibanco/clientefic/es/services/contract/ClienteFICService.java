@@ -1,7 +1,7 @@
 package com.mibanco.clientefic.es.services.contract;
 
 import com.mibanco.clientefic.es.dao.entity.ClienteFICEntity;
-import com.mibanco.clientefic.es.dao.entity.ConsultaClienteByData;
+import com.mibanco.clientefic.es.dao.entity.ConsultaClienteByDataEntity;
 import com.mibanco.clientefic.es.dao.entity.ConsultarClientePorNombreOutputEntity;
 import com.mibanco.clientefic.es.dto.ClienteFICDTO;
 import com.mibanco.clientefic.es.gen.type.*;
@@ -12,13 +12,13 @@ public interface ClienteFICService {
 
     ClienteFICType crearClienteFICType(ClienteFICEntity clienteFIC);
 
-    List<AlertaType> obtenerListaAlertas(ConsultaClienteByData dataCliente);
+    List<AlertaType> obtenerListaAlertas(ConsultaClienteByDataEntity dataCliente);
 
     List<CentralRiesgoType> obtenerListaCentralRiesgo(Integer numeroCliente);
 
-    ClienteFICDTO obtenerClienteByIdentificacion(ConsultaClienteByData dataCliente);
+    ClienteFICDTO obtenerClienteIdentificacion(ConsultaClienteByDataEntity dataCliente);
 
-    ConsultarClientePorNombreOutputEntity obtenerClienteByNombre(String nombre, int pagina, int tamanoPagina);
+    ConsultarClientePorNombreOutputEntity obtenerClienteNombre(String nombre, int pagina, int tamanoPagina);
 
     ConyugeType obtenerConyuge(Integer numeroCliente);
 
@@ -30,6 +30,6 @@ public interface ClienteFICService {
 
     List<PasivoType> obtenerPasivo(Integer numeroCliente);
 
-    List<PQRType> obtenerPQR(ConsultaClienteByData numeroCliente);
+    List<PQRType> obtenerPQR(ConsultaClienteByDataEntity numeroCliente);
 
 }

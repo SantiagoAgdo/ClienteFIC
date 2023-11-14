@@ -40,7 +40,7 @@ public class ClienteFICServiceImpl implements ClienteFICService {
     }
 
     @Override
-    public List<AlertaType> obtenerListaAlertas(ConsultaClienteByData data) throws ApplicationException {
+    public List<AlertaType> obtenerListaAlertas(ConsultaClienteByDataEntity data) throws ApplicationException {
 
         LOG.info("Inicia consulta de Alertas");
         List<AlertaEntity> listAlertasResponse = clienteFICDAO.obtenerListaAlertas(data);
@@ -60,20 +60,20 @@ public class ClienteFICServiceImpl implements ClienteFICService {
     }
 
     @Override
-    public ClienteFICDTO obtenerClienteByIdentificacion(ConsultaClienteByData dataCliente) throws ApplicationException {
+    public ClienteFICDTO obtenerClienteIdentificacion(ConsultaClienteByDataEntity dataCliente) throws ApplicationException {
 
         LOG.info("Inicia consulta de cliente por identificación");
-        ClienteFICDTO rptClienteByIdentificacion = clienteFICDAO.obtenerClienteByIdentificacion(dataCliente);
+        ClienteFICDTO rptClienteByIdentificacion = clienteFICDAO.obtenerClienteIdentificacion(dataCliente);
 
         LOG.info("Termina consulta de cliente por identificación");
         return rptClienteByIdentificacion;
     }
 
     @Override
-    public ConsultarClientePorNombreOutputEntity obtenerClienteByNombre(String nombre, int pagina, int tamanoPagina) throws ApplicationException {
+    public ConsultarClientePorNombreOutputEntity obtenerClienteNombre(String nombre, int pagina, int tamanoPagina) throws ApplicationException {
 
         LOG.info("Inicia consulta Cliente por nombre");
-        return clienteFICDAO.obtenerClienteByNombre(nombre, pagina, tamanoPagina);
+        return clienteFICDAO.obtenerClienteNombre(nombre, pagina, tamanoPagina);
     }
 
     @Override
@@ -127,7 +127,7 @@ public class ClienteFICServiceImpl implements ClienteFICService {
     }
 
     @Override
-    public List<PQRType> obtenerPQR(ConsultaClienteByData dataCliente) throws ApplicationException {
+    public List<PQRType> obtenerPQR(ConsultaClienteByDataEntity dataCliente) throws ApplicationException {
 
         LOG.info("Inicia consulta de PQR");
         List<PQREntity> listPqrResponse = clienteFICDAO.obtenerPQR(dataCliente);

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @RegisterForReflection
-public class ConsultaClienteByData {
+public class ConsultaClienteByDataEntity {
 
     private TipoDocumentoEnum tipoDocumento;
     private Integer numeroDocumento;

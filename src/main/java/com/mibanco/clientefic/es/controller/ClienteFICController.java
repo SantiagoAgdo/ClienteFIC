@@ -2,7 +2,7 @@ package com.mibanco.clientefic.es.controller;
 
 import com.mibanco.clientefic.es.constants.Constants;
 import com.mibanco.clientefic.es.dao.entity.ClienteFICEntity;
-import com.mibanco.clientefic.es.dao.entity.ConsultaClienteByData;
+import com.mibanco.clientefic.es.dao.entity.ConsultaClienteByDataEntity;
 import com.mibanco.clientefic.es.dao.entity.ConsultarClientePorNombreOutputEntity;
 import com.mibanco.clientefic.es.dao.entity.ContactoEntity;
 import com.mibanco.clientefic.es.dto.ClienteFICDTO;
@@ -48,7 +48,7 @@ public class ClienteFICController implements V1ClienteFIC {
         LOG.info("Inicia consulta de Alerta");
         try {
             clienteFICValidator.validarConsulta(tipoDocumento, numeroDocumento, digitoVerificacion);
-            List<AlertaType> listaAlertas = clienteFICServiceImpl.obtenerListaAlertas(new ConsultaClienteByData(tipoDocumento, numeroDocumento, digitoVerificacion));
+            List<AlertaType> listaAlertas = clienteFICServiceImpl.obtenerListaAlertas(new ConsultaClienteByDataEntity(tipoDocumento, numeroDocumento, digitoVerificacion));
 
             LOG.info("Finaliza consulta de Alerta");
             return listaAlertas.size() != 0 ? Response.status(Response.Status.OK).entity(listaAlertas).build() :
@@ -96,7 +96,7 @@ public class ClienteFICController implements V1ClienteFIC {
         LOG.info("Inicia consulta de Cliente FIC por Nombre");
         try {
             clienteFICValidator.validarConsultaPorNombre(nombre, apellido, razonSocial);
-            ConsultarClientePorNombreOutputEntity cliente = clienteFICServiceImpl.obtenerClienteByNombre(nombre, 1, 15);
+            ConsultarClientePorNombreOutputEntity cliente = clienteFICServiceImpl.obtenerClienteNombre(nombre, 1, 15);
 
             LOG.info("Finaliza consulta de Cliente FIC por Nombre");
             return cliente.getTotalClientes() != 0 ? Response.status(Response.Status.OK).entity(cliente).build() :
@@ -216,7 +216,7 @@ public class ClienteFICController implements V1ClienteFIC {
         LOG.info("Inicia consulta de PQR");
         try {
             clienteFICValidator.validarConsulta(tipoDocumento, numeroDocumento, digitoVerificacion);
-            List<PQRType> list = clienteFICServiceImpl.obtenerPQR(new ConsultaClienteByData(tipoDocumento, numeroDocumento, digitoVerificacion));
+            List<PQRType> list = clienteFICServiceImpl.obtenerPQR(new ConsultaClienteByDataEntity(tipoDocumento, numeroDocumento, digitoVerificacion));
 
             LOG.info("Finaliza consulta de PQR");
             return list.size() != 0 ? Response.status(Response.Status.OK).entity(list).build() :
@@ -266,7 +266,7 @@ public class ClienteFICController implements V1ClienteFIC {
         try {
             clienteFICValidator.validarConsulta(tipoDocumento, numeroDocumento, digitoVerificacion);
 
-            ClienteFICDTO cliente = clienteFICServiceImpl.obtenerClienteByIdentificacion(new ConsultaClienteByData(tipoDocumento, numeroDocumento, digitoVerificacion));
+            ClienteFICDTO cliente = clienteFICServiceImpl.obtenerClienteIdentificacion(new ConsultaClienteByDataEntity(tipoDocumento, numeroDocumento, digitoVerificacion));
 
             LOG.info("Finaliza consulta de Cliente FIC por Identificación");
             return cliente != null ? Response.status(Response.Status.OK).entity(cliente).build() :
