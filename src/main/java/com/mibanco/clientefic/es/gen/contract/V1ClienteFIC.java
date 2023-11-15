@@ -25,7 +25,7 @@ import jakarta.validation.constraints.*;
 import jakarta.validation.Valid;
 
 @Path("/v1/es/cliente-fic")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-11-09T12:16:17.566087800-05:00[America/Bogota]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-11-15T10:08:33.235832400-05:00[America/Bogota]")
 public interface V1ClienteFIC {
 
     @GET
@@ -46,7 +46,7 @@ public interface V1ClienteFIC {
     @GET
     @Path("/nombre/{nombre}/{apellido}/{razonSocial}")
     @Produces({ "application/json" })
-    Response consultarClienteFICPorNombre(@PathParam("nombre") String nombre,@PathParam("apellido") String apellido,@PathParam("razonSocial") String razonSocial);
+    Response consultarClienteFICPorNombre(@QueryParam("page") @NotNull @Min(1) @Max(100) @DefaultValue("1")   Integer page,@QueryParam("pageSize") @NotNull @Min(1) @Max(100) @DefaultValue("20")   Integer pageSize,@PathParam("nombre") String nombre,@PathParam("apellido") String apellido,@PathParam("razonSocial") String razonSocial);
 
     @GET
     @Path("/conyuge/{numeroCliente}")
@@ -82,5 +82,5 @@ public interface V1ClienteFIC {
     @Path("/usuario")
     @Consumes({ "application/json" })
     @Produces({ "application/json" })
-    Response crearClienteFIC(@Valid ClienteFICType clienteFICType);
+    Response crearUsuarioClienteFic(@Valid ClienteFICType clienteFICType);
 }

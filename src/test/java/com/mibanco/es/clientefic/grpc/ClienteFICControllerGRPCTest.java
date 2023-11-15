@@ -49,7 +49,7 @@ public class ClienteFICControllerGRPCTest {
         String jsonString = new String(Files.readAllBytes(Paths.get("src/test/resources/jsonmocks/es-cliente-api.json")), StandardCharsets.UTF_8);
         ClienteFICEntity cliente = objectMapper.readValue(jsonString, ClienteFICEntity.class);
 
-        serviceImpl.crearClienteFICType(cliente);
+        serviceImpl.crearUsuarioClienteFic(cliente);
     }
 
     @Test
@@ -95,13 +95,13 @@ public class ClienteFICControllerGRPCTest {
 
         CompletableFuture<List<AlertaType>> message = new CompletableFuture<>();
 
-        ConsultaClienteByData data = ConsultaClienteByData.newBuilder()
+        ConsultaClienteGrpc consultaClienteGrpc = ConsultaClienteGrpc.newBuilder()
                 .setTipoDocumento("CC")
                 .setNumeroDocumento(10002)
                 .setDigitoVerificacion(1)
                 .build();
 
-        client.consultarAlerta(data)
+        client.consultarAlerta(consultaClienteGrpc)
                 .subscribe()
                 .with(reply -> message.complete(reply.getObjList()));
 
@@ -147,9 +147,9 @@ public class ClienteFICControllerGRPCTest {
 
         CompletableFuture<List<ContactoType>> message = new CompletableFuture<>();
 
-        NumeroCliente numeroCLiente = NumeroCliente.newBuilder().setNumeroCliente(10002).build();
+        NumeroCliente numeroCliente = NumeroCliente.newBuilder().setNumeroCliente(10002).build();
 
-        client.consultarHistorialContacto(numeroCLiente)
+        client.consultarHistorialContacto(numeroCliente)
                 .subscribe()
                 .with(reply -> message.complete(reply.getObjList()));
 
@@ -198,7 +198,7 @@ public class ClienteFICControllerGRPCTest {
 
         CompletableFuture<List<PQRType>> message = new CompletableFuture<>();
 
-        ConsultaClienteByData data = ConsultaClienteByData.newBuilder()
+        ConsultaClienteGrpc data = ConsultaClienteGrpc.newBuilder()
                 .setTipoDocumento("CC")
                 .setNumeroDocumento(10002)
                 .setDigitoVerificacion(1)

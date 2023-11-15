@@ -2,7 +2,7 @@ package com.mibanco.es.clientefic.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mibanco.clientefic.es.controller.ClienteFICController;
-import com.mibanco.clientefic.es.dao.entity.ConsultaClienteDataEntity;
+import com.mibanco.clientefic.es.dao.entity.ConsultaClienteEntity;
 import com.mibanco.clientefic.es.gen.type.AlertaType;
 import com.mibanco.clientefic.es.gen.type.ClienteFICType;
 import com.mibanco.clientefic.es.gen.type.TipoDocumentoEnum;
@@ -239,9 +239,9 @@ public class ClienteFICControllerTest {
         // Mock de datos de salida
         AlertaType alerta = new AlertaType();
         // Configurar los valores de alerta según sea necesario
-        ConsultaClienteDataEntity x = new ConsultaClienteDataEntity(TipoDocumentoEnum.CC, 10002, 0);
+        ConsultaClienteEntity x = new ConsultaClienteEntity(TipoDocumentoEnum.CC, 10002, 0);
         // Configuración de los mocks
-        when(clienteFICService.obtenerListaAlertas(x)).thenReturn(Collections.singletonList(alerta));
+        when(clienteFICService.consultarAlerta(x)).thenReturn(Collections.singletonList(alerta));
 
         // Llamada al método bajo prueba
         Response response = clienteFICController.consultarAlerta(tipoDocumento, numeroDocumento, digitoVerificacion);

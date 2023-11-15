@@ -24,7 +24,7 @@ paths:
     post:
       tags:
         - Crear cliente FIC type
-      operationId: crearClienteFIC
+      operationId: crearUsuarioClienteFic
       requestBody:
         description: Crear cliente FIC type
         content:
@@ -185,6 +185,28 @@ paths:
       summary: Consultar Cliente FIC Por Nombre
       operationId: ConsultarClienteFICPorNombre
       parameters:
+        - in: query
+          name: page
+          description: Inicia con uno la paginación
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 1
+          style: form
+          explode: false
+        - in: query
+          name: pageSize
+          description: Total de registro para mostrar
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+          style: form
+          explode: false
         - in: path
           name: nombre
           required: true
@@ -203,6 +225,7 @@ paths:
           schema:
             type: string
           description: Razón Social
+
       responses:
         "200":
           description: Obtener Cliente FIC por nombre.

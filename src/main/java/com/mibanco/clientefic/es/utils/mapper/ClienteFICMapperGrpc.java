@@ -5,7 +5,7 @@ import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.util.JsonFormat;
 import com.mibanco.clientefic.es.*;
 import com.mibanco.clientefic.es.dao.entity.ClienteFICEntity;
-import com.mibanco.clientefic.es.dao.entity.ConsultaClienteDataEntity;
+import com.mibanco.clientefic.es.dao.entity.ConsultaClienteEntity;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.modelmapper.ModelMapper;
 
@@ -20,8 +20,8 @@ public class ClienteFICMapperGrpc {
         return new ModelMapper().map(grpc, ClienteFICEntity.class);
     }
 
-    public ConsultaClienteDataEntity dataGrpcToEntity(ConsultaClienteByData grpc) {
-        return new ModelMapper().map(grpc, ConsultaClienteDataEntity.class);
+    public ConsultaClienteEntity dataGrpcToEntity(ConsultaClienteGrpc grpc) {
+        return new ModelMapper().map(grpc, ConsultaClienteEntity.class);
     }
 
     public AlertaType alertaToGrpc(com.mibanco.clientefic.es.gen.type.AlertaType alerta) throws IOException {

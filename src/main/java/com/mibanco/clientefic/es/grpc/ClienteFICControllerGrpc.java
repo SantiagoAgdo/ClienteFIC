@@ -3,7 +3,7 @@ package com.mibanco.clientefic.es.grpc;
 import com.mibanco.clientefic.es.*;
 import com.mibanco.clientefic.es.controller.ClienteFICController;
 import com.mibanco.clientefic.es.dao.entity.ClienteFICEntity;
-import com.mibanco.clientefic.es.dao.entity.ConsultaClienteDataEntity;
+import com.mibanco.clientefic.es.dao.entity.ConsultaClienteEntity;
 import com.mibanco.clientefic.es.gen.type.AlertaType;
 import com.mibanco.clientefic.es.gen.type.CentralRiesgoType;
 import com.mibanco.clientefic.es.gen.type.ContactoType;
@@ -13,6 +13,7 @@ import com.mibanco.clientefic.es.gen.type.OfertaType;
 import com.mibanco.clientefic.es.gen.type.PQRType;
 import com.mibanco.clientefic.es.gen.type.PasivoType;
 import com.mibanco.clientefic.es.services.impl.ClienteFICServiceImpl;
+import com.mibanco.clientefic.es.utils.exceptions.ApplicationException;
 import com.mibanco.clientefic.es.utils.exceptions.ApplicationExceptionValidation;
 import com.mibanco.clientefic.es.utils.mapper.ClienteFICMapperGrpc;
 import com.mibanco.clientefic.es.utils.validators.ClienteFICValidator;
@@ -51,32 +52,35 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
         LOG.info("Inicia Creación Cliente FIC por GRPC");
 
         try {
-            ClienteFICEntity entity = mapper.clienteGrpcToEntity(request);
-            clienteFICService.crearClienteFICType(entity);
+            ClienteFICEntity consultaClienteEntity = mapper.clienteGrpcToEntity(request);
+            clienteFICService.crearUsuarioClienteFic(consultaClienteEntity);
 
-            ResponseClienteFIC response = ResponseClienteFIC.newBuilder().setObj(request.toBuilder()).build();
+            ResponseClienteFIC responseClienteFIC = ResponseClienteFIC.newBuilder().setObj(request.toBuilder()).build();
             LOG.info("Finaliza creación Cliente FIC por GRPC");
 
-            responseObs.onNext(response);
+            responseObs.onNext(responseClienteFIC);
             responseObs.onCompleted();
 
-        } catch (Exception e) {
-
+        } catch (ApplicationException e) {
             StatusException statusException = responseExceptionGrpc(Status.INVALID_ARGUMENT, e.getMessage());
+            responseObs.onError(statusException);
+
+        } catch (Exception e){
+            StatusException statusException = responseExceptionGrpc(Status.INTERNAL, e.getMessage());
             responseObs.onError(statusException);
         }
     }
 
     @Override
     @Blocking
-    public void consultarAlerta(ConsultaClienteByData request, StreamObserver<ResponseAlerta> responseObs) {
+    public void consultarAlerta(ConsultaClienteGrpc request, StreamObserver<ResponseAlerta> responseObs) {
 
         LOG.info("Inicia consulta alerta por GRPC");
         try {
 
             clienteFICValidator.validarConsultaGrpc(request.getTipoDocumento(), request.getNumeroDocumento(), request.getDigitoVerificacion());
-            ConsultaClienteDataEntity entity = mapper.dataGrpcToEntity(request);
-            List<AlertaType> alertaListType = clienteFICService.obtenerListaAlertas(entity);
+            ConsultaClienteEntity consultaClienteEntity = mapper.dataGrpcToEntity(request);
+            List<AlertaType> alertaListType = clienteFICService.consultarAlerta(consultaClienteEntity);
 
             List<com.mibanco.clientefic.es.AlertaType> alertaResponse = new ArrayList<>();
             for (AlertaType alert : alertaListType) {
@@ -90,13 +94,13 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
                         .build());
             }
 
-            ResponseAlerta response = ResponseAlerta.newBuilder().addAllObj(alertaResponse).build();
+            ResponseAlerta responseAlerta = ResponseAlerta.newBuilder().addAllObj(alertaResponse).build();
             LOG.info("Finaliza creación Cliente FIC por GRPC");
 
-            responseObs.onNext(response);
+            responseObs.onNext(responseAlerta);
             responseObs.onCompleted();
 
-        } catch (ApplicationExceptionValidation e) {
+        } catch (ApplicationException e) {
 
             StatusException statusException = responseExceptionGrpc(Status.INVALID_ARGUMENT, e.getMessage());
             responseObs.onError(statusException);
@@ -115,7 +119,7 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
         LOG.info("Inicia consulta central Riesgo por GRPC");
         try {
             clienteFICValidator.validarNumeroCliente(request.getNumeroCliente());
-            List<CentralRiesgoType> centralRiesgoList = clienteFICService.obtenerListaCentralRiesgo(request.getNumeroCliente());
+            List<CentralRiesgoType> centralRiesgoList = clienteFICService.consultarCentralRiesgo(request.getNumeroCliente());
 
             List<com.mibanco.clientefic.es.CentralRiesgoType> centralRiesgoResponse = new ArrayList<>();
             for (CentralRiesgoType centralRiesgoItem : centralRiesgoList) {
@@ -145,12 +149,12 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
 
     @Override
     @Blocking
-    public void consultarPQR(ConsultaClienteByData request, StreamObserver<ResponsePQR> responseObs) {
+    public void consultarPQR(ConsultaClienteGrpc request, StreamObserver<ResponsePQR> responseObs) {
         LOG.info("Inicia consulta PQR por GRPC");
         try {
             clienteFICValidator.validarConsultaGrpc(request.getTipoDocumento(), request.getNumeroDocumento(), request.getDigitoVerificacion());
-            ConsultaClienteDataEntity entity = mapper.dataGrpcToEntity(request);
-            List<PQRType> pqrList = clienteFICService.obtenerPQR(entity);
+            ConsultaClienteEntity consultaClienteEntity = mapper.dataGrpcToEntity(request);
+            List<PQRType> pqrList = clienteFICService.consultarPQR(consultaClienteEntity);
 
             List<com.mibanco.clientefic.es.PQRType> pqrListResponse = new ArrayList<>();
             for (PQRType pqrItem : pqrList) {
@@ -186,7 +190,7 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
         LOG.info("Inicia consulta conyuge por GRPC");
         try {
             clienteFICValidator.validarNumeroCliente(request.getNumeroCliente());
-            ConyugeType conyuge = clienteFICService.obtenerConyuge(request.getNumeroCliente());
+            ConyugeType conyuge = clienteFICService.consultarConyuge(request.getNumeroCliente());
 
             ResponseConyuge response = ResponseConyuge.newBuilder().setObj(
                     ResponseConyuge.newBuilder().getObj().toBuilder()
@@ -217,7 +221,7 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
         LOG.info("Inicia consulta cupo rotativo por GRPC");
         try {
             clienteFICValidator.validarNumeroCliente(request.getNumeroCliente());
-            List<CupoRotativoType> cupoList = clienteFICService.obtenerCupoRotativo(request.getNumeroCliente());
+            List<CupoRotativoType> cupoList = clienteFICService.consultarCupoRotativo(request.getNumeroCliente());
 
             List<com.mibanco.clientefic.es.CupoRotativoType> cupoListResponse = new ArrayList<>();
             for (CupoRotativoType cupoItem : cupoList) {
@@ -255,7 +259,7 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
         try {
 
             clienteFICValidator.validarNumeroCliente(request.getNumeroCliente());
-            List<ContactoType> consultaList = clienteFICService.obtenerContacto(request.getNumeroCliente());
+            List<ContactoType> consultaList = clienteFICService.consultarHistorialContacto(request.getNumeroCliente());
 
             List<com.mibanco.clientefic.es.ContactoType> contactoListResponse = new ArrayList<>();
             for (ContactoType item : consultaList) {
@@ -291,7 +295,7 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
         try {
 
             clienteFICValidator.validarNumeroCliente(request.getNumeroCliente());
-            List<OfertaType> consultaList = clienteFICService.obtenerOferta(request.getNumeroCliente());
+            List<OfertaType> consultaList = clienteFICService.consultarOferta(request.getNumeroCliente());
 
             List<com.mibanco.clientefic.es.OfertaType> ofertaListResponse = new ArrayList<>();
             for (OfertaType oferta : consultaList) {
@@ -331,7 +335,7 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
         try {
 
             clienteFICValidator.validarNumeroCliente(request.getNumeroCliente());
-            List<PasivoType> consultaList = clienteFICService.obtenerPasivo(request.getNumeroCliente());
+            List<PasivoType> consultaList = clienteFICService.consultarPasivo(request.getNumeroCliente());
 
             List<com.mibanco.clientefic.es.PasivoType> pasivoListResponse = new ArrayList<>();
             for (PasivoType pasivo : consultaList) {

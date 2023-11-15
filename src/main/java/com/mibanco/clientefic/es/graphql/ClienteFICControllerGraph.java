@@ -1,6 +1,6 @@
 package com.mibanco.clientefic.es.graphql;
 
-import com.mibanco.clientefic.es.dao.entity.ConsultaClienteDataEntity;
+import com.mibanco.clientefic.es.dao.entity.ConsultaClienteEntity;
 import com.mibanco.clientefic.es.dao.entity.ConsultarClientePorNombreOutputEntity;
 import com.mibanco.clientefic.es.dto.ClienteFICDTO;
 import com.mibanco.clientefic.es.gen.type.*;
@@ -27,30 +27,35 @@ public class ClienteFICControllerGraph {
 
     @Query("consultaAlerta")
     @Description("Consulta de Alertas")
-    public List<AlertaType> getAlerta(@Name("TipoDocumento") TipoDocumentoEnum tipoDocumento, @Name("numeroDocumento") Integer numeroDocumento, @Name("digitoVerificacion") Integer digitoVerificacion) {
+    public List<AlertaType> consultaAlerta(@Name("TipoDocumento") TipoDocumentoEnum tipoDocumento, @Name("numeroDocumento") Integer numeroDocumento, @Name("digitoVerificacion") Integer digitoVerificacion) {
 
         logger.info("Inicia consulta de alerta en GraphQL");
-
         try {
-            List<AlertaType> alerta = clienteFICService.obtenerListaAlertas(new ConsultaClienteDataEntity(tipoDocumento, numeroDocumento, digitoVerificacion));
+            List<AlertaType> alertaTypeList = clienteFICService.consultarAlerta(new ConsultaClienteEntity(tipoDocumento, numeroDocumento, digitoVerificacion));
+
             logger.info("Termina consulta de alerta en GraphQL");
-            return alerta;
+            return alertaTypeList;
         } catch (ApplicationException e) {
-            logger.error("Ocurrió un error en getAlerta GraphQL");
+
+            logger.error("Ocurrió un error en consultaAlerta GraphQL");
             throw new ApplicationException(Response.Status.NOT_FOUND.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
+        } catch (Exception e){
+
+            logger.error("Ocurrió un error en consultaAlerta GraphQL");
+            throw new ApplicationException(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
         }
     }
 
     @Query("consultaCentralRiesgo")
     @Description("Consulta de central de riesgo")
-    public List<CentralRiesgoType> getCentral(@Name("numeroDocumento") Integer numeroCliente) {
+    public List<CentralRiesgoType> consultaCentralRiesgo(@Name("numeroDocumento") Integer numeroCliente) {
 
         logger.info("Inicia consulta de central de riesgo en GraphQL");
         try {
-            List<CentralRiesgoType> list = clienteFICService.obtenerListaCentralRiesgo(numeroCliente);
+            List<CentralRiesgoType> centralRiesgoTypesList = clienteFICService.consultarCentralRiesgo(numeroCliente);
 
             logger.info("Termina consulta de central de riesgo en GraphQL");
-            return list;
+            return centralRiesgoTypesList;
         } catch (ApplicationException e) {
 
             logger.error("Ocurrió un error en getCentral GraphQL");
@@ -60,136 +65,168 @@ public class ClienteFICControllerGraph {
 
     @Query("consultaPQR")
     @Description("Consulta de PQR")
-    public List<PQRType> getPQR(@Name("TipoDocumento") TipoDocumentoEnum tipoDocumento, @Name("numeroDocumento") Integer numeroDocumento, @Name("digitoVerificacion") Integer digitoVerificacion) {
+    public List<PQRType> consultaPQR(@Name("TipoDocumento") TipoDocumentoEnum tipoDocumento, @Name("numeroDocumento") Integer numeroDocumento, @Name("digitoVerificacion") Integer digitoVerificacion) {
 
         logger.info("Inicia consulta de PQR en GraphQL");
         try {
-            List<PQRType> list = clienteFICService.obtenerPQR(new ConsultaClienteDataEntity(tipoDocumento, numeroDocumento, digitoVerificacion));
+            List<PQRType> pqrTypeList = clienteFICService.consultarPQR(new ConsultaClienteEntity(tipoDocumento, numeroDocumento, digitoVerificacion));
 
             logger.info("Termina consulta de PQR en GraphQL");
-            return list;
+            return pqrTypeList;
         } catch (ApplicationException e) {
 
-            logger.error("Ocurrió un error en getPQR GraphQL");
-            throw new ApplicationException(Response.Status.NOT_FOUND.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
+            logger.error("Ocurrió un error en consultaPQR GraphQL");
+            throw new ApplicationException(Response.Status.BAD_REQUEST.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
+        } catch (Exception e){
+
+            logger.error("Ocurrió un error en consultaPQR GraphQL");
+            throw new ApplicationException(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
         }
     }
 
     @Query("consultaClientePorIdentificacion")
     @Description("Consulta de cliente por identificación")
-    public ClienteFICDTO getClienteByIdentificacion(@Name("TipoDocumento") TipoDocumentoEnum tipoDocumento, @Name("numeroDocumento") Integer numeroDocumento, @Name("digitoVerificacion") Integer digitoVerificacion) {
+    public ClienteFICDTO consultaClientePorIdentificacion(@Name("TipoDocumento") TipoDocumentoEnum tipoDocumento, @Name("numeroDocumento") Integer numeroDocumento, @Name("digitoVerificacion") Integer digitoVerificacion) {
 
-        logger.info("Inicia consulta de cliente en GraphQL");
+        logger.info("Inicia consultaClientePorIdentificacion en GraphQL");
         try {
-            ClienteFICDTO list = clienteFICService.obtenerClienteIdentificacion(new ConsultaClienteDataEntity(tipoDocumento, numeroDocumento, digitoVerificacion));
+            ClienteFICDTO clienteFICDTO = clienteFICService.consultarClientePorIdentificacion(new ConsultaClienteEntity(tipoDocumento, numeroDocumento, digitoVerificacion));
 
-            logger.info("Termina consulta de cliente en GraphQL");
-            return list;
+            logger.info("Termina consultaClientePorIdentificacion en GraphQL");
+            return clienteFICDTO;
         } catch (ApplicationException e) {
 
-            logger.error("Ocurrió un error en getClienteByIdentificacion GraphQL");
-            throw new ApplicationException(Response.Status.NOT_FOUND.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
+            logger.error("Ocurrió un error en consultaClientePorIdentificacion GraphQL");
+            throw new ApplicationException(Response.Status.BAD_REQUEST.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
+        } catch (Exception e){
+
+            logger.error("Ocurrió un error en consultaClientePorIdentificacion GraphQL");
+            throw new ApplicationException(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
         }
     }
 
     @Query("consultaConyuge")
     @Description("Consulta de cónyuge por número de cliente")
-    public ConyugeType getConyuge(@Name("numeroCliente") Integer numeroCliente) {
+    public ConyugeType consultaConyuge(@Name("numeroCliente") Integer numeroCliente) {
 
         logger.info("Inicia consulta de cónyuge en GraphQL");
         try {
-            ConyugeType data = clienteFICService.obtenerConyuge(numeroCliente);
+            ConyugeType data = clienteFICService.consultarConyuge(numeroCliente);
 
             logger.info("Termina consulta de cónyuge en GraphQL");
             return data;
         } catch (ApplicationException e) {
 
-            logger.error("Ocurrió un error en getConyuge GraphQL");
-            throw new ApplicationException(Response.Status.NOT_FOUND.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
+            logger.error("Ocurrió un error en consultaConyuge GraphQL");
+            throw new ApplicationException(Response.Status.BAD_REQUEST.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
+        } catch (Exception e){
+
+            logger.error("Ocurrió un error en consultaConyuge GraphQL");
+            throw new ApplicationException(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
         }
     }
 
     @Query("consultaCupoRotativo")
     @Description("Consulta de cupo rotativo por número de cliente")
-    public List<CupoRotativoType> getCupoRotativo(@Name("numeroCliente") Integer numeroCliente) {
+    public List<CupoRotativoType> consultaCupoRotativo(@Name("numeroCliente") Integer numeroCliente) {
 
         logger.info("Inicia consulta cupo rotativo en GraphQL");
         try {
-            List<CupoRotativoType> list = clienteFICService.obtenerCupoRotativo(numeroCliente);
+            List<CupoRotativoType> list = clienteFICService.consultarCupoRotativo(numeroCliente);
             logger.info("Termina consulta cupo rotativo en GraphQL");
             return list;
         } catch (ApplicationException e) {
 
-            logger.error("Ocurrió un error en getCupoRotativo GraphQL");
-            throw new ApplicationException(Response.Status.NOT_FOUND.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
+            logger.error("Ocurrió un error en consultaCupoRotativo GraphQL");
+            throw new ApplicationException(Response.Status.BAD_REQUEST.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
+        } catch (Exception e){
+
+            logger.error("Ocurrió un error en consultaCupoRotativo GraphQL");
+            throw new ApplicationException(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
         }
     }
 
     @Query("consultaHistorialContacto")
     @Description("Consulta de dirección y teléfono de cliente")
-    public List<ContactoType> getHistorialContacto(@Name("numeroCliente") Integer numeroCliente) {
+    public List<ContactoType> consultaHistorialContacto(@Name("numeroCliente") Integer numeroCliente) {
 
         logger.info("Inicia consulta contacto en GraphQL");
         try {
-            List<ContactoType> data = clienteFICService.obtenerContacto(numeroCliente);
+            List<ContactoType> data = clienteFICService.consultarHistorialContacto(numeroCliente);
 
             logger.info("Termina consulta contacto en GraphQL");
             return data;
         } catch (ApplicationException e) {
 
-            logger.error("Ocurrió un error en getHistorialContacto GraphQL");
-            throw new ApplicationException(Response.Status.NOT_FOUND.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
+            logger.error("Ocurrió un error en consultaHistorialContacto GraphQL");
+            throw new ApplicationException(Response.Status.BAD_REQUEST.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
+        } catch (Exception e){
+
+            logger.error("Ocurrió un error en consultaHistorialContacto GraphQL");
+            throw new ApplicationException(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
         }
     }
 
     @Query("consultaOferta")
     @Description("Consulta de dirección y teléfono de cliente")
-    public List<OfertaType> getOferta(@Name("numeroCliente") Integer numeroCliente) {
+    public List<OfertaType> consultaOferta(@Name("numeroCliente") Integer numeroCliente) {
 
         logger.info("Inicia consulta oferta en GraphQL");
         try {
-            List<OfertaType> data = clienteFICService.obtenerOferta(numeroCliente);
+            List<OfertaType> data = clienteFICService.consultarOferta(numeroCliente);
 
             logger.info("Termina consulta oferta en GraphQL");
             return data;
         } catch (ApplicationException e) {
 
-            logger.error("Ocurrió un error en getOferta GraphQL");
-            throw new ApplicationException(Response.Status.NOT_FOUND.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
+            logger.error("Ocurrió un error en consultaOferta GraphQL");
+            throw new ApplicationException(Response.Status.BAD_REQUEST.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
+        } catch (Exception e){
+
+            logger.error("Ocurrió un error en consultaOferta GraphQL");
+            throw new ApplicationException(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
         }
     }
 
     @Query("consultaClientePorNombre")
     @Description("Consulta de Cliente FIC por nombre")
-    public ConsultarClientePorNombreOutputEntity getClienteByNombre(@Name("nombre") String nombre) {
+    public ConsultarClientePorNombreOutputEntity consultaClientePorNombre(@Name("nombre") String nombre) {
 
         logger.info("Inicia consulta cliente por nombre en GraphQL");
         try {
-            ConsultarClientePorNombreOutputEntity data = clienteFICService.obtenerClienteNombre(nombre, 1, 15);
+            ConsultarClientePorNombreOutputEntity data = clienteFICService.consultarClienteFicPorNombre(nombre, 1, 15);
 
             logger.info("Termina consulta cliente por nombre en GraphQL");
             return data;
         } catch (ApplicationException e) {
 
-            logger.error("Ocurrió un error en getClienteByNombre GraphQL");
-            throw new ApplicationException(Response.Status.NOT_FOUND.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
+            logger.error("Ocurrió un error en consultaClientePorNombre GraphQL");
+            throw new ApplicationException(Response.Status.BAD_REQUEST.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
+        } catch (Exception e){
+
+            logger.error("Ocurrió un error en consultaClientePorNombre GraphQL");
+            throw new ApplicationException(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
         }
     }
 
     @Query("consultaPasivo")
     @Description("Consulta de pasivo de cliente")
-    public List<PasivoType> getPasivo(@Name("numeroCliente") Integer numeroCliente) {
+    public List<PasivoType> consultaPasivo(@Name("numeroCliente") Integer numeroCliente) {
 
         logger.info("Inicia consulta pasivo en GraphQL");
         try {
-            List<PasivoType> data = clienteFICService.obtenerPasivo(numeroCliente);
+            List<PasivoType> data = clienteFICService.consultarPasivo(numeroCliente);
 
             logger.info("Termina consulta pasivo en GraphQL");
             return data;
         } catch (ApplicationException e) {
 
-            logger.error("Ocurrió un error en getPasivo GraphQL");
-            throw new ApplicationException(Response.Status.NOT_FOUND.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
+            logger.error("Ocurrió un error en consultaPasivo GraphQL");
+            throw new ApplicationException(Response.Status.BAD_REQUEST.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
+        } catch (Exception e){
+
+            logger.error("Ocurrió un error en consultaPasivo GraphQL");
+            throw new ApplicationException(Response.Status.INTERNAL_SERVER_ERROR.getStatusCode(), "ERROR_SERVICIO: " + e.getMessage() + " en ClienteFICControllerGraph");
         }
     }
 

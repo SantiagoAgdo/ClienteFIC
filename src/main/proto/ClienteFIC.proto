@@ -181,7 +181,7 @@ message PQRType{
   string comentario = 6;
 }
 
-message ConsultaClienteByData{
+message ConsultaClienteGrpc{
   string tipoDocumento = 1;
   int32 numeroDocumento = 2;
   int32 digitoVerificacion = 3;
@@ -237,10 +237,10 @@ message  ResponseCliente{
 
 service ClienteFICServiceGrpc {
   rpc clienteFIC(CrearClienteFICGrpc) returns (ResponseClienteFIC);
-  rpc consultarAlerta(ConsultaClienteByData) returns (stream ResponseAlerta);
+  rpc consultarAlerta(ConsultaClienteGrpc) returns (stream ResponseAlerta);
   rpc consultarCentralDeRiesgo(NumeroCliente) returns (stream ResponseCentralDeRiesgo);
-  rpc consultarPQR(ConsultaClienteByData) returns (stream ResponsePQR);
-  rpc consutaClientePorIdentificacion(ConsultaClienteByData) returns (ResponseCliente);
+  rpc consultarPQR(ConsultaClienteGrpc) returns (stream ResponsePQR);
+  rpc consutaClientePorIdentificacion(ConsultaClienteGrpc) returns (ResponseCliente);
   rpc consultarConyuge(NumeroCliente) returns (ResponseConyuge);
   rpc consultarCupoRotativo(NumeroCliente) returns (stream ResponseCupoRotativo);
   rpc consultarHistorialContacto(NumeroCliente) returns (stream ResponseHistorialContacto);
