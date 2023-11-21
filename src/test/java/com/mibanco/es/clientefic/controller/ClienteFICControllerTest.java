@@ -19,6 +19,15 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import javax.sql.DataSource;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -28,6 +37,7 @@ import java.util.Collections;
 import static io.restassured.RestAssured.given;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -46,14 +56,29 @@ public class ClienteFICControllerTest {
     @Mock
     private ClienteFICValidator clienteFICValidator;
 
+    @Mock
+    private DataSource dataSource;
+
+    @Mock
+    private Connection connection;
+
+    @Mock
+    private CallableStatement callableStatement;
+
+    @Mock
+    private ResultSet resultSet;
+
     private ClienteFICController clienteFICController;
 
     @BeforeEach
-    public void setup() {
+    public void setup() throws SQLException {
         MockitoAnnotations.openMocks(this);
         clienteFICService = mock(ClienteFICServiceImpl.class);
         clienteFICValidator = mock(ClienteFICValidator.class);
         clienteFICController = new ClienteFICController(clienteFICService, clienteFICValidator);
+        when(dataSource.getConnection()).thenReturn(connection);
+        when(connection.prepareCall(anyString())).thenReturn(callableStatement);
+        when(callableStatement.executeQuery()).thenReturn(resultSet);
     }
 
 
@@ -112,7 +137,7 @@ public class ClienteFICControllerTest {
     @Test
     void consultarCupoRotativoTest() throws IOException {
 
-         byte[] jsonData = Files.readAllBytes(Paths.get("src/test/resources/jsonmocks/es-cuporotativo-api.json"));
+        byte[] jsonData = Files.readAllBytes(Paths.get("src/test/resources/jsonmocks/es-cuporotativo-api.json"));
         String jsonString = new String(jsonData);
 
         ClienteFICType clienteFIC = objectMapper.readValue(jsonString, ClienteFICType.class);
@@ -195,20 +220,15 @@ public class ClienteFICControllerTest {
     }
 
     @Test
-    void consultaClienteByNombreTest() throws IOException {
-
-        byte[] jsonData = Files.readAllBytes(Paths.get("src/test/resources/jsonmocks/es-consultabynombre-api.json"));
-        String jsonString = new String(jsonData);
-
-        ClienteFICType clienteFIC = objectMapper.readValue(jsonString, ClienteFICType.class);
+    void consultaClienteByNombreTest() throws IOException, SQLException {
 
         given()
                 .contentType(ContentType.JSON)
-                .body(clienteFIC)
                 .when()
-                .get("v1/es/cliente-fic/nombre/Pablo/emilio/independiente")
+                .get("/v1/es/cliente-fic/nombre/Miguel?page=1&pageSize=15")
                 .then()
-                .statusCode(200);
+                .statusCode(200)
+                .log().ifError();
     }
 
     @Test

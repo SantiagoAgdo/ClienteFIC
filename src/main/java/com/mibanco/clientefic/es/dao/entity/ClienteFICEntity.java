@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @RegisterForReflection(targets = { AlertaType.class, ClienteBaseType.class, CentralRiesgoType.class,
         ReporteCentralRiesgoType.class, ContactoEntity.class, ConyugeType.class, CupoRotativoType.class,
-        DomicilioType.class, DomicilioEmpresaType.class, NegocioType.class, OfertaType.class,
+        DomicilioBaseType.class, DomicilioEmpresaType.class, NegocioType.class, OfertaType.class,
         PasivoType.class, PQRType.class})
 public class ClienteFICEntity {
 
@@ -23,7 +23,7 @@ public class ClienteFICEntity {
     public ConyugeType conyuge;
     public CupoRotativoType cupoRotativo;
     public Integer digitoVerificacion;
-    public DomicilioType domicilio;
+    public DomicilioBaseType domicilio;
     public DomicilioEmpresaType domicilioEmpresa;
     public EstadoCivilEnum estadoCivil;
     public String funcionarioUltimaActualizacion;

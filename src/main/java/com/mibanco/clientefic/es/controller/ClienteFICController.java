@@ -10,7 +10,6 @@ import com.mibanco.clientefic.es.gen.contract.V1ClienteFIC;
 import com.mibanco.clientefic.es.gen.type.*;
 import com.mibanco.clientefic.es.services.impl.ClienteFICServiceImpl;
 import com.mibanco.clientefic.es.utils.exceptions.ApplicationException;
-import com.mibanco.clientefic.es.utils.exceptions.ApplicationExceptionValidation;
 import com.mibanco.clientefic.es.utils.mapper.ClienteFICMapper;
 import com.mibanco.clientefic.es.utils.validators.ClienteFICValidator;
 import io.quarkus.runtime.annotations.RegisterForReflection;
@@ -23,7 +22,7 @@ import java.util.List;
 
 @RegisterForReflection(targets = {AlertaType.class, ClienteBaseType.class, CentralRiesgoType.class,
         ReporteCentralRiesgoType.class, ContactoEntity.class, ConyugeType.class, CupoRotativoType.class,
-        DomicilioType.class, DomicilioEmpresaType.class, NegocioType.class, OfertaType.class,
+        DomicilioEmpresaType.class, NegocioType.class, OfertaType.class,
         PasivoType.class, PQRType.class})
 public class ClienteFICController implements V1ClienteFIC {
 
@@ -92,12 +91,12 @@ public class ClienteFICController implements V1ClienteFIC {
 
 
     @Override
-    public Response consultarClienteFICPorNombre(Integer page, Integer pageSize, String nombre, String apellido, String razonSocial) {
+    public Response consultarClienteFICPorNombre(Integer page, Integer pageSize, String regex) {
 
         LOG.info("Inicia consulta de Cliente FIC por Nombre");
         try {
-            clienteFICValidator.validarConsultaPorNombre(nombre, apellido, razonSocial);
-            ConsultarClientePorNombreOutputEntity consultarClientePorNombreOutputEntity = clienteFICServiceImpl.consultarClienteFicPorNombre(nombre, page-1, pageSize);
+            clienteFICValidator.validarConsultaPorNombre(regex);
+            ConsultarClientePorNombreOutputEntity consultarClientePorNombreOutputEntity = clienteFICServiceImpl.consultarClienteFicPorNombre(regex, page, pageSize);
 
             LOG.info("Finaliza consulta de Cliente FIC por Nombre");
             return consultarClientePorNombreOutputEntity.getTotalClientes() != 0 ? Response.status(Response.Status.OK).entity(consultarClientePorNombreOutputEntity).build() :

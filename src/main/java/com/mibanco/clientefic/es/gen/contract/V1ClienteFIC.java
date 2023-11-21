@@ -25,7 +25,7 @@ import jakarta.validation.constraints.*;
 import jakarta.validation.Valid;
 
 @Path("/v1/es/cliente-fic")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-11-15T10:08:33.235832400-05:00[America/Bogota]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-11-21T10:49:21.159201500-05:00[America/Bogota]")
 public interface V1ClienteFIC {
 
     @GET
@@ -44,9 +44,9 @@ public interface V1ClienteFIC {
     Response consultarCentralDeRiesgo(@PathParam("numeroCliente") Integer numeroCliente);
 
     @GET
-    @Path("/nombre/{nombre}/{apellido}/{razonSocial}")
+    @Path("/nombre/{regex}")
     @Produces({ "application/json" })
-    Response consultarClienteFICPorNombre(@QueryParam("page") @NotNull @Min(1) @Max(100) @DefaultValue("1")   Integer page,@QueryParam("pageSize") @NotNull @Min(1) @Max(100) @DefaultValue("20")   Integer pageSize,@PathParam("nombre") String nombre,@PathParam("apellido") String apellido,@PathParam("razonSocial") String razonSocial);
+    Response consultarClienteFICPorNombre(@QueryParam("page") @NotNull @Min(1) @Max(100) @DefaultValue("1")   Integer page,@QueryParam("pageSize") @NotNull @Min(1) @Max(100) @DefaultValue("20")   Integer pageSize,@PathParam("regex") String regex);
 
     @GET
     @Path("/conyuge/{numeroCliente}")

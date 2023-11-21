@@ -13,8 +13,6 @@ import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
-import java.util.Arrays;
-import java.util.List;
 
 @ApplicationScoped
 public class ClienteFICValidator {
@@ -51,22 +49,10 @@ public class ClienteFICValidator {
         }
     }
 
-    public void validarConsultaPorNombre(String nombre, String apellido, String razonSocial) {
+    public void validarConsultaPorNombre(String nombre) {
         if (nombre == null || nombre.isEmpty()) {
             throw new ApplicationExceptionValidation(
                     Response.Status.BAD_REQUEST.getStatusCode(), Constants.VALIDACION + " Nombre inválido"
-            );
-        }
-
-        if (apellido == null || apellido.isEmpty()) {
-            throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.VALIDACION + " Apellido inválido"
-            );
-        }
-
-        if (razonSocial == null || razonSocial.isEmpty()) {
-            throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.VALIDACION + " Razón Social inválida"
             );
         }
 

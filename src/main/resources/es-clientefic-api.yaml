@@ -180,7 +180,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /v1/es/cliente-fic/nombre/{nombre}/{apellido}/{razonSocial}:
+  /v1/es/cliente-fic/nombre/{regex}:
     get:
       summary: Consultar Cliente FIC Por Nombre
       operationId: ConsultarClienteFICPorNombre
@@ -208,24 +208,11 @@ paths:
           style: form
           explode: false
         - in: path
-          name: nombre
+          name: regex
           required: true
           schema:
             type: string
           description: Nombre
-        - in: path
-          name: apellido
-          required: true
-          schema:
-            type: string
-          description: Apellido
-        - in: path
-          name: razonSocial
-          required: true
-          schema:
-            type: string
-          description: Razón Social
-
       responses:
         "200":
           description: Obtener Cliente FIC por nombre.

@@ -15,4 +15,6 @@ public class ConsultarClientePorNombreEntity {
     private TipoDocumentoEnum tipoDocumento;
     private String numeroDocumento;
     private String nombreCompleto;
+    private String fechaUltimaActualizacion;
+    private String paisOrigen;
 }

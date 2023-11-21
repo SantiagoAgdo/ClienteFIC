@@ -27,13 +27,6 @@ public class ClienteFICDAO implements IClienteFICDAO {
     @Inject
     DataSource dataSource;
 
-    @ConfigProperty(name = "quarkus.datasource.jdbc.url")
-    String url;
-    @ConfigProperty(name = "quarkus.datasource.username")
-    String user;
-    @ConfigProperty(name = "quarkus.datasource.password")
-    String pass;
-
     @Override
     public void crearUsuarioClienteFic(ClienteFICEntity clienteFIC) {
         list.add(clienteFIC);
@@ -60,7 +53,6 @@ public class ClienteFICDAO implements IClienteFICDAO {
     @Override
     public List<CentralRiesgoEntity> consultarCentralRiesgo(Integer numeroCliente) {
         List<ClienteFICEntity> clienteFICEntityList = list.stream().filter(x -> x.getClienteBase().getNumeroDocumento().equals(numeroCliente)).toList();
-
         List<CentralRiesgoEntity> consultaCliente = new ArrayList<>();
         for (ClienteFICEntity clienteFIC : clienteFICEntityList) {
             CentralRiesgoEntity centralRiesgoEntity = new CentralRiesgoEntity(clienteFIC.getCentralRiesgo().getNumeroCliente(), clienteFIC.getCentralRiesgo().getResultadoConsultaMasReciente(), clienteFIC.getCentralRiesgo().getVbVigenteParaSerConsultado(), clienteFIC.getCentralRiesgo().getFechaConsultaMasReciente());
@@ -141,13 +133,14 @@ public class ClienteFICDAO implements IClienteFICDAO {
 
             ResultSet resultSet = callableStatement.executeQuery();
             while (resultSet.next()) {
-                ConsultarClientePorNombreEntity resultconsultaCliente = new ConsultarClientePorNombreEntity(
+                ConsultarClientePorNombreEntity resultadoConsultaCliente = new ConsultarClientePorNombreEntity(
                         mapper.stringATipoDocumento(resultSet.getString("s_codigo_tipo_ident")),
-                        resultSet.getString("s_numero_identificacion"),
-                        resultSet.getString("s_nombre_completo")
+                        eliminarCaracteresEspeciales(resultSet.getString("s_numero_identificacion")),
+                        eliminarCaracteresEspeciales(resultSet.getString("s_nombre_completo")),
+                        eliminarCaracteresEspeciales(resultSet.getString("d_fecha_ult_actualizacion")),
+                        eliminarCaracteresEspeciales(resultSet.getString("s_pais_origen"))
                 );
-
-                consultarClientePorNombreList.add(resultconsultaCliente);
+                consultarClientePorNombreList.add(resultadoConsultaCliente);
             }
             connection.close();
             callableStatement.close();
@@ -158,7 +151,24 @@ public class ClienteFICDAO implements IClienteFICDAO {
             Log.info("Termina Consulta");
         }
 
-        return new ConsultarClientePorNombreOutputEntity(consultarClientePorNombreList.size(), consultarClientePorNombreList);
+        int inicioDeIndice = pagina*tamanoPagina;
+        int finalDeIndice  = inicioDeIndice + tamanoPagina;
+
+        List<ConsultarClientePorNombreEntity> consultarClientePorNombreListPaginado = new ArrayList<>(
+                consultarClientePorNombreList.subList(inicioDeIndice - 1, finalDeIndice)
+        );
+
+        for(ConsultarClientePorNombreEntity consultarClientePorNombreEntity : consultarClientePorNombreListPaginado ){
+            Log.warn("=== Datos Extraidos ===");
+            Log.info(consultarClientePorNombreEntity.getTipoDocumento().toString());
+            Log.info(consultarClientePorNombreEntity.getNumeroDocumento().toString());
+            Log.info(consultarClientePorNombreEntity.getNombreCompleto().toString());
+            Log.info(consultarClientePorNombreEntity.getFechaUltimaActualizacion().toString());
+            Log.info(consultarClientePorNombreEntity.getPaisOrigen().toString());
+            Log.info("-----------------------");
+        }
+
+        return new ConsultarClientePorNombreOutputEntity(consultarClientePorNombreList.size(), consultarClientePorNombreListPaginado);
     }
 
     @Override
@@ -270,5 +280,11 @@ public class ClienteFICDAO implements IClienteFICDAO {
 
         return consultaCliente;
     }
+
+    public static String eliminarCaracteresEspeciales(String cadena) {
+        String cadenaSinEspeciales = cadena.replaceAll("[^a-zA-Z0-9]", " ");
+        return cadenaSinEspeciales;
+    }
+
 
 }
