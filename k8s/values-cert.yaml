@@ -10,7 +10,7 @@ releaseId: ""
 environment: "cert"
 
 image:
-  repository: "acrenvironmicrostrv001.azurecr.io/prdfldrimgapi"
+  repository: "acrenvironmicrostrv001.azurecr.io/cerfldrimgapi"
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: es-clientefic-v1.0.0

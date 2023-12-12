@@ -25,7 +25,7 @@ import jakarta.validation.constraints.*;
 import jakarta.validation.Valid;
 
 @Path("/v1/es/cliente-fic")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-11-21T10:49:21.159201500-05:00[America/Bogota]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-12-12T10:23:40.602639800-05:00[America/Bogota]")
 public interface V1ClienteFIC {
 
     @GET
@@ -41,7 +41,7 @@ public interface V1ClienteFIC {
     @GET
     @Path("/central-riesgo/{numeroCliente}")
     @Produces({ "application/json" })
-    Response consultarCentralDeRiesgo(@PathParam("numeroCliente") Integer numeroCliente);
+    Response consultarCentralDeRiesgo(@QueryParam("page") @NotNull @Min(1) @Max(100) @DefaultValue("1")   Integer page,@QueryParam("pageSize") @NotNull @Min(1) @Max(100) @DefaultValue("20")   Integer pageSize,@PathParam("numeroCliente") Integer numeroCliente);
 
     @GET
     @Path("/nombre/{regex}")
@@ -56,17 +56,17 @@ public interface V1ClienteFIC {
     @GET
     @Path("/cupo-rotativo/{numeroCliente}")
     @Produces({ "application/json" })
-    Response consultarCupoRotativo(@PathParam("numeroCliente") Integer numeroCliente);
+    Response consultarCupoRotativo(@QueryParam("page") @NotNull @Min(1) @Max(100) @DefaultValue("1")   Integer page,@QueryParam("pageSize") @NotNull @Min(1) @Max(100) @DefaultValue("20")   Integer pageSize,@PathParam("numeroCliente") Integer numeroCliente);
 
     @GET
     @Path("/historial-contacto/{numeroCliente}")
     @Produces({ "application/json" })
-    Response consultarHistorialContacto(@PathParam("numeroCliente") Integer numeroCliente);
+    Response consultarHistorialContacto(@QueryParam("page") @NotNull @Min(1) @Max(100) @DefaultValue("1")   Integer page,@QueryParam("pageSize") @NotNull @Min(1) @Max(100) @DefaultValue("20")   Integer pageSize,@PathParam("numeroCliente") Integer numeroCliente);
 
     @GET
     @Path("/oferta/{numeroCliente}")
     @Produces({ "application/json" })
-    Response consultarOferta(@PathParam("numeroCliente") Integer numeroCliente);
+    Response consultarOferta(@QueryParam("page") @NotNull @Min(1) @Max(100) @DefaultValue("1")   Integer page,@QueryParam("pageSize") @NotNull @Min(1) @Max(100) @DefaultValue("20")   Integer pageSize,@PathParam("numeroCliente") Integer numeroCliente);
 
     @GET
     @Path("/pqr/{tipoDocumento}/{numeroDocumento}/{digitoVerificacion}")

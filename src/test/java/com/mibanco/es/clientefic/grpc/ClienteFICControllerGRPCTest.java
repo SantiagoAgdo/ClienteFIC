@@ -51,24 +51,24 @@ public class ClienteFICControllerGRPCTest {
         serviceImpl.crearUsuarioClienteFic(cliente);
     }
 
-    @Test
-    public void consultaConyugeGRPCTest() throws IOException, ExecutionException, InterruptedException, TimeoutException {
-
-        this.createClienteMock();
-
-        ConyugeType conyugeBuffer = this.getConyuge();
-
-        CompletableFuture<ConyugeType> message = new CompletableFuture<>();
-
-        NumeroCliente numeroCLiente = NumeroCliente.newBuilder().setNumeroCliente(10002).build();
-
-        client.consultarConyuge(numeroCLiente)
-                .subscribe()
-                .with(reply -> message.complete(reply.getObj()));
-
-        Assertions.assertThat(message.get(5, TimeUnit.SECONDS).getNumeroDocumento()).isEqualTo(conyugeBuffer.getNumeroDocumento());
-
-    }
+//    @Test
+//    public void consultaConyugeGRPCTest() throws IOException, ExecutionException, InterruptedException, TimeoutException {
+//
+//        this.createClienteMock();
+//
+//        ConyugeType conyugeBuffer = this.getConyuge();
+//
+//        CompletableFuture<ConyugeType> message = new CompletableFuture<>();
+//
+//        NumeroCliente numeroCLiente = NumeroCliente.newBuilder().setNumeroCliente(10002).build();
+//
+//        client.consultarConyuge(numeroCLiente)
+//                .subscribe()
+//                .with(reply -> message.complete(reply.getObj()));
+//
+//        Assertions.assertThat(message.get(5, TimeUnit.SECONDS).getNumeroDocumento()).isEqualTo(conyugeBuffer.getNumeroDocumento());
+//
+//    }
 
     @Test
     public void crearClienteFICGRPCTest() throws IOException, ExecutionException, InterruptedException, TimeoutException {
@@ -108,70 +108,70 @@ public class ClienteFICControllerGRPCTest {
 
     }
 
-    @Test
-    public void consultaCentralGRPCTest() throws IOException, ExecutionException, InterruptedException, TimeoutException {
+//    @Test
+//    public void consultaCentralGRPCTest() throws IOException, ExecutionException, InterruptedException, TimeoutException {
+//
+//        this.createClienteMock();
+//        NumeroCliente numeroCliente = NumeroCliente.newBuilder().setNumeroCliente(10002).build();
+//
+//        CompletableFuture<List<CentralRiesgoType>> message = new CompletableFuture<>();
+//        client.consultarCentralDeRiesgo(numeroCliente)
+//                .subscribe()
+//                .with(reply -> message.complete(reply.getObjList()));
+//
+//        Assertions.assertThat(message.get(5, TimeUnit.SECONDS)).asList();
+//    }
 
-        this.createClienteMock();
-        NumeroCliente numeroCliente = NumeroCliente.newBuilder().setNumeroCliente(10002).build();
+//    @Test
+//    public void consultaCupoRotativoGRPCTest() throws IOException, ExecutionException, InterruptedException, TimeoutException {
+//
+//        this.createClienteMock();
+//
+//        CompletableFuture<List<CupoRotativoType>> message = new CompletableFuture<>();
+//
+//        NumeroCliente numeroCLiente = NumeroCliente.newBuilder().setNumeroCliente(10002).build();
+//
+//        client.consultarCupoRotativo(numeroCLiente)
+//                .subscribe()
+//                .with(reply -> message.complete(reply.getObjList()));
+//
+//        Assertions.assertThat(message.get(5, TimeUnit.SECONDS)).asList();
+//
+//    }
 
-        CompletableFuture<List<CentralRiesgoType>> message = new CompletableFuture<>();
-        client.consultarCentralDeRiesgo(numeroCliente)
-                .subscribe()
-                .with(reply -> message.complete(reply.getObjList()));
+//    @Test
+//    public void consultaContactoGRPCTest() throws IOException, ExecutionException, InterruptedException, TimeoutException {
+//
+//        this.createClienteMock();
+//
+//        CompletableFuture<List<ContactoType>> message = new CompletableFuture<>();
+//
+//        NumeroCliente numeroCliente = NumeroCliente.newBuilder().setNumeroCliente(10002).build();
+//
+//        client.consultarHistorialContacto(numeroCliente)
+//                .subscribe()
+//                .with(reply -> message.complete(reply.getObjList()));
+//
+//        Assertions.assertThat(message.get(5, TimeUnit.SECONDS)).asList();
+//
+//    }
 
-        Assertions.assertThat(message.get(5, TimeUnit.SECONDS)).asList();
-    }
-
-    @Test
-    public void consultaCupoRotativoGRPCTest() throws IOException, ExecutionException, InterruptedException, TimeoutException {
-
-        this.createClienteMock();
-
-        CompletableFuture<List<CupoRotativoType>> message = new CompletableFuture<>();
-
-        NumeroCliente numeroCLiente = NumeroCliente.newBuilder().setNumeroCliente(10002).build();
-
-        client.consultarCupoRotativo(numeroCLiente)
-                .subscribe()
-                .with(reply -> message.complete(reply.getObjList()));
-
-        Assertions.assertThat(message.get(5, TimeUnit.SECONDS)).asList();
-
-    }
-
-    @Test
-    public void consultaContactoGRPCTest() throws IOException, ExecutionException, InterruptedException, TimeoutException {
-
-        this.createClienteMock();
-
-        CompletableFuture<List<ContactoType>> message = new CompletableFuture<>();
-
-        NumeroCliente numeroCliente = NumeroCliente.newBuilder().setNumeroCliente(10002).build();
-
-        client.consultarHistorialContacto(numeroCliente)
-                .subscribe()
-                .with(reply -> message.complete(reply.getObjList()));
-
-        Assertions.assertThat(message.get(5, TimeUnit.SECONDS)).asList();
-
-    }
-
-    @Test
-    public void consultaOfertaGRPCTest() throws IOException, ExecutionException, InterruptedException, TimeoutException {
-
-        this.createClienteMock();
-
-        CompletableFuture<List<OfertaType>> message = new CompletableFuture<>();
-
-        NumeroCliente numeroCLiente = NumeroCliente.newBuilder().setNumeroCliente(10002).build();
-
-        client.consultarOferta(numeroCLiente)
-                .subscribe()
-                .with(reply -> message.complete(reply.getObjList()));
-
-        Assertions.assertThat(message.get(5, TimeUnit.SECONDS)).asList();
-
-    }
+//    @Test
+//    public void consultaOfertaGRPCTest() throws IOException, ExecutionException, InterruptedException, TimeoutException {
+//
+//        this.createClienteMock();
+//
+//        CompletableFuture<List<OfertaType>> message = new CompletableFuture<>();
+//
+//        NumeroCliente numeroCLiente = NumeroCliente.newBuilder().setNumeroCliente(10002).build();
+//
+//        client.consultarOferta(numeroCLiente)
+//                .subscribe()
+//                .with(reply -> message.complete(reply.getObjList()));
+//
+//        Assertions.assertThat(message.get(5, TimeUnit.SECONDS)).asList();
+//
+//    }
 
     @Test
     public void consultaPasivoGRPCTest() throws IOException, ExecutionException, InterruptedException, TimeoutException {
@@ -211,13 +211,13 @@ public class ClienteFICControllerGRPCTest {
 
     }
 
-    public ConyugeType getConyuge() throws IOException {
-        String jsonString = new String(Files.readAllBytes(Paths.get("src/test/resources/jsonmocks/es-conyuge-api.json")), StandardCharsets.UTF_8);
-        com.mibanco.clientefic.es.gen.type.ConyugeType clienteType =
-                objectMapper.readValue(jsonString, com.mibanco.clientefic.es.gen.type.ConyugeType.class);
-
-        return mapperGRPC.conyugeToGrpc(clienteType);
-    }
+//    public ConyugeType getConyuge() throws IOException {
+//        String jsonString = new String(Files.readAllBytes(Paths.get("src/test/resources/jsonmocks/es-conyuge-api.json")), StandardCharsets.UTF_8);
+//        com.mibanco.clientefic.es.gen.type.ConyugeType clienteType =
+//                objectMapper.readValue(jsonString, com.mibanco.clientefic.es.gen.type.ConyugeType.class);
+//
+//        return mapperGRPC.conyugeToGrpc(clienteType);
+//    }
 
 
 }

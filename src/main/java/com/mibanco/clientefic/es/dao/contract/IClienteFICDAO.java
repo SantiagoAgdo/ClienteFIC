@@ -12,19 +12,19 @@ public interface IClienteFICDAO {
 
     List<AlertaEntity> consultarAlerta(ConsultaClienteEntity data);
 
-    List<CentralRiesgoEntity> consultarCentralRiesgo(Integer numeroCliente);
+    List<CentralRiesgoEntity> consultarCentralRiesgo(Integer page, Integer pageSize, Integer numeroCliente);
 
     ClienteFICDTO consultarClientePorIdentificacion(ConsultaClienteEntity data);
 
     ConsultarClientePorNombreOutputEntity consultarClienteFicPorNombre(String nombre, int pagina, int tamanoPagina);
 
-    ConyugeType consultarConyuge(Integer numeroCliente);
+    ConyugeEntity consultarConyuge(Integer numeroCliente);
 
-    List<CupoRotativoEntity> consultarCupoRotativo(Integer numeroCliente);
+    List<CupoRotativoEntity> consultarCupoRotativo(Integer page, Integer pageSize, Integer numeroCliente);
 
-    List<ContactoEntity> consultarHistorialContacto(Integer numeroCliente);
+    List<ContactoEntity> consultarHistorialContacto(Integer pagina, Integer tamanoPagina, Integer numeroCliente);
 
-    List<OfertaEntity> consultarOferta(Integer numeroCliente);
+    List<OfertaEntity> consultarOferta(Integer pagina, Integer tamanoPagina, Integer numeroCliente);
 
     List<PasivoEntity> consultarPasivo(Integer numeroCliente);
 

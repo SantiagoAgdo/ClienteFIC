@@ -27,7 +27,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("ClienteFICType")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-11-21T10:49:21.159201500-05:00[America/Bogota]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-12-12T10:23:40.602639800-05:00[America/Bogota]")
 public class ClienteFICType   {
   private @Valid AlertaType alerta;
   private @Valid ClienteBaseType clienteBase;

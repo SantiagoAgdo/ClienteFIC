@@ -12,6 +12,9 @@ release.properties
 .settings/
 bin/
 
+# OpenAPI
+src/main/java/com/mibanco/clientefic/es/gen/
+
 # IntelliJ
 .idea
 *.ipr

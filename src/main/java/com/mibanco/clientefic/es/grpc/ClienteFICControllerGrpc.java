@@ -4,6 +4,7 @@ import com.mibanco.clientefic.es.*;
 import com.mibanco.clientefic.es.controller.ClienteFICController;
 import com.mibanco.clientefic.es.dao.entity.ClienteFICEntity;
 import com.mibanco.clientefic.es.dao.entity.ConsultaClienteEntity;
+import com.mibanco.clientefic.es.dao.entity.ConyugeEntity;
 import com.mibanco.clientefic.es.gen.type.AlertaType;
 import com.mibanco.clientefic.es.gen.type.CentralRiesgoType;
 import com.mibanco.clientefic.es.gen.type.ContactoType;
@@ -119,7 +120,7 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
         LOG.info("Inicia consulta central Riesgo por GRPC");
         try {
             clienteFICValidator.validarNumeroCliente(request.getNumeroCliente());
-            List<CentralRiesgoType> centralRiesgoList = clienteFICService.consultarCentralRiesgo(request.getNumeroCliente());
+            List<CentralRiesgoType> centralRiesgoList = clienteFICService.consultarCentralRiesgo(1,1000, request.getNumeroCliente());
 
             List<com.mibanco.clientefic.es.CentralRiesgoType> centralRiesgoResponse = new ArrayList<>();
             for (CentralRiesgoType centralRiesgoItem : centralRiesgoList) {
@@ -190,7 +191,7 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
         LOG.info("Inicia consulta conyuge por GRPC");
         try {
             clienteFICValidator.validarNumeroCliente(request.getNumeroCliente());
-            ConyugeType conyuge = clienteFICService.consultarConyuge(request.getNumeroCliente());
+            ConyugeEntity conyuge = clienteFICService.consultarConyuge(request.getNumeroCliente());
 
             ResponseConyuge response = ResponseConyuge.newBuilder().setObj(
                     ResponseConyuge.newBuilder().getObj().toBuilder()
@@ -221,7 +222,7 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
         LOG.info("Inicia consulta cupo rotativo por GRPC");
         try {
             clienteFICValidator.validarNumeroCliente(request.getNumeroCliente());
-            List<CupoRotativoType> cupoList = clienteFICService.consultarCupoRotativo(request.getNumeroCliente());
+            List<CupoRotativoType> cupoList = clienteFICService.consultarCupoRotativo(1,1000, request.getNumeroCliente());
 
             List<com.mibanco.clientefic.es.CupoRotativoType> cupoListResponse = new ArrayList<>();
             for (CupoRotativoType cupoItem : cupoList) {
@@ -259,7 +260,7 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
         try {
 
             clienteFICValidator.validarNumeroCliente(request.getNumeroCliente());
-            List<ContactoType> consultaList = clienteFICService.consultarHistorialContacto(request.getNumeroCliente());
+            List<ContactoType> consultaList = clienteFICService.consultarHistorialContacto(1,1000,request.getNumeroCliente());
 
             List<com.mibanco.clientefic.es.ContactoType> contactoListResponse = new ArrayList<>();
             for (ContactoType item : consultaList) {
@@ -295,7 +296,7 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
         try {
 
             clienteFICValidator.validarNumeroCliente(request.getNumeroCliente());
-            List<OfertaType> consultaList = clienteFICService.consultarOferta(request.getNumeroCliente());
+            List<OfertaType> consultaList = clienteFICService.consultarOferta(1, 1000, request.getNumeroCliente());
 
             List<com.mibanco.clientefic.es.OfertaType> ofertaListResponse = new ArrayList<>();
             for (OfertaType oferta : consultaList) {
@@ -371,14 +372,11 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
     }
 
     private StatusException responseExceptionGrpc(Status statusCode, String exceptionMessage) {
-        // Registrando el mensaje de la excepción en el registro de errores
         LOG.error("Exception: " + exceptionMessage);
 
-        // Creando metadatos para incluir el mensaje de la excepción en la respuesta GRPC
         Metadata metadata = new Metadata();
         metadata.put(Metadata.Key.of("Error", Metadata.ASCII_STRING_MARSHALLER), exceptionMessage);
 
-        // Creando y devolviendo la excepción con el código de estado y los metadatos
         return statusCode.asException(metadata);
     }
 

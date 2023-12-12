@@ -105,12 +105,35 @@ paths:
       summary: Consultar Central
       operationId: consultarCentralDeRiesgo
       parameters:
+        - in: query
+          name: page
+          description: Inicia con uno la paginación
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 1
+          style: form
+          explode: false
+        - in: query
+          name: pageSize
+          description: Total de registro para mostrar
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+          style: form
+          explode: false
         - in: path
           name: numeroCliente
           required: true
           schema:
             type: integer
           description: Número de cliente
+
       responses:
         "200":
           description: Obtener Consulta Central.
@@ -275,6 +298,28 @@ paths:
       summary: Consultar Cupo Rotativo
       operationId: consultarCupoRotativo
       parameters:
+        - in: query
+          name: page
+          description: Inicia con uno la paginación
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 1
+          style: form
+          explode: false
+        - in: query
+          name: pageSize
+          description: Total de registro para mostrar
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+          style: form
+          explode: false
         - in: path
           name: numeroCliente
           required: true
@@ -309,6 +354,28 @@ paths:
       summary: Consultar Historial de Contacto
       operationId: consultarHistorialContacto
       parameters:
+        - in: query
+          name: page
+          description: Inicia con uno la paginación
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 1
+          style: form
+          explode: false
+        - in: query
+          name: pageSize
+          description: Total de registro para mostrar
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+          style: form
+          explode: false
         - in: path
           name: numeroCliente
           required: true
@@ -343,6 +410,28 @@ paths:
       summary: Consultar Oferta
       operationId: consultarOferta
       parameters:
+        - in: query
+          name: page
+          description: Inicia con uno la paginación
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 1
+          style: form
+          explode: false
+        - in: query
+          name: pageSize
+          description: Total de registro para mostrar
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+          style: form
+          explode: false
         - in: path
           name: numeroCliente
           required: true
@@ -752,11 +841,15 @@ components:
         totalClientes:
           type: integer
         clientes:
-          $ref: "#/components/schemas/ConsultarClientePorNombreType"
+          $ref: "#/components/schemas/ClienteFiltroType"
+        pagina:
+          type: integer
+        tamanoPagina:
+          type: integer
       required:
         - totalClientes
         - clientes
-    ConsultarClientePorNombreType:
+    ClienteFiltroType:
       type: object
       properties:
         tipoDocumento:
@@ -765,6 +858,12 @@ components:
           type: string
         nombreCompleto:
           type: string
+        ultimaFechaActualizacion:
+          type: string
+        expedicionDocumentoPais:
+          $ref: "#/components/schemas/PaisEnum"
+        expedicionDocumentoCiudad:
+          $ref: "#/components/schemas/CiudadEnum"
     ConsultarDireccionTelefonoType:
       type: object
       properties:
@@ -1431,6 +1530,259 @@ components:
         - 05036 ANGELOPOLIS
         - 05038 ANGOSTURA
         - 05040 ANORI
+    PaisEnum:
+      type: string
+      enum:
+        - AD
+        - AE
+        - AF
+        - AG
+        - AI
+        - AL
+        - AM
+        - AO
+        - AQ
+        - AR
+        - AS
+        - AT
+        - AU
+        - AW
+        - AX
+        - AZ
+        - BA
+        - BB
+        - BD
+        - BE
+        - BF
+        - BG
+        - BH
+        - BI
+        - BJ
+        - BL
+        - BM
+        - BN
+        - BO
+        - BQ
+        - BR
+        - BS
+        - BT
+        - BV
+        - BW
+        - BY
+        - BZ
+        - CA
+        - CC
+        - CD
+        - CF
+        - CG
+        - CH
+        - CI
+        - CK
+        - CL
+        - CM
+        - CN
+        - CO
+        - CR
+        - CU
+        - CV
+        - CW
+        - CX
+        - CY
+        - CZ
+        - DE
+        - DJ
+        - DK
+        - DM
+        - DO
+        - DZ
+        - EC
+        - EE
+        - EG
+        - EH
+        - ER
+        - ES
+        - ET
+        - FI
+        - FJ
+        - FK
+        - FM
+        - FO
+        - FR
+        - GA
+        - GB
+        - GD
+        - GE
+        - GF
+        - GG
+        - GH
+        - GI
+        - GL
+        - GM
+        - GN
+        - GP
+        - GQ
+        - GR
+        - GS
+        - GT
+        - GU
+        - GW
+        - GY
+        - HK
+        - HM
+        - HN
+        - HR
+        - HT
+        - HU
+        - ID
+        - IE
+        - IL
+        - IM
+        - IN
+        - IO
+        - IQ
+        - IR
+        - IS
+        - IT
+        - JE
+        - JM
+        - JO
+        - JP
+        - KE
+        - KG
+        - KH
+        - KI
+        - KM
+        - KN
+        - KP
+        - KR
+        - KW
+        - KY
+        - KZ
+        - LA
+        - LB
+        - LC
+        - LI
+        - LK
+        - LR
+        - LS
+        - LT
+        - LU
+        - LV
+        - LY
+        - MA
+        - MC
+        - MD
+        - ME
+        - MF
+        - MG
+        - MH
+        - MK
+        - ML
+        - MM
+        - MN
+        - MO
+        - MP
+        - MQ
+        - MR
+        - MS
+        - MT
+        - MU
+        - MV
+        - MW
+        - MX
+        - MY
+        - MZ
+        - NA
+        - NC
+        - NE
+        - NF
+        - NG
+        - NI
+        - NL
+        - NO
+        - NP
+        - NR
+        - NU
+        - NZ
+        - OM
+        - PA
+        - PE
+        - PF
+        - PG
+        - PH
+        - PK
+        - PL
+        - PM
+        - PN
+        - PR
+        - PS
+        - PT
+        - PW
+        - PY
+        - QA
+        - RE
+        - RO
+        - RS
+        - RU
+        - RW
+        - SA
+        - SB
+        - SC
+        - SD
+        - SE
+        - SG
+        - SH
+        - SI
+        - SJ
+        - SK
+        - SL
+        - SM
+        - SN
+        - SO
+        - SR
+        - SS
+        - ST
+        - SV
+        - SX
+        - SY
+        - SZ
+        - TC
+        - TD
+        - TF
+        - TG
+        - TH
+        - TJ
+        - TK
+        - TL
+        - TM
+        - TN
+        - TO
+        - TR
+        - TT
+        - TV
+        - TW
+        - TZ
+        - UA
+        - UG
+        - UM
+        - US
+        - UY
+        - UZ
+        - VA
+        - VC
+        - VE
+        - VG
+        - VI
+        - VN
+        - VU
+        - WF
+        - WS
+        - YE
+        - YT
+        - ZA
+        - ZM
+        - ZW
+        - DCON
     BarrioEnum:
       type: string
       enum:

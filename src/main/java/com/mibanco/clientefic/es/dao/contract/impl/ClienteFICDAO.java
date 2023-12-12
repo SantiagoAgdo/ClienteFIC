@@ -5,11 +5,11 @@ import com.mibanco.clientefic.es.dao.entity.*;
 import com.mibanco.clientefic.es.dto.ClienteFICDTO;
 import com.mibanco.clientefic.es.gen.type.ConyugeType;
 import com.mibanco.clientefic.es.gen.type.EstadoCivilEnum;
+import com.mibanco.clientefic.es.gen.type.TipoDocumentoEnum;
 import com.mibanco.clientefic.es.utils.mapper.ClienteFICMapper;
 import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -51,14 +51,48 @@ public class ClienteFICDAO implements IClienteFICDAO {
     }
 
     @Override
-    public List<CentralRiesgoEntity> consultarCentralRiesgo(Integer numeroCliente) {
-        List<ClienteFICEntity> clienteFICEntityList = list.stream().filter(x -> x.getClienteBase().getNumeroDocumento().equals(numeroCliente)).toList();
-        List<CentralRiesgoEntity> consultaCliente = new ArrayList<>();
-        for (ClienteFICEntity clienteFIC : clienteFICEntityList) {
-            CentralRiesgoEntity centralRiesgoEntity = new CentralRiesgoEntity(clienteFIC.getCentralRiesgo().getNumeroCliente(), clienteFIC.getCentralRiesgo().getResultadoConsultaMasReciente(), clienteFIC.getCentralRiesgo().getVbVigenteParaSerConsultado(), clienteFIC.getCentralRiesgo().getFechaConsultaMasReciente());
-            consultaCliente.add(centralRiesgoEntity);
+    public List<CentralRiesgoEntity> consultarCentralRiesgo(Integer pagina, Integer tamanoPagina, Integer numeroCliente) {
+
+        Log.info("Inicia Proceso de consumo sp_fic_consultarCentralRiesgo");
+
+        List<CentralRiesgoEntity> centralRiesgoEntityArrayList = new ArrayList<>();
+
+        try (Connection connection = dataSource.getConnection()) {
+
+            CallableStatement callableStatement = connection.prepareCall("{call sp_fic_consultarCentralRiesgo(?,?,?)}");
+            callableStatement.setInt(1, numeroCliente);
+            callableStatement.setInt(2, pagina);
+            callableStatement.setInt(3, tamanoPagina);
+
+            ResultSet resultSet = callableStatement.executeQuery();
+            while (resultSet.next()) {
+                CentralRiesgoEntity centralRiesgoResponseSP = new CentralRiesgoEntity(
+                        numeroCliente,
+                        eliminarCaracteresEspeciales(resultSet.getString("fechaVigenciaDesde")), //fechaConsultaMasReciente
+                        eliminarCaracteresEspeciales(resultSet.getString("zonaViabilidad")), //resultadoConsultaMasReciente
+                        eliminarCaracteresEspeciales(resultSet.getString("s_vbclienteparaconsulta")) //vbVigenteParaSerConsultado
+                );
+                centralRiesgoEntityArrayList.add(centralRiesgoResponseSP);
+            }
+            resultSet.close();
+        } catch (SQLException e) {
+            Log.error("Error al ejecutar la consulta en el método consultarCentralRiesgo: " + e.getMessage());
+
+        } finally {
+            Log.info("Termina Consulta");
         }
-        return consultaCliente;
+
+        if (centralRiesgoEntityArrayList.size() != 0) {
+            int inicioDeIndice = pagina == 1 ? 1 : pagina * tamanoPagina;
+            int finalDeIndice = inicioDeIndice + tamanoPagina;
+
+            return new ArrayList<>(
+                    centralRiesgoEntityArrayList.subList(inicioDeIndice - 1, finalDeIndice - 1)
+            );
+        } else {
+            return new ArrayList<>();
+        }
+
     }
 
     @Override
@@ -105,8 +139,6 @@ public class ClienteFICDAO implements IClienteFICDAO {
                         resultSet.getString("d_fecha_ult_actualizacion")
                 );
             }
-            connection.close();
-            callableStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -121,7 +153,7 @@ public class ClienteFICDAO implements IClienteFICDAO {
 
         Log.info("Inicia Proceso de consumo sp_fic_consultaClientePorNombre");
 
-        List<ConsultarClientePorNombreEntity> consultarClientePorNombreList = new ArrayList<>();
+        List<ClienteFiltroType> consultarClientePorNombreList = new ArrayList<>();
 
         try (Connection connection = dataSource.getConnection()) {
 
@@ -133,38 +165,38 @@ public class ClienteFICDAO implements IClienteFICDAO {
 
             ResultSet resultSet = callableStatement.executeQuery();
             while (resultSet.next()) {
-                ConsultarClientePorNombreEntity resultadoConsultaCliente = new ConsultarClientePorNombreEntity(
+                ClienteFiltroType resultadoConsultaCliente = new ClienteFiltroType(
                         mapper.stringATipoDocumento(resultSet.getString("s_codigo_tipo_ident")),
                         eliminarCaracteresEspeciales(resultSet.getString("s_numero_identificacion")),
                         eliminarCaracteresEspeciales(resultSet.getString("s_nombre_completo")),
                         eliminarCaracteresEspeciales(resultSet.getString("d_fecha_ult_actualizacion")),
-                        eliminarCaracteresEspeciales(resultSet.getString("s_pais_origen"))
+                        eliminarCaracteresEspeciales(resultSet.getString("s_pais_origen")),
+                        "XXXXX"
                 );
                 consultarClientePorNombreList.add(resultadoConsultaCliente);
             }
-            connection.close();
-            callableStatement.close();
+            resultSet.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            Log.error("Error al ejecutar la consulta: " + e.getMessage());
 
         } finally {
             Log.info("Termina Consulta");
         }
 
-        int inicioDeIndice = pagina*tamanoPagina;
-        int finalDeIndice  = inicioDeIndice + tamanoPagina;
+        int inicioDeIndice = pagina == 1 ? 1 : pagina * tamanoPagina;
+        int finalDeIndice = inicioDeIndice + tamanoPagina;
 
-        List<ConsultarClientePorNombreEntity> consultarClientePorNombreListPaginado = new ArrayList<>(
-                consultarClientePorNombreList.subList(inicioDeIndice - 1, finalDeIndice)
+        List<ClienteFiltroType> consultarClientePorNombreListPaginado = new ArrayList<>(
+                consultarClientePorNombreList.subList(inicioDeIndice - 1, finalDeIndice - 1)
         );
 
-        for(ConsultarClientePorNombreEntity consultarClientePorNombreEntity : consultarClientePorNombreListPaginado ){
+        for (ClienteFiltroType clienteFiltroType : consultarClientePorNombreListPaginado) {
             Log.warn("=== Datos Extraidos ===");
-            Log.info(consultarClientePorNombreEntity.getTipoDocumento().toString());
-            Log.info(consultarClientePorNombreEntity.getNumeroDocumento().toString());
-            Log.info(consultarClientePorNombreEntity.getNombreCompleto().toString());
-            Log.info(consultarClientePorNombreEntity.getFechaUltimaActualizacion().toString());
-            Log.info(consultarClientePorNombreEntity.getPaisOrigen().toString());
+            Log.info(clienteFiltroType.getTipoDocumento().toString());
+            Log.info(clienteFiltroType.getNumeroDocumento().toString());
+            Log.info(clienteFiltroType.getNombreCompleto().toString());
+            Log.info(clienteFiltroType.getFechaUltimaActualizacion().toString());
+            Log.info(clienteFiltroType.getPaisOrigen().toString());
             Log.info("-----------------------");
         }
 
@@ -172,66 +204,168 @@ public class ClienteFICDAO implements IClienteFICDAO {
     }
 
     @Override
-    public ConyugeType consultarConyuge(Integer numeroCliente) {
-        ClienteFICEntity clienteFICEntity = list.stream().filter(x -> x.getClienteBase().getNumeroCliente().equals(numeroCliente)).findFirst().orElse(null);
-        if (clienteFICEntity != null) {
-            return clienteFICEntity.getConyuge();
+    public ConyugeEntity consultarConyuge(Integer numeroCliente) {
+        Log.info("Inicia Proceso de consumo sp_fic_consultaInformacionConyugeCliente");
+
+        ConyugeEntity conyuge = new ConyugeEntity();
+
+        try (Connection connection = dataSource.getConnection()) {
+
+            CallableStatement callableStatement = connection.prepareCall("{call sp_fic_consultaInformacionConyugeCliente(?,?,?,?)}");
+            callableStatement.setInt(1, numeroCliente);
+            callableStatement.registerOutParameter(2, Types.VARCHAR);
+            callableStatement.registerOutParameter(3, Types.VARCHAR);
+            callableStatement.registerOutParameter(4, Types.VARCHAR);
+
+            ResultSet resultSet = callableStatement.executeQuery();
+            while (resultSet.next()) {
+                conyuge = new ConyugeEntity(
+                        mapper.stringATipoDocumento(resultSet.getString("@tipo_docto_fam_pers")),
+                        resultSet.getString("@nro_docum_fam_pers"),
+                        resultSet.getString("@@nombre_fam_pers"),
+                        numeroCliente
+                );
+            }
+
+        } catch (SQLException e) {
+            Log.error("Error al ejecutar la consulta en el método consultarCentralRiesgo: " + e.getMessage());
+        } finally {
+            Log.info("Termina Consulta");
         }
-        return new ConyugeType();
+
+        return conyuge;
     }
 
     @Override
-    public List<CupoRotativoEntity> consultarCupoRotativo(Integer numeroCliente) {
-        List<ClienteFICEntity> clienteFICEntityLista = list.stream().filter(x -> x.getClienteBase().getNumeroDocumento().equals(numeroCliente)).toList();
+    public List<CupoRotativoEntity> consultarCupoRotativo(Integer pagina, Integer tamanoPagina, Integer numeroCliente) {
+        Log.info("Inicia Proceso de consumo sp_fic_consultarCupoRotativo");
 
-        List<CupoRotativoEntity> cupoRotativoList = new ArrayList<>();
-        for (ClienteFICEntity clienteFIC : clienteFICEntityLista) {
-            cupoRotativoList.add(new CupoRotativoEntity(
-                    clienteFIC.getCupoRotativo().getEstado(),
-                    clienteFIC.getCupoRotativo().getFechaDeVencimiento(),
-                    clienteFIC.getCupoRotativo().getMontoCupoCredito(),
-                    clienteFIC.getCupoRotativo().getMontoUtilizado(),
-                    clienteFIC.getCupoRotativo().getNumeroCliente(),
-                    clienteFIC.getCupoRotativo().getNumeroCupo(),
-                    clienteFIC.getCupoRotativo().getSaldoDisponible()));
+        List<CupoRotativoEntity> cupoRotativoEntityList = new ArrayList<>();
+
+        try (Connection connection = dataSource.getConnection()) {
+
+            CallableStatement callableStatement = connection.prepareCall("{call sp_fic_consultarCupoRotativo(?,?,?)}");
+            callableStatement.setInt(1, numeroCliente);
+            callableStatement.setInt(2, pagina);
+            callableStatement.setInt(3, tamanoPagina);
+
+            ResultSet resultSet = callableStatement.executeQuery();
+            while (resultSet.next()) {
+                CupoRotativoEntity centralRiesgoResponseSP = new CupoRotativoEntity(
+                        resultSet.getString("s_estado_cupo"),
+                        resultSet.getString("d_fecha_vcto_cupo"),
+                        resultSet.getFloat("m_valor_cupo"),
+                        resultSet.getFloat("m_monto_utilizado"),
+                        numeroCliente,
+                        resultSet.getString("s_cod_producto_core"),
+                        resultSet.getFloat("m_saldo_cupo")
+                );
+                cupoRotativoEntityList.add(centralRiesgoResponseSP);
+            }
+            resultSet.close();
+
+        } catch (SQLException e) {
+            Log.error("Error al ejecutar la consulta en el método consultarCupoRotativo: " + e.getMessage());
+        } finally {
+            Log.info("Termina Consulta");
         }
-        return cupoRotativoList;
+
+        if (cupoRotativoEntityList.size() != 0) {
+            int inicioDeIndice = pagina == 1 ? 1 : pagina * tamanoPagina;
+            int finalDeIndice = inicioDeIndice + tamanoPagina;
+
+            return new ArrayList<>(cupoRotativoEntityList.subList(inicioDeIndice - 1, finalDeIndice - 1));
+        } else {
+            return new ArrayList<>();
+        }
     }
 
     @Override
-    public List<ContactoEntity> consultarHistorialContacto(Integer numeroCliente) {
-        List<ClienteFICEntity> clienteFICEntityLista = list.stream().filter(x -> x.getClienteBase().getNumeroDocumento().equals(numeroCliente)).toList();
+    public List<ContactoEntity> consultarHistorialContacto(Integer pagina, Integer tamanoPagina, Integer numeroCliente) {
+        Log.info("Inicia Proceso de consumo sp_fic_consultarHistorialContacto");
 
-        List<ContactoEntity> consultaCliente = new ArrayList<>();
-        for (ClienteFICEntity clienteFIC : clienteFICEntityLista) {
-            consultaCliente.add(new ContactoEntity(
-                    clienteFIC.getContacto().getFecha(),
-                    clienteFIC.getContacto().getTipoContacto(),
-                    clienteFIC.getContacto().getResultadoComentarios(),
-                    clienteFIC.getContacto().getNumeroCliente())
-            );
+        List<ContactoEntity> contactoEntityList = new ArrayList<>();
+
+        try (Connection connection = dataSource.getConnection()) {
+
+            CallableStatement callableStatement = connection.prepareCall("{call sp_fic_consultarHistorialContacto(?,?,?)}");
+            callableStatement.setInt(1, numeroCliente);
+            callableStatement.setInt(2, pagina);
+            callableStatement.setInt(3, tamanoPagina);
+
+            ResultSet resultSet = callableStatement.executeQuery();
+            while (resultSet.next()) {
+                ContactoEntity centralRiesgoResponseSP = new ContactoEntity(
+                        numeroCliente,
+                        resultSet.getString("d_fecha_contacto"),
+                        resultSet.getString("s_accion"),
+                        resultSet.getString("Resultado / Comentarios")
+                );
+                contactoEntityList.add(centralRiesgoResponseSP);
+            }
+            resultSet.close();
+
+        } catch (SQLException e) {
+            Log.error("Error al ejecutar la consulta en el método consultarCentralRiesgo: " + e.getMessage());
+        } finally {
+            Log.info("Termina Consulta");
         }
-        return consultaCliente;
+
+        if (contactoEntityList.size() != 0) {
+            int inicioDeIndice = pagina == 1 ? 1 : pagina * tamanoPagina;
+            int finalDeIndice = inicioDeIndice + tamanoPagina;
+
+            return new ArrayList<>(contactoEntityList.subList(inicioDeIndice - 1, finalDeIndice - 1));
+        } else {
+            return new ArrayList<>();
+        }
+
     }
 
     @Override
-    public List<OfertaEntity> consultarOferta(Integer numeroCliente) {
-        List<ClienteFICEntity> clienteFICEntityLista = list.stream().filter(x -> x.getClienteBase().getNumeroDocumento().equals(numeroCliente)).toList();
+    public List<OfertaEntity> consultarOferta(Integer pagina, Integer tamanoPagina, Integer numeroCliente) {
 
-        List<OfertaEntity> consultaCliente = new ArrayList<>();
-        for (ClienteFICEntity clienteFIC : clienteFICEntityLista) {
-            consultaCliente.add(new OfertaEntity(
-                    clienteFIC.getOferta().getNumeroOferta(),
-                    clienteFIC.getOferta().getTipoLead(),
-                    clienteFIC.getOferta().getTipoOferta(),
-                    clienteFIC.getOferta().getMonto(),
-                    clienteFIC.getOferta().getPlazo(),
-                    clienteFIC.getOferta().getNumeroCliente(),
-                    clienteFIC.getOferta().getTipoDeLiga(),
-                    clienteFIC.getOferta().getCondicionGarantia())
-            );
+        Log.info("Inicia Proceso de consumo sp_fic_consultarOferta");
+
+        List<OfertaEntity> ofertaEntityList = new ArrayList<>();
+
+        try (Connection connection = dataSource.getConnection()) {
+
+            CallableStatement callableStatement = connection.prepareCall("{call sp_fic_consultarOferta(?,?,?)}");
+            callableStatement.setInt(1, numeroCliente);
+            callableStatement.setInt(2, pagina);
+            callableStatement.setInt(3, tamanoPagina);
+
+            ResultSet resultSet = callableStatement.executeQuery();
+            while (resultSet.next()) {
+                OfertaEntity centralRiesgoResponseSP = new OfertaEntity(
+                        numeroCliente,
+                        resultSet.getInt("numOferta"),
+                        resultSet.getString("campaña"),
+                        resultSet.getString("tipoOferta"),
+                        resultSet.getFloat("monto"),
+                        resultSet.getInt("plazo"),
+                        "TipoLiga",
+                        "condiciongarantia"
+                );
+                ofertaEntityList.add(centralRiesgoResponseSP);
+            }
+
+        } catch (SQLException e) {
+            Log.error("Error al ejecutar la consulta en el método consultarCentralRiesgo: " + e.getMessage());
+        } finally {
+            Log.info("Termina Consulta");
         }
-        return consultaCliente;
+
+        if (ofertaEntityList.size() != 0) {
+            int inicioDeIndice = pagina == 1 ? 1 : pagina * tamanoPagina;
+            int finalDeIndice = inicioDeIndice + tamanoPagina;
+
+            return new ArrayList<>(ofertaEntityList.subList(inicioDeIndice - 1, finalDeIndice - 1));
+        } else {
+            return new ArrayList<>();
+        }
+
     }
 
     @Override

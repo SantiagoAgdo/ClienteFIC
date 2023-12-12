@@ -1,6 +1,6 @@
 package com.mibanco.clientefic.es.gen.type;
 
-import com.mibanco.clientefic.es.gen.type.ConsultarClientePorNombreType;
+import com.mibanco.clientefic.es.gen.type.ClienteFiltroType;
 import jakarta.validation.constraints.*;
 import jakarta.validation.Valid;
 
@@ -13,10 +13,12 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("ConsultarClientePorNombreOutput")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-11-21T10:49:21.159201500-05:00[America/Bogota]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-12-12T10:23:40.602639800-05:00[America/Bogota]")
 public class ConsultarClientePorNombreOutput   {
   private @Valid Integer totalClientes;
-  private @Valid ConsultarClientePorNombreType clientes;
+  private @Valid ClienteFiltroType clientes;
+  private @Valid Integer pagina;
+  private @Valid Integer tamanoPagina;
 
   /**
    **/
@@ -39,7 +41,7 @@ public class ConsultarClientePorNombreOutput   {
 
   /**
    **/
-  public ConsultarClientePorNombreOutput clientes(ConsultarClientePorNombreType clientes) {
+  public ConsultarClientePorNombreOutput clientes(ClienteFiltroType clientes) {
     this.clientes = clientes;
     return this;
   }
@@ -47,13 +49,49 @@ public class ConsultarClientePorNombreOutput   {
   
   @JsonProperty("clientes")
   @NotNull
-  public ConsultarClientePorNombreType getClientes() {
+  public ClienteFiltroType getClientes() {
     return clientes;
   }
 
   @JsonProperty("clientes")
-  public void setClientes(ConsultarClientePorNombreType clientes) {
+  public void setClientes(ClienteFiltroType clientes) {
     this.clientes = clientes;
+  }
+
+  /**
+   **/
+  public ConsultarClientePorNombreOutput pagina(Integer pagina) {
+    this.pagina = pagina;
+    return this;
+  }
+
+  
+  @JsonProperty("pagina")
+  public Integer getPagina() {
+    return pagina;
+  }
+
+  @JsonProperty("pagina")
+  public void setPagina(Integer pagina) {
+    this.pagina = pagina;
+  }
+
+  /**
+   **/
+  public ConsultarClientePorNombreOutput tamanoPagina(Integer tamanoPagina) {
+    this.tamanoPagina = tamanoPagina;
+    return this;
+  }
+
+  
+  @JsonProperty("tamanoPagina")
+  public Integer getTamanoPagina() {
+    return tamanoPagina;
+  }
+
+  @JsonProperty("tamanoPagina")
+  public void setTamanoPagina(Integer tamanoPagina) {
+    this.tamanoPagina = tamanoPagina;
   }
 
 
@@ -67,12 +105,14 @@ public class ConsultarClientePorNombreOutput   {
     }
     ConsultarClientePorNombreOutput consultarClientePorNombreOutput = (ConsultarClientePorNombreOutput) o;
     return Objects.equals(this.totalClientes, consultarClientePorNombreOutput.totalClientes) &&
-        Objects.equals(this.clientes, consultarClientePorNombreOutput.clientes);
+        Objects.equals(this.clientes, consultarClientePorNombreOutput.clientes) &&
+        Objects.equals(this.pagina, consultarClientePorNombreOutput.pagina) &&
+        Objects.equals(this.tamanoPagina, consultarClientePorNombreOutput.tamanoPagina);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(totalClientes, clientes);
+    return Objects.hash(totalClientes, clientes, pagina, tamanoPagina);
   }
 
   @Override
@@ -82,6 +122,8 @@ public class ConsultarClientePorNombreOutput   {
     
     sb.append("    totalClientes: ").append(toIndentedString(totalClientes)).append("\n");
     sb.append("    clientes: ").append(toIndentedString(clientes)).append("\n");
+    sb.append("    pagina: ").append(toIndentedString(pagina)).append("\n");
+    sb.append("    tamanoPagina: ").append(toIndentedString(tamanoPagina)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -8,10 +8,10 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
-@RegisterForReflection(targets = ConsultarClientePorNombreEntity.class)
+@RegisterForReflection(targets = ClienteFiltroType.class)
 public class ConsultarClientePorNombreOutputEntity {
 
     private Integer totalClientes;
-    private List<ConsultarClientePorNombreEntity> clientes;
+    private List<ClienteFiltroType> clientes;
 
 }

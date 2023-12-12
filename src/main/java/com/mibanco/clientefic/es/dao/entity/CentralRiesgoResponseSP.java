@@ -6,14 +6,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @RegisterForReflection
-public class ContactoEntity {
+public class CentralRiesgoResponseSP {
 
-    private Integer numeroCliente;
-    private String fecha;
-    private String tipoContacto;
-    private String resultadoComentarios;
+    private int numeroCliente;
+    private String fechaVigenciaDesde;
+    private String zonaViabilidad;
+    private String s_vbclienteparaconsulta;
 
 }

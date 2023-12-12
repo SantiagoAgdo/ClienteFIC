@@ -2,6 +2,7 @@ package com.mibanco.clientefic.es.graphql;
 
 import com.mibanco.clientefic.es.dao.entity.ConsultaClienteEntity;
 import com.mibanco.clientefic.es.dao.entity.ConsultarClientePorNombreOutputEntity;
+import com.mibanco.clientefic.es.dao.entity.ConyugeEntity;
 import com.mibanco.clientefic.es.dto.ClienteFICDTO;
 import com.mibanco.clientefic.es.gen.type.*;
 import com.mibanco.clientefic.es.services.impl.ClienteFICServiceImpl;
@@ -48,11 +49,11 @@ public class ClienteFICControllerGraph {
 
     @Query("consultaCentralRiesgo")
     @Description("Consulta de central de riesgo")
-    public List<CentralRiesgoType> consultaCentralRiesgo(@Name("numeroDocumento") Integer numeroCliente) {
+    public List<CentralRiesgoType> consultaCentralRiesgo(@Name("page") Integer page, @Name("pageSize") Integer pageSize, @Name("numeroDocumento") Integer numeroCliente) {
 
         logger.info("Inicia consulta de central de riesgo en GraphQL");
         try {
-            List<CentralRiesgoType> centralRiesgoTypesList = clienteFICService.consultarCentralRiesgo(numeroCliente);
+            List<CentralRiesgoType> centralRiesgoTypesList = clienteFICService.consultarCentralRiesgo( page, pageSize,numeroCliente);
 
             logger.info("Termina consulta de central de riesgo en GraphQL");
             return centralRiesgoTypesList;
@@ -107,11 +108,11 @@ public class ClienteFICControllerGraph {
 
     @Query("consultaConyuge")
     @Description("Consulta de cónyuge por número de cliente")
-    public ConyugeType consultaConyuge(@Name("numeroCliente") Integer numeroCliente) {
+    public ConyugeEntity consultaConyuge(@Name("numeroCliente") Integer numeroCliente) {
 
         logger.info("Inicia consulta de cónyuge en GraphQL");
         try {
-            ConyugeType data = clienteFICService.consultarConyuge(numeroCliente);
+            ConyugeEntity data = clienteFICService.consultarConyuge(numeroCliente);
 
             logger.info("Termina consulta de cónyuge en GraphQL");
             return data;
@@ -128,11 +129,11 @@ public class ClienteFICControllerGraph {
 
     @Query("consultaCupoRotativo")
     @Description("Consulta de cupo rotativo por número de cliente")
-    public List<CupoRotativoType> consultaCupoRotativo(@Name("numeroCliente") Integer numeroCliente) {
+    public List<CupoRotativoType> consultaCupoRotativo(@Name("page") Integer page, @Name("pageSize") Integer pageSize, @Name("numeroCliente") Integer numeroCliente) {
 
         logger.info("Inicia consulta cupo rotativo en GraphQL");
         try {
-            List<CupoRotativoType> list = clienteFICService.consultarCupoRotativo(numeroCliente);
+            List<CupoRotativoType> list = clienteFICService.consultarCupoRotativo(page, pageSize, numeroCliente);
             logger.info("Termina consulta cupo rotativo en GraphQL");
             return list;
         } catch (ApplicationException e) {
@@ -148,11 +149,11 @@ public class ClienteFICControllerGraph {
 
     @Query("consultaHistorialContacto")
     @Description("Consulta de dirección y teléfono de cliente")
-    public List<ContactoType> consultaHistorialContacto(@Name("numeroCliente") Integer numeroCliente) {
+    public List<ContactoType> consultaHistorialContacto(@Name("page") Integer page, @Name("pageSize") Integer pageSize, @Name("numeroCliente") Integer numeroCliente) {
 
         logger.info("Inicia consulta contacto en GraphQL");
         try {
-            List<ContactoType> data = clienteFICService.consultarHistorialContacto(numeroCliente);
+            List<ContactoType> data = clienteFICService.consultarHistorialContacto(page, pageSize, numeroCliente);
 
             logger.info("Termina consulta contacto en GraphQL");
             return data;
@@ -169,11 +170,11 @@ public class ClienteFICControllerGraph {
 
     @Query("consultaOferta")
     @Description("Consulta de dirección y teléfono de cliente")
-    public List<OfertaType> consultaOferta(@Name("numeroCliente") Integer numeroCliente) {
+    public List<OfertaType> consultaOferta(@Name("page") Integer page, @Name("pageSize") Integer pageSize, @Name("numeroCliente") Integer numeroCliente) {
 
         logger.info("Inicia consulta oferta en GraphQL");
         try {
-            List<OfertaType> data = clienteFICService.consultarOferta(numeroCliente);
+            List<OfertaType> data = clienteFICService.consultarOferta(page, pageSize, numeroCliente);
 
             logger.info("Termina consulta oferta en GraphQL");
             return data;

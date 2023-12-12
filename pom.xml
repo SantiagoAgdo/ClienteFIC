@@ -134,7 +134,10 @@
             <version>1.56.0</version>
             <scope>test</scope>
         </dependency>
-
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-rest-client-reactive-jackson</artifactId>
+    </dependency>
     </dependencies>
     <build>
         <plugins>

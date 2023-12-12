@@ -1,10 +1,7 @@
 package com.mibanco.clientefic.es.controller;
 
 import com.mibanco.clientefic.es.constants.Constants;
-import com.mibanco.clientefic.es.dao.entity.ClienteFICEntity;
-import com.mibanco.clientefic.es.dao.entity.ConsultaClienteEntity;
-import com.mibanco.clientefic.es.dao.entity.ConsultarClientePorNombreOutputEntity;
-import com.mibanco.clientefic.es.dao.entity.ContactoEntity;
+import com.mibanco.clientefic.es.dao.entity.*;
 import com.mibanco.clientefic.es.dto.ClienteFICDTO;
 import com.mibanco.clientefic.es.gen.contract.V1ClienteFIC;
 import com.mibanco.clientefic.es.gen.type.*;
@@ -66,13 +63,13 @@ public class ClienteFICController implements V1ClienteFIC {
     }
 
     @Override
-    public Response consultarCentralDeRiesgo(Integer numeroCliente) {
+    public Response consultarCentralDeRiesgo(Integer page, Integer pageSize, Integer numeroCliente) {
 
         LOG.info("Inicia consulta de CentralRiesgo");
         try {
             clienteFICValidator.validarNumeroCliente(numeroCliente);
 
-            List<CentralRiesgoType> listaCentralRiesgo = clienteFICServiceImpl.consultarCentralRiesgo(numeroCliente);
+            List<CentralRiesgoType> listaCentralRiesgo = clienteFICServiceImpl.consultarCentralRiesgo(page, pageSize, numeroCliente);
             LOG.info("Finaliza consulta de CentralRiesgo");
             return listaCentralRiesgo.size() != 0 ? Response.status(Response.Status.OK).entity(listaCentralRiesgo).build() :
                     Response.status(Response.Status.OK).entity(Constants.SIN_REGISTROS).build();
@@ -120,7 +117,7 @@ public class ClienteFICController implements V1ClienteFIC {
         LOG.info("Inicia consulta de Cónyuge");
         try {
             clienteFICValidator.validarNumeroCliente(numeroCliente);
-            ConyugeType conyugeType = clienteFICServiceImpl.consultarConyuge(numeroCliente);
+            ConyugeEntity conyugeType = clienteFICServiceImpl.consultarConyuge(numeroCliente);
 
             LOG.info("Finaliza consulta de Cónyuge");
             return conyugeType.getNumeroCliente() != null ? Response.status(Response.Status.OK).entity(conyugeType).build() :
@@ -139,12 +136,12 @@ public class ClienteFICController implements V1ClienteFIC {
     }
 
     @Override
-    public Response consultarCupoRotativo(Integer numeroCliente) {
+    public Response consultarCupoRotativo(Integer page, Integer pageSize, Integer numeroCliente) {
 
         LOG.info("Inicia consulta de Cupo Rotativo");
         try {
             clienteFICValidator.validarNumeroCliente(numeroCliente);
-            List<CupoRotativoType> cupoRotativoTypeLista = clienteFICServiceImpl.consultarCupoRotativo(numeroCliente);
+            List<CupoRotativoType> cupoRotativoTypeLista = clienteFICServiceImpl.consultarCupoRotativo(page, pageSize, numeroCliente);
 
             LOG.info("Finaliza consulta de Cupo Rotativo");
             return cupoRotativoTypeLista.size() != 0 ? Response.status(Response.Status.OK).entity(cupoRotativoTypeLista).build() :
@@ -163,12 +160,12 @@ public class ClienteFICController implements V1ClienteFIC {
     }
 
     @Override
-    public Response consultarHistorialContacto(Integer numeroCliente) {
+    public Response consultarHistorialContacto(Integer pagina, Integer tamanoPagina, Integer numeroCliente) {
 
         LOG.info("Inicia consulta de Historial Contacto");
         try {
             clienteFICValidator.validarNumeroCliente(numeroCliente);
-            List<ContactoType> contactoTypeLista = clienteFICServiceImpl.consultarHistorialContacto(numeroCliente);
+            List<ContactoType> contactoTypeLista = clienteFICServiceImpl.consultarHistorialContacto(pagina, tamanoPagina, numeroCliente);
 
             LOG.info("Finaliza consulta de Historial Contacto");
             return contactoTypeLista.size() != 0 ? Response.status(Response.Status.OK).entity(contactoTypeLista).build() :
@@ -187,12 +184,12 @@ public class ClienteFICController implements V1ClienteFIC {
     }
 
     @Override
-    public Response consultarOferta(Integer numeroCliente) {
+    public Response consultarOferta(Integer pagina, Integer tamanoPagina, Integer numeroCliente) {
 
         LOG.info("Inicia consulta de Oferta");
         try {
             clienteFICValidator.validarNumeroCliente(numeroCliente);
-            List<OfertaType> ofertaTypeLista = clienteFICServiceImpl.consultarOferta(numeroCliente);
+            List<OfertaType> ofertaTypeLista = clienteFICServiceImpl.consultarOferta(pagina, tamanoPagina, numeroCliente);
 
             LOG.info("Finaliza consulta de Oferta");
             return ofertaTypeLista.size() != 0 ? Response.status(Response.Status.OK).entity(ofertaTypeLista).build() :

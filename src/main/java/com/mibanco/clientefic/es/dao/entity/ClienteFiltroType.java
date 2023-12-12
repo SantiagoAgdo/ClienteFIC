@@ -10,11 +10,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @RegisterForReflection
-public class ConsultarClientePorNombreEntity {
+public class ClienteFiltroType {
 
     private TipoDocumentoEnum tipoDocumento;
     private String numeroDocumento;
     private String nombreCompleto;
     private String fechaUltimaActualizacion;
     private String paisOrigen;
+    private String ciudadOrigen;
 }

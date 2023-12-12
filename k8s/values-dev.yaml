@@ -14,8 +14,8 @@ image:
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: es-clientefic-v1.0.0
-  
-settingSecrets: 
+
+settingSecrets:
   enabled: false
 
 readinessProbe:
@@ -25,15 +25,15 @@ readinessProbe:
   initialDelaySeconds: 5
   periodSeconds: 10
 
-podAnnotations: {}
+podAnnotations: { }
 
-podSecurityContext: 
+podSecurityContext:
   runAsUser: 10001
   runAsGroup: 10001
 
 securityContext:
   readOnlyRootFilesystem: false
-  
+
 service:
   type: ClusterIP
   port: 80
@@ -46,19 +46,11 @@ ingress:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/proxy-body-size: 20m
     nginx.org/client-max-body-size: 20m
-    nginx.org/proxy-connect-timeout: 600s
-    nginx.org/proxy-read-timeout: 600s
-    nginx.ingress.kubernetes.io/use-regex: "true"
-    nginx.ingress.kubernetes.io/enable-cors: "true"
-    nginx.ingress.kubernetes.io/cors-allow-methods: "GET, POST, OPTIONS, PUT, DELETE"
-    nginx.ingress.kubernetes.io/cors-allow-origin: "*"
-    nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
-    nginx.ingress.kubernetes.io/cors-allow-headers: "DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,access-control-allow-origin,Authorization"
   hosts:
     path: /v1/es/cliente-fic
     pathType: Prefix
     host: dev.pdnsz-micros-trv.private
-    
+
 resources:
   limits:
     cpu: 300m
@@ -78,6 +70,6 @@ autoscaling:
 nodeSelector:
   kubernetes.io/os: linux
 
-tolerations: []
+tolerations: [ ]
 
-affinity: {}
+affinity: { }
