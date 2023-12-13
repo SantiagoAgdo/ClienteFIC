@@ -1,9 +1,6 @@
 package com.mibanco.clientefic.es.services.contract;
 
-import com.mibanco.clientefic.es.dao.entity.ClienteFICEntity;
-import com.mibanco.clientefic.es.dao.entity.ConsultaClienteEntity;
-import com.mibanco.clientefic.es.dao.entity.ConsultarClientePorNombreOutputEntity;
-import com.mibanco.clientefic.es.dao.entity.ConyugeEntity;
+import com.mibanco.clientefic.es.dao.entity.*;
 import com.mibanco.clientefic.es.dto.ClienteFICDTO;
 import com.mibanco.clientefic.es.gen.type.*;
 
@@ -17,7 +14,7 @@ public interface ClienteFICService {
 
     List<CentralRiesgoType> consultarCentralRiesgo(Integer page, Integer pageSize, Integer numeroCliente);
 
-    ClienteFICDTO consultarClientePorIdentificacion(ConsultaClienteEntity dataCliente);
+    ClienteBaseEntity consultarClientePorIdentificacion(ConsultaClienteEntity dataCliente);
 
     ConsultarClientePorNombreOutputEntity consultarClienteFicPorNombre(String nombre, int pagina, int tamanoPagina);
 

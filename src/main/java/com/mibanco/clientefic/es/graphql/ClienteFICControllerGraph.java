@@ -1,5 +1,6 @@
 package com.mibanco.clientefic.es.graphql;
 
+import com.mibanco.clientefic.es.dao.entity.ClienteBaseEntity;
 import com.mibanco.clientefic.es.dao.entity.ConsultaClienteEntity;
 import com.mibanco.clientefic.es.dao.entity.ConsultarClientePorNombreOutputEntity;
 import com.mibanco.clientefic.es.dao.entity.ConyugeEntity;
@@ -87,11 +88,11 @@ public class ClienteFICControllerGraph {
 
     @Query("consultaClientePorIdentificacion")
     @Description("Consulta de cliente por identificación")
-    public ClienteFICDTO consultaClientePorIdentificacion(@Name("TipoDocumento") TipoDocumentoEnum tipoDocumento, @Name("numeroDocumento") Integer numeroDocumento, @Name("digitoVerificacion") Integer digitoVerificacion) {
+    public ClienteBaseEntity consultaClientePorIdentificacion(@Name("TipoDocumento") TipoDocumentoEnum tipoDocumento, @Name("numeroDocumento") Integer numeroDocumento, @Name("digitoVerificacion") Integer digitoVerificacion) {
 
         logger.info("Inicia consultaClientePorIdentificacion en GraphQL");
         try {
-            ClienteFICDTO clienteFICDTO = clienteFICService.consultarClientePorIdentificacion(new ConsultaClienteEntity(tipoDocumento, numeroDocumento, digitoVerificacion));
+            ClienteBaseEntity clienteFICDTO = clienteFICService.consultarClientePorIdentificacion(new ConsultaClienteEntity(tipoDocumento, numeroDocumento, digitoVerificacion));
 
             logger.info("Termina consultaClientePorIdentificacion en GraphQL");
             return clienteFICDTO;

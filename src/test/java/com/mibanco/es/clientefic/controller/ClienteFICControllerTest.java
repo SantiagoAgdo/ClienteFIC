@@ -3,6 +3,7 @@ package com.mibanco.es.clientefic.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mibanco.clientefic.es.controller.ClienteFICController;
 import com.mibanco.clientefic.es.dao.entity.ConsultaClienteEntity;
+import com.mibanco.clientefic.es.dao.entity.ConsultarClientePorNombreOutputEntity;
 import com.mibanco.clientefic.es.gen.type.AlertaType;
 import com.mibanco.clientefic.es.gen.type.ClienteFICType;
 import com.mibanco.clientefic.es.gen.type.TipoDocumentoEnum;
@@ -106,22 +107,23 @@ public class ClienteFICControllerTest {
                 .statusCode(201);
     }
 
-//    @Test
-//    void consultarCentralRiesgoTest() throws IOException {
-//
-//        byte[] jsonData = Files.readAllBytes(Paths.get("src/test/resources/jsonmocks/es-centralriesgo-api.json"));
-//        String jsonString = new String(jsonData);
-//
-//        ClienteFICType clienteFIC = objectMapper.readValue(jsonString, ClienteFICType.class);
-//
-//        given()
-//                .contentType(ContentType.JSON)
-//                .body(clienteFIC)
-//                .when()
-//                .get("v1/es/cliente-fic/central-riesgo/10002")
-//                .then()
-//                .statusCode(200);
-//    }
+    @Test
+    void consultarCentralRiesgoTest() throws IOException {
+
+        byte[] jsonData = Files.readAllBytes(Paths.get("src/test/resources/jsonmocks/es-centralriesgo-api.json"));
+        String jsonString = new String(jsonData);
+
+        ClienteFICType clienteFIC = objectMapper.readValue(jsonString, ClienteFICType.class);
+
+        given()
+                .contentType(ContentType.JSON)
+                .header("jwt", "tken")
+                .body(clienteFIC)
+                .when()
+                .get("v1/es/cliente-fic/central-riesgo/10002?page=1&pageSize=20")
+                .then()
+                .statusCode(200);
+    }
 
     @Test
     void consultarConyugeTest() throws IOException {
@@ -159,39 +161,41 @@ public class ClienteFICControllerTest {
                 .statusCode(200);
     }
 
-//    @Test
-//    void consultarHistorialContactoTest() throws IOException {
-//
-//        byte[] jsonData = Files.readAllBytes(Paths.get("src/test/resources/jsonmocks/es-historialcontacto-api.json"));
-//        String jsonString = new String(jsonData);
-//
-//        ClienteFICType clienteFIC = objectMapper.readValue(jsonString, ClienteFICType.class);
-//
-//        given()
-//                .contentType(ContentType.JSON)
-//                .body(clienteFIC)
-//                .when()
-//                .get("v1/es/cliente-fic/historial-contacto/10002")
-//                .then()
-//                .statusCode(200);
-//    }
-//
-//    @Test
-//    void consultarOfertaTest() throws IOException {
-//
-//        byte[] jsonData = Files.readAllBytes(Paths.get("src/test/resources/jsonmocks/es-oferta-api.json"));
-//        String jsonString = new String(jsonData);
-//
-//        ClienteFICType clienteFIC = objectMapper.readValue(jsonString, ClienteFICType.class);
-//
-//        given()
-//                .contentType(ContentType.JSON)
-//                .body(clienteFIC)
-//                .when()
-//                .get("v1/es/cliente-fic/oferta/10002")
-//                .then()
-//                .statusCode(200);
-//    }
+    @Test
+    void consultarHistorialContactoTest() throws IOException {
+
+        byte[] jsonData = Files.readAllBytes(Paths.get("src/test/resources/jsonmocks/es-historialcontacto-api.json"));
+        String jsonString = new String(jsonData);
+
+        ClienteFICType clienteFIC = objectMapper.readValue(jsonString, ClienteFICType.class);
+
+        given()
+                .contentType(ContentType.JSON)
+                .header("jwt", "tken")
+                .body(clienteFIC)
+                .when()
+                .get("v1/es/cliente-fic/historial-contacto/10002")
+                .then()
+                .statusCode(200);
+    }
+
+    @Test
+    void consultarOfertaTest() throws IOException {
+
+        byte[] jsonData = Files.readAllBytes(Paths.get("src/test/resources/jsonmocks/es-oferta-api.json"));
+        String jsonString = new String(jsonData);
+
+        ClienteFICType clienteFIC = objectMapper.readValue(jsonString, ClienteFICType.class);
+
+        given()
+                .contentType(ContentType.JSON)
+                .header("jwt", "tken")
+                .body(clienteFIC)
+                .when()
+                .get("v1/es/cliente-fic/oferta/10002")
+                .then()
+                .statusCode(200);
+    }
 
     @Test
     void consultarPasivoTest() throws IOException {
@@ -229,17 +233,22 @@ public class ClienteFICControllerTest {
                 .statusCode(200);
     }
 
-//    @Test
-//    void consultaClienteByNombreTest() throws IOException, SQLException {
-//
-//        given()
-//                .contentType(ContentType.JSON)
-//                .when()
-//                .get("/v1/es/cliente-fic/nombre/Miguel?page=1&pageSize=15")
-//                .then()
-//                .statusCode(200)
-//                .log().ifError();
-//    }
+    @Test
+    void consultaClienteByNombreTest() throws IOException {
+
+        byte[] jsonData = Files.readAllBytes(Paths.get("src/test/resources/jsonmocks/es-consultabyidentificacion-api.json"));
+        String jsonString = new String(jsonData);
+
+        ConsultarClientePorNombreOutputEntity clienteFIC = objectMapper.readValue(jsonString, ConsultarClientePorNombreOutputEntity.class);
+
+        given()
+                .contentType(ContentType.JSON)
+                .header("jwt", "tken")
+                .when()
+                .get("/v1/es/cliente-fic/nombre/Miguel?page=1&pageSize=15")
+                .then()
+                .statusCode(200);
+    }
 
     @Test
     void consultaClienteByIdentificacionTest() throws IOException {

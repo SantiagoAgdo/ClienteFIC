@@ -6,6 +6,7 @@ import com.mibanco.clientefic.es.dto.ClienteFICDTO;
 import com.mibanco.clientefic.es.gen.type.ConyugeType;
 import com.mibanco.clientefic.es.gen.type.EstadoCivilEnum;
 import com.mibanco.clientefic.es.gen.type.TipoDocumentoEnum;
+import com.mibanco.clientefic.es.gen.type.TipoPersonaEnum;
 import com.mibanco.clientefic.es.utils.mapper.ClienteFICMapper;
 import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -34,8 +35,8 @@ public class ClienteFICDAO implements IClienteFICDAO {
 
     @Override
     public List<AlertaEntity> consultarAlerta(ConsultaClienteEntity data) {
-        List<ClienteFICEntity> clienteFICEntityList = list.stream().filter(x -> x.getClienteBase().getTipoDocumento() == data.getTipoDocumento()).filter(x -> x.getClienteBase().getNumeroDocumento().equals(data.getNumeroDocumento())).filter(x -> x.getDigitoVerificacion().equals(data.getDigitoVerificacion())).toList();
 
+        List<ClienteFICEntity> clienteFICEntityList = list.stream().filter(x -> x.getClienteBase().getTipoDocumento() == data.getTipoDocumento()).filter(x -> x.getClienteBase().getNumeroDocumento().equals(data.getNumeroDocumento())).filter(x -> x.getDigitoVerificacion().equals(data.getDigitoVerificacion())).toList();
         List<AlertaEntity> consultaCliente = new ArrayList<>();
 
         if (clienteFICEntityList.size() != 0) {
@@ -96,11 +97,11 @@ public class ClienteFICDAO implements IClienteFICDAO {
     }
 
     @Override
-    public ClienteFICDTO consultarClientePorIdentificacion(ConsultaClienteEntity data) {
+    public ClienteBaseEntity consultarClientePorIdentificacion(ConsultaClienteEntity data) {
 
         Log.info("Inicia Proceso de consumo sp_fic_consultaClientePorIdentificacion");
 
-        ClienteFICDTO clienteFIC = new ClienteFICDTO();
+        ClienteBaseEntity clienteFIC = new ClienteBaseEntity();
 
         try (Connection connection = dataSource.getConnection()) {
 
@@ -112,40 +113,33 @@ public class ClienteFICDAO implements IClienteFICDAO {
 
             ResultSet resultSet = callableStatement.executeQuery();
             while (resultSet.next()) {
-                clienteFIC = new ClienteFICDTO(
-                        new AlertaEntity(),
-                        new ClienteBaseEntity(),
-                        new CentralRiesgoEntity(),
-                        new ReporteCentralRiesgoEntity(),
-                        new ContactoEntity(),
-                        new ConyugeEntity(),
-                        new CupoRotativoEntity(),
-                        1,
-                        new DomicilioBaseEntity(),
-                        new DomicilioEmpresaEntity(),
-                        EstadoCivilEnum._1_SOLTERA_O_,
-                        resultSet.getString("nombre_completo_funcionario_ult_act"),
-                        new NegocioEntity(),
-                        "10002",
-                        new OfertaEntity(),
-                        new PasivoEntity(),
-                        new PQREntity(),
-                        "",
-                        "",
-                        resultSet.getString("s_nombre_completo"),
-                        resultSet.getString("s_estado_cliente"),
+                clienteFIC = new ClienteBaseEntity(
+                        resultSet.getInt("i_identificacion_cliente"),
+                        resultSet.getString("s_nombre_completo").split(" ")[1],
+                        resultSet.getString("s_nombre_completo").split(" ")[2],
+                        resultSet.getString("s_nombre_completo").split(" ")[3],
+                        resultSet.getString("s_nombre_completo").split(" ")[4],
                         mapper.stringATipoDocumento(resultSet.getString("s_codigo_tipo_ident")),
-                        resultSet.getString("m_total_activos"),
-                        resultSet.getString("d_fecha_ult_actualizacion")
+                        resultSet.getString("s_numero_identificacion"),
+                        1,
+                        TipoPersonaEnum._1_JURIDICA,
+                        resultSet.getString("s_correo_electronico"),
+                        resultSet.getInt("s_telefono_celular")
                 );
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             Log.info("Termina Consulta");
         }
 
-        return clienteFIC;
+        if (clienteFIC.getNumeroCliente() != null) {
+            return clienteFIC;
+        } else {
+            return null;
+        }
+
     }
 
     @Override

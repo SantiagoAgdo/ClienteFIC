@@ -13,17 +13,16 @@ import lombok.NoArgsConstructor;
 @RegisterForReflection
 public class ClienteBaseEntity {
 
-    private Long id;
     private Integer numeroCliente;
-    private TipoPersonaEnum tipoPersona;
-    private TipoDocumentoEnum tipoDocumento;
-    private Integer numeroDocumento;
-    private String fechaExpedicionDocumento;
     private String primerNombre;
-    private Integer numeroCelular;
     private String segundoNombre;
     private String primerApellido;
     private String segundoApellido;
+    private TipoDocumentoEnum tipoDocumento;
+    private String numeroDocumento;
+    private Integer fechaExpedicionDocumento;
+    private TipoPersonaEnum tipoPersona;
     private String correoElectronico;
+    private Integer numeroCelular;
 
 }

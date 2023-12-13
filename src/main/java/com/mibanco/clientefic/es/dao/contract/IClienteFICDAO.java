@@ -14,7 +14,7 @@ public interface IClienteFICDAO {
 
     List<CentralRiesgoEntity> consultarCentralRiesgo(Integer page, Integer pageSize, Integer numeroCliente);
 
-    ClienteFICDTO consultarClientePorIdentificacion(ConsultaClienteEntity data);
+    ClienteBaseEntity consultarClientePorIdentificacion(ConsultaClienteEntity data);
 
     ConsultarClientePorNombreOutputEntity consultarClienteFicPorNombre(String nombre, int pagina, int tamanoPagina);
 

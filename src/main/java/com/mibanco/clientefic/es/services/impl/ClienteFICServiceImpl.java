@@ -60,10 +60,10 @@ public class ClienteFICServiceImpl implements ClienteFICService {
     }
 
     @Override
-    public ClienteFICDTO consultarClientePorIdentificacion(ConsultaClienteEntity dataCliente) throws ApplicationException {
+    public ClienteBaseEntity consultarClientePorIdentificacion(ConsultaClienteEntity dataCliente) throws ApplicationException {
 
         LOG.info("Inicia consulta de cliente por identificación");
-        ClienteFICDTO rptClienteByIdentificacion = clienteFICDAO.consultarClientePorIdentificacion(dataCliente);
+        ClienteBaseEntity rptClienteByIdentificacion = clienteFICDAO.consultarClientePorIdentificacion(dataCliente);
 
         LOG.info("Termina consulta de cliente por identificación");
         return rptClienteByIdentificacion;

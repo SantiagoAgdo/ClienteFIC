@@ -94,26 +94,16 @@ public class ClienteFICValidator {
     }
 
     public void validarConsulta(TipoDocumentoEnum tipoDocumento, Integer numeroDocumento, Integer digitoVerificacion) throws ApplicationExceptionValidation {
-        if (numeroDocumento == null || numeroDocumento < 0) {
-            throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.VALIDACION + " Número de Documento inválido"
-            );
-        }
-        if (digitoVerificacion == null || digitoVerificacion < 0 || digitoVerificacion > 99) {
-            throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.VALIDACION + " Dígito de Verificación inválido"
-            );
-        }
-        if (tipoDocumento == null) {
-            throw new ApplicationExceptionValidation(
-                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.VALIDACION + " Tipo de Documento inválido"
-            );
-        }
-
+        validarDocumento(numeroDocumento, digitoVerificacion, tipoDocumento);
         logger.info("Validación realizada correctamente");
     }
 
     public void validarConsultaGrpc(String tipoDocumento, Integer numeroDocumento, Integer digitoVerificacion) throws ApplicationExceptionValidation {
+        validarDocumento(numeroDocumento, digitoVerificacion, tipoDocumento);
+        logger.info("Validación realizada correctamente");
+    }
+
+    private void validarDocumento(Integer numeroDocumento, Integer digitoVerificacion, Object tipoDocumento) throws ApplicationExceptionValidation {
         if (numeroDocumento == null || numeroDocumento < 0) {
             throw new ApplicationExceptionValidation(
                     Response.Status.BAD_REQUEST.getStatusCode(), Constants.VALIDACION + " Número de Documento inválido"
@@ -129,8 +119,6 @@ public class ClienteFICValidator {
                     Response.Status.BAD_REQUEST.getStatusCode(), Constants.VALIDACION + " Tipo de Documento inválido"
             );
         }
-
-        logger.info("Validación realizada correctamente");
     }
 
 }
