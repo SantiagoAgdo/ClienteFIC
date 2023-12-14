@@ -28,6 +28,8 @@ public class ClienteFICDAO implements IClienteFICDAO {
     @Inject
     DataSource dataSource;
 
+    //02. Campo Tipo de Documento y Número de Documento es obligatorio para la consulta Número de Documento.
+
     @Override
     public void crearUsuarioClienteFic(ClienteFICEntity clienteFIC) {
         list.add(clienteFIC);
@@ -35,8 +37,8 @@ public class ClienteFICDAO implements IClienteFICDAO {
 
     @Override
     public List<AlertaEntity> consultarAlerta(ConsultaClienteEntity data) {
-
         List<ClienteFICEntity> clienteFICEntityList = list.stream().filter(x -> x.getClienteBase().getTipoDocumento() == data.getTipoDocumento()).filter(x -> x.getClienteBase().getNumeroDocumento().equals(data.getNumeroDocumento())).filter(x -> x.getDigitoVerificacion().equals(data.getDigitoVerificacion())).toList();
+
         List<AlertaEntity> consultaCliente = new ArrayList<>();
 
         if (clienteFICEntityList.size() != 0) {
@@ -64,7 +66,7 @@ public class ClienteFICDAO implements IClienteFICDAO {
             callableStatement.setInt(1, numeroCliente);
             callableStatement.setInt(2, pagina);
             callableStatement.setInt(3, tamanoPagina);
-
+//73. El sistema realiza una transformación de datos por medio de la capa DAO, cuando la consulta retorna la siguiente información
             ResultSet resultSet = callableStatement.executeQuery();
             while (resultSet.next()) {
                 CentralRiesgoEntity centralRiesgoResponseSP = new CentralRiesgoEntity(
@@ -85,7 +87,7 @@ public class ClienteFICDAO implements IClienteFICDAO {
 
         if (centralRiesgoEntityArrayList.size() != 0) {
             int inicioDeIndice = pagina == 1 ? 1 : pagina * tamanoPagina;
-            int finalDeIndice = inicioDeIndice + tamanoPagina;
+            int finalDeIndice = centralRiesgoEntityArrayList.size() < tamanoPagina ? centralRiesgoEntityArrayList.size() + 1  : inicioDeIndice + tamanoPagina;
 
             return new ArrayList<>(
                     centralRiesgoEntityArrayList.subList(inicioDeIndice - 1, finalDeIndice - 1)
@@ -112,6 +114,8 @@ public class ClienteFICDAO implements IClienteFICDAO {
             callableStatement.registerOutParameter(4, Types.DECIMAL);
 
             ResultSet resultSet = callableStatement.executeQuery();
+            //67. El sistema realiza una transformación de datos por medio de la capa DAO, cuando la consulta retorna la siguiente información, para una persona Natural
+            //14. El sistema realiza una transformación de datos por medio de la capa DAO, cuando la consulta retorna la siguiente información, para una persona Jurídica
             while (resultSet.next()) {
                 clienteFIC = new ClienteBaseEntity(
                         resultSet.getInt("i_identificacion_cliente"),
@@ -150,26 +154,19 @@ public class ClienteFICDAO implements IClienteFICDAO {
         List<ClienteFiltroType> consultarClientePorNombreList = new ArrayList<>();
 
         try (Connection connection = dataSource.getConnection()) {
+            try (CallableStatement callableStatement = connection.prepareCall("{call sp_fic_consultaClientePorNombre(?,?,?,?)}")) {
+                callableStatement.setString(1, nombre);
+                callableStatement.registerOutParameter(2, Types.DECIMAL);
+                callableStatement.setInt(3, pagina);
+                callableStatement.setInt(4, tamanoPagina);
 
-            CallableStatement callableStatement = connection.prepareCall("{call sp_fic_consultaClientePorNombre(?,?,?,?)}");
-            callableStatement.setString(1, nombre);
-            callableStatement.registerOutParameter(2, Types.DECIMAL);
-            callableStatement.setInt(3, pagina);
-            callableStatement.setInt(4, tamanoPagina);
-
-            ResultSet resultSet = callableStatement.executeQuery();
-            while (resultSet.next()) {
-                ClienteFiltroType resultadoConsultaCliente = new ClienteFiltroType(
-                        mapper.stringATipoDocumento(resultSet.getString("s_codigo_tipo_ident")),
-                        eliminarCaracteresEspeciales(resultSet.getString("s_numero_identificacion")),
-                        eliminarCaracteresEspeciales(resultSet.getString("s_nombre_completo")),
-                        eliminarCaracteresEspeciales(resultSet.getString("d_fecha_ult_actualizacion")),
-                        eliminarCaracteresEspeciales(resultSet.getString("s_pais_origen")),
-                        "XXXXX"
-                );
-                consultarClientePorNombreList.add(resultadoConsultaCliente);
+                try (ResultSet resultSet = callableStatement.executeQuery()) {
+                    while (resultSet.next()) {
+                        ClienteFiltroType resultadoConsultaCliente = crearClienteFiltroTypeDesdeResultSet(resultSet);
+                        consultarClientePorNombreList.add(resultadoConsultaCliente);
+                    }
+                }
             }
-            resultSet.close();
         } catch (SQLException e) {
             Log.error("Error al ejecutar la consulta: " + e.getMessage());
 
@@ -177,24 +174,18 @@ public class ClienteFICDAO implements IClienteFICDAO {
             Log.info("Termina Consulta");
         }
 
-        int inicioDeIndice = pagina == 1 ? 1 : pagina * tamanoPagina;
-        int finalDeIndice = inicioDeIndice + tamanoPagina;
+        if (consultarClientePorNombreList.size() != 0) {
+            int inicioDeIndice = pagina == 1 ? 1 : pagina * tamanoPagina;
+            int finalDeIndice = consultarClientePorNombreList.size() < tamanoPagina ? consultarClientePorNombreList.size() + 1  : inicioDeIndice + tamanoPagina;
 
-        List<ClienteFiltroType> consultarClientePorNombreListPaginado = new ArrayList<>(
-                consultarClientePorNombreList.subList(inicioDeIndice - 1, finalDeIndice - 1)
-        );
+            List<ClienteFiltroType> consultarClientePorNombreListPaginado = new ArrayList<>(
+                    consultarClientePorNombreList.subList(inicioDeIndice - 1, finalDeIndice - 1)
+            );
 
-        for (ClienteFiltroType clienteFiltroType : consultarClientePorNombreListPaginado) {
-            Log.warn("=== Datos Extraidos ===");
-            Log.info(clienteFiltroType.getTipoDocumento().toString());
-            Log.info(clienteFiltroType.getNumeroDocumento().toString());
-            Log.info(clienteFiltroType.getNombreCompleto().toString());
-            Log.info(clienteFiltroType.getFechaUltimaActualizacion().toString());
-            Log.info(clienteFiltroType.getPaisOrigen().toString());
-            Log.info("-----------------------");
+            return new ConsultarClientePorNombreOutputEntity(consultarClientePorNombreList.size(), consultarClientePorNombreListPaginado);
+        } else {
+            return new ConsultarClientePorNombreOutputEntity(0, new ArrayList<>());
         }
-
-        return new ConsultarClientePorNombreOutputEntity(consultarClientePorNombreList.size(), consultarClientePorNombreListPaginado);
     }
 
     @Override
@@ -211,6 +202,7 @@ public class ClienteFICDAO implements IClienteFICDAO {
             callableStatement.registerOutParameter(3, Types.VARCHAR);
             callableStatement.registerOutParameter(4, Types.VARCHAR);
 
+            //69. El sistema realiza una transformación de datos por medio de la capa DAO, cuando la consulta retorna la siguiente información, del conyugue:
             ResultSet resultSet = callableStatement.executeQuery();
             while (resultSet.next()) {
                 conyuge = new ConyugeEntity(
@@ -266,7 +258,7 @@ public class ClienteFICDAO implements IClienteFICDAO {
 
         if (cupoRotativoEntityList.size() != 0) {
             int inicioDeIndice = pagina == 1 ? 1 : pagina * tamanoPagina;
-            int finalDeIndice = inicioDeIndice + tamanoPagina;
+            int finalDeIndice = cupoRotativoEntityList.size() < tamanoPagina ? cupoRotativoEntityList.size() + 1  : inicioDeIndice + tamanoPagina;
 
             return new ArrayList<>(cupoRotativoEntityList.subList(inicioDeIndice - 1, finalDeIndice - 1));
         } else {
@@ -307,7 +299,7 @@ public class ClienteFICDAO implements IClienteFICDAO {
 
         if (contactoEntityList.size() != 0) {
             int inicioDeIndice = pagina == 1 ? 1 : pagina * tamanoPagina;
-            int finalDeIndice = inicioDeIndice + tamanoPagina;
+            int finalDeIndice = contactoEntityList.size() < tamanoPagina ? contactoEntityList.size() + 1  : inicioDeIndice + tamanoPagina;
 
             return new ArrayList<>(contactoEntityList.subList(inicioDeIndice - 1, finalDeIndice - 1));
         } else {
@@ -330,6 +322,7 @@ public class ClienteFICDAO implements IClienteFICDAO {
             callableStatement.setInt(2, pagina);
             callableStatement.setInt(3, tamanoPagina);
 
+            //70. El sistema realiza una transformación de datos por medio de la capa DAO, cuando la consulta retorna la siguiente información, de una oferta:
             ResultSet resultSet = callableStatement.executeQuery();
             while (resultSet.next()) {
                 OfertaEntity centralRiesgoResponseSP = new OfertaEntity(
@@ -353,7 +346,7 @@ public class ClienteFICDAO implements IClienteFICDAO {
 
         if (ofertaEntityList.size() != 0) {
             int inicioDeIndice = pagina == 1 ? 1 : pagina * tamanoPagina;
-            int finalDeIndice = inicioDeIndice + tamanoPagina;
+            int finalDeIndice = ofertaEntityList.size() < tamanoPagina ? ofertaEntityList.size() + 1  : inicioDeIndice + tamanoPagina;
 
             return new ArrayList<>(ofertaEntityList.subList(inicioDeIndice - 1, finalDeIndice - 1));
         } else {
@@ -410,8 +403,20 @@ public class ClienteFICDAO implements IClienteFICDAO {
     }
 
     public static String eliminarCaracteresEspeciales(String cadena) {
+        // 54. Cuando el sistema (MiBanco) reciba la información, en la capa validator elimina los caracteres especiales como: tildes, ñ, guiones, &, # etc.
         String cadenaSinEspeciales = cadena.replaceAll("[^a-zA-Z0-9]", " ");
         return cadenaSinEspeciales;
+    }
+
+    private ClienteFiltroType crearClienteFiltroTypeDesdeResultSet(ResultSet resultSet) throws SQLException {
+        return new ClienteFiltroType(
+                mapper.stringATipoDocumento(resultSet.getString("s_codigo_tipo_ident")),
+                eliminarCaracteresEspeciales(resultSet.getString("s_numero_identificacion")),
+                eliminarCaracteresEspeciales(resultSet.getString("s_nombre_completo")),
+                eliminarCaracteresEspeciales(resultSet.getString("d_fecha_ult_actualizacion")),
+                eliminarCaracteresEspeciales(resultSet.getString("s_pais_origen")),
+                "XXXXX"
+        );
     }
 
 

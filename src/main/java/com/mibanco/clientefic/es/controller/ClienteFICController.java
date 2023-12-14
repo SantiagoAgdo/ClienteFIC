@@ -47,6 +47,7 @@ public class ClienteFICController implements V1ClienteFIC {
             List<AlertaType> listaAlertas = clienteFICServiceImpl.consultarAlerta(new ConsultaClienteEntity(tipoDocumento, numeroDocumento, digitoVerificacion));
 
             LOG.info("Finaliza consulta de Alerta");
+            //17. ALERTA. Cuando el cliente no tenga ninguna alerta, el sistema debe mostrar el siguiente mensaje: 'CLIENTE NO TIENE ALERTAS A LA FECHA' :
             return listaAlertas.size() != 0 ? Response.status(Response.Status.OK).entity(listaAlertas).build() :
                     Response.status(Response.Status.OK).entity(Constants.SIN_REGISTROS).build(); //204 Not Content
 
@@ -96,6 +97,7 @@ public class ClienteFICController implements V1ClienteFIC {
             ConsultarClientePorNombreOutputEntity consultarClientePorNombreOutputEntity = clienteFICServiceImpl.consultarClienteFicPorNombre(regex, page, pageSize);
 
             LOG.info("Finaliza consulta de Cliente FIC por Nombre");
+            // 03. Para la consulta por Nombres y Apellidos / Razón Social si no existe ningún cliente con el texto ingresado, el sistema deberá mostrar el siguiente mensaje de error: 'NO EXISTEN CLIENTES CON EL TEXTO INGRESADO EN MI BANCO COLOMBIA' :
             return consultarClientePorNombreOutputEntity.getTotalClientes() != 0 ? Response.status(Response.Status.OK).entity(consultarClientePorNombreOutputEntity).build() :
                     Response.status(Response.Status.OK).entity(Constants.SIN_CLIENTES).build();
 
@@ -120,6 +122,7 @@ public class ClienteFICController implements V1ClienteFIC {
             ConyugeEntity conyugeType = clienteFICServiceImpl.consultarConyuge(numeroCliente);
 
             LOG.info("Finaliza consulta de Cónyuge");
+            // 11. En la sección INFORMACIÓN DEL CÓNYUGE en el caso donde no se obtenga la Información del Cónyuge asociado al Cliente Consultado, el sistema deberá mostrar el siguiente mensaje: 'NO EXISTE INFORMACIÓN REGISTRADA PARA EL CÓNYUGE'
             return conyugeType.getNumeroCliente() != null ? Response.status(Response.Status.OK).entity(conyugeType).build() :
                     Response.status(Response.Status.OK).entity(Constants.CONYUGE_NO_EXISTE).build();
 
@@ -144,6 +147,7 @@ public class ClienteFICController implements V1ClienteFIC {
             List<CupoRotativoType> cupoRotativoTypeLista = clienteFICServiceImpl.consultarCupoRotativo(page, pageSize, numeroCliente);
 
             LOG.info("Finaliza consulta de Cupo Rotativo");
+            //52. CUPO ROTATIVO. Cuando el cliente no tenga Cupos Rotativos, el sistema debe mostrar el siguiente mensaje: 'CLIENTE NO TIENE CUPOS ROTATIVOS A LA FECHA'
             return cupoRotativoTypeLista.size() != 0 ? Response.status(Response.Status.OK).entity(cupoRotativoTypeLista).build() :
                     Response.status(Response.Status.OK).entity(Constants.SIN_REGISTROS).build();
 
@@ -168,6 +172,7 @@ public class ClienteFICController implements V1ClienteFIC {
             List<ContactoType> contactoTypeLista = clienteFICServiceImpl.consultarHistorialContacto(pagina, tamanoPagina, numeroCliente);
 
             LOG.info("Finaliza consulta de Historial Contacto");
+            //58. HISTORIAL DE CONTACTOS. Cuando el cliente no tenga información en el historial de Contactos, el sistema debe mostrar el siguiente mensaje: 'CLIENTE NO TIENE INFORMACIÓN EN EL HISTORIAL DE CONTACTOS A LA FECHA'
             return contactoTypeLista.size() != 0 ? Response.status(Response.Status.OK).entity(contactoTypeLista).build() :
                     Response.status(Response.Status.OK).entity(Constants.SIN_CONTACTO).build();
 
@@ -192,6 +197,7 @@ public class ClienteFICController implements V1ClienteFIC {
             List<OfertaType> ofertaTypeLista = clienteFICServiceImpl.consultarOferta(pagina, tamanoPagina, numeroCliente);
 
             LOG.info("Finaliza consulta de Oferta");
+            //16. OFERTA. Cuando el cliente no tenga ninguna oferta, el sistema debe mostrar el siguiente mensaje: 'CLIENTE NO TIENE OFERTAS A LA FECHA'
             return ofertaTypeLista.size() != 0 ? Response.status(Response.Status.OK).entity(ofertaTypeLista).build() :
                     Response.status(Response.Status.OK).entity(Constants.SIN_OFERTAS).build();
 
@@ -216,6 +222,7 @@ public class ClienteFICController implements V1ClienteFIC {
             List<PQRType> pqrTypeLista = clienteFICServiceImpl.consultarPQR(new ConsultaClienteEntity(tipoDocumento, numeroDocumento, digitoVerificacion));
 
             LOG.info("Finaliza consulta de PQR");
+            //61. PQR. Cuando el cliente no tenga PQRs, el sistema debe mostrar el siguiente mensaje: 'CLIENTE NO TIENE PQRs A LA FECHA'
             return pqrTypeLista.size() != 0 ? Response.status(Response.Status.OK).entity(pqrTypeLista).build() :
                     Response.status(Response.Status.OK).entity(Constants.SIN_PQR).build();
 
@@ -240,9 +247,10 @@ public class ClienteFICController implements V1ClienteFIC {
             List<PasivoType> pasivoTypeLista = clienteFICServiceImpl.consultarPasivo(numeroCliente);
 
             LOG.info("Finaliza consulta Pasivo");
+            // Política 20 Cuando el cliente no tenga ninguna alerta, el sistema debe mostrar el siguiente mensaje: 'CLIENTE NO TIENE ALERTAS A LA FECHA'
             return pasivoTypeLista.size() != 0 ? Response.status(Response.Status.OK).entity(pasivoTypeLista).build() :
                     Response.status(Response.Status.OK).entity(Constants.SIN_PASIVO).build();
-            // Política 20 Cuando el cliente no tenga ninguna alerta, el sistema debe mostrar el siguiente mensaje: 'CLIENTE NO TIENE ALERTAS A LA FECHA'
+
 
         } catch (ApplicationException e) {
 
@@ -267,6 +275,7 @@ public class ClienteFICController implements V1ClienteFIC {
             ClienteBaseEntity clienteFICDTO = clienteFICServiceImpl.consultarClientePorIdentificacion(new ConsultaClienteEntity(tipoDocumento, numeroDocumento, digitoVerificacion));
 
             LOG.info("Finaliza consulta de Cliente FIC por Identificación");
+            /*Politíca 01: si el cliente no existe, el sistema deberá mostrar el siguiente mensaje de error: 'CLIENTE NO EXISTE EN MI BANCO COLOMBIA'*/
             return clienteFICDTO != null ? Response.status(Response.Status.OK).entity(clienteFICDTO).build() :
                     Response.status(Response.Status.OK).entity(Constants.CLIENTE_NO_EXISTE).build();
 

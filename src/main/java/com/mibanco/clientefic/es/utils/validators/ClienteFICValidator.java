@@ -103,6 +103,7 @@ public class ClienteFICValidator {
         logger.info("Validación realizada correctamente");
     }
 
+    //02. Campo Tipo de Documento y Número de Documento es obligatorio para la consulta Número de Documento. : Public <<FunctionalRequirement>>
     private void validarDocumento(Integer numeroDocumento, Integer digitoVerificacion, Object tipoDocumento) throws ApplicationExceptionValidation {
         if (numeroDocumento == null || numeroDocumento < 0) {
             throw new ApplicationExceptionValidation(

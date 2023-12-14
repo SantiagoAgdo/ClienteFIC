@@ -15,7 +15,7 @@ import jakarta.ws.rs.core.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Provider
+
 public class AutenticacionInterceptor implements ContainerRequestFilter {
 
     private static final Logger log = LoggerFactory.getLogger(AutenticacionInterceptor.class);
