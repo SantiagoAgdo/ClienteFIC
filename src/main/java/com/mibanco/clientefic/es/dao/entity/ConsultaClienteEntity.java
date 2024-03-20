@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class ConsultaClienteEntity {
 
     private TipoDocumentoEnum tipoDocumento;
-    private Integer numeroDocumento;
+    private String numeroDocumento;
     private Integer digitoVerificacion;
 
 }

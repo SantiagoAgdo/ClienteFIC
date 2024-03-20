@@ -11,17 +11,17 @@ import com.fasterxml.jackson.annotation.JsonValue;
  */
 public enum EstadoCivilEnum {
   
-  _1_SOLTERA_O_("1 SOLTERA(O)"),
+  _1("SOLTERA(O)"),
   
-  _2_CASADA_O_("2 CASADA(O)"),
+  _2("CASADA(O)"),
   
-  _3_DIVORCIADA_O_("3 DIVORCIADA(O)"),
+  _3("DIVORCIADA(O)"),
   
-  _4_VIUDA_O_("4 VIUDA(O)"),
+  _4("VIUDA(O)"),
   
-  _5_UNION_LIBRE("5 UNION LIBRE"),
+  _5("UNION LIBRE"),
   
-  _6_OTRO("6 OTRO");
+  _6("OTRO");
 
   private String value;
 

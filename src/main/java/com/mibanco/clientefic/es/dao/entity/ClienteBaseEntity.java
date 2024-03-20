@@ -23,6 +23,6 @@ public class ClienteBaseEntity {
     private Integer fechaExpedicionDocumento;
     private TipoPersonaEnum tipoPersona;
     private String correoElectronico;
-    private Integer numeroCelular;
+    private String numeroCelular;
 
 }

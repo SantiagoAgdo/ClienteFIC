@@ -2,7 +2,6 @@ package com.mibanco.clientefic.es.controller;
 
 import com.mibanco.clientefic.es.constants.Constants;
 import com.mibanco.clientefic.es.dao.entity.*;
-import com.mibanco.clientefic.es.dto.ClienteFICDTO;
 import com.mibanco.clientefic.es.gen.contract.V1ClienteFIC;
 import com.mibanco.clientefic.es.gen.type.*;
 import com.mibanco.clientefic.es.services.impl.ClienteFICServiceImpl;
@@ -18,7 +17,7 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 @RegisterForReflection(targets = {AlertaType.class, ClienteBaseType.class, CentralRiesgoType.class,
-        ReporteCentralRiesgoType.class, ContactoEntity.class, ConyugeType.class, CupoRotativoType.class,
+        ContactoEntity.class, ConyugeType.class, CupoRotativoType.class,
         DomicilioEmpresaType.class, NegocioType.class, OfertaType.class,
         PasivoType.class, PQRType.class})
 public class ClienteFICController implements V1ClienteFIC {
@@ -39,32 +38,32 @@ public class ClienteFICController implements V1ClienteFIC {
     }
 
     @Override
-    public Response consultarAlerta(TipoDocumentoEnum tipoDocumento, Integer numeroDocumento, Integer digitoVerificacion) {
+    public Response consultarAlerta(String jwt, Integer page, Integer pageSize, TipoDocumentoEnum tipoDocumento, String numeroDocumento, Integer digitoVerificacion) {
 
         LOG.info("Inicia consulta de Alerta");
         try {
             clienteFICValidator.validarConsulta(tipoDocumento, numeroDocumento, digitoVerificacion);
-            List<AlertaType> listaAlertas = clienteFICServiceImpl.consultarAlerta(new ConsultaClienteEntity(tipoDocumento, numeroDocumento, digitoVerificacion));
-
+            AlertasOutput listaAlertas = clienteFICServiceImpl.consultarAlerta(page, pageSize, new ConsultaClienteEntity(tipoDocumento, numeroDocumento, digitoVerificacion));
             LOG.info("Finaliza consulta de Alerta");
+
             //17. ALERTA. Cuando el cliente no tenga ninguna alerta, el sistema debe mostrar el siguiente mensaje: 'CLIENTE NO TIENE ALERTAS A LA FECHA' :
-            return listaAlertas.size() != 0 ? Response.status(Response.Status.OK).entity(listaAlertas).build() :
-                    Response.status(Response.Status.OK).entity(Constants.SIN_REGISTROS).build(); //204 Not Content
+            return listaAlertas.getTotalClientes() != 0 ? Response.status(Response.Status.OK).entity(listaAlertas).build() :
+                    Response.status(Response.Status.OK).entity(Constants.SIN_ALERTAS).build(); //204 Not Content
 
         } catch (ApplicationException e) {
 
-            LOG.error("Error en Validaciones de Alerta - ClienteFICController");
-            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+            LOG.error("Error en Validaciones de Alerta - ClienteFICController:{}%s".formatted(e.getMessage()));
+            return Response.status(Response.Status.BAD_REQUEST).entity(Constants.BAD_REQUEST + "error en la solicitud").build();
 
         } catch (Exception e) {
 
             LOG.error(Constants.SERVICIO_INTERNAL + "getListaAlertas en ClienteFICServiceImpl exception: " + e.getMessage());
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constants.SERVICIO_INTERNAL + "getListaAlertas, exception: " + e.getMessage()).build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constants.SERVICIO_INTERNAL + "getListaAlertas, exception: ").build();
         }
     }
 
     @Override
-    public Response consultarCentralDeRiesgo(Integer page, Integer pageSize, Integer numeroCliente) {
+    public Response consultarCentralRiesgo(String jwt, Integer page, Integer pageSize, Integer numeroCliente) {
 
         LOG.info("Inicia consulta de CentralRiesgo");
         try {
@@ -73,23 +72,23 @@ public class ClienteFICController implements V1ClienteFIC {
             List<CentralRiesgoType> listaCentralRiesgo = clienteFICServiceImpl.consultarCentralRiesgo(page, pageSize, numeroCliente);
             LOG.info("Finaliza consulta de CentralRiesgo");
             return listaCentralRiesgo.size() != 0 ? Response.status(Response.Status.OK).entity(listaCentralRiesgo).build() :
-                    Response.status(Response.Status.OK).entity(Constants.SIN_REGISTROS).build();
+                    Response.status(Response.Status.OK).entity(Constants.SIN_CENTRALES).build();
 
         } catch (ApplicationException e) {
 
-            LOG.error("Error en validaciones de CentralRiesgo - ClienteFICController");
-            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+            LOG.error("Error en validaciones de CentralRiesgo - ClienteFICController:{}%s".formatted(e.getMessage()));
+            return Response.status(Response.Status.BAD_REQUEST).entity(Constants.BAD_REQUEST + "error en la solicitud").build();
 
         } catch (Exception e) {
 
             LOG.error(Constants.SERVICIO_INTERNAL + "consultarCentralDeRiesgo en ClienteFICServiceImpl excepción: " + e.getMessage());
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constants.SERVICIO_INTERNAL + "consultarCentralDeRiesgo, excepción: " + e.getMessage()).build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constants.SERVICIO_INTERNAL + "consultarCentralDeRiesgo, excepción: ").build();
         }
     }
 
 
     @Override
-    public Response consultarClienteFICPorNombre(Integer page, Integer pageSize, String regex) {
+    public Response consultarClienteFICPorNombre(String jwt, Integer page, Integer pageSize, String regex) {
 
         LOG.info("Inicia consulta de Cliente FIC por Nombre");
         try {
@@ -103,18 +102,18 @@ public class ClienteFICController implements V1ClienteFIC {
 
         } catch (ApplicationException e) {
 
-            LOG.error("Error en Validaciones de consulta cliente FIC por nombre - ClienteFICController");
-            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+            LOG.error("Error en Validaciones de consulta cliente FIC por nombre - ClienteFICController:{}%s".formatted(e.getMessage()));
+            return Response.status(Response.Status.BAD_REQUEST).entity(Constants.BAD_REQUEST + "error en la solicitud").build();
 
         } catch (Exception e) {
 
             LOG.error(Constants.SERVICIO_INTERNAL + "consultarClienteFICPorNombre en ClienteFICServiceImpl excepción: " + e.getMessage());
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constants.SERVICIO_INTERNAL + "consultarClienteFICPorNombre, exception: " + e.getMessage()).build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constants.SERVICIO_INTERNAL + "consultarClienteFICPorNombre, exception: ").build();
         }
     }
 
     @Override
-    public Response consultarConyuge(Integer numeroCliente) {
+    public Response consultarConyuge(String jwt, Integer numeroCliente) {
 
         LOG.info("Inicia consulta de Cónyuge");
         try {
@@ -128,98 +127,97 @@ public class ClienteFICController implements V1ClienteFIC {
 
         } catch (ApplicationException e) {
 
-            LOG.error("Error en Validaciones de consultar Cónyuge - ClienteFICController");
-            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+            LOG.error("Error en Validaciones de consultar Cónyuge - ClienteFICController:{}%s".formatted(e.getMessage()));
+            return Response.status(Response.Status.BAD_REQUEST).entity(Constants.BAD_REQUEST + "error en la solicitud").build();
 
         } catch (Exception e) {
 
             LOG.error(Constants.SERVICIO_INTERNAL + "consultarConyuge en ClienteFICServiceImpl exception: " + e.getMessage());
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constants.SERVICIO_INTERNAL + "consultarConyuge, excepción: " + e.getMessage()).build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constants.SERVICIO_INTERNAL + "consultarConyuge, excepción: ").build();
         }
     }
 
     @Override
-    public Response consultarCupoRotativo(Integer page, Integer pageSize, Integer numeroCliente) {
+    public Response consultarCupoRotativo(String jwt, Integer page, Integer pageSize, Integer numeroCliente) {
 
         LOG.info("Inicia consulta de Cupo Rotativo");
         try {
             clienteFICValidator.validarNumeroCliente(numeroCliente);
-            List<CupoRotativoType> cupoRotativoTypeLista = clienteFICServiceImpl.consultarCupoRotativo(page, pageSize, numeroCliente);
+            ConsultarCupoRotativoOutput cupoRotativoTypeLista = clienteFICServiceImpl.consultarCupoRotativo(page, pageSize, numeroCliente);
 
             LOG.info("Finaliza consulta de Cupo Rotativo");
             //52. CUPO ROTATIVO. Cuando el cliente no tenga Cupos Rotativos, el sistema debe mostrar el siguiente mensaje: 'CLIENTE NO TIENE CUPOS ROTATIVOS A LA FECHA'
-            return cupoRotativoTypeLista.size() != 0 ? Response.status(Response.Status.OK).entity(cupoRotativoTypeLista).build() :
-                    Response.status(Response.Status.OK).entity(Constants.SIN_REGISTROS).build();
+            return cupoRotativoTypeLista.getCupoRotativo().size() != 0 ? Response.status(Response.Status.OK).entity(cupoRotativoTypeLista).build() :
+                    Response.status(Response.Status.OK).entity(Constants.SIN_CUPO_ROTATIVO).build();
 
         } catch (ApplicationException e) {
 
-            LOG.error("Error en Validaciones de cupo rotativo - ClienteFICController");
-            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+            LOG.error("Error en Validaciones de cupo rotativo - ClienteFICController:{}%s".formatted(e.getMessage()));
+            return Response.status(Response.Status.BAD_REQUEST).entity(Constants.BAD_REQUEST + "error en la solicitud").build();
 
         } catch (Exception e) {
 
             LOG.error(Constants.SERVICIO_INTERNAL + "consultarCupoRotativo en ClienteFICServiceImpl excepción: " + e.getMessage());
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constants.SERVICIO_INTERNAL + "consultarCupoRotativo, excepción: " + e.getMessage()).build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constants.SERVICIO_INTERNAL + "consultarCupoRotativo, excepción: ").build();
         }
     }
 
     @Override
-    public Response consultarHistorialContacto(Integer pagina, Integer tamanoPagina, Integer numeroCliente) {
+    public Response consultarHistorialContacto(String jwt, Integer pagina, Integer tamanoPagina, Integer numeroCliente) {
 
         LOG.info("Inicia consulta de Historial Contacto");
         try {
             clienteFICValidator.validarNumeroCliente(numeroCliente);
-            List<ContactoType> contactoTypeLista = clienteFICServiceImpl.consultarHistorialContacto(pagina, tamanoPagina, numeroCliente);
+            ConsultarHistorialContactoOutput contactoTypeLista = clienteFICServiceImpl.consultarHistorialContacto(pagina, tamanoPagina, numeroCliente);
 
             LOG.info("Finaliza consulta de Historial Contacto");
             //58. HISTORIAL DE CONTACTOS. Cuando el cliente no tenga información en el historial de Contactos, el sistema debe mostrar el siguiente mensaje: 'CLIENTE NO TIENE INFORMACIÓN EN EL HISTORIAL DE CONTACTOS A LA FECHA'
-            return contactoTypeLista.size() != 0 ? Response.status(Response.Status.OK).entity(contactoTypeLista).build() :
+            return contactoTypeLista.getContacto().size() != 0 ? Response.status(Response.Status.OK).entity(contactoTypeLista).build() :
                     Response.status(Response.Status.OK).entity(Constants.SIN_CONTACTO).build();
 
         } catch (ApplicationException e) {
 
-            LOG.error("Error en Validaciones de Contacto - ClienteFICController");
-            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+            LOG.error("Error en Validaciones de Contacto - ClienteFICController:{}%s".formatted(e.getMessage()));
+            return Response.status(Response.Status.BAD_REQUEST).entity(Constants.BAD_REQUEST + "error en la solicitud").build();
 
         } catch (Exception e) {
 
             LOG.error(Constants.SERVICIO_INTERNAL + "consultarHistorialContacto en ClienteFICServiceImpl excepción: " + e.getMessage());
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constants.SERVICIO_INTERNAL + "consultarHistorialContacto, excepción: " + e.getMessage()).build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constants.SERVICIO_INTERNAL + "consultarHistorialContacto, excepción: ").build();
         }
     }
 
     @Override
-    public Response consultarOferta(Integer pagina, Integer tamanoPagina, Integer numeroCliente) {
+    public Response consultarOferta(String jwt, Integer pagina, Integer tamanoPagina, Integer numeroCliente) {
 
         LOG.info("Inicia consulta de Oferta");
         try {
             clienteFICValidator.validarNumeroCliente(numeroCliente);
-            List<OfertaType> ofertaTypeLista = clienteFICServiceImpl.consultarOferta(pagina, tamanoPagina, numeroCliente);
+            OfertasOutput ofertaTypeLista = clienteFICServiceImpl.consultarOferta(pagina, tamanoPagina, numeroCliente);
 
             LOG.info("Finaliza consulta de Oferta");
             //16. OFERTA. Cuando el cliente no tenga ninguna oferta, el sistema debe mostrar el siguiente mensaje: 'CLIENTE NO TIENE OFERTAS A LA FECHA'
-            return ofertaTypeLista.size() != 0 ? Response.status(Response.Status.OK).entity(ofertaTypeLista).build() :
+            return ofertaTypeLista.getTotalClientes() != 0 ? Response.status(Response.Status.OK).entity(ofertaTypeLista).build() :
                     Response.status(Response.Status.OK).entity(Constants.SIN_OFERTAS).build();
 
         } catch (ApplicationException e) {
 
-            LOG.error("Error en Validaciones de oferta - ClienteFICController");
-            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+            LOG.error("Error en Validaciones de oferta - ClienteFICController:{}%s".formatted(e.getMessage()));
+            return Response.status(Response.Status.BAD_REQUEST).entity(Constants.BAD_REQUEST + "error en la solicitud").build();
 
         } catch (Exception e) {
 
             LOG.error(Constants.SERVICIO_INTERNAL + "consultarOferta en ClienteFICServiceImpl excepción: " + e.getMessage());
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constants.SERVICIO_INTERNAL + "consultarOferta, excepción: " + e.getMessage()).build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constants.SERVICIO_INTERNAL + "consultarOferta, excepción: ").build();
         }
     }
 
     @Override
-    public Response consultarPQR(TipoDocumentoEnum tipoDocumento, Integer numeroDocumento, Integer digitoVerificacion) {
+    public Response consultarPQR(String jwt, Integer pagina, Integer tamanoPagina, Integer numeroCliente) {
 
         LOG.info("Inicia consulta de PQR");
         try {
-            clienteFICValidator.validarConsulta(tipoDocumento, numeroDocumento, digitoVerificacion);
-            List<PQRType> pqrTypeLista = clienteFICServiceImpl.consultarPQR(new ConsultaClienteEntity(tipoDocumento, numeroDocumento, digitoVerificacion));
+            List<PQRType> pqrTypeLista = clienteFICServiceImpl.consultarPQR(pagina, tamanoPagina, numeroCliente);
 
             LOG.info("Finaliza consulta de PQR");
             //61. PQR. Cuando el cliente no tenga PQRs, el sistema debe mostrar el siguiente mensaje: 'CLIENTE NO TIENE PQRs A LA FECHA'
@@ -228,51 +226,51 @@ public class ClienteFICController implements V1ClienteFIC {
 
         } catch (ApplicationException e) {
 
-            LOG.error("Error en Validaciones de consulta PQR - ClienteFICController");
-            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+            LOG.error("Error en Validaciones de consulta PQR - ClienteFICController:{}%s".formatted(e.getMessage()));
+            return Response.status(Response.Status.BAD_REQUEST).entity(Constants.BAD_REQUEST + "error en la solicitud").build();
 
         } catch (Exception e) {
 
             LOG.error(Constants.SERVICIO_INTERNAL + "consultarPQR en ClienteFICServiceImpl excepción: " + e.getMessage());
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constants.SERVICIO_INTERNAL + "consultarPQR, excepción: " + e.getMessage()).build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constants.SERVICIO_INTERNAL + "consultarPQR, excepción: ").build();
         }
     }
 
     @Override
-    public Response consultarPasivo(Integer numeroCliente) {
+    public Response consultarPasivo(String jwt, Integer page, Integer pageSize, Integer numeroCliente) {
 
         LOG.info("Inicia consulta Pasivo");
         try {
             clienteFICValidator.validarNumeroCliente(numeroCliente);
-            List<PasivoType> pasivoTypeLista = clienteFICServiceImpl.consultarPasivo(numeroCliente);
+            ConsultarPasivoOutput pasivoTypeLista = clienteFICServiceImpl.consultarPasivo(page, pageSize, numeroCliente);
 
             LOG.info("Finaliza consulta Pasivo");
             // Política 20 Cuando el cliente no tenga ninguna alerta, el sistema debe mostrar el siguiente mensaje: 'CLIENTE NO TIENE ALERTAS A LA FECHA'
-            return pasivoTypeLista.size() != 0 ? Response.status(Response.Status.OK).entity(pasivoTypeLista).build() :
+            return pasivoTypeLista.getPasivo().size() != 0 ? Response.status(Response.Status.OK).entity(pasivoTypeLista).build() :
                     Response.status(Response.Status.OK).entity(Constants.SIN_PASIVO).build();
 
 
         } catch (ApplicationException e) {
 
-            LOG.error("Error en Validaciones de consultar pasivo - ClienteFICController");
-            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+            LOG.error("Error en Validaciones de consultar pasivo - ClienteFICController:{}%s".formatted(e.getMessage()));
+            return Response.status(Response.Status.BAD_REQUEST).entity(Constants.BAD_REQUEST + "error en la solicitud").build();
 
         } catch (Exception e) {
 
             LOG.error(Constants.SERVICIO_INTERNAL + "consultarPasivo en ClienteFICServiceImpl excepción: " + e.getMessage());
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constants.SERVICIO_INTERNAL + "consultarPasivo, excepción: " + e.getMessage()).build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constants.SERVICIO_INTERNAL + "consultarPasivo, excepción: ").build();
         }
 
     }
 
     @Override
-    public Response consultaClientePorIdentificacion(TipoDocumentoEnum tipoDocumento, Integer numeroDocumento, Integer digitoVerificacion) {
+    public Response consultarClientePorIdentificacion(String jwt, TipoDocumentoEnum tipoDocumento, String numeroDocumento, Integer digitoVerificacion) {
 
         LOG.info("Inicia consulta de Cliente FIC por Identificación. ");
         try {
             clienteFICValidator.validarConsulta(tipoDocumento, numeroDocumento, digitoVerificacion);
 
-            ClienteBaseEntity clienteFICDTO = clienteFICServiceImpl.consultarClientePorIdentificacion(new ConsultaClienteEntity(tipoDocumento, numeroDocumento, digitoVerificacion));
+            ClienteFICEntity clienteFICDTO = clienteFICServiceImpl.consultarClientePorIdentificacion(new ConsultaClienteEntity(tipoDocumento, numeroDocumento, digitoVerificacion));
 
             LOG.info("Finaliza consulta de Cliente FIC por Identificación");
             /*Politíca 01: si el cliente no existe, el sistema deberá mostrar el siguiente mensaje de error: 'CLIENTE NO EXISTE EN MI BANCO COLOMBIA'*/
@@ -281,38 +279,13 @@ public class ClienteFICController implements V1ClienteFIC {
 
         } catch (ApplicationException e) {
 
-            LOG.error("Error en Validaciones de consulta cliente por Identificación - ClienteFICController");
-            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+            LOG.error("Error en Validaciones de consulta cliente por Identificación - ClienteFICController:{}%s".formatted(e.getMessage()));
+            return Response.status(Response.Status.BAD_REQUEST).entity(Constants.BAD_REQUEST + "error en la solicitud").build();
 
         } catch (Exception e) {
 
             LOG.error(Constants.SERVICIO_INTERNAL + "Identificación en ClienteFICServiceImpl excepción: " + e.getMessage());
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constants.SERVICIO_INTERNAL + "consultaClientePorIdentificacion, excepción: " + e.getMessage()).build();
-        }
-    }
-
-    @Override
-    public Response crearUsuarioClienteFic(ClienteFICType clienteFICType) {
-
-        LOG.info("Inicia crearUsuarioClienteFic en ClienteFICController");
-        try {
-            clienteFICValidator.verificarClienteFIC(clienteFICType);
-            ClienteFICEntity clienteFIC = clienteFICMapper.clienteFICToEntity(clienteFICType);
-            clienteFICType = clienteFICServiceImpl.crearUsuarioClienteFic(clienteFIC);
-
-            LOG.info("Finaliza crearUsuarioClienteFic en ClienteFICController");
-            return Response.status(Response.Status.CREATED).entity(clienteFICType).build();
-
-        } catch (ApplicationException e) {
-
-            LOG.error("Error en validaciones de creacion de cliente FIC - ClienteFICController");
-            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
-
-        } catch (Exception e) {
-
-            LOG.error(Constants.SERVICIO_INTERNAL + "crearUsuarioClienteFic en ClienteFICServiceImpl excepción: " + e.getMessage());
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity(Constants.SERVICIO_INTERNAL + "crearUsuarioClienteFic, excepción: " + e.getMessage()).build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Constants.SERVICIO_INTERNAL + "consultaClientePorIdentificacion, excepción: ").build();
         }
     }
 

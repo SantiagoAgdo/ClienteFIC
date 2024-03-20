@@ -21,7 +21,7 @@ public class PasivoEntity {
     private String fechaApertura;
     private String fechaCierre;
     private Float capital;
-    private Float intereses;
+    private String intereses;
     private Float otros;
     private Float saldoTotal;
 

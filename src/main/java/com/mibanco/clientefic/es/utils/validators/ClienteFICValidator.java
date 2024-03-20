@@ -1,7 +1,6 @@
 package com.mibanco.clientefic.es.utils.validators;
 
 import com.mibanco.clientefic.es.constants.Constants;
-import com.mibanco.clientefic.es.gen.type.ClienteFICType;
 import com.mibanco.clientefic.es.gen.type.TipoDocumentoEnum;
 import com.mibanco.clientefic.es.utils.exceptions.ApplicationExceptionValidation;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -21,25 +20,6 @@ public class ClienteFICValidator {
 
     private String msmError = "";
 
-    public void verificarClienteFIC(ClienteFICType clienteFICType) throws ApplicationExceptionValidation {
-
-        verificarAtributoNoNulo(clienteFICType, "Cliente FIC");
-
-        verificarAtributoNoNulo(clienteFICType.getAlerta(), "Alerta");
-        verificarAtributoNoNulo(clienteFICType.getClienteBase(), "Cliente Base");
-        verificarAtributoNoNulo(clienteFICType.getCentralRiesgo(), "Central de Riesgo");
-        verificarAtributoNoNulo(clienteFICType.getContacto(), "Contacto");
-        verificarAtributoNoNulo(clienteFICType.getConyuge(), "Cónyuge");
-        verificarAtributoNoNulo(clienteFICType.getCupoRotativo(), "Cupo Rotativo");
-        verificarAtributoNoNulo(clienteFICType.getDomicilioEmpresa(), "Domicilio Empresa");
-        verificarAtributoNoNulo(clienteFICType.getNegocio(), "Negocio");
-        verificarAtributoNoNulo(clienteFICType.getOferta(), "Oferta");
-        verificarAtributoNoNulo(clienteFICType.getPasivo(), "Pasivo");
-        verificarAtributoNoNulo(clienteFICType.getPQR(), "PQR");
-
-        logger.info("Validación realizadas correctamente");
-    }
-
     private void verificarAtributoNoNulo(Object atributo, String nombreAtributo) throws ApplicationExceptionValidation {
         if (atributo == null || tieneAtributosNulos(atributo)) {
             throw new ApplicationExceptionValidation(
@@ -56,6 +36,14 @@ public class ClienteFICValidator {
             );
         }
 
+        // Expresión regular que valida la ausencia de los caracteres especiales
+        String patronEspecial = ".*[$%<>*&#].*";
+        if (nombre.matches(patronEspecial)) {
+            throw new ApplicationExceptionValidation(
+                    Response.Status.BAD_REQUEST.getStatusCode(), Constants.VALIDACION + " El nombre no debe contener caracteres especiales como $, %, <, >, *, &, #"
+            );
+        }
+
         logger.info("Validación realizada correctamente");
     }
 
@@ -68,7 +56,6 @@ public class ClienteFICValidator {
 
         logger.info("Validación del número de cliente realizada correctamente");
     }
-
 
     public boolean tieneAtributosNulos(Object obj) {
         boolean isValidateSuccess = true;
@@ -93,19 +80,19 @@ public class ClienteFICValidator {
         return !isValidateSuccess;
     }
 
-    public void validarConsulta(TipoDocumentoEnum tipoDocumento, Integer numeroDocumento, Integer digitoVerificacion) throws ApplicationExceptionValidation {
+    public void validarConsulta(TipoDocumentoEnum tipoDocumento, String numeroDocumento, Integer digitoVerificacion) throws ApplicationExceptionValidation {
         validarDocumento(numeroDocumento, digitoVerificacion, tipoDocumento);
         logger.info("Validación realizada correctamente");
     }
 
-    public void validarConsultaGrpc(String tipoDocumento, Integer numeroDocumento, Integer digitoVerificacion) throws ApplicationExceptionValidation {
+    public void validarConsultaGrpc(String tipoDocumento, String numeroDocumento, Integer digitoVerificacion) throws ApplicationExceptionValidation {
         validarDocumento(numeroDocumento, digitoVerificacion, tipoDocumento);
         logger.info("Validación realizada correctamente");
     }
 
     //02. Campo Tipo de Documento y Número de Documento es obligatorio para la consulta Número de Documento. : Public <<FunctionalRequirement>>
-    private void validarDocumento(Integer numeroDocumento, Integer digitoVerificacion, Object tipoDocumento) throws ApplicationExceptionValidation {
-        if (numeroDocumento == null || numeroDocumento < 0) {
+    private void validarDocumento(String numeroDocumento, Integer digitoVerificacion, Object tipoDocumento) throws ApplicationExceptionValidation {
+        if (numeroDocumento == null || numeroDocumento == "") {
             throw new ApplicationExceptionValidation(
                     Response.Status.BAD_REQUEST.getStatusCode(), Constants.VALIDACION + " Número de Documento inválido"
             );

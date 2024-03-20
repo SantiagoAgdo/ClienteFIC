@@ -1,4 +1,4 @@
-package com.mibanco.clientefic.es.heatlh;
+package com.mibanco.clientefic.es.health;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import org.eclipse.microprofile.health.HealthCheck;

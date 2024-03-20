@@ -11,13 +11,13 @@ import com.fasterxml.jackson.annotation.JsonValue;
  */
 public enum TipoViviendaEnum {
   
-  SH("SH"),
+  _1("PROPIO SIN HIPOTECA"),
   
-  CH("CH"),
+  _2("PROPIO CON HIPOTECA"),
   
-  FA("FA"),
+  _3("ARRENDADA"),
   
-  AR("AR");
+  _4("FAMILIAR");
 
   private String value;
 

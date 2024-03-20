@@ -1,8 +1,6 @@
 package com.mibanco.clientefic.es.gen.contract;
 
-import com.mibanco.clientefic.es.gen.type.AlertaType;
 import com.mibanco.clientefic.es.gen.type.CentralRiesgoType;
-import com.mibanco.clientefic.es.gen.type.ClienteFICType;
 import com.mibanco.clientefic.es.gen.type.ConsultarClientePorNombreOutput;
 import com.mibanco.clientefic.es.gen.type.ContactoType;
 import com.mibanco.clientefic.es.gen.type.ConyugeType;
@@ -25,62 +23,56 @@ import jakarta.validation.constraints.*;
 import jakarta.validation.Valid;
 
 @Path("/v1/es/cliente-fic")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-12-13T17:36:18.549824600-05:00[America/Bogota]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2024-02-22T09:33:21.194046200-05:00[America/Bogota]")
 public interface V1ClienteFIC {
-
-    @GET
-    @Path("/{tipoDocumento}/{numeroDocumento}/{digitoVerificacion}")
-    @Produces({ "application/json" })
-    Response consultaClientePorIdentificacion(@PathParam("tipoDocumento") TipoDocumentoEnum tipoDocumento,@PathParam("numeroDocumento") Integer numeroDocumento,@PathParam("digitoVerificacion") Integer digitoVerificacion);
 
     @GET
     @Path("/alerta/{tipoDocumento}/{numeroDocumento}/{digitoVerificacion}")
     @Produces({ "application/json" })
-    Response consultarAlerta(@PathParam("tipoDocumento") TipoDocumentoEnum tipoDocumento,@PathParam("numeroDocumento") Integer numeroDocumento,@PathParam("digitoVerificacion") Integer digitoVerificacion);
+    Response consultarAlerta(@HeaderParam("jwt") @NotNull   String jwt,@QueryParam("page") @NotNull @Min(1) @Max(10000) @DefaultValue("1")   Integer page,@QueryParam("pageSize") @NotNull @Min(1) @Max(10000) @DefaultValue("20")   Integer pageSize,@PathParam("tipoDocumento") TipoDocumentoEnum tipoDocumento,@PathParam("numeroDocumento") String numeroDocumento,@PathParam("digitoVerificacion") Integer digitoVerificacion);
 
     @GET
     @Path("/central-riesgo/{numeroCliente}")
     @Produces({ "application/json" })
-    Response consultarCentralDeRiesgo(@QueryParam("page") @NotNull @Min(1) @Max(100) @DefaultValue("1")   Integer page,@QueryParam("pageSize") @NotNull @Min(1) @Max(100) @DefaultValue("20")   Integer pageSize,@PathParam("numeroCliente") Integer numeroCliente);
+    Response consultarCentralRiesgo(@HeaderParam("jwt") @NotNull   String jwt,@QueryParam("page") @NotNull @Min(1) @Max(10000) @DefaultValue("1")   Integer page,@QueryParam("pageSize") @NotNull @Min(1) @Max(10000) @DefaultValue("20")   Integer pageSize,@PathParam("numeroCliente") Integer numeroCliente);
 
     @GET
     @Path("/nombre/{regex}")
     @Produces({ "application/json" })
-    Response consultarClienteFICPorNombre(@QueryParam("page") @NotNull @Min(1) @Max(100) @DefaultValue("1")   Integer page,@QueryParam("pageSize") @NotNull @Min(1) @Max(100) @DefaultValue("20")   Integer pageSize,@PathParam("regex") String regex);
+    Response consultarClienteFICPorNombre(@HeaderParam("jwt") @NotNull   String jwt,@QueryParam("page") @NotNull @Min(1) @Max(10000) @DefaultValue("1")   Integer page,@QueryParam("pageSize") @NotNull @Min(1) @Max(10000) @DefaultValue("20")   Integer pageSize,@PathParam("regex") String regex);
+
+    @GET
+    @Path("/{tipoDocumento}/{numeroDocumento}/{digitoVerificacion}")
+    @Produces({ "application/json" })
+    Response consultarClientePorIdentificacion(@HeaderParam("jwt") @NotNull   String jwt,@PathParam("tipoDocumento") TipoDocumentoEnum tipoDocumento,@PathParam("numeroDocumento") String numeroDocumento,@PathParam("digitoVerificacion") Integer digitoVerificacion);
 
     @GET
     @Path("/conyuge/{numeroCliente}")
     @Produces({ "application/json" })
-    Response consultarConyuge(@PathParam("numeroCliente") Integer numeroCliente);
+    Response consultarConyuge(@HeaderParam("jwt") @NotNull   String jwt,@PathParam("numeroCliente") Integer numeroCliente);
 
     @GET
     @Path("/cupo-rotativo/{numeroCliente}")
     @Produces({ "application/json" })
-    Response consultarCupoRotativo(@QueryParam("page") @NotNull @Min(1) @Max(100) @DefaultValue("1")   Integer page,@QueryParam("pageSize") @NotNull @Min(1) @Max(100) @DefaultValue("20")   Integer pageSize,@PathParam("numeroCliente") Integer numeroCliente);
+    Response consultarCupoRotativo(@HeaderParam("jwt") @NotNull   String jwt,@QueryParam("page") @NotNull @Min(1) @Max(10000) @DefaultValue("1")   Integer page,@QueryParam("pageSize") @NotNull @Min(1) @Max(10000) @DefaultValue("20")   Integer pageSize,@PathParam("numeroCliente") Integer numeroCliente);
 
     @GET
     @Path("/historial-contacto/{numeroCliente}")
     @Produces({ "application/json" })
-    Response consultarHistorialContacto(@QueryParam("page") @NotNull @Min(1) @Max(100) @DefaultValue("1")   Integer page,@QueryParam("pageSize") @NotNull @Min(1) @Max(100) @DefaultValue("20")   Integer pageSize,@PathParam("numeroCliente") Integer numeroCliente);
+    Response consultarHistorialContacto(@HeaderParam("jwt") @NotNull   String jwt,@QueryParam("page") @NotNull @Min(1) @Max(10000) @DefaultValue("1")   Integer page,@QueryParam("pageSize") @NotNull @Min(1) @Max(10000) @DefaultValue("20")   Integer pageSize,@PathParam("numeroCliente") Integer numeroCliente);
 
     @GET
     @Path("/oferta/{numeroCliente}")
     @Produces({ "application/json" })
-    Response consultarOferta(@QueryParam("page") @NotNull @Min(1) @Max(100) @DefaultValue("1")   Integer page,@QueryParam("pageSize") @NotNull @Min(1) @Max(100) @DefaultValue("20")   Integer pageSize,@PathParam("numeroCliente") Integer numeroCliente);
+    Response consultarOferta(@HeaderParam("jwt") @NotNull   String jwt,@QueryParam("page") @NotNull @Min(1) @Max(10000) @DefaultValue("1")   Integer page,@QueryParam("pageSize") @NotNull @Min(1) @Max(10000) @DefaultValue("20")   Integer pageSize,@PathParam("numeroCliente") Integer numeroCliente);
 
     @GET
-    @Path("/pqr/{tipoDocumento}/{numeroDocumento}/{digitoVerificacion}")
+    @Path("/pqr/{numeroCliente}")
     @Produces({ "application/json" })
-    Response consultarPQR(@PathParam("tipoDocumento") TipoDocumentoEnum tipoDocumento,@PathParam("numeroDocumento") Integer numeroDocumento,@PathParam("digitoVerificacion") Integer digitoVerificacion);
+    Response consultarPQR(@HeaderParam("jwt") @NotNull   String jwt,@QueryParam("page") @NotNull @Min(1) @Max(10000) @DefaultValue("1")   Integer page,@QueryParam("pageSize") @NotNull @Min(1) @Max(10000) @DefaultValue("20")   Integer pageSize,@PathParam("numeroCliente") Integer numeroCliente);
 
     @GET
     @Path("/pasivo/{numeroCliente}")
     @Produces({ "application/json" })
-    Response consultarPasivo(@PathParam("numeroCliente") Integer numeroCliente);
-
-    @POST
-    @Path("/usuario")
-    @Consumes({ "application/json" })
-    @Produces({ "application/json" })
-    Response crearUsuarioClienteFic(@Valid ClienteFICType clienteFICType);
+    Response consultarPasivo(@HeaderParam("jwt") @NotNull   String jwt,@QueryParam("page") @NotNull @Min(1) @Max(10000) @DefaultValue("1")   Integer page,@QueryParam("pageSize") @NotNull @Min(1) @Max(10000) @DefaultValue("20")   Integer pageSize,@PathParam("numeroCliente") Integer numeroCliente);
 }

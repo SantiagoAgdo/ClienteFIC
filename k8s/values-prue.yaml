@@ -7,13 +7,16 @@ replicaCount: 1
 type: api
 project: es-clientefic
 releaseId: ""
-environment: "cert"
+environment: "prue"
 
 image:
   repository: "acrenvironmicrostrv001.azurecr.io/prufldrimgapi"
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: es-clientefic-v1.0.0
+
+logs:
+  enabled: false
   
 settingSecrets: 
   enabled: false
@@ -40,16 +43,25 @@ service:
   internalEnabled: true
   ip:
 
+envs:
+  - name: quarkus.rest-client.autenticacionMS.url
+    value: http://ms-autenticar/v1/ms/acceso/verifica/usuario
+  - name: "hostQuarkus"
+    value: "us-gestorsecretost"
+  - name: "puertoQuarkus"
+    value: "80"
+  - name: quarkus.http.port
+    value: "8080"
+
 ingress:
   enabled: true
   annotations:
-    kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/proxy-body-size: 20m
     nginx.org/client-max-body-size: 20m
   hosts:
     path: /v1/es/cliente-fic
     pathType: Prefix
-    host: pru.pdnsz-micros-trv.private
+    host: priv-ingresspru.mibanco.com.co
     
 resources:
   limits:

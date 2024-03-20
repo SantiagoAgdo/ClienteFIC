@@ -6,6 +6,8 @@ import com.google.protobuf.util.JsonFormat;
 import com.mibanco.clientefic.es.*;
 import com.mibanco.clientefic.es.dao.entity.ClienteFICEntity;
 import com.mibanco.clientefic.es.dao.entity.ConsultaClienteEntity;
+import com.mibanco.clientefic.es.dto.LogAuditoriaDTO;
+import com.mibanco.clientefic.es.dto.LogRendimientoDTO;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.modelmapper.ModelMapper;
 
@@ -65,4 +67,72 @@ public class ClienteFICMapperGrpc {
         JsonFormat.parser().ignoringUnknownFields().merge(this.obj.toJson(centralType), structBuilder);
         return structBuilder.build();
     }
+
+    public LogRendimientoTypeGrpc logRendimientoDTOToGrpc(LogRendimientoDTO logRendimientoType) {
+        LogRendimientoTypeGrpc.Builder grpcBuilder = LogRendimientoTypeGrpc.newBuilder();
+        if (logRendimientoType.getCorrelationId() != null) {
+            grpcBuilder.setCorrelationId(logRendimientoType.getCorrelationId());
+        }
+
+        if (logRendimientoType.getRecurso() != null) {
+            grpcBuilder.setRecurso(logRendimientoType.getRecurso());
+        }
+
+        if (logRendimientoType.getHoraFechaFin() != null) {
+            grpcBuilder.setHoraFechaFin(logRendimientoType.getHoraFechaFin().toString());
+        }
+
+        if (logRendimientoType.getHoraFechaInicio() != null) {
+            grpcBuilder.setHoraFechaInicio(logRendimientoType.getHoraFechaInicio().toString());
+        }
+
+        if (logRendimientoType.getDuracionTotal() != null) {
+            grpcBuilder.setDuracionTotal(logRendimientoType.getDuracionTotal());
+        }
+        return grpcBuilder.build();
+    }
+
+    public LogAuditoriaTypeGrpc logAuditoriaDTOToGrpc(LogAuditoriaDTO logAuditoriaDTO) {
+        LogAuditoriaTypeGrpc.Builder grpcBuilder = LogAuditoriaTypeGrpc.newBuilder();
+
+        if (logAuditoriaDTO.getCorrelationId() != null) {
+            grpcBuilder.setCorrelationId(logAuditoriaDTO.getCorrelationId());
+        }
+
+        // Permitir campos nulos
+        if (logAuditoriaDTO.getUsuario() != null) {
+            grpcBuilder.setUsuario(logAuditoriaDTO.getUsuario());
+        }
+
+        if (logAuditoriaDTO.getFecha() != null) {
+            grpcBuilder.setFecha(logAuditoriaDTO.getFecha().toString());
+        }
+
+        if (logAuditoriaDTO.getHora() != null) {
+            grpcBuilder.setHora(logAuditoriaDTO.getHora());
+        }
+
+        if (logAuditoriaDTO.getDireccionIP() != null) {
+            grpcBuilder.setDireccionIP(logAuditoriaDTO.getDireccionIP());
+        }
+
+        if (logAuditoriaDTO.getAccion() != null) {
+            grpcBuilder.setAccion(logAuditoriaDTO.getAccion());
+        }
+
+        if (logAuditoriaDTO.getResultadoAccion() != null) {
+            grpcBuilder.setResultadoAccion(logAuditoriaDTO.getResultadoAccion());
+        }
+
+        if (logAuditoriaDTO.getRecurso() != null) {
+            grpcBuilder.setRecurso(logAuditoriaDTO.getRecurso());
+        }
+
+        if (logAuditoriaDTO.getData() != null) {
+            grpcBuilder.setData(logAuditoriaDTO.getData());
+        }
+
+        return grpcBuilder.build();
+    }
+
 }

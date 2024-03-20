@@ -1,31 +1,29 @@
-package com.mibanco.clientefic.es.utils;
+package com.mibanco.clientefic.es.utils.interceptors;
 
+import com.mibanco.clientefic.es.facade.IAutenticacionMS;
 import jakarta.ws.rs.WebApplicationException;
+import jakarta.ws.rs.container.ContainerRequestContext;
+import jakarta.ws.rs.container.ContainerRequestFilter;
+import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.Provider;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import org.eclipse.microprofile.rest.client.inject.RestClient;
-
-import com.mibanco.clientefic.es.utils.contract.IAutenticacion;
-import jakarta.ws.rs.container.ContainerRequestContext;
-import jakarta.ws.rs.container.ContainerRequestFilter;
-import jakarta.ws.rs.core.Response;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-
+@Provider
 public class AutenticacionInterceptor implements ContainerRequestFilter {
 
     private static final Logger log = LoggerFactory.getLogger(AutenticacionInterceptor.class);
 
     @RestClient
-    jakarta.inject.Provider<IAutenticacion> autenticacion;
+    jakarta.inject.Provider<IAutenticacionMS> autenticacion;
 
     @Override
     public void filter(ContainerRequestContext requestContext) {
-        // Obtener valores del encabezado
+
         String jwt = requestContext.getHeaderString("jwt");
         String resourceRequest = obtenerRutaBase(requestContext.getUriInfo().getPath());
         String clientAction = requestContext.getMethod();
@@ -49,6 +47,6 @@ public class AutenticacionInterceptor implements ContainerRequestFilter {
     private void handleAuthenticationException(ContainerRequestContext requestContext, WebApplicationException e) {
         log.error("Autenticacion fallida: error={}", e.getMessage());
         requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED)
-                    .entity("No estás autorizado. Inicia sesión.").build());
+                .entity("No estás autorizado. Inicia sesión.").build());
     }
 }

@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.mibanco.clientefic.es";
+
+package LogUsGrpc;
+
+message LogAuditoriaTypeGrpc {
+  string correlationId = 1;
+  string usuario = 2;
+  string fecha = 3;
+  string hora = 4;
+  string direccionIP = 5;
+  string accion = 6;
+  string resultadoAccion = 7;
+  string recurso = 8;
+  string data = 9;
+}
+
+message LogExcepcionTypeGrpc {
+  string correlationId = 1;
+  string recurso = 2;
+  string excepcion = 3;
+}
+
+message LogRendimientoTypeGrpc {
+  string correlationId = 1;
+  string recurso = 2;
+  string horaFechaInicio = 3;
+  string horaFechaFin = 4;
+  int32 duracionTotal = 5;
+}
+
+message RespuestaLog {
+  string mensaje = 1;
+}
+
+service RegistrarLog {
+  rpc registrarLogAuditoria(LogAuditoriaTypeGrpc) returns (RespuestaLog);
+  rpc registrarLogExcepcion(LogExcepcionTypeGrpc) returns (RespuestaLog);
+  rpc registrarLogRendimiento(LogRendimientoTypeGrpc) returns (RespuestaLog);
+}
+

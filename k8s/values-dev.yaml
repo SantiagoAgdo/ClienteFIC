@@ -15,6 +15,9 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: es-clientefic-v1.0.0
 
+logs:
+  enabled: true
+
 settingSecrets:
   enabled: false
 
@@ -40,16 +43,29 @@ service:
   internalEnabled: true
   ip:
 
+envs:
+  - name: quarkus.rest-client.autenticacionMS.url
+    value: http://ms-autenticar/v1/ms/acceso/verifica/usuario
+  - name: "hostQuarkus"
+    value: "us-gestorsecretost"
+  - name: "puertoQuarkus"
+    value: "80"
+  - name: quarkus.http.port
+    value: "8080"
+  - name: quarkus.grpc.clients.registrarlog.host
+    value: "localhost"
+  - name: quarkus.grpc.clients.registrarlog.port
+    value: "8070"
+
 ingress:
   enabled: true
   annotations:
-    kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/proxy-body-size: 20m
     nginx.org/client-max-body-size: 20m
   hosts:
     path: /v1/es/cliente-fic
     pathType: Prefix
-    host: dev.pdnsz-micros-trv.private
+    host: priv-ingressdev.mibanco.com.co
 
 resources:
   limits:

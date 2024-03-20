@@ -2,17 +2,13 @@ package com.mibanco.clientefic.es.grpc;
 
 import com.mibanco.clientefic.es.*;
 import com.mibanco.clientefic.es.controller.ClienteFICController;
-import com.mibanco.clientefic.es.dao.entity.ClienteFICEntity;
-import com.mibanco.clientefic.es.dao.entity.ConsultaClienteEntity;
-import com.mibanco.clientefic.es.dao.entity.ConyugeEntity;
+import com.mibanco.clientefic.es.dao.entity.*;
 import com.mibanco.clientefic.es.gen.type.AlertaType;
 import com.mibanco.clientefic.es.gen.type.CentralRiesgoType;
 import com.mibanco.clientefic.es.gen.type.ContactoType;
-import com.mibanco.clientefic.es.gen.type.ConyugeType;
 import com.mibanco.clientefic.es.gen.type.CupoRotativoType;
 import com.mibanco.clientefic.es.gen.type.OfertaType;
 import com.mibanco.clientefic.es.gen.type.PQRType;
-import com.mibanco.clientefic.es.gen.type.PasivoType;
 import com.mibanco.clientefic.es.services.impl.ClienteFICServiceImpl;
 import com.mibanco.clientefic.es.utils.exceptions.ApplicationException;
 import com.mibanco.clientefic.es.utils.exceptions.ApplicationExceptionValidation;
@@ -48,32 +44,6 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
 
     @Override
     @Blocking
-    public void clienteFIC(CrearClienteFICGrpc request, StreamObserver<ResponseClienteFIC> responseObs) {
-
-        LOG.info("Inicia Creación Cliente FIC por GRPC");
-
-        try {
-            ClienteFICEntity consultaClienteEntity = mapper.clienteGrpcToEntity(request);
-            clienteFICService.crearUsuarioClienteFic(consultaClienteEntity);
-
-            ResponseClienteFIC responseClienteFIC = ResponseClienteFIC.newBuilder().setObj(request.toBuilder()).build();
-            LOG.info("Finaliza creación Cliente FIC por GRPC");
-
-            responseObs.onNext(responseClienteFIC);
-            responseObs.onCompleted();
-
-        } catch (ApplicationException e) {
-            StatusException statusException = responseExceptionGrpc(Status.INVALID_ARGUMENT, e.getMessage());
-            responseObs.onError(statusException);
-
-        } catch (Exception e){
-            StatusException statusException = responseExceptionGrpc(Status.INTERNAL, e.getMessage());
-            responseObs.onError(statusException);
-        }
-    }
-
-    @Override
-    @Blocking
     public void consultarAlerta(ConsultaClienteGrpc request, StreamObserver<ResponseAlerta> responseObs) {
 
         LOG.info("Inicia consulta alerta por GRPC");
@@ -81,10 +51,10 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
 
             clienteFICValidator.validarConsultaGrpc(request.getTipoDocumento(), request.getNumeroDocumento(), request.getDigitoVerificacion());
             ConsultaClienteEntity consultaClienteEntity = mapper.dataGrpcToEntity(request);
-            List<AlertaType> alertaListType = clienteFICService.consultarAlerta(consultaClienteEntity);
+            AlertasOutput alertaListType = clienteFICService.consultarAlerta(1,1000,consultaClienteEntity);
 
             List<com.mibanco.clientefic.es.AlertaType> alertaResponse = new ArrayList<>();
-            for (AlertaType alert : alertaListType) {
+            for (AlertaEntity alert : alertaListType.getClientes()) {
                 alertaResponse.add(com.mibanco.clientefic.es.AlertaType.newBuilder()
                         .setTipoAlerta(alert.getTipoAlerta())
                         .setBanco(alert.getBanco())
@@ -155,7 +125,7 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
         try {
             clienteFICValidator.validarConsultaGrpc(request.getTipoDocumento(), request.getNumeroDocumento(), request.getDigitoVerificacion());
             ConsultaClienteEntity consultaClienteEntity = mapper.dataGrpcToEntity(request);
-            List<PQRType> pqrList = clienteFICService.consultarPQR(consultaClienteEntity);
+            List<PQRType> pqrList = clienteFICService.consultarPQR(1,1000,0);//test
 
             List<com.mibanco.clientefic.es.PQRType> pqrListResponse = new ArrayList<>();
             for (PQRType pqrItem : pqrList) {
@@ -222,10 +192,10 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
         LOG.info("Inicia consulta cupo rotativo por GRPC");
         try {
             clienteFICValidator.validarNumeroCliente(request.getNumeroCliente());
-            List<CupoRotativoType> cupoList = clienteFICService.consultarCupoRotativo(1,1000, request.getNumeroCliente());
+            ConsultarCupoRotativoOutput cupoList = clienteFICService.consultarCupoRotativo(1,1000, request.getNumeroCliente());
 
             List<com.mibanco.clientefic.es.CupoRotativoType> cupoListResponse = new ArrayList<>();
-            for (CupoRotativoType cupoItem : cupoList) {
+            for (CupoRotativoEntity cupoItem : cupoList.getCupoRotativo()) {
                 cupoListResponse.add(com.mibanco.clientefic.es.CupoRotativoType.newBuilder()
                         .setEstado(cupoItem.getEstado())
                         .setFechaDeVencimiento(cupoItem.getFechaDeVencimiento().toString())
@@ -260,10 +230,10 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
         try {
 
             clienteFICValidator.validarNumeroCliente(request.getNumeroCliente());
-            List<ContactoType> consultaList = clienteFICService.consultarHistorialContacto(1,1000,request.getNumeroCliente());
+            ConsultarHistorialContactoOutput consultaList = clienteFICService.consultarHistorialContacto(1,1000,request.getNumeroCliente());
 
             List<com.mibanco.clientefic.es.ContactoType> contactoListResponse = new ArrayList<>();
-            for (ContactoType item : consultaList) {
+            for (ContactoEntity item : consultaList.getContacto()) {
                 contactoListResponse.add(com.mibanco.clientefic.es.ContactoType.newBuilder()
                         .setFecha(item.getFecha().toString())
                         .setTipoContacto(item.getTipoContacto())
@@ -296,10 +266,10 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
         try {
 
             clienteFICValidator.validarNumeroCliente(request.getNumeroCliente());
-            List<OfertaType> consultaList = clienteFICService.consultarOferta(1, 1000, request.getNumeroCliente());
+            OfertasOutput consultaList = clienteFICService.consultarOferta(1, 1000, request.getNumeroCliente());
 
             List<com.mibanco.clientefic.es.OfertaType> ofertaListResponse = new ArrayList<>();
-            for (OfertaType oferta : consultaList) {
+            for (OfertaEntity oferta : consultaList.getClientes()) {
                 ofertaListResponse.add(com.mibanco.clientefic.es.OfertaType.newBuilder()
                         .setNumeroOferta(oferta.getNumeroOferta())
                         .setTipoLead(oferta.getTipoLead())
@@ -336,10 +306,10 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
         try {
 
             clienteFICValidator.validarNumeroCliente(request.getNumeroCliente());
-            List<PasivoType> consultaList = clienteFICService.consultarPasivo(request.getNumeroCliente());
+            ConsultarPasivoOutput consultaList = clienteFICService.consultarPasivo(1,1000,request.getNumeroCliente());
 
             List<com.mibanco.clientefic.es.PasivoType> pasivoListResponse = new ArrayList<>();
-            for (PasivoType pasivo : consultaList) {
+            for (PasivoEntity pasivo : consultaList.getPasivo()) {
                 pasivoListResponse.add(com.mibanco.clientefic.es.PasivoType.newBuilder()
                         .setNumeroProducto(pasivo.getNumeroProducto())
                         .setTipoProducto(pasivo.getTipoProducto().toString())
@@ -348,8 +318,7 @@ public class ClienteFICControllerGrpc extends ClienteFICServiceGrpcGrpc.ClienteF
                         .setFechaApertura(pasivo.getFechaApertura().toString())
                         .setFechaCierre(pasivo.getFechaCierre().toString())
                         .setCapital(pasivo.getCapital())
-                        .setIntereses(pasivo.getIntereses())
-                        .setOtros(pasivo.getOtros())
+                        .setOtros(pasivo.getOtros()) //falta intereses a espera de model
                         .setSaldoTotal(pasivo.getSaldoTotal())
                         .setNumeroCliente(pasivo.getNumeroCliente())
                         .build());

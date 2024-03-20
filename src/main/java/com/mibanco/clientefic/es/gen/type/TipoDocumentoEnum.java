@@ -29,9 +29,7 @@ public enum TipoDocumentoEnum {
   
   RUT("RUT"),
   
-  TE("TE"),
-  
-  RUMC("RUMC");
+  TE("TE");
 
   private String value;
 

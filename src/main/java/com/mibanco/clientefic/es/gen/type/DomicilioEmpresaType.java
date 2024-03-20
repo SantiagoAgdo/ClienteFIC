@@ -14,13 +14,14 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("DomicilioEmpresaType")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-12-13T17:36:18.549824600-05:00[America/Bogota]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2024-02-22T09:33:21.194046200-05:00[America/Bogota]")
 public class DomicilioEmpresaType   {
   private @Valid Integer numeroCliente;
   private @Valid String direccion;
   private @Valid Integer telefono1;
   private @Valid Integer telefono2;
   private @Valid TipoActividadCIIUEnum tipoActividadCIIU;
+  private @Valid String descripcionActividadCIIU;
   private @Valid TipoLocalEnum tipoLocal;
 
   /**
@@ -115,6 +116,24 @@ public class DomicilioEmpresaType   {
 
   /**
    **/
+  public DomicilioEmpresaType descripcionActividadCIIU(String descripcionActividadCIIU) {
+    this.descripcionActividadCIIU = descripcionActividadCIIU;
+    return this;
+  }
+
+  
+  @JsonProperty("descripcionActividadCIIU")
+  public String getDescripcionActividadCIIU() {
+    return descripcionActividadCIIU;
+  }
+
+  @JsonProperty("descripcionActividadCIIU")
+  public void setDescripcionActividadCIIU(String descripcionActividadCIIU) {
+    this.descripcionActividadCIIU = descripcionActividadCIIU;
+  }
+
+  /**
+   **/
   public DomicilioEmpresaType tipoLocal(TipoLocalEnum tipoLocal) {
     this.tipoLocal = tipoLocal;
     return this;
@@ -146,12 +165,13 @@ public class DomicilioEmpresaType   {
         Objects.equals(this.telefono1, domicilioEmpresaType.telefono1) &&
         Objects.equals(this.telefono2, domicilioEmpresaType.telefono2) &&
         Objects.equals(this.tipoActividadCIIU, domicilioEmpresaType.tipoActividadCIIU) &&
+        Objects.equals(this.descripcionActividadCIIU, domicilioEmpresaType.descripcionActividadCIIU) &&
         Objects.equals(this.tipoLocal, domicilioEmpresaType.tipoLocal);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(numeroCliente, direccion, telefono1, telefono2, tipoActividadCIIU, tipoLocal);
+    return Objects.hash(numeroCliente, direccion, telefono1, telefono2, tipoActividadCIIU, descripcionActividadCIIU, tipoLocal);
   }
 
   @Override
@@ -164,6 +184,7 @@ public class DomicilioEmpresaType   {
     sb.append("    telefono1: ").append(toIndentedString(telefono1)).append("\n");
     sb.append("    telefono2: ").append(toIndentedString(telefono2)).append("\n");
     sb.append("    tipoActividadCIIU: ").append(toIndentedString(tipoActividadCIIU)).append("\n");
+    sb.append("    descripcionActividadCIIU: ").append(toIndentedString(descripcionActividadCIIU)).append("\n");
     sb.append("    tipoLocal: ").append(toIndentedString(tipoLocal)).append("\n");
     sb.append("}");
     return sb.toString();

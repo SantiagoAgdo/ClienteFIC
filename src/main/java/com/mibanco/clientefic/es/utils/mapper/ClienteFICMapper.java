@@ -16,6 +16,25 @@ public class ClienteFICMapper {
         return new ModelMapper().map(documentoTipo, TipoDocumentoEnum.class);
     }
 
+    public TipoPersonaEnum stringATipoPersona(String documentoTipo){
+        return new ModelMapper().map(documentoTipo, TipoPersonaEnum.class);
+    }
+
+    public TipoProductoEnum stringATipoProducto(String documentoTipo){
+        return new ModelMapper().map(documentoTipo, TipoProductoEnum.class);
+    }
+
+    public TipoViviendaEnum stringATipoVivienda(String documentoTipo){
+        return new ModelMapper().map(documentoTipo, TipoViviendaEnum.class);
+    }
+    public TipoActividadCIIUEnum stringATipoActividadCIIU(String documentoTipo){
+        return new ModelMapper().map(documentoTipo, TipoActividadCIIUEnum.class);
+    }
+
+    public EstadoCivilEnum stringAEstadoCivil(String documentoTipo){
+        return new ModelMapper().map(documentoTipo, EstadoCivilEnum.class);
+    }
+
     public AlertaType alertaToType(AlertaEntity entity) {
         return new ModelMapper().map(entity, AlertaType.class);
     }

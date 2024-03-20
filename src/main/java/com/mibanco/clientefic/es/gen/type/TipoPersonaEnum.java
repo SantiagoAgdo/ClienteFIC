@@ -11,9 +11,9 @@ import com.fasterxml.jackson.annotation.JsonValue;
  */
 public enum TipoPersonaEnum {
   
-  _1_JURIDICA("1 JURIDICA"),
+  JURIDICA("JURIDICA"),
   
-  _2_NATURAL("2 NATURAL");
+  NATURAL("NATURAL");
 
   private String value;
 

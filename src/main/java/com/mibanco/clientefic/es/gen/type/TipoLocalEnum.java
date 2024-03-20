@@ -11,13 +11,13 @@ import com.fasterxml.jackson.annotation.JsonValue;
  */
 public enum TipoLocalEnum {
   
-  PROPIO_SIN_HIPOTECA("PROPIO SIN HIPOTECA"),
+  SH("PROPIO SIN HIPOTECA"),
   
-  PROPIO_CON_HIPOTECA("PROPIO CON HIPOTECA"),
+  CH("PROPIO CON HIPOTECA"),
   
-  FAMILIAR("FAMILIAR"),
+  FA("FAMILIAR"),
   
-  ARRENDADO("ARRENDADO");
+  AR("ARRENDADO");
 
   private String value;
 

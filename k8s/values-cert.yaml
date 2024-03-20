@@ -14,6 +14,9 @@ image:
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: es-clientefic-v1.0.0
+
+logs:
+  enabled: false
   
 settingSecrets: 
   enabled: false
@@ -43,21 +46,12 @@ service:
 ingress:
   enabled: true
   annotations:
-    kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/proxy-body-size: 20m
     nginx.org/client-max-body-size: 20m
-    nginx.org/proxy-connect-timeout: 600s
-    nginx.org/proxy-read-timeout: 600s
-    nginx.ingress.kubernetes.io/use-regex: "true"
-    nginx.ingress.kubernetes.io/enable-cors: "true"
-    nginx.ingress.kubernetes.io/cors-allow-methods: "GET, POST, OPTIONS, PUT, DELETE"
-    nginx.ingress.kubernetes.io/cors-allow-origin: "*"
-    nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
-    nginx.ingress.kubernetes.io/cors-allow-headers: "DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range,access-control-allow-origin,Authorization"
   hosts:
     path: /v1/es/cliente-fic
     pathType: Prefix
-    host: cer.pdnsz-micros-trv.private
+    host: priv-ingresscer.mibanco.com.co
     
 resources:
   limits:
@@ -81,3 +75,37 @@ nodeSelector:
 tolerations: []
 
 affinity: {}
+
+envs:
+  - name: quarkus.rest-client.autenticacionMS.url
+    value: http://ms-autenticar/v1/ms/acceso/verifica/usuario
+  - name: "hostQuarkus"
+    value: "us-gestorsecretost"
+  - name: "puertoQuarkus"
+    value: "80"
+  - name: quarkus.http.port
+    value: "8080"
+
+  - name: usuarioDB
+    valueFrom:
+      secretKeyRef:
+        name: es-clientefic
+        key: usuarioDB
+
+  - name: passwordDB
+    valueFrom:
+      secretKeyRef:
+        name: es-clientefic
+        key: passwordDB
+
+  - name: nombreBaul
+    valueFrom:
+      secretKeyRef:
+        name: es-clientefic
+        key: nombreBaul
+
+  - name: stringConexion
+    valueFrom:
+      secretKeyRef:
+        name: es-clientefic
+        key: stringConexion

@@ -13,11 +13,12 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 
 @JsonTypeName("NegocioType")
-@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2023-12-13T17:36:18.549824600-05:00[America/Bogota]")
+@jakarta.annotation.Generated(value = "org.openapitools.codegen.languages.JavaJAXRSSpecServerCodegen", date = "2024-02-22T09:33:21.194046200-05:00[America/Bogota]")
 public class NegocioType   {
   private @Valid String direccion;
   private @Valid Integer telefono;
   private @Valid TipoActividadCIIUEnum tipoActividadCIIU;
+  private @Valid String descripcionActividadCIIU;
   private @Valid Integer numeroCliente;
 
   /**
@@ -76,6 +77,24 @@ public class NegocioType   {
 
   /**
    **/
+  public NegocioType descripcionActividadCIIU(String descripcionActividadCIIU) {
+    this.descripcionActividadCIIU = descripcionActividadCIIU;
+    return this;
+  }
+
+  
+  @JsonProperty("descripcionActividadCIIU")
+  public String getDescripcionActividadCIIU() {
+    return descripcionActividadCIIU;
+  }
+
+  @JsonProperty("descripcionActividadCIIU")
+  public void setDescripcionActividadCIIU(String descripcionActividadCIIU) {
+    this.descripcionActividadCIIU = descripcionActividadCIIU;
+  }
+
+  /**
+   **/
   public NegocioType numeroCliente(Integer numeroCliente) {
     this.numeroCliente = numeroCliente;
     return this;
@@ -105,12 +124,13 @@ public class NegocioType   {
     return Objects.equals(this.direccion, negocioType.direccion) &&
         Objects.equals(this.telefono, negocioType.telefono) &&
         Objects.equals(this.tipoActividadCIIU, negocioType.tipoActividadCIIU) &&
+        Objects.equals(this.descripcionActividadCIIU, negocioType.descripcionActividadCIIU) &&
         Objects.equals(this.numeroCliente, negocioType.numeroCliente);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(direccion, telefono, tipoActividadCIIU, numeroCliente);
+    return Objects.hash(direccion, telefono, tipoActividadCIIU, descripcionActividadCIIU, numeroCliente);
   }
 
   @Override
@@ -121,6 +141,7 @@ public class NegocioType   {
     sb.append("    direccion: ").append(toIndentedString(direccion)).append("\n");
     sb.append("    telefono: ").append(toIndentedString(telefono)).append("\n");
     sb.append("    tipoActividadCIIU: ").append(toIndentedString(tipoActividadCIIU)).append("\n");
+    sb.append("    descripcionActividadCIIU: ").append(toIndentedString(descripcionActividadCIIU)).append("\n");
     sb.append("    numeroCliente: ").append(toIndentedString(numeroCliente)).append("\n");
     sb.append("}");
     return sb.toString();

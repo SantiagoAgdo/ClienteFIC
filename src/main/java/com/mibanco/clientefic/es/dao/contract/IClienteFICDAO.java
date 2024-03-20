@@ -1,33 +1,29 @@
 package com.mibanco.clientefic.es.dao.contract;
 
 import com.mibanco.clientefic.es.dao.entity.*;
-import com.mibanco.clientefic.es.dto.ClienteFICDTO;
-import com.mibanco.clientefic.es.gen.type.ConyugeType;
 
 import java.util.List;
 
 public interface IClienteFICDAO {
 
-    void crearUsuarioClienteFic(ClienteFICEntity clienteFIC);
-
-    List<AlertaEntity> consultarAlerta(ConsultaClienteEntity data);
+    AlertasOutput consultarAlerta(Integer page, Integer pageSize, ConsultaClienteEntity data);
 
     List<CentralRiesgoEntity> consultarCentralRiesgo(Integer page, Integer pageSize, Integer numeroCliente);
 
-    ClienteBaseEntity consultarClientePorIdentificacion(ConsultaClienteEntity data);
+    ClienteFICEntity consultarClientePorIdentificacion(ConsultaClienteEntity data);
 
     ConsultarClientePorNombreOutputEntity consultarClienteFicPorNombre(String nombre, int pagina, int tamanoPagina);
 
     ConyugeEntity consultarConyuge(Integer numeroCliente);
 
-    List<CupoRotativoEntity> consultarCupoRotativo(Integer page, Integer pageSize, Integer numeroCliente);
+    ConsultarCupoRotativoOutput consultarCupoRotativo(Integer page, Integer pageSize, Integer numeroCliente);
 
-    List<ContactoEntity> consultarHistorialContacto(Integer pagina, Integer tamanoPagina, Integer numeroCliente);
+    ConsultarHistorialContactoOutput consultarHistorialContacto(Integer pagina, Integer tamanoPagina, Integer numeroCliente);
 
-    List<OfertaEntity> consultarOferta(Integer pagina, Integer tamanoPagina, Integer numeroCliente);
+    OfertasOutput consultarOferta(Integer pagina, Integer tamanoPagina, Integer numeroCliente);
 
-    List<PasivoEntity> consultarPasivo(Integer numeroCliente);
+    ConsultarPasivoOutput consultarPasivo(Integer pagina, Integer tamanoPagina, Integer numeroCliente);
 
-    List<PQREntity> consultarPQR(ConsultaClienteEntity numeroCliente);
+    List<PQREntity> consultarPQR(Integer pagina, Integer tamanoPagina, Integer numeroCliente);
 
 }

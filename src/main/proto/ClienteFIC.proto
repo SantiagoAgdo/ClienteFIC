@@ -183,7 +183,7 @@ message PQRType{
 
 message ConsultaClienteGrpc{
   string tipoDocumento = 1;
-  int32 numeroDocumento = 2;
+  string numeroDocumento = 2;
   int32 digitoVerificacion = 3;
 }
 
